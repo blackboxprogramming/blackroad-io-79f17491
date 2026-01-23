@@ -1,0 +1,47 @@
+<!-- Toast Notification Component -->
+<!--
+  Variables:
+    - id: Toast ID
+    - icon: Icon HTML (optional)
+    - title: Toast title
+    - message: Toast message
+    - show_progress: Boolean to show progress bar
+    - progress_percent: Progress bar percentage (0-100)
+    - actions: Array of action objects with {label, action, primary}
+    - dismissible: Boolean to show close button (default true)
+    - class: Additional CSS classes (optional)
+-->
+<div class="toast {{class}}" data-toast-id="{{id}}">
+  <div class="toast-icon">
+    {{#if icon}}
+    {{{icon}}}
+    {{else}}
+    <span class="toast-icon-inner"></span>
+    {{/if}}
+  </div>
+
+  <div class="toast-content">
+    <div class="toast-title">{{title}}</div>
+    {{#if message}}
+    <div class="toast-message">{{message}}</div>
+    {{/if}}
+
+    {{#if actions}}
+    <div class="toast-actions">
+      {{#each actions}}
+      <button class="toast-btn {{#if primary}}toast-btn-primary{{else}}toast-btn-secondary{{/if}}" data-action="{{action}}">{{label}}</button>
+      {{/each}}
+    </div>
+    {{/if}}
+  </div>
+
+  {{#unless (eq dismissible false)}}
+  <button class="toast-close" data-action="dismiss">&times;</button>
+  {{/unless}}
+
+  {{#if show_progress}}
+  <div class="toast-progress">
+    <div class="toast-progress-bar" style="width: {{progress_percent}}%"></div>
+  </div>
+  {{/if}}
+</div>

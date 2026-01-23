@@ -1,0 +1,67 @@
+<!-- Progress Modal Component -->
+<!--
+  Variables:
+    - id: Modal ID
+    - icon: Icon HTML (optional)
+    - title: Modal title
+    - description: Modal description
+    - progress_label: Progress bar label
+    - progress_value: Progress percentage (0-100)
+    - steps: Array of step objects with {label, status: 'completed'|'active'|'pending'}
+    - show_cancel: Boolean to show cancel button
+    - cancel_action: Cancel action
+    - class: Additional CSS classes (optional)
+-->
+<div class="modal-backdrop" data-modal="{{id}}">
+  <div class="modal {{class}}">
+    <div class="modal-header">
+      <div>
+        {{#if icon}}
+        <div class="modal-icon">
+          {{{icon}}}
+        </div>
+        {{/if}}
+      </div>
+      <button class="modal-close" data-action="close">&times;</button>
+    </div>
+
+    <div class="modal-body">
+      <h2 class="modal-title">{{title}}</h2>
+      {{#if description}}
+      <p class="modal-desc">{{description}}</p>
+      {{/if}}
+
+      <div class="progress-section">
+        <div class="progress-header">
+          <span class="progress-label">{{progress_label}}</span>
+          <span class="progress-value">{{progress_value}}%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: {{progress_value}}%"></div>
+        </div>
+
+        {{#if steps}}
+        <div class="progress-steps">
+          {{#each steps}}
+          <div class="progress-step {{status}}">
+            <span class="step-indicator">
+              {{#if (eq status 'completed')}}✓{{else}}{{@index}}{{/if}}
+            </span>
+            <span class="step-text">{{label}}</span>
+          </div>
+          {{/each}}
+        </div>
+        {{/if}}
+      </div>
+    </div>
+
+    <div class="modal-footer split">
+      {{#if show_cancel}}
+      <button class="modal-btn modal-btn-ghost" data-action="{{cancel_action}}">Cancel</button>
+      {{else}}
+      <div></div>
+      {{/if}}
+      <button class="modal-btn modal-btn-secondary" disabled>Running...</button>
+    </div>
+  </div>
+</div>

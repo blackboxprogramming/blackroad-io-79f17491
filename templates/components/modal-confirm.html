@@ -1,0 +1,48 @@
+<!-- Confirmation Modal Component -->
+<!--
+  Variables:
+    - id: Modal ID
+    - icon: Icon HTML (optional)
+    - icon_type: 'danger' or 'default'
+    - title: Confirmation title
+    - description: Confirmation description
+    - confirm_label: Label for confirmation input
+    - confirm_value: Value to type for confirmation
+    - confirm_btn: Confirm button label
+    - confirm_action: Confirm button action
+    - cancel_btn: Cancel button label (default: Cancel)
+    - class: Additional CSS classes (optional)
+-->
+<div class="modal-backdrop" data-modal="{{id}}">
+  <div class="modal {{class}}">
+    <div class="modal-header">
+      <div>
+        {{#if icon}}
+        <div class="modal-icon {{icon_type}}">
+          {{{icon}}}
+        </div>
+        {{/if}}
+      </div>
+      <button class="modal-close" data-action="close">&times;</button>
+    </div>
+
+    <div class="modal-body">
+      <h2 class="modal-title">{{title}}</h2>
+      {{#if description}}
+      <p class="modal-desc">{{description}}</p>
+      {{/if}}
+
+      {{#if confirm_value}}
+      <div class="confirm-input-wrapper">
+        <div class="confirm-label">{{confirm_label}} <code>{{confirm_value}}</code> to confirm</div>
+        <input type="text" class="form-input" placeholder="{{confirm_value}}" data-confirm-input>
+      </div>
+      {{/if}}
+    </div>
+
+    <div class="modal-footer right">
+      <button class="modal-btn modal-btn-secondary" data-action="close">{{cancel_btn}}</button>
+      <button class="modal-btn {{#if (eq icon_type 'danger')}}modal-btn-danger{{else}}modal-btn-primary{{/if}}" data-action="{{confirm_action}}">{{confirm_btn}}</button>
+    </div>
+  </div>
+</div>

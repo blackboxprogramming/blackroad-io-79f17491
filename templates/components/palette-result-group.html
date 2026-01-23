@@ -1,0 +1,23 @@
+<!-- Palette Result Group Component -->
+<!--
+  Variables:
+    - label: Group label
+    - items: Array of result items
+    - type: 'results', 'actions', or 'agents' (default: results)
+    - class: Additional CSS classes (optional)
+-->
+<div class="result-group {{class}}">
+  {{#if label}}
+  <div class="result-label">{{label}}</div>
+  {{/if}}
+
+  {{#each items}}
+    {{#if (eq ../type 'actions')}}
+    {{> palette-action-item}}
+    {{else if (eq ../type 'agents')}}
+    {{> palette-agent-item}}
+    {{else}}
+    {{> palette-result-item}}
+    {{/if}}
+  {{/each}}
+</div>

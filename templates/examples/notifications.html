@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notifications — BlackRoad</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/variables.css">
+  <link rel="stylesheet" href="../styles/base.css">
+  <link rel="stylesheet" href="../styles/typography.css">
+  <link rel="stylesheet" href="../styles/components.css">
+  <link rel="stylesheet" href="../styles/notifications.css">
+  <style>
+    body {
+      padding: 40px;
+    }
+    .demo-container {
+      display: flex;
+      gap: 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .demo-section {
+      flex: 1;
+    }
+    .demo-section.wide {
+      flex: 1.5;
+    }
+    .demo-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gray-600);
+      margin-bottom: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+
+    <!-- DROPDOWN PANEL -->
+    <div class="demo-section">
+      <div class="demo-label">Dropdown Panel</div>
+      <div class="notification-dropdown">
+        <div class="dropdown-header">
+          <div>
+            <span class="dropdown-title">Notifications</span>
+            <span class="dropdown-badge">4</span>
+          </div>
+          <div class="dropdown-actions">
+            <button class="dropdown-action">Mark all read</button>
+          </div>
+        </div>
+
+        <div class="dropdown-tabs">
+          <button class="dropdown-tab active">All</button>
+          <button class="dropdown-tab">Mentions</button>
+          <button class="dropdown-tab">Agents</button>
+        </div>
+
+        <div class="dropdown-body">
+          <div class="notification-item unread">
+            <div class="notification-avatar"></div>
+            <div class="notification-content">
+              <div class="notification-text"><strong>Code Assistant</strong> completed task BR-1247</div>
+              <div class="notification-meta">
+                <span class="notification-time">2m ago</span>
+                <span class="notification-tag">Task</span>
+              </div>
+            </div>
+            <span class="notification-dot"></span>
+          </div>
+
+          <div class="notification-item unread">
+            <div class="notification-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+            </div>
+            <div class="notification-content">
+              <div class="notification-text">Memory sync completed with <strong>128 entries</strong></div>
+              <div class="notification-meta">
+                <span class="notification-time">15m ago</span>
+                <span class="notification-tag">System</span>
+              </div>
+            </div>
+            <span class="notification-dot"></span>
+          </div>
+
+          <div class="notification-item">
+            <div class="notification-avatar"></div>
+            <div class="notification-content">
+              <div class="notification-text"><strong>Data Analyst</strong> mentioned you in analysis report</div>
+              <div class="notification-meta">
+                <span class="notification-time">1h ago</span>
+                <span class="notification-tag">Mention</span>
+              </div>
+            </div>
+            <span class="notification-dot"></span>
+          </div>
+
+          <div class="notification-item">
+            <div class="notification-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                <polyline points="16 18 22 12 16 6"/>
+                <polyline points="8 6 2 12 8 18"/>
+              </svg>
+            </div>
+            <div class="notification-content">
+              <div class="notification-text">Deployment to <strong>production</strong> successful</div>
+              <div class="notification-meta">
+                <span class="notification-time">3h ago</span>
+                <span class="notification-tag">Deploy</span>
+              </div>
+            </div>
+            <span class="notification-dot"></span>
+          </div>
+
+          <div class="notification-item">
+            <div class="notification-avatar"></div>
+            <div class="notification-content">
+              <div class="notification-text"><strong>Alex Chen</strong> invited you to Project Atlas</div>
+              <div class="notification-meta">
+                <span class="notification-time">Yesterday</span>
+              </div>
+            </div>
+            <span class="notification-dot"></span>
+          </div>
+        </div>
+
+        <div class="dropdown-footer">
+          <a href="#" class="dropdown-footer-link">View all notifications</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- FULL PAGE VIEW -->
+    <div class="demo-section wide">
+      <div class="demo-label">Full Page View</div>
+      <div class="notifications-page">
+        <div class="page-header">
+          <h1 class="page-title">Notifications</h1>
+          <div class="page-actions">
+            <button class="page-btn">Mark all read</button>
+            <button class="page-btn">Settings</button>
+          </div>
+        </div>
+
+        <div class="page-filters">
+          <button class="filter-btn active">All</button>
+          <button class="filter-btn">Unread</button>
+          <button class="filter-btn">Mentions</button>
+          <button class="filter-btn">Agents</button>
+          <button class="filter-btn">System</button>
+          <div class="filter-search">
+            <svg class="filter-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input type="text" class="filter-search-input" placeholder="Search notifications...">
+          </div>
+        </div>
+
+        <div class="notification-group">
+          <div class="notification-group-label">Today</div>
+
+          <div class="notification-list-item unread">
+            <div class="list-item-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <div class="list-item-content">
+              <div class="list-item-header">
+                <span class="list-item-title">Code Assistant completed task</span>
+                <span class="list-item-badge">Agent</span>
+              </div>
+              <div class="list-item-desc">Successfully refactored authentication module with 15 files changed.</div>
+              <div class="list-item-footer">
+                <span class="list-item-time">2m ago</span>
+                <div class="list-item-actions">
+                  <button class="list-action-btn">View</button>
+                  <button class="list-action-btn">Dismiss</button>
+                </div>
+              </div>
+            </div>
+            <span class="list-item-dot"></span>
+          </div>
+
+          <div class="notification-list-item unread">
+            <div class="list-item-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <div class="list-item-content">
+              <div class="list-item-header">
+                <span class="list-item-title">Memory sync completed</span>
+                <span class="list-item-badge">System</span>
+              </div>
+              <div class="list-item-desc">Synchronized 128 memory entries across all connected agents.</div>
+              <div class="list-item-footer">
+                <span class="list-item-time">15m ago</span>
+                <div class="list-item-actions">
+                  <button class="list-action-btn">View</button>
+                  <button class="list-action-btn">Dismiss</button>
+                </div>
+              </div>
+            </div>
+            <span class="list-item-dot"></span>
+          </div>
+
+          <div class="notification-list-item">
+            <div class="list-item-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                <polyline points="16 18 22 12 16 6"/>
+                <polyline points="8 6 2 12 8 18"/>
+              </svg>
+            </div>
+            <div class="list-item-content">
+              <div class="list-item-header">
+                <span class="list-item-title">Deployment successful</span>
+                <span class="list-item-badge">Deploy</span>
+              </div>
+              <div class="list-item-desc">Version 2.4.1 deployed to production environment.</div>
+              <div class="list-item-footer">
+                <span class="list-item-time">3h ago</span>
+                <div class="list-item-actions">
+                  <button class="list-action-btn">View</button>
+                  <button class="list-action-btn">Dismiss</button>
+                </div>
+              </div>
+            </div>
+            <span class="list-item-dot"></span>
+          </div>
+        </div>
+
+        <div class="notification-group">
+          <div class="notification-group-label">Yesterday</div>
+
+          <div class="notification-list-item">
+            <div class="list-item-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              </svg>
+            </div>
+            <div class="list-item-content">
+              <div class="list-item-header">
+                <span class="list-item-title">Data Analyst mentioned you</span>
+                <span class="list-item-badge">Mention</span>
+              </div>
+              <div class="list-item-desc">@you Check out this analysis in the Q4 report section.</div>
+              <div class="list-item-footer">
+                <span class="list-item-time">Yesterday</span>
+                <div class="list-item-actions">
+                  <button class="list-action-btn">View</button>
+                  <button class="list-action-btn">Dismiss</button>
+                </div>
+              </div>
+            </div>
+            <span class="list-item-dot"></span>
+          </div>
+
+          <div class="notification-list-item">
+            <div class="list-item-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="8.5" cy="7" r="4"/>
+                <line x1="20" y1="8" x2="20" y2="14"/>
+                <line x1="23" y1="11" x2="17" y2="11"/>
+              </svg>
+            </div>
+            <div class="list-item-content">
+              <div class="list-item-header">
+                <span class="list-item-title">Team invitation received</span>
+              </div>
+              <div class="list-item-desc">Alex Chen invited you to join Project Atlas workspace.</div>
+              <div class="list-item-footer">
+                <span class="list-item-time">Yesterday</span>
+                <div class="list-item-actions">
+                  <button class="list-action-btn">View</button>
+                  <button class="list-action-btn">Dismiss</button>
+                </div>
+              </div>
+            </div>
+            <span class="list-item-dot"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATIONS -->
+  <div class="toast-stack bottom-right">
+    <div class="toast">
+      <div class="toast-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </div>
+      <div class="toast-content">
+        <div class="toast-title">Task completed</div>
+        <div class="toast-message">Code Assistant finished the refactoring task.</div>
+      </div>
+      <button class="toast-close">&times;</button>
+      <div class="toast-progress">
+        <div class="toast-progress-bar" style="width: 70%"></div>
+      </div>
+    </div>
+
+    <div class="toast">
+      <div class="toast-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+      </div>
+      <div class="toast-content">
+        <div class="toast-title">Action required</div>
+        <div class="toast-message">Review pending pull request before deployment.</div>
+        <div class="toast-actions">
+          <button class="toast-btn toast-btn-primary">Review now</button>
+          <button class="toast-btn toast-btn-secondary">Dismiss</button>
+        </div>
+      </div>
+      <button class="toast-close">&times;</button>
+    </div>
+  </div>
+
+  <script>
+    // Demo: Filter button toggle
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    // Demo: Dropdown tab toggle
+    document.querySelectorAll('.dropdown-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.dropdown-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+      });
+    });
+
+    // Demo: Toast close
+    document.querySelectorAll('.toast-close').forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.closest('.toast').style.display = 'none';
+      });
+    });
+  </script>
+</body>
+</html>

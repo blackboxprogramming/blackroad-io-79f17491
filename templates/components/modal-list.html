@@ -1,0 +1,54 @@
+<!-- List Selection Modal Component -->
+<!--
+  Variables:
+    - id: Modal ID
+    - title: Modal title
+    - description: Modal description
+    - items: Array of list items with {id, avatar_url, icon, title, description, selected}
+    - type: 'avatar' or 'icon' (default: avatar)
+    - submit_btn: Submit button label
+    - submit_action: Submit action
+    - cancel_btn: Cancel button label (default: Cancel)
+    - class: Additional CSS classes (optional)
+-->
+<div class="modal-backdrop" data-modal="{{id}}">
+  <div class="modal {{class}}">
+    <div class="modal-header">
+      <div></div>
+      <button class="modal-close" data-action="close">&times;</button>
+    </div>
+
+    <div class="modal-body">
+      <h2 class="modal-title">{{title}}</h2>
+      {{#if description}}
+      <p class="modal-desc">{{description}}</p>
+      {{/if}}
+
+      <div class="modal-list">
+        {{#each items}}
+        <div class="modal-list-item {{#if selected}}selected{{/if}}" data-item="{{id}}">
+          {{#if (eq ../type 'icon')}}
+          <div class="list-item-icon">
+            {{#if icon}}{{{icon}}}{{/if}}
+          </div>
+          {{else}}
+          <div class="list-item-avatar" {{#if avatar_url}}style="background-image: url('{{avatar_url}}')"{{/if}}></div>
+          {{/if}}
+          <div class="list-item-content">
+            <div class="list-item-title">{{title}}</div>
+            {{#if description}}
+            <div class="list-item-desc">{{description}}</div>
+            {{/if}}
+          </div>
+          <span class="list-item-check"></span>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+
+    <div class="modal-footer right">
+      <button class="modal-btn modal-btn-secondary" data-action="close">{{cancel_btn}}</button>
+      <button class="modal-btn modal-btn-primary" data-action="{{submit_action}}">{{submit_btn}}</button>
+    </div>
+  </div>
+</div>
