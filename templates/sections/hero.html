@@ -1,0 +1,18 @@
+<!-- Hero Section -->
+<!--
+  Variables:
+    - title: Main hero title
+    - subtitle: Hero subtitle/description
+    - actions: HTML for action buttons (optional)
+-->
+<header class="hero {{class}}">
+  <h1 class="hero-title">{{title}}</h1>
+  {{#if subtitle}}
+  <p class="hero-sub">{{subtitle}}</p>
+  {{/if}}
+  {{#if actions}}
+  <div class="flex gap-16 mt-24">
+    {{actions}}
+  </div>
+  {{/if}}
+</header>
