@@ -1,0 +1,16 @@
+<!-- Storage Info Component -->
+<!--
+  Variables:
+    - used: Used storage (formatted)
+    - total: Total storage (formatted)
+    - percent: Percentage used
+-->
+<div class="storage-info {{class}}">
+  <div class="storage-label">
+    <span>Storage</span>
+    <span>{{used}} / {{total}}</span>
+  </div>
+  <div class="storage-bar">
+    <div class="storage-fill" style="width: {{percent}}%"></div>
+  </div>
+</div>

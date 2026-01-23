@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explorer — BlackRoad</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/variables.css">
+  <link rel="stylesheet" href="../styles/base.css">
+  <link rel="stylesheet" href="../styles/typography.css">
+  <link rel="stylesheet" href="../styles/components.css">
+  <link rel="stylesheet" href="../styles/explorer.css">
+</head>
+<body>
+  <div class="explorer-layout">
+    <!-- Sidebar -->
+    <aside class="explorer-sidebar">
+      <div class="sidebar-header">
+        <span class="sidebar-logo">Explorer</span>
+      </div>
+
+      <div class="sidebar-search">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input type="text" class="search-input" placeholder="Search files...">
+          <span class="search-kbd">⌘K</span>
+        </div>
+      </div>
+
+      <div class="sidebar-content">
+        <!-- Quick Access -->
+        <div class="tree-section">
+          <div class="tree-label">Quick Access</div>
+          <div class="tree-item">
+            <span class="tree-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </span>
+            <span class="tree-name">Recent</span>
+          </div>
+          <div class="tree-item">
+            <span class="tree-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+            </span>
+            <span class="tree-name">Starred</span>
+            <span class="tree-count">5</span>
+          </div>
+          <div class="tree-item">
+            <span class="tree-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </span>
+            <span class="tree-name">Shared with me</span>
+          </div>
+        </div>
+
+        <!-- Locations -->
+        <div class="tree-section">
+          <div class="tree-label">Locations</div>
+          <div class="tree-item selected">
+            <span class="tree-chevron expanded">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </span>
+            <span class="tree-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+              </svg>
+            </span>
+            <span class="tree-name">Projects</span>
+          </div>
+          <div class="tree-nested">
+            <div class="tree-item active">
+              <span class="tree-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                </svg>
+              </span>
+              <span class="tree-name">blackroad-io</span>
+            </div>
+            <div class="tree-item">
+              <span class="tree-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                </svg>
+              </span>
+              <span class="tree-name">lucidia-core</span>
+            </div>
+            <div class="tree-item">
+              <span class="tree-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                </svg>
+              </span>
+              <span class="tree-name">agent-sdk</span>
+            </div>
+          </div>
+          <div class="tree-item">
+            <span class="tree-chevron">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </span>
+            <span class="tree-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+              </svg>
+            </span>
+            <span class="tree-name">Documents</span>
+          </div>
+          <div class="tree-item">
+            <span class="tree-chevron">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </span>
+            <span class="tree-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+              </svg>
+            </span>
+            <span class="tree-name">Archives</span>
+          </div>
+        </div>
+
+        <!-- Tags -->
+        <div class="tree-section">
+          <div class="tree-label">Tags</div>
+          <div class="tree-item">
+            <span class="tree-icon" style="color: var(--gray-400)">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="10" height="10">
+                <circle cx="12" cy="12" r="6"/>
+              </svg>
+            </span>
+            <span class="tree-name">Important</span>
+            <span class="tree-count">12</span>
+          </div>
+          <div class="tree-item">
+            <span class="tree-icon" style="color: var(--gray-500)">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="10" height="10">
+                <circle cx="12" cy="12" r="6"/>
+              </svg>
+            </span>
+            <span class="tree-name">Work</span>
+            <span class="tree-count">8</span>
+          </div>
+          <div class="tree-item">
+            <span class="tree-icon" style="color: var(--gray-600)">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="10" height="10">
+                <circle cx="12" cy="12" r="6"/>
+              </svg>
+            </span>
+            <span class="tree-name">Personal</span>
+            <span class="tree-count">3</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="storage-info">
+          <div class="storage-label">
+            <span>Storage</span>
+            <span>6.5 GB / 10 GB</span>
+          </div>
+          <div class="storage-bar">
+            <div class="storage-fill" style="width: 65%"></div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="explorer-main">
+      <!-- Toolbar -->
+      <div class="explorer-toolbar">
+        <div class="toolbar-group">
+          <button class="toolbar-btn disabled" title="Back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+          </button>
+          <button class="toolbar-btn" title="Forward">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="breadcrumb">
+          <span class="breadcrumb-item">Home</span>
+          <span class="breadcrumb-sep">/</span>
+          <span class="breadcrumb-item">Projects</span>
+          <span class="breadcrumb-sep">/</span>
+          <span class="breadcrumb-item current">blackroad-io</span>
+        </div>
+
+        <div class="toolbar-actions">
+          <div class="view-toggle">
+            <button class="view-btn active" title="List view">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+              </svg>
+            </button>
+            <button class="view-btn" title="Grid view">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+              </svg>
+            </button>
+          </div>
+          <button class="toolbar-btn" title="More options">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+              <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- File List -->
+      <div class="file-container">
+        <div class="file-header">
+          <span>Name</span>
+          <span>Size</span>
+          <span>Type</span>
+          <span>Modified</span>
+        </div>
+
+        <div class="file-item">
+          <div class="file-name">
+            <div class="file-icon folder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+              </svg>
+            </div>
+            <div class="file-info">
+              <div class="file-title">templates</div>
+              <div class="file-meta-inline">24 items</div>
+            </div>
+          </div>
+          <div class="file-size">—</div>
+          <div class="file-type">Folder</div>
+          <div class="file-date">Jan 23, 2025</div>
+        </div>
+
+        <div class="file-item">
+          <div class="file-name">
+            <div class="file-icon folder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+              </svg>
+            </div>
+            <div class="file-info">
+              <div class="file-title">src</div>
+              <div class="file-meta-inline">18 items</div>
+            </div>
+          </div>
+          <div class="file-size">—</div>
+          <div class="file-type">Folder</div>
+          <div class="file-date">Jan 22, 2025</div>
+        </div>
+
+        <div class="file-item selected">
+          <div class="file-name">
+            <div class="file-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+              </svg>
+            </div>
+            <div class="file-info">
+              <div class="file-title">package<span class="file-badge">.json</span></div>
+            </div>
+          </div>
+          <div class="file-size">2.4 KB</div>
+          <div class="file-type">JSON</div>
+          <div class="file-date">Jan 21, 2025</div>
+        </div>
+
+        <div class="file-item">
+          <div class="file-name">
+            <div class="file-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+              </svg>
+            </div>
+            <div class="file-info">
+              <div class="file-title">README<span class="file-badge">.md</span></div>
+            </div>
+          </div>
+          <div class="file-size">8.1 KB</div>
+          <div class="file-type">Markdown</div>
+          <div class="file-date">Jan 20, 2025</div>
+        </div>
+
+        <div class="file-item">
+          <div class="file-name">
+            <div class="file-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+              </svg>
+            </div>
+            <div class="file-info">
+              <div class="file-title">tsconfig<span class="file-badge">.json</span></div>
+            </div>
+          </div>
+          <div class="file-size">1.2 KB</div>
+          <div class="file-type">JSON</div>
+          <div class="file-date">Jan 19, 2025</div>
+        </div>
+
+        <div class="file-item">
+          <div class="file-name">
+            <div class="file-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+              </svg>
+            </div>
+            <div class="file-info">
+              <div class="file-title">.gitignore</div>
+            </div>
+          </div>
+          <div class="file-size">412 B</div>
+          <div class="file-type">Text</div>
+          <div class="file-date">Jan 18, 2025</div>
+        </div>
+
+        <div class="file-item">
+          <div class="file-name">
+            <div class="file-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+              </svg>
+            </div>
+            <div class="file-info">
+              <div class="file-title">LICENSE</div>
+            </div>
+          </div>
+          <div class="file-size">1.1 KB</div>
+          <div class="file-type">Text</div>
+          <div class="file-date">Jan 17, 2025</div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Details Panel -->
+    <aside class="file-details-panel">
+      <div class="details-header">
+        <span class="details-title">Details</span>
+        <button class="details-close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="details-content">
+        <div class="details-preview">
+          <span class="preview-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="32" height="32">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+            </svg>
+          </span>
+        </div>
+
+        <div class="details-name">package.json</div>
+        <div class="details-path">/Projects/blackroad-io/package.json</div>
+
+        <div class="details-section">
+          <div class="details-label">Information</div>
+          <div class="details-row">
+            <span class="details-key">Size</span>
+            <span class="details-value">2.4 KB</span>
+          </div>
+          <div class="details-row">
+            <span class="details-key">Type</span>
+            <span class="details-value">JSON</span>
+          </div>
+          <div class="details-row">
+            <span class="details-key">Created</span>
+            <span class="details-value">Jan 15, 2025</span>
+          </div>
+          <div class="details-row">
+            <span class="details-key">Modified</span>
+            <span class="details-value">Jan 21, 2025</span>
+          </div>
+          <div class="details-row">
+            <span class="details-key">Owner</span>
+            <span class="details-value">admin</span>
+          </div>
+        </div>
+
+        <div class="details-section">
+          <div class="details-label">Tags</div>
+          <div class="details-tags">
+            <span class="details-tag">Config</span>
+            <span class="details-tag">Important</span>
+            <span class="details-tag add-tag">+ Add</span>
+          </div>
+        </div>
+
+        <div class="details-section">
+          <div class="details-label">Hash</div>
+          <div class="details-row">
+            <span class="details-key">SHA-256</span>
+            <span class="details-value hash-value">a7f3c9d2e1b4...</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="details-actions">
+        <button class="details-btn details-btn-primary">Open</button>
+        <button class="details-btn details-btn-secondary">Share</button>
+      </div>
+    </aside>
+  </div>
+</body>
+</html>
