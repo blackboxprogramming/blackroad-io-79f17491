@@ -1,0 +1,24 @@
+<!-- FAQ Section Component -->
+<!--
+  Variables:
+    - title: Section title
+    - description: Section description
+    - items: Array of FAQ items with {id, question, answer, open}
+    - class: Additional CSS classes (optional)
+-->
+<section class="faq-section {{class}}">
+  {{#if title}}
+  <div class="section-header">
+    <h2 class="section-title">{{title}}</h2>
+    {{#if description}}
+    <p class="section-desc">{{description}}</p>
+    {{/if}}
+  </div>
+  {{/if}}
+
+  <div class="faq-list">
+    {{#each items}}
+    {{> faq-item}}
+    {{/each}}
+  </div>
+</section>

@@ -1,0 +1,59 @@
+<!-- Comparison Table Component -->
+<!--
+  Variables:
+    - title: Section title
+    - description: Section description
+    - plans: Array of plan names for columns
+    - categories: Array of category objects with {name, features}
+      - features: Array of feature objects with {name, values}
+        - values: Array of values corresponding to each plan (string, 'check', or 'dash')
+    - class: Additional CSS classes (optional)
+-->
+<section class="comparison-section {{class}}">
+  {{#if title}}
+  <div class="section-header">
+    <h2 class="section-title">{{title}}</h2>
+    {{#if description}}
+    <p class="section-desc">{{description}}</p>
+    {{/if}}
+  </div>
+  {{/if}}
+
+  <table class="comparison-table">
+    <thead>
+      <tr>
+        <th>Features</th>
+        {{#each plans}}
+        <th>{{this}}</th>
+        {{/each}}
+      </tr>
+    </thead>
+    <tbody>
+      {{#each categories}}
+      <tr>
+        <td colspan="{{../../plans.length + 1}}" class="table-category">{{name}}</td>
+      </tr>
+      {{#each features}}
+      <tr>
+        <td>{{name}}</td>
+        {{#each values}}
+        <td>
+          {{#if (eq this 'check')}}
+          <span class="check-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" width="12" height="12">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </span>
+          {{else if (eq this 'dash')}}
+          <span class="dash-icon"></span>
+          {{else}}
+          {{this}}
+          {{/if}}
+        </td>
+        {{/each}}
+      </tr>
+      {{/each}}
+      {{/each}}
+    </tbody>
+  </table>
+</section>

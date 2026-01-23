@@ -1,0 +1,31 @@
+<!-- Enterprise CTA Component -->
+<!--
+  Variables:
+    - title: CTA title
+    - description: CTA description
+    - features: Array of feature strings
+    - cta_label: CTA button label
+    - cta_action: CTA button action or URL
+    - class: Additional CSS classes (optional)
+-->
+<section class="enterprise-cta {{class}}">
+  <h2 class="enterprise-title">{{title}}</h2>
+  <p class="enterprise-desc">{{description}}</p>
+
+  {{#if features}}
+  <div class="enterprise-features">
+    {{#each features}}
+    <span class="enterprise-feature">
+      <span class="enterprise-feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" width="12" height="12">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </span>
+      {{this}}
+    </span>
+    {{/each}}
+  </div>
+  {{/if}}
+
+  <button class="enterprise-btn" data-action="{{cta_action}}">{{cta_label}}</button>
+</section>
