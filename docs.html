@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentation — Wireframe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #ffffff;
+      --gray-100: #f4f4f5;
+      --gray-200: #e4e4e7;
+      --gray-300: #d4d4d8;
+      --gray-400: #a1a1aa;
+      --gray-500: #71717a;
+      --gray-600: #52525b;
+      --gray-700: #3f3f46;
+      --gray-800: #27272a;
+      --gray-900: #18181b;
+      --gray-950: #09090b;
+    }
+
+    body {
+      background: var(--gray-950);
+      color: var(--gray-100);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ==================== LAYOUT ==================== */
+
+    .page {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ==================== SIDEBAR ==================== */
+
+    .sidebar {
+      width: 280px;
+      background: var(--gray-900);
+      border-right: 1px solid var(--gray-800);
+      padding: 24px 0;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .sidebar-header {
+      padding: 0 20px 20px;
+      border-bottom: 1px solid var(--gray-800);
+      margin-bottom: 20px;
+    }
+
+    .sidebar-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: var(--gray-800);
+      border: 1px solid var(--gray-700);
+      border-radius: 6px;
+    }
+
+    .search-icon {
+      width: 14px;
+      height: 14px;
+      background: var(--gray-600);
+      border-radius: 3px;
+    }
+
+    .search-text {
+      font-size: 13px;
+      color: var(--gray-500);
+    }
+
+    .search-shortcut {
+      margin-left: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--gray-600);
+      padding: 2px 6px;
+      background: var(--gray-700);
+      border-radius: 4px;
+    }
+
+    .nav-section {
+      padding: 0 12px;
+      margin-bottom: 8px;
+    }
+
+    .nav-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gray-600);
+      padding: 12px 8px 8px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      padding: 8px 12px;
+      font-size: 13px;
+      color: var(--gray-400);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .nav-item:hover {
+      background: var(--gray-800);
+      color: var(--gray-200);
+    }
+
+    .nav-item.active {
+      background: var(--gray-800);
+      color: var(--white);
+    }
+
+    .nav-group {
+      margin-left: 12px;
+      padding-left: 12px;
+      border-left: 1px solid var(--gray-800);
+    }
+
+    .nav-group .nav-item {
+      font-size: 12px;
+      padding: 6px 12px;
+    }
+
+    /* ==================== MAIN ==================== */
+
+    .main {
+      flex: 1;
+      display: flex;
+      min-width: 0;
+    }
+
+    /* ==================== CONTENT ==================== */
+
+    .content {
+      flex: 1;
+      max-width: 720px;
+      padding: 48px;
+    }
+
+    /* ==================== BREADCRUMB ==================== */
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--gray-500);
+      margin-bottom: 32px;
+    }
+
+    .breadcrumb-sep {
+      color: var(--gray-700);
+    }
+
+    .breadcrumb-current {
+      color: var(--gray-400);
+    }
+
+    /* ==================== ARTICLE ==================== */
+
+    .article-header {
+      margin-bottom: 40px;
+    }
+
+    .article-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--gray-500);
+    }
+
+    .article-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .meta-icon {
+      width: 14px;
+      height: 14px;
+      background: var(--gray-700);
+      border-radius: 3px;
+    }
+
+    /* ==================== PROSE ==================== */
+
+    .prose {
+      color: var(--gray-300);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .prose h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--white);
+      margin: 48px 0 16px;
+      letter-spacing: -0.01em;
+    }
+
+    .prose h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--gray-100);
+      margin: 32px 0 12px;
+    }
+
+    .prose p {
+      margin-bottom: 16px;
+    }
+
+    .prose a {
+      color: var(--gray-200);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .prose ul, .prose ol {
+      margin: 16px 0;
+      padding-left: 24px;
+    }
+
+    .prose li {
+      margin-bottom: 8px;
+    }
+
+    .prose code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--gray-200);
+      background: var(--gray-800);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .prose pre {
+      background: var(--gray-900);
+      border: 1px solid var(--gray-800);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 24px 0;
+      overflow-x: auto;
+    }
+
+    .prose pre code {
+      background: none;
+      padding: 0;
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--gray-400);
+    }
+
+    /* ==================== CALLOUT ==================== */
+
+    .callout {
+      display: flex;
+      gap: 16px;
+      padding: 16px 20px;
+      background: var(--gray-900);
+      border: 1px solid var(--gray-800);
+      border-left: 3px solid var(--gray-600);
+      border-radius: 0 8px 8px 0;
+      margin: 24px 0;
+    }
+
+    .callout-icon {
+      width: 20px;
+      height: 20px;
+      background: var(--gray-700);
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .callout-content {
+      font-size: 14px;
+      color: var(--gray-400);
+    }
+
+    .callout-title {
+      font-weight: 600;
+      color: var(--gray-200);
+      margin-bottom: 4px;
+    }
+
+    /* ==================== TABLE ==================== */
+
+    .prose table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 14px;
+    }
+
+    .prose th {
+      text-align: left;
+      padding: 12px 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--gray-500);
+      background: var(--gray-900);
+      border-bottom: 1px solid var(--gray-800);
+    }
+
+    .prose td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--gray-800);
+      color: var(--gray-400);
+    }
+
+    .prose td code {
+      font-size: 12px;
+    }
+
+    /* ==================== NAV FOOTER ==================== */
+
+    .article-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      margin-top: 64px;
+      padding-top: 32px;
+      border-top: 1px solid var(--gray-800);
+    }
+
+    .article-nav-link {
+      flex: 1;
+      padding: 16px 20px;
+      background: var(--gray-900);
+      border: 1px solid var(--gray-800);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+
+    .article-nav-link:hover {
+      border-color: var(--gray-700);
+    }
+
+    .article-nav-link.next {
+      text-align: right;
+    }
+
+    .nav-link-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--gray-600);
+      margin-bottom: 4px;
+    }
+
+    .nav-link-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray-200);
+    }
+
+    /* ==================== TOC ==================== */
+
+    .toc {
+      width: 220px;
+      padding: 48px 24px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .toc-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gray-600);
+      margin-bottom: 16px;
+    }
+
+    .toc-list {
+      list-style: none;
+    }
+
+    .toc-item {
+      padding: 6px 0;
+      font-size: 12px;
+      color: var(--gray-500);
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+
+    .toc-item:hover {
+      color: var(--gray-300);
+    }
+
+    .toc-item.active {
+      color: var(--white);
+    }
+
+    .toc-item.nested {
+      padding-left: 12px;
+      font-size: 11px;
+    }
+
+    /* ==================== PLACEHOLDER ==================== */
+
+    .placeholder {
+      background: var(--gray-800);
+      border-radius: 4px;
+    }
+
+    .placeholder-line {
+      height: 14px;
+      margin-bottom: 12px;
+    }
+
+    .placeholder-line:last-child {
+      margin-bottom: 0;
+    }
+
+    .w-full { width: 100%; }
+    .w-3\/4 { width: 75%; }
+    .w-1\/2 { width: 50%; }
+  </style>
+</head>
+<body>
+
+  <div class="page">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">BlackRoad Docs</div>
+        <div class="search-box">
+          <div class="search-icon"></div>
+          <span class="search-text">Search docs...</span>
+          <span class="search-shortcut">⌘K</span>
+        </div>
+      </div>
+
+      <nav class="nav-section">
+        <div class="nav-label">Getting Started</div>
+        <div class="nav-item">Introduction</div>
+        <div class="nav-item active">Quick Start</div>
+        <div class="nav-item">Installation</div>
+        <div class="nav-item">Configuration</div>
+      </nav>
+
+      <nav class="nav-section">
+        <div class="nav-label">Core Concepts</div>
+        <div class="nav-item">Agents</div>
+        <div class="nav-group">
+          <div class="nav-item">Creating Agents</div>
+          <div class="nav-item">Agent Lifecycle</div>
+          <div class="nav-item">Communication</div>
+        </div>
+        <div class="nav-item">Memory</div>
+        <div class="nav-group">
+          <div class="nav-item">Journal Mode</div>
+          <div class="nav-item">PS-SHA∞ Hashing</div>
+          <div class="nav-item">Persistence</div>
+        </div>
+        <div class="nav-item">Logic Engine</div>
+        <div class="nav-group">
+          <div class="nav-item">Trinary States</div>
+          <div class="nav-item">Contradictions</div>
+        </div>
+      </nav>
+
+      <nav class="nav-section">
+        <div class="nav-label">API Reference</div>
+        <div class="nav-item">REST API</div>
+        <div class="nav-item">WebSocket</div>
+        <div class="nav-item">Events</div>
+      </nav>
+
+      <nav class="nav-section">
+        <div class="nav-label">Guides</div>
+        <div class="nav-item">Deployment</div>
+        <div class="nav-item">Scaling</div>
+        <div class="nav-item">Security</div>
+      </nav>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <!-- CONTENT -->
+      <article class="content">
+
+        <!-- BREADCRUMB -->
+        <nav class="breadcrumb">
+          <span>Docs</span>
+          <span class="breadcrumb-sep">/</span>
+          <span>Getting Started</span>
+          <span class="breadcrumb-sep">/</span>
+          <span class="breadcrumb-current">Quick Start</span>
+        </nav>
+
+        <!-- HEADER -->
+        <header class="article-header">
+          <h1 class="article-title">Quick Start</h1>
+          <div class="article-meta">
+            <div class="article-meta-item">
+              <div class="meta-icon"></div>
+              <span>{{read_time}}</span>
+            </div>
+            <div class="article-meta-item">
+              <div class="meta-icon"></div>
+              <span>Updated {{last_updated}}</span>
+            </div>
+          </div>
+        </header>
+
+        <!-- PROSE -->
+        <div class="prose">
+
+          <p>{{intro.paragraph}}</p>
+
+          <div class="callout">
+            <div class="callout-icon"></div>
+            <div class="callout-content">
+              <div class="callout-title">Prerequisites</div>
+              <div>{{callout.content}}</div>
+            </div>
+          </div>
+
+          <h2>Installation</h2>
+
+          <p>{{section.paragraph}}</p>
+
+          <pre><code>{{code.block}}
+# Install BlackRoad CLI
+npm install -g @blackroad/cli
+
+# Initialize a new project
+blackroad init my-project
+
+# Start the development server
+cd my-project && blackroad dev</code></pre>
+
+          <h2>Creating Your First Agent</h2>
+
+          <p>{{section.paragraph}}</p>
+
+          <pre><code>{{code.block}}
+import { Agent } from '@blackroad/core';
+
+const agent = new Agent({
+  name: '{{agent.name}}',
+  role: '{{agent.role}}',
+  memory: {
+    type: 'journal',
+    persistence: true
+  }
+});
+
+await agent.start();</code></pre>
+
+          <h3>Agent Configuration</h3>
+
+          <p>{{section.paragraph}}</p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Option</th>
+                <th>Type</th>
+                <th>Default</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>name</code></td>
+                <td><code>string</code></td>
+                <td>—</td>
+                <td>{{config.desc}}</td>
+              </tr>
+              <tr>
+                <td><code>role</code></td>
+                <td><code>string</code></td>
+                <td>—</td>
+                <td>{{config.desc}}</td>
+              </tr>
+              <tr>
+                <td><code>memory</code></td>
+                <td><code>object</code></td>
+                <td><code>{}</code></td>
+                <td>{{config.desc}}</td>
+              </tr>
+              <tr>
+                <td><code>logic</code></td>
+                <td><code>string</code></td>
+                <td><code>"trinary"</code></td>
+                <td>{{config.desc}}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2>Memory System</h2>
+
+          <p>{{section.paragraph}}</p>
+
+          <div class="callout">
+            <div class="callout-icon"></div>
+            <div class="callout-content">
+              <div class="callout-title">Note</div>
+              <div>{{callout.content}}</div>
+            </div>
+          </div>
+
+          <ul>
+            <li>{{list.item}}</li>
+            <li>{{list.item}}</li>
+            <li>{{list.item}}</li>
+            <li>{{list.item}}</li>
+          </ul>
+
+          <h2>Next Steps</h2>
+
+          <p>{{section.paragraph}}</p>
+
+          <ol>
+            <li>{{list.item}}</li>
+            <li>{{list.item}}</li>
+            <li>{{list.item}}</li>
+          </ol>
+
+        </div>
+
+        <!-- NAV FOOTER -->
+        <nav class="article-nav">
+          <div class="article-nav-link prev">
+            <div class="nav-link-label">← Previous</div>
+            <div class="nav-link-title">Introduction</div>
+          </div>
+          <div class="article-nav-link next">
+            <div class="nav-link-label">Next →</div>
+            <div class="nav-link-title">Installation</div>
+          </div>
+        </nav>
+
+      </article>
+
+      <!-- TOC -->
+      <aside class="toc">
+        <div class="toc-title">On this page</div>
+        <ul class="toc-list">
+          <li class="toc-item active">Installation</li>
+          <li class="toc-item">Creating Your First Agent</li>
+          <li class="toc-item nested">Agent Configuration</li>
+          <li class="toc-item">Memory System</li>
+          <li class="toc-item">Next Steps</li>
+        </ul>
+      </aside>
+
+    </main>
+
+  </div>
+
+</body>
+</html>
