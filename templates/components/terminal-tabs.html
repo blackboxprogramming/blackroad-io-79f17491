@@ -1,0 +1,23 @@
+<!-- Terminal Tab Bar Component -->
+<!--
+  Variables:
+    - tabs: [{ name, active }]
+    - show_actions: boolean - show action buttons
+-->
+<div class="terminal-tab-bar {{class}}">
+  {{#each tabs}}
+  <div class="terminal-tab {{#if active}}active{{/if}}">
+    <span class="tab-icon"></span>
+    <span class="tab-name">{{name}}</span>
+    <span class="tab-close">&times;</span>
+  </div>
+  {{/each}}
+  <div class="tab-add">+</div>
+  <div class="tab-spacer"></div>
+  {{#if show_actions}}
+  <div class="tab-actions">
+    <button class="tab-action"><span class="tab-action-icon"></span></button>
+    <button class="tab-action"><span class="tab-action-icon"></span></button>
+  </div>
+  {{/if}}
+</div>

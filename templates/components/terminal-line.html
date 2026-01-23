@@ -1,0 +1,19 @@
+<!-- Terminal Line Component -->
+<!--
+  Variables:
+    - type: "command" | "output" | "error" | "success" | "info" | "break"
+    - prompt: Prompt string (for command type)
+    - content: Line content
+-->
+{{#if (eq type "break")}}
+<div class="line-break"></div>
+{{else if (eq type "command")}}
+<div class="terminal-line">
+  <span class="line-prompt">{{prompt}} $</span>
+  <span class="line-command">{{content}}</span>
+</div>
+{{else}}
+<div class="terminal-line">
+  <span class="line-{{type}}">{{content}}</span>
+</div>
+{{/if}}

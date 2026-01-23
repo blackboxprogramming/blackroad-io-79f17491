@@ -1,0 +1,56 @@
+<!-- Chat Sidebar Component -->
+<!--
+  Variables:
+    - title: Sidebar title
+    - conversations: Array of {
+        id,
+        group: "today" | "yesterday" | "week" | etc.,
+        avatar,
+        name,
+        preview,
+        time,
+        active
+      }
+    - user: { name, avatar, status }
+-->
+<aside class="chat-sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-title">{{#if title}}{{title}}{{else}}Conversations{{/if}}</div>
+    <button class="new-chat-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+        <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+      New Chat
+    </button>
+  </div>
+
+  <div class="conversations-list">
+    {{#each groups}}
+    <div class="conv-section">
+      <div class="conv-label">{{label}}</div>
+      {{#each items}}
+      <div class="conv-item {{#if active}}active{{/if}}" data-id="{{id}}">
+        <div class="conv-avatar">{{avatar}}</div>
+        <div class="conv-info">
+          <div class="conv-name">{{name}}</div>
+          <div class="conv-preview">{{preview}}</div>
+        </div>
+        <div class="conv-meta">{{time}}</div>
+      </div>
+      {{/each}}
+    </div>
+    {{/each}}
+  </div>
+
+  {{#if user}}
+  <div class="sidebar-footer">
+    <div class="user-block">
+      <div class="user-avatar">{{user.avatar}}</div>
+      <div>
+        <div class="user-name">{{user.name}}</div>
+        <div class="user-status">{{user.status}}</div>
+      </div>
+    </div>
+  </div>
+  {{/if}}
+</aside>

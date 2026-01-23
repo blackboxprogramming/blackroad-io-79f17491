@@ -1,0 +1,29 @@
+<!-- Terminal Sidebar Component -->
+<!--
+  Variables:
+    - logo: Brand logo text
+    - version: Version badge text
+    - sessions: [{ name, status, active }]
+    - new_session_text: Text for new session button
+-->
+<aside class="terminal-sidebar {{class}}">
+  <div class="sidebar-header">
+    <span class="terminal-logo">{{#if logo}}{{logo}}{{else}}Terminal{{/if}}</span>
+    {{#if version}}
+    <span class="version-badge">{{version}}</span>
+    {{/if}}
+  </div>
+
+  <div class="sessions-list">
+    <div class="session-label">Sessions</div>
+    {{#each sessions}}
+    <div class="session-item {{#if active}}active{{/if}}">
+      <span class="session-icon"></span>
+      <span class="session-name">{{name}}</span>
+      <span class="session-status {{#if (eq status 'running')}}running{{/if}}"></span>
+    </div>
+    {{/each}}
+  </div>
+
+  <button class="new-session-btn">{{#if new_session_text}}{{new_session_text}}{{else}}+ New Session{{/if}}</button>
+</aside>

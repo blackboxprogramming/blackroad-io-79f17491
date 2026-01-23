@@ -1,0 +1,86 @@
+<!-- Auth Form Component -->
+<!--
+  Variables:
+    - variant: "login" | "register" | "forgot"
+    - title: Form title
+    - subtitle: Form subtitle with link HTML
+    - social_providers: Array of { name, icon } (optional)
+    - fields: Array of { name, type, label, placeholder, icon }
+    - show_remember: boolean - show remember me checkbox
+    - show_forgot: boolean - show forgot password link
+    - submit_text: Submit button text
+    - footer_text: Footer text with links HTML
+-->
+<div class="form-container">
+  <div class="form-header">
+    <h1 class="form-title">{{title}}</h1>
+    {{#if subtitle}}
+    <p class="form-subtitle">{{{subtitle}}}</p>
+    {{/if}}
+  </div>
+
+  {{#if social_providers}}
+  <div class="social-auth">
+    {{#each social_providers}}
+    <button type="button" class="btn-social">
+      {{#if icon}}
+      <span class="social-icon">{{{icon}}}</span>
+      {{/if}}
+      Continue with {{name}}
+    </button>
+    {{/each}}
+  </div>
+
+  <div class="divider">
+    <span class="divider-line"></span>
+    <span class="divider-text">or</span>
+    <span class="divider-line"></span>
+  </div>
+  {{/if}}
+
+  <form class="auth-form">
+    {{#each fields}}
+    <div class="form-group">
+      <label class="form-label" for="{{name}}">{{label}}</label>
+      {{#if icon}}
+      <div class="input-with-icon">
+        <input
+          type="{{type}}"
+          id="{{name}}"
+          name="{{name}}"
+          class="form-input"
+          placeholder="{{placeholder}}"
+        >
+        <span class="input-icon">{{{icon}}}</span>
+      </div>
+      {{else}}
+      <input
+        type="{{type}}"
+        id="{{name}}"
+        name="{{name}}"
+        class="form-input"
+        placeholder="{{placeholder}}"
+      >
+      {{/if}}
+    </div>
+    {{/each}}
+
+    {{#if show_remember}}
+    <div class="form-row">
+      <label class="checkbox-group">
+        <input type="checkbox" class="checkbox" name="remember">
+        <span class="checkbox-label">Remember me</span>
+      </label>
+      {{#if show_forgot}}
+      <a href="/forgot-password" class="form-link">Forgot password?</a>
+      {{/if}}
+    </div>
+    {{/if}}
+
+    <button type="submit" class="btn-submit">{{#if submit_text}}{{submit_text}}{{else}}Continue{{/if}}</button>
+  </form>
+
+  {{#if footer_text}}
+  <div class="form-footer">{{{footer_text}}}</div>
+  {{/if}}
+</div>

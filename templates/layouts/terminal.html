@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}} — {{app_name}}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{base_url}}/templates/styles/variables.css">
+  <link rel="stylesheet" href="{{base_url}}/templates/styles/base.css">
+  <link rel="stylesheet" href="{{base_url}}/templates/styles/typography.css">
+  <link rel="stylesheet" href="{{base_url}}/templates/styles/components.css">
+  <link rel="stylesheet" href="{{base_url}}/templates/styles/terminal.css">
+</head>
+<body>
+  <div class="terminal-layout">
+    <!-- Sidebar -->
+    {{> terminal-sidebar}}
+
+    <!-- Main Terminal -->
+    <main class="terminal-main">
+      <!-- Tab Bar -->
+      {{> terminal-tabs}}
+
+      <!-- Terminal Content -->
+      <div class="terminal-content">
+        {{{content}}}
+      </div>
+
+      <!-- Input -->
+      {{> terminal-input}}
+    </main>
+
+    <!-- Info Panel -->
+    {{#if show_info_panel}}
+    {{> terminal-info-panel}}
+    {{/if}}
+  </div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!-- Landing Hero Component -->
+<!--
+  Variables:
+    - badge: Badge text (optional)
+    - title: Hero title
+    - subtitle: Hero subtitle
+    - primary_cta: { text, href }
+    - secondary_cta: { text, href } (optional)
+    - visual: HTML content for visual area (optional)
+-->
+<section class="hero">
+  {{#if badge}}
+  <div class="hero-badge">
+    <span class="badge-dot"></span>
+    {{badge}}
+  </div>
+  {{/if}}
+
+  <h1 class="hero-title">{{title}}</h1>
+  <p class="hero-subtitle">{{subtitle}}</p>
+
+  <div class="hero-actions">
+    <a href="{{primary_cta.href}}" class="btn btn-primary btn-lg">{{primary_cta.text}}</a>
+    {{#if secondary_cta}}
+    <a href="{{secondary_cta.href}}" class="btn btn-outline btn-lg">{{secondary_cta.text}}</a>
+    {{/if}}
+  </div>
+
+  {{#if visual}}
+  <div class="hero-visual">
+    {{visual}}
+  </div>
+  {{/if}}
+</section>
