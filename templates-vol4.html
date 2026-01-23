@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackRoad OS - UI Templates Vol.4 (Modal/Dialog & Onboarding)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           BLACKROAD OS - DESIGN SYSTEM
+           Vol.4: Modal/Dialog & Onboarding Wizard
+           ============================================ */
+
+        /* CSS Reset & Base */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Color System - Grayscale Foundation */
+        :root {
+            /* Grayscale Palette */
+            --gray-950: #0a0a0a;
+            --gray-900: #121212;
+            --gray-850: #1a1a1a;
+            --gray-800: #1f1f1f;
+            --gray-700: #2d2d2d;
+            --gray-600: #404040;
+            --gray-500: #525252;
+            --gray-400: #737373;
+            --gray-300: #a3a3a3;
+            --gray-200: #d4d4d4;
+            --gray-100: #e5e5e5;
+            --gray-50: #f5f5f5;
+
+            /* Accent Colors - Use Sparingly */
+            --accent-orange: #ff6b00;
+            --accent-pink: #ff1493;
+            --accent-magenta: #ff00ff;
+            --accent-blue: #1e90ff;
+            --accent-green: #00d26a;
+            --accent-red: #ff4757;
+            --accent-yellow: #ffc107;
+
+            /* Typography */
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+
+            /* Spacing */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            --space-2xl: 48px;
+            --space-3xl: 64px;
+
+            /* Border Radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-full: 9999px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--gray-950);
+            color: var(--gray-200);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Template Section Container */
+        .template-section {
+            padding: var(--space-3xl) var(--space-xl);
+            border-bottom: 1px solid var(--gray-800);
+        }
+
+        .template-header {
+            max-width: 1200px;
+            margin: 0 auto var(--space-2xl);
+        }
+
+        .template-number {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--accent-orange);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: var(--space-sm);
+        }
+
+        .template-title {
+            font-family: var(--font-display);
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--gray-50);
+            margin-bottom: var(--space-sm);
+        }
+
+        .template-description {
+            color: var(--gray-400);
+            font-size: 14px;
+        }
+
+        /* ============================================
+           TEMPLATE 19: MODAL/DIALOG SYSTEM
+           ============================================ */
+
+        .modal-showcase {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .modal-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-xl);
+        }
+
+        /* Modal Container Simulation */
+        .modal-demo {
+            background: var(--gray-900);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            border: 1px solid var(--gray-800);
+            position: relative;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: var(--radius-lg);
+            backdrop-filter: blur(4px);
+        }
+
+        /* Modal Base Styles */
+        .modal {
+            position: relative;
+            background: var(--gray-850);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--gray-700);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-lg);
+            border-bottom: 1px solid var(--gray-700);
+        }
+
+        .modal-header-title {
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--gray-50);
+        }
+
+        .modal-close {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border: none;
+            color: var(--gray-400);
+            cursor: pointer;
+            border-radius: var(--radius-md);
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--gray-700);
+            color: var(--gray-100);
+        }
+
+        .modal-body {
+            padding: var(--space-lg);
+        }
+
+        .modal-body p {
+            color: var(--gray-300);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .modal-footer {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: var(--space-sm);
+            padding: var(--space-lg);
+            border-top: 1px solid var(--gray-700);
+            background: var(--gray-900);
+        }
+
+        /* Modal Buttons */
+        .modal-btn {
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .modal-btn-secondary {
+            background: transparent;
+            border: 1px solid var(--gray-600);
+            color: var(--gray-200);
+        }
+
+        .modal-btn-secondary:hover {
+            background: var(--gray-700);
+            border-color: var(--gray-500);
+        }
+
+        .modal-btn-primary {
+            background: var(--gray-100);
+            color: var(--gray-900);
+        }
+
+        .modal-btn-primary:hover {
+            background: var(--gray-50);
+        }
+
+        .modal-btn-danger {
+            background: var(--accent-red);
+            color: white;
+        }
+
+        .modal-btn-danger:hover {
+            background: #ff5f6d;
+        }
+
+        /* Confirmation Modal */
+        .modal-confirm .modal-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 71, 87, 0.15);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-md);
+        }
+
+        .modal-confirm .modal-icon svg {
+            width: 24px;
+            height: 24px;
+            color: var(--accent-red);
+        }
+
+        .modal-confirm .modal-body {
+            text-align: center;
+        }
+
+        .modal-confirm .modal-body-title {
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--gray-50);
+            margin-bottom: var(--space-sm);
+        }
+
+        .modal-confirm .modal-footer {
+            justify-content: center;
+        }
+
+        /* Form Modal */
+        .modal-form .form-group {
+            margin-bottom: var(--space-md);
+        }
+
+        .modal-form .form-label {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--gray-400);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: var(--space-sm);
+        }
+
+        .modal-form .form-input {
+            width: 100%;
+            padding: 12px var(--space-md);
+            background: var(--gray-900);
+            border: 1px solid var(--gray-700);
+            border-radius: var(--radius-md);
+            color: var(--gray-100);
+            font-family: var(--font-body);
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .modal-form .form-input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.15);
+        }
+
+        .modal-form .form-input::placeholder {
+            color: var(--gray-500);
+        }
+
+        .modal-form .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* Alert Modal */
+        .modal-alert .modal-header {
+            background: linear-gradient(135deg, rgba(255, 199, 7, 0.1), transparent);
+        }
+
+        .modal-alert .alert-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-yellow);
+            border-radius: var(--radius-full);
+            margin-right: var(--space-sm);
+        }
+
+        .modal-alert .alert-icon svg {
+            width: 12px;
+            height: 12px;
+            color: var(--gray-900);
+        }
+
+        /* Success Modal */
+        .modal-success .modal-icon {
+            width: 64px;
+            height: 64px;
+            background: rgba(0, 210, 106, 0.15);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-lg);
+        }
+
+        .modal-success .modal-icon svg {
+            width: 32px;
+            height: 32px;
+            color: var(--accent-green);
+        }
+
+        .modal-success .modal-body {
+            text-align: center;
+        }
+
+        .modal-success .success-title {
+            font-family: var(--font-display);
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--gray-50);
+            margin-bottom: var(--space-sm);
+        }
+
+        .modal-success .modal-footer {
+            justify-content: center;
+            border-top: none;
+            background: transparent;
+        }
+
+        /* Command Palette Modal */
+        .modal-command {
+            max-width: 560px;
+        }
+
+        .modal-command .command-input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-md) var(--space-lg);
+            border-bottom: 1px solid var(--gray-700);
+        }
+
+        .modal-command .command-icon {
+            color: var(--gray-400);
+        }
+
+        .modal-command .command-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--gray-100);
+            font-family: var(--font-body);
+            font-size: 16px;
+        }
+
+        .modal-command .command-input:focus {
+            outline: none;
+        }
+
+        .modal-command .command-input::placeholder {
+            color: var(--gray-500);
+        }
+
+        .modal-command .command-kbd {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--gray-500);
+            background: var(--gray-800);
+            padding: 4px 8px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--gray-700);
+        }
+
+        .modal-command .command-results {
+            padding: var(--space-sm);
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .modal-command .command-group-label {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: var(--space-sm) var(--space-md);
+        }
+
+        .modal-command .command-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+
+        .modal-command .command-item:hover,
+        .modal-command .command-item.active {
+            background: var(--gray-800);
+        }
+
+        .modal-command .command-item-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gray-700);
+            border-radius: var(--radius-md);
+            color: var(--gray-300);
+        }
+
+        .modal-command .command-item-text {
+            flex: 1;
+        }
+
+        .modal-command .command-item-title {
+            font-size: 14px;
+            color: var(--gray-100);
+        }
+
+        .modal-command .command-item-desc {
+            font-size: 12px;
+            color: var(--gray-500);
+        }
+
+        .modal-command .command-item-shortcut {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--gray-500);
+        }
+
+        /* Modal Size Variants */
+        .modal-sm { max-width: 340px; }
+        .modal-lg { max-width: 560px; }
+        .modal-xl { max-width: 720px; }
+        .modal-full { max-width: 90vw; }
+
+        /* Demo Labels */
+        .demo-label {
+            position: absolute;
+            top: var(--space-md);
+            left: var(--space-md);
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 10;
+        }
+
+        /* ============================================
+           TEMPLATE 20: ONBOARDING WIZARD
+           ============================================ */
+
+        .onboarding-showcase {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .onboarding-container {
+            background: var(--gray-900);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--gray-800);
+            overflow: hidden;
+        }
+
+        /* Progress Header */
+        .onboarding-progress {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-lg) var(--space-xl);
+            background: var(--gray-850);
+            border-bottom: 1px solid var(--gray-800);
+        }
+
+        .onboarding-logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .onboarding-logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-pink));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .onboarding-logo-icon svg {
+            width: 18px;
+            height: 18px;
+            color: white;
+        }
+
+        .onboarding-logo-text {
+            font-family: var(--font-display);
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--gray-50);
+        }
+
+        .onboarding-steps {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .onboarding-step {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .onboarding-step-indicator {
+            width: 28px;
+            height: 28px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .onboarding-step.completed .onboarding-step-indicator {
+            background: var(--accent-green);
+            color: white;
+        }
+
+        .onboarding-step.active .onboarding-step-indicator {
+            background: var(--gray-100);
+            color: var(--gray-900);
+        }
+
+        .onboarding-step.pending .onboarding-step-indicator {
+            background: var(--gray-700);
+            color: var(--gray-400);
+        }
+
+        .onboarding-step-label {
+            font-size: 13px;
+            color: var(--gray-400);
+        }
+
+        .onboarding-step.active .onboarding-step-label {
+            color: var(--gray-100);
+        }
+
+        .onboarding-step-connector {
+            width: 40px;
+            height: 2px;
+            background: var(--gray-700);
+            margin: 0 var(--space-sm);
+        }
+
+        .onboarding-step.completed + .onboarding-step-connector,
+        .onboarding-step-connector.completed {
+            background: var(--accent-green);
+        }
+
+        .onboarding-skip {
+            font-family: var(--font-body);
+            font-size: 13px;
+            color: var(--gray-400);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .onboarding-skip:hover {
+            color: var(--gray-200);
+        }
+
+        /* Onboarding Content */
+        .onboarding-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 500px;
+        }
+
+        .onboarding-left {
+            padding: var(--space-3xl);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .onboarding-right {
+            background: var(--gray-850);
+            padding: var(--space-3xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-left: 1px solid var(--gray-800);
+        }
+
+        .onboarding-step-number {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--accent-orange);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: var(--space-md);
+        }
+
+        .onboarding-title {
+            font-family: var(--font-display);
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--gray-50);
+            margin-bottom: var(--space-md);
+            line-height: 1.2;
+        }
+
+        .onboarding-description {
+            color: var(--gray-400);
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: var(--space-xl);
+        }
+
+        /* Form Elements */
+        .onboarding-form {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+        }
+
+        .onboarding-field {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .onboarding-label {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--gray-400);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .onboarding-input {
+            padding: 14px var(--space-md);
+            background: var(--gray-850);
+            border: 1px solid var(--gray-700);
+            border-radius: var(--radius-md);
+            color: var(--gray-100);
+            font-family: var(--font-body);
+            font-size: 15px;
+            transition: all 0.2s ease;
+        }
+
+        .onboarding-input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.15);
+        }
+
+        .onboarding-input::placeholder {
+            color: var(--gray-500);
+        }
+
+        .onboarding-input-hint {
+            font-size: 12px;
+            color: var(--gray-500);
+        }
+
+        /* Selection Cards */
+        .onboarding-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+        }
+
+        .onboarding-option {
+            background: var(--gray-850);
+            border: 2px solid var(--gray-700);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .onboarding-option:hover {
+            border-color: var(--gray-600);
+            background: var(--gray-800);
+        }
+
+        .onboarding-option.selected {
+            border-color: var(--accent-blue);
+            background: rgba(30, 144, 255, 0.08);
+        }
+
+        .onboarding-option-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gray-700);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-md);
+        }
+
+        .onboarding-option.selected .onboarding-option-icon {
+            background: var(--accent-blue);
+        }
+
+        .onboarding-option-icon svg {
+            width: 20px;
+            height: 20px;
+            color: var(--gray-300);
+        }
+
+        .onboarding-option.selected .onboarding-option-icon svg {
+            color: white;
+        }
+
+        .onboarding-option-title {
+            font-family: var(--font-display);
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--gray-100);
+            margin-bottom: var(--space-xs);
+        }
+
+        .onboarding-option-desc {
+            font-size: 13px;
+            color: var(--gray-400);
+        }
+
+        /* Navigation */
+        .onboarding-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: var(--space-xl);
+        }
+
+        .onboarding-btn {
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 500;
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .onboarding-btn-back {
+            background: transparent;
+            border: 1px solid var(--gray-700);
+            color: var(--gray-300);
+        }
+
+        .onboarding-btn-back:hover {
+            background: var(--gray-800);
+            border-color: var(--gray-600);
+        }
+
+        .onboarding-btn-next {
+            background: var(--gray-100);
+            color: var(--gray-900);
+        }
+
+        .onboarding-btn-next:hover {
+            background: var(--gray-50);
+        }
+
+        .onboarding-btn-next svg,
+        .onboarding-btn-back svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Preview Illustration */
+        .onboarding-preview {
+            width: 100%;
+            max-width: 360px;
+        }
+
+        .onboarding-preview-card {
+            background: var(--gray-900);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--gray-700);
+            overflow: hidden;
+        }
+
+        .onboarding-preview-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-md);
+            border-bottom: 1px solid var(--gray-700);
+        }
+
+        .onboarding-preview-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: var(--radius-full);
+            background: var(--gray-600);
+        }
+
+        .onboarding-preview-dot.red { background: #ff5f56; }
+        .onboarding-preview-dot.yellow { background: #ffbd2e; }
+        .onboarding-preview-dot.green { background: #27c93f; }
+
+        .onboarding-preview-body {
+            padding: var(--space-lg);
+        }
+
+        .onboarding-preview-line {
+            height: 8px;
+            background: var(--gray-700);
+            border-radius: var(--radius-full);
+            margin-bottom: var(--space-sm);
+        }
+
+        .onboarding-preview-line:nth-child(1) { width: 60%; }
+        .onboarding-preview-line:nth-child(2) { width: 80%; }
+        .onboarding-preview-line:nth-child(3) { width: 45%; }
+        .onboarding-preview-line:nth-child(4) { width: 70%; background: var(--accent-orange); opacity: 0.3; }
+
+        /* Checklist */
+        .onboarding-checklist {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .onboarding-check-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-md);
+        }
+
+        .onboarding-check-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--gray-700);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .onboarding-check-icon.done {
+            background: var(--accent-green);
+        }
+
+        .onboarding-check-icon svg {
+            width: 14px;
+            height: 14px;
+            color: var(--gray-400);
+        }
+
+        .onboarding-check-icon.done svg {
+            color: white;
+        }
+
+        .onboarding-check-text {
+            flex: 1;
+        }
+
+        .onboarding-check-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--gray-100);
+            margin-bottom: 2px;
+        }
+
+        .onboarding-check-desc {
+            font-size: 13px;
+            color: var(--gray-400);
+        }
+
+        /* Completion Screen */
+        .onboarding-complete {
+            text-align: center;
+            padding: var(--space-3xl);
+        }
+
+        .onboarding-complete-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--accent-green), #00b359);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-xl);
+        }
+
+        .onboarding-complete-icon svg {
+            width: 40px;
+            height: 40px;
+            color: white;
+        }
+
+        .onboarding-complete-title {
+            font-family: var(--font-display);
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--gray-50);
+            margin-bottom: var(--space-sm);
+        }
+
+        .onboarding-complete-desc {
+            color: var(--gray-400);
+            font-size: 15px;
+            max-width: 400px;
+            margin: 0 auto var(--space-xl);
+        }
+
+        .onboarding-complete-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: var(--gray-100);
+            color: var(--gray-900);
+            font-family: var(--font-body);
+            font-size: 15px;
+            font-weight: 500;
+            padding: 14px 28px;
+            border-radius: var(--radius-md);
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .onboarding-complete-btn:hover {
+            background: var(--gray-50);
+        }
+
+        /* Additional Wizard Variant: Vertical Steps */
+        .wizard-vertical {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            background: var(--gray-900);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--gray-800);
+            overflow: hidden;
+            margin-top: var(--space-2xl);
+        }
+
+        .wizard-sidebar {
+            background: var(--gray-850);
+            padding: var(--space-xl);
+            border-right: 1px solid var(--gray-800);
+        }
+
+        .wizard-sidebar-title {
+            font-family: var(--font-display);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gray-100);
+            margin-bottom: var(--space-lg);
+        }
+
+        .wizard-steps-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+
+        .wizard-step-vertical {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-md);
+            padding: var(--space-md);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .wizard-step-vertical:hover {
+            background: var(--gray-800);
+        }
+
+        .wizard-step-vertical.active {
+            background: var(--gray-800);
+        }
+
+        .wizard-step-num {
+            width: 24px;
+            height: 24px;
+            background: var(--gray-700);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--gray-400);
+            flex-shrink: 0;
+        }
+
+        .wizard-step-vertical.completed .wizard-step-num {
+            background: var(--accent-green);
+            color: white;
+        }
+
+        .wizard-step-vertical.active .wizard-step-num {
+            background: var(--gray-100);
+            color: var(--gray-900);
+        }
+
+        .wizard-step-info {
+            flex: 1;
+        }
+
+        .wizard-step-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--gray-300);
+            margin-bottom: 2px;
+        }
+
+        .wizard-step-vertical.active .wizard-step-name {
+            color: var(--gray-100);
+        }
+
+        .wizard-step-status {
+            font-size: 11px;
+            color: var(--gray-500);
+        }
+
+        .wizard-main {
+            padding: var(--space-2xl);
+        }
+
+        .wizard-main-header {
+            margin-bottom: var(--space-xl);
+        }
+
+        .wizard-main-step {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: var(--space-sm);
+        }
+
+        .wizard-main-title {
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--gray-50);
+        }
+
+        /* Progress Bar */
+        .wizard-progress {
+            height: 4px;
+            background: var(--gray-700);
+            border-radius: var(--radius-full);
+            margin-top: var(--space-xl);
+            overflow: hidden;
+        }
+
+        .wizard-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-magenta));
+            border-radius: var(--radius-full);
+            width: 60%;
+            transition: width 0.3s ease;
+        }
+
+        .wizard-progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--gray-500);
+            margin-top: var(--space-sm);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+         TEMPLATE 19: MODAL/DIALOG SYSTEM
+         ============================================ -->
+    <section id="modals" class="template-section">
+        <div class="template-header">
+            <div class="template-number">Template 19</div>
+            <h2 class="template-title">Modal/Dialog System</h2>
+            <p class="template-description">Overlay dialogs for confirmations, forms, alerts, and command palettes.</p>
+        </div>
+
+        <div class="modal-showcase">
+            <div class="modal-grid">
+                <!-- Confirmation Modal -->
+                <div class="modal-demo">
+                    <div class="demo-label">Confirmation</div>
+                    <div class="modal-backdrop"></div>
+                    <div class="modal modal-confirm modal-sm">
+                        <div class="modal-body">
+                            <div class="modal-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                                </svg>
+                            </div>
+                            <h3 class="modal-body-title">Delete Agent?</h3>
+                            <p>This action cannot be undone. The agent "Lucidia" and all associated data will be permanently removed.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="modal-btn modal-btn-secondary">Cancel</button>
+                            <button class="modal-btn modal-btn-danger">Delete</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Modal -->
+                <div class="modal-demo">
+                    <div class="demo-label">Form Input</div>
+                    <div class="modal-backdrop"></div>
+                    <div class="modal modal-form">
+                        <div class="modal-header">
+                            <h3 class="modal-header-title">Create New Agent</h3>
+                            <button class="modal-close">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 6L6 18M6 6l12 12"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label class="form-label">Agent Name</label>
+                                <input type="text" class="form-input" placeholder="e.g., Prometheus">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Description</label>
+                                <textarea class="form-input form-textarea" placeholder="What does this agent do?"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="modal-btn modal-btn-secondary">Cancel</button>
+                            <button class="modal-btn modal-btn-primary">Create Agent</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alert Modal -->
+                <div class="modal-demo">
+                    <div class="demo-label">Alert/Warning</div>
+                    <div class="modal-backdrop"></div>
+                    <div class="modal modal-alert modal-sm">
+                        <div class="modal-header">
+                            <h3 class="modal-header-title">
+                                <span class="alert-icon">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-2h2v2h-2zm0-4V7h2v6h-2z"/>
+                                    </svg>
+                                </span>
+                                Quota Warning
+                            </h3>
+                        </div>
+                        <div class="modal-body">
+                            <p>You've used 85% of your monthly compute quota. Consider upgrading your plan or reducing agent activity.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="modal-btn modal-btn-secondary">Dismiss</button>
+                            <button class="modal-btn modal-btn-primary">Upgrade Plan</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Success Modal -->
+                <div class="modal-demo">
+                    <div class="demo-label">Success State</div>
+                    <div class="modal-backdrop"></div>
+                    <div class="modal modal-success modal-sm">
+                        <div class="modal-body">
+                            <div class="modal-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                            </div>
+                            <h3 class="success-title">Agent Deployed!</h3>
+                            <p>Lucidia is now live and processing requests. You can monitor performance in the dashboard.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="modal-btn modal-btn-primary">View Dashboard</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Command Palette Modal -->
+            <div class="modal-demo" style="margin-top: var(--space-xl); max-width: 600px; margin-left: auto; margin-right: auto;">
+                <div class="demo-label">Command Palette</div>
+                <div class="modal-backdrop"></div>
+                <div class="modal modal-command">
+                    <div class="command-input-wrapper">
+                        <svg class="command-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                        </svg>
+                        <input type="text" class="command-input" placeholder="Search commands..." value="deploy">
+                        <span class="command-kbd">ESC</span>
+                    </div>
+                    <div class="command-results">
+                        <div class="command-group-label">Actions</div>
+                        <div class="command-item active">
+                            <div class="command-item-icon">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                                    <polyline points="17 8 12 3 7 8"/>
+                                    <line x1="12" y1="3" x2="12" y2="15"/>
+                                </svg>
+                            </div>
+                            <div class="command-item-text">
+                                <div class="command-item-title">Deploy Agent</div>
+                                <div class="command-item-desc">Deploy selected agent to production</div>
+                            </div>
+                            <span class="command-item-shortcut">⌘D</span>
+                        </div>
+                        <div class="command-item">
+                            <div class="command-item-icon">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/>
+                                    <polyline points="16 6 12 2 8 6"/>
+                                    <line x1="12" y1="2" x2="12" y2="15"/>
+                                </svg>
+                            </div>
+                            <div class="command-item-text">
+                                <div class="command-item-title">Deploy to Staging</div>
+                                <div class="command-item-desc">Deploy to staging environment first</div>
+                            </div>
+                            <span class="command-item-shortcut">⌘⇧D</span>
+                        </div>
+                        <div class="command-item">
+                            <div class="command-item-icon">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                    <line x1="12" y1="8" x2="12" y2="16"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                            </div>
+                            <div class="command-item-text">
+                                <div class="command-item-title">Deployment History</div>
+                                <div class="command-item-desc">View past deployments</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================
+         TEMPLATE 20: ONBOARDING WIZARD
+         ============================================ -->
+    <section id="onboarding" class="template-section">
+        <div class="template-header">
+            <div class="template-number">Template 20</div>
+            <h2 class="template-title">Onboarding Wizard</h2>
+            <p class="template-description">Multi-step setup flow for new users with progress tracking.</p>
+        </div>
+
+        <div class="onboarding-showcase">
+            <!-- Main Onboarding Flow -->
+            <div class="onboarding-container">
+                <!-- Progress Header -->
+                <div class="onboarding-progress">
+                    <div class="onboarding-logo">
+                        <div class="onboarding-logo-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                                <path d="M2 17l10 5 10-5"/>
+                                <path d="M2 12l10 5 10-5"/>
+                            </svg>
+                        </div>
+                        <span class="onboarding-logo-text">BlackRoad OS</span>
+                    </div>
+                    <div class="onboarding-steps">
+                        <div class="onboarding-step completed">
+                            <div class="onboarding-step-indicator">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                            </div>
+                            <span class="onboarding-step-label">Account</span>
+                        </div>
+                        <div class="onboarding-step-connector completed"></div>
+                        <div class="onboarding-step active">
+                            <div class="onboarding-step-indicator">2</div>
+                            <span class="onboarding-step-label">Workspace</span>
+                        </div>
+                        <div class="onboarding-step-connector"></div>
+                        <div class="onboarding-step pending">
+                            <div class="onboarding-step-indicator">3</div>
+                            <span class="onboarding-step-label">First Agent</span>
+                        </div>
+                        <div class="onboarding-step-connector"></div>
+                        <div class="onboarding-step pending">
+                            <div class="onboarding-step-indicator">4</div>
+                            <span class="onboarding-step-label">Complete</span>
+                        </div>
+                    </div>
+                    <button class="onboarding-skip">Skip setup</button>
+                </div>
+
+                <!-- Content Area -->
+                <div class="onboarding-content">
+                    <div class="onboarding-left">
+                        <div class="onboarding-step-number">Step 2 of 4</div>
+                        <h2 class="onboarding-title">Set up your workspace</h2>
+                        <p class="onboarding-description">
+                            Your workspace is where you'll manage all your AI agents. Choose a name that represents your team or project.
+                        </p>
+
+                        <div class="onboarding-form">
+                            <div class="onboarding-field">
+                                <label class="onboarding-label">Workspace Name</label>
+                                <input type="text" class="onboarding-input" placeholder="e.g., Acme AI Labs" value="BlackRoad HQ">
+                                <span class="onboarding-input-hint">This will be visible to all team members</span>
+                            </div>
+
+                            <div class="onboarding-field">
+                                <label class="onboarding-label">Workspace URL</label>
+                                <input type="text" class="onboarding-input" placeholder="acme-ai" value="blackroad-hq">
+                                <span class="onboarding-input-hint">blackroad.io/w/blackroad-hq</span>
+                            </div>
+                        </div>
+
+                        <div class="onboarding-nav">
+                            <button class="onboarding-btn onboarding-btn-back">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                                </svg>
+                                Back
+                            </button>
+                            <button class="onboarding-btn onboarding-btn-next">
+                                Continue
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="onboarding-right">
+                        <div class="onboarding-preview">
+                            <div class="onboarding-preview-card">
+                                <div class="onboarding-preview-header">
+                                    <div class="onboarding-preview-dot red"></div>
+                                    <div class="onboarding-preview-dot yellow"></div>
+                                    <div class="onboarding-preview-dot green"></div>
+                                </div>
+                                <div class="onboarding-preview-body">
+                                    <div class="onboarding-preview-line"></div>
+                                    <div class="onboarding-preview-line"></div>
+                                    <div class="onboarding-preview-line"></div>
+                                    <div class="onboarding-preview-line"></div>
+                                </div>
+                            </div>
+                            <div class="onboarding-checklist" style="margin-top: var(--space-xl);">
+                                <div class="onboarding-check-item">
+                                    <div class="onboarding-check-icon done">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                            <polyline points="20 6 9 17 4 12"/>
+                                        </svg>
+                                    </div>
+                                    <div class="onboarding-check-text">
+                                        <div class="onboarding-check-title">Account created</div>
+                                        <div class="onboarding-check-desc">Email verified and ready</div>
+                                    </div>
+                                </div>
+                                <div class="onboarding-check-item">
+                                    <div class="onboarding-check-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="4"/>
+                                        </svg>
+                                    </div>
+                                    <div class="onboarding-check-text">
+                                        <div class="onboarding-check-title">Configure workspace</div>
+                                        <div class="onboarding-check-desc">Name and settings</div>
+                                    </div>
+                                </div>
+                                <div class="onboarding-check-item">
+                                    <div class="onboarding-check-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="4"/>
+                                        </svg>
+                                    </div>
+                                    <div class="onboarding-check-text">
+                                        <div class="onboarding-check-title">Deploy first agent</div>
+                                        <div class="onboarding-check-desc">Get started with AI</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vertical Wizard Variant -->
+            <div class="wizard-vertical">
+                <div class="wizard-sidebar">
+                    <h3 class="wizard-sidebar-title">Setup Progress</h3>
+                    <div class="wizard-steps-vertical">
+                        <div class="wizard-step-vertical completed">
+                            <div class="wizard-step-num">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                            </div>
+                            <div class="wizard-step-info">
+                                <div class="wizard-step-name">Create Account</div>
+                                <div class="wizard-step-status">Completed</div>
+                            </div>
+                        </div>
+                        <div class="wizard-step-vertical completed">
+                            <div class="wizard-step-num">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                            </div>
+                            <div class="wizard-step-info">
+                                <div class="wizard-step-name">Verify Email</div>
+                                <div class="wizard-step-status">Completed</div>
+                            </div>
+                        </div>
+                        <div class="wizard-step-vertical active">
+                            <div class="wizard-step-num">3</div>
+                            <div class="wizard-step-info">
+                                <div class="wizard-step-name">Connect Services</div>
+                                <div class="wizard-step-status">In progress</div>
+                            </div>
+                        </div>
+                        <div class="wizard-step-vertical">
+                            <div class="wizard-step-num">4</div>
+                            <div class="wizard-step-info">
+                                <div class="wizard-step-name">Configure Agent</div>
+                                <div class="wizard-step-status">Pending</div>
+                            </div>
+                        </div>
+                        <div class="wizard-step-vertical">
+                            <div class="wizard-step-num">5</div>
+                            <div class="wizard-step-info">
+                                <div class="wizard-step-name">Deploy & Test</div>
+                                <div class="wizard-step-status">Pending</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wizard-progress">
+                        <div class="wizard-progress-bar"></div>
+                    </div>
+                    <div class="wizard-progress-label">
+                        <span>60% complete</span>
+                        <span>3 of 5 steps</span>
+                    </div>
+                </div>
+                <div class="wizard-main">
+                    <div class="wizard-main-header">
+                        <div class="wizard-main-step">Step 3</div>
+                        <h2 class="wizard-main-title">Connect your services</h2>
+                    </div>
+
+                    <div class="onboarding-options">
+                        <div class="onboarding-option selected">
+                            <div class="onboarding-option-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+                                </svg>
+                            </div>
+                            <div class="onboarding-option-title">GitHub</div>
+                            <div class="onboarding-option-desc">Connect repositories</div>
+                        </div>
+                        <div class="onboarding-option">
+                            <div class="onboarding-option-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                                </svg>
+                            </div>
+                            <div class="onboarding-option-title">Datadog</div>
+                            <div class="onboarding-option-desc">Monitoring integration</div>
+                        </div>
+                        <div class="onboarding-option">
+                            <div class="onboarding-option-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                    <line x1="3" y1="9" x2="21" y2="9"/>
+                                    <line x1="9" y1="21" x2="9" y2="9"/>
+                                </svg>
+                            </div>
+                            <div class="onboarding-option-title">Slack</div>
+                            <div class="onboarding-option-desc">Team notifications</div>
+                        </div>
+                        <div class="onboarding-option">
+                            <div class="onboarding-option-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
+                                </svg>
+                            </div>
+                            <div class="onboarding-option-title">AWS</div>
+                            <div class="onboarding-option-desc">Cloud infrastructure</div>
+                        </div>
+                    </div>
+
+                    <div class="onboarding-nav" style="margin-top: var(--space-2xl);">
+                        <button class="onboarding-btn onboarding-btn-back">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 12H5M12 19l-7-7 7-7"/>
+                            </svg>
+                            Previous
+                        </button>
+                        <button class="onboarding-btn onboarding-btn-next">
+                            Next Step
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Completion Screen -->
+            <div class="onboarding-container" style="margin-top: var(--space-2xl);">
+                <div class="onboarding-complete">
+                    <div class="onboarding-complete-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                    </div>
+                    <h2 class="onboarding-complete-title">You're all set!</h2>
+                    <p class="onboarding-complete-desc">
+                        Your workspace is ready. Your first agent is deployed and awaiting instructions. Let's get started.
+                    </p>
+                    <button class="onboarding-complete-btn">
+                        Go to Dashboard
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

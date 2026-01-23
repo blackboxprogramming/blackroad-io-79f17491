@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Billing & Usage — BlackRoad OS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #ffffff;
+      --gray-100: #f4f4f5;
+      --gray-200: #e4e4e7;
+      --gray-300: #d4d4d8;
+      --gray-400: #a1a1aa;
+      --gray-500: #71717a;
+      --gray-600: #52525b;
+      --gray-700: #3f3f46;
+      --gray-800: #27272a;
+      --gray-900: #18181b;
+      --gray-950: #09090b;
+    }
+
+    body {
+      background: var(--gray-950);
+      color: var(--gray-100);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 32px;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 32px;
+    }
+
+    .page-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .page-desc {
+      font-size: 14px;
+      color: var(--gray-500);
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 500;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--gray-100);
+      color: var(--gray-900);
+    }
+
+    .btn-primary:hover {
+      background: var(--white);
+    }
+
+    .btn-secondary {
+      background: var(--gray-800);
+      color: var(--gray-300);
+      border: 1px solid var(--gray-700);
+    }
+
+    .btn-secondary:hover {
+      background: var(--gray-700);
+      color: var(--white);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--gray-800);
+    }
+
+    .tab {
+      padding: 12px 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-500);
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.15s;
+      margin-bottom: -1px;
+    }
+
+    .tab:hover {
+      color: var(--gray-300);
+    }
+
+    .tab.active {
+      color: var(--white);
+      border-bottom-color: var(--white);
+    }
+
+    .plan-card {
+      background: var(--gray-900);
+      border: 1px solid var(--gray-800);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .plan-info {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .plan-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--gray-800);
+      border: 2px solid var(--gray-700);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .plan-icon-inner {
+      width: 24px;
+      height: 24px;
+      background: var(--gray-500);
+      border-radius: 6px;
+    }
+
+    .plan-details {
+      flex: 1;
+    }
+
+    .plan-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .plan-tier {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      background: var(--gray-800);
+      color: var(--gray-400);
+      border-radius: 4px;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+
+    .plan-meta {
+      font-size: 13px;
+      color: var(--gray-500);
+    }
+
+    .plan-pricing {
+      text-align: right;
+    }
+
+    .plan-price {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .plan-price span {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray-500);
+    }
+
+    .plan-cycle {
+      font-size: 12px;
+      color: var(--gray-600);
+      margin-top: 4px;
+    }
+
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .usage-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .usage-card {
+      background: var(--gray-900);
+      border: 1px solid var(--gray-800);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .usage-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .usage-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-400);
+    }
+
+    .usage-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--gray-500);
+    }
+
+    .usage-bar-bg {
+      height: 8px;
+      background: var(--gray-800);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .usage-bar {
+      height: 100%;
+      background: var(--gray-500);
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+
+    .usage-bar.low { background: var(--gray-600); }
+    .usage-bar.medium { background: var(--gray-500); }
+    .usage-bar.high { background: var(--gray-400); }
+    .usage-bar.critical { background: var(--gray-300); }
+
+    .usage-stats {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .usage-stat {
+      font-size: 11px;
+      color: var(--gray-600);
+    }
+
+    .usage-stat strong {
+      color: var(--gray-400);
+      font-weight: 600;
+    }
+
+    .billing-container {
+      background: var(--gray-900);
+      border: 1px solid var(--gray-800);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .billing-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--gray-800);
+    }
+
+    .billing-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .billing-table {
+      width: 100%;
+    }
+
+    .billing-row {
+      display: grid;
+      grid-template-columns: 1fr 120px 100px 100px 80px;
+      gap: 16px;
+      align-items: center;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--gray-800);
+      transition: background 0.15s;
+    }
+
+    .billing-row:hover {
+      background: rgba(255,255,255,0.02);
+    }
+
+    .billing-row:last-child {
+      border-bottom: none;
+    }
+
+    .billing-row.header {
+      background: var(--gray-800);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .billing-row.header:hover {
+      background: var(--gray-800);
+    }
+
+    .invoice-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .invoice-id {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--white);
+    }
+
+    .invoice-desc {
+      font-size: 12px;
+      color: var(--gray-500);
+    }
+
+    .invoice-date {
+      font-size: 13px;
+      color: var(--gray-400);
+    }
+
+    .invoice-amount {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--white);
+    }
+
+    .invoice-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .status-indicator {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .status-indicator.paid { background: var(--white); }
+    .status-indicator.pending { background: var(--gray-500); }
+    .status-indicator.failed {
+      background: transparent;
+      border: 1px solid var(--gray-500);
+    }
+
+    .status-text {
+      color: var(--gray-400);
+    }
+
+    .invoice-action {
+      font-size: 12px;
+      color: var(--gray-500);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .invoice-action:hover {
+      color: var(--gray-300);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .payment-card {
+      background: var(--gray-900);
+      border: 1px solid var(--gray-800);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .payment-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .payment-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .payment-method {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      background: var(--gray-800);
+      border-radius: 10px;
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 32px;
+      background: var(--gray-700);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-icon-inner {
+      width: 20px;
+      height: 14px;
+      background: var(--gray-500);
+      border-radius: 2px;
+    }
+
+    .card-details {
+      flex: 1;
+    }
+
+    .card-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      color: var(--white);
+      margin-bottom: 2px;
+    }
+
+    .card-expiry {
+      font-size: 12px;
+      color: var(--gray-500);
+    }
+
+    .card-badge {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 4px 8px;
+      background: var(--gray-700);
+      color: var(--gray-400);
+      border-radius: 4px;
+    }
+
+    .address-card {
+      background: var(--gray-900);
+      border: 1px solid var(--gray-800);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .address-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .address-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .address-content {
+      font-size: 13px;
+      color: var(--gray-400);
+      line-height: 1.8;
+    }
+
+    .address-content strong {
+      color: var(--gray-200);
+      font-weight: 500;
+    }
+
+    .edit-link {
+      font-size: 12px;
+      color: var(--gray-500);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .edit-link:hover {
+      color: var(--gray-300);
+    }
+
+    .alerts-card {
+      background: var(--gray-900);
+      border: 1px solid var(--gray-800);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .alerts-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .alerts-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .alert-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: var(--gray-800);
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    .alert-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .alert-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .alert-threshold {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      color: var(--white);
+    }
+
+    .alert-label {
+      font-size: 12px;
+      color: var(--gray-500);
+    }
+
+    .alert-toggle {
+      width: 40px;
+      height: 22px;
+      background: var(--gray-700);
+      border-radius: 11px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .alert-toggle.active {
+      background: var(--gray-600);
+    }
+
+    .alert-toggle::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background: var(--gray-400);
+      border-radius: 50%;
+      top: 3px;
+      left: 3px;
+      transition: all 0.2s;
+    }
+
+    .alert-toggle.active::after {
+      left: 21px;
+      background: var(--white);
+    }
+
+    @media (max-width: 1100px) {
+      .usage-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .billing-row {
+        grid-template-columns: 1fr 100px 80px;
+      }
+      .billing-row > *:nth-child(2),
+      .billing-row > *:nth-child(5) {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 20px 16px;
+      }
+      .page-header {
+        flex-direction: column;
+        gap: 16px;
+      }
+      .plan-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .plan-info {
+        flex-direction: column;
+      }
+      .plan-pricing {
+        text-align: center;
+      }
+      .usage-grid {
+        grid-template-columns: 1fr;
+      }
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+      .billing-row {
+        grid-template-columns: 1fr auto;
+      }
+      .billing-row > *:nth-child(3),
+      .billing-row > *:nth-child(4) {
+        display: none;
+      }
+      .tabs {
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="page-header">
+    <div>
+      <h1 class="page-title">Billing & Usage</h1>
+      <p class="page-desc">Manage your subscription, view usage, and download invoices.</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-secondary">Download All Invoices</button>
+      <button class="btn btn-primary">Upgrade Plan</button>
+    </div>
+  </header>
+
+  <div class="tabs">
+    <button class="tab active">Overview</button>
+    <button class="tab">Usage</button>
+    <button class="tab">Invoices</button>
+    <button class="tab">Payment Methods</button>
+  </div>
+
+  <div class="plan-card">
+    <div class="plan-info">
+      <div class="plan-icon">
+        <div class="plan-icon-inner"></div>
+      </div>
+      <div class="plan-details">
+        <div class="plan-name">
+          Pro Plan
+          <span class="plan-tier">ANNUAL</span>
+        </div>
+        <div class="plan-meta">Renews on Feb 1, 2026 · 9 days remaining</div>
+      </div>
+    </div>
+    <div class="plan-pricing">
+      <div class="plan-price">$99 <span>/ month</span></div>
+      <div class="plan-cycle">Billed annually at $1,188</div>
+    </div>
+  </div>
+
+  <div class="section-title">Current Usage</div>
+  <div class="usage-grid">
+    <div class="usage-card">
+      <div class="usage-header">
+        <span class="usage-label">Agents</span>
+        <span class="usage-value">225 / 500</span>
+      </div>
+      <div class="usage-bar-bg">
+        <div class="usage-bar medium" style="width: 45%"></div>
+      </div>
+      <div class="usage-stats">
+        <span class="usage-stat"><strong>45%</strong> used</span>
+        <span class="usage-stat">275 remaining</span>
+      </div>
+    </div>
+
+    <div class="usage-card">
+      <div class="usage-header">
+        <span class="usage-label">API Requests</span>
+        <span class="usage-value">78K / 100K</span>
+      </div>
+      <div class="usage-bar-bg">
+        <div class="usage-bar high" style="width: 78%"></div>
+      </div>
+      <div class="usage-stats">
+        <span class="usage-stat"><strong>78%</strong> used</span>
+        <span class="usage-stat">22K remaining</span>
+      </div>
+    </div>
+
+    <div class="usage-card">
+      <div class="usage-header">
+        <span class="usage-label">Storage</span>
+        <span class="usage-value">11.5 GB / 50 GB</span>
+      </div>
+      <div class="usage-bar-bg">
+        <div class="usage-bar low" style="width: 23%"></div>
+      </div>
+      <div class="usage-stats">
+        <span class="usage-stat"><strong>23%</strong> used</span>
+        <span class="usage-stat">38.5 GB remaining</span>
+      </div>
+    </div>
+
+    <div class="usage-card">
+      <div class="usage-header">
+        <span class="usage-label">Team Seats</span>
+        <span class="usage-value">6 / 10</span>
+      </div>
+      <div class="usage-bar-bg">
+        <div class="usage-bar medium" style="width: 60%"></div>
+      </div>
+      <div class="usage-stats">
+        <span class="usage-stat"><strong>60%</strong> used</span>
+        <span class="usage-stat">4 remaining</span>
+      </div>
+    </div>
+
+    <div class="usage-card">
+      <div class="usage-header">
+        <span class="usage-label">Compute Hours</span>
+        <span class="usage-value">920 / 1000 hrs</span>
+      </div>
+      <div class="usage-bar-bg">
+        <div class="usage-bar critical" style="width: 92%"></div>
+      </div>
+      <div class="usage-stats">
+        <span class="usage-stat"><strong>92%</strong> used</span>
+        <span class="usage-stat">80 hrs remaining</span>
+      </div>
+    </div>
+
+    <div class="usage-card">
+      <div class="usage-header">
+        <span class="usage-label">Webhooks</span>
+        <span class="usage-value">15 / 100</span>
+      </div>
+      <div class="usage-bar-bg">
+        <div class="usage-bar low" style="width: 15%"></div>
+      </div>
+      <div class="usage-stats">
+        <span class="usage-stat"><strong>15%</strong> used</span>
+        <span class="usage-stat">85 remaining</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="billing-container">
+    <div class="billing-header">
+      <div class="billing-title">Billing History</div>
+      <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;">Export CSV</button>
+    </div>
+
+    <div class="billing-table">
+      <div class="billing-row header">
+        <div>Invoice</div>
+        <div>Date</div>
+        <div>Amount</div>
+        <div>Status</div>
+        <div></div>
+      </div>
+
+      <div class="billing-row">
+        <div class="invoice-info">
+          <span class="invoice-id">INV-2026-001</span>
+          <span class="invoice-desc">Pro Plan - January 2026</span>
+        </div>
+        <div class="invoice-date">Jan 1, 2026</div>
+        <div class="invoice-amount">$99.00</div>
+        <div class="invoice-status">
+          <span class="status-indicator paid"></span>
+          <span class="status-text">Paid</span>
+        </div>
+        <div class="invoice-action">Download</div>
+      </div>
+
+      <div class="billing-row">
+        <div class="invoice-info">
+          <span class="invoice-id">INV-2025-012</span>
+          <span class="invoice-desc">Pro Plan - December 2025</span>
+        </div>
+        <div class="invoice-date">Dec 1, 2025</div>
+        <div class="invoice-amount">$99.00</div>
+        <div class="invoice-status">
+          <span class="status-indicator paid"></span>
+          <span class="status-text">Paid</span>
+        </div>
+        <div class="invoice-action">Download</div>
+      </div>
+
+      <div class="billing-row">
+        <div class="invoice-info">
+          <span class="invoice-id">INV-2025-011</span>
+          <span class="invoice-desc">Pro Plan - November 2025</span>
+        </div>
+        <div class="invoice-date">Nov 1, 2025</div>
+        <div class="invoice-amount">$99.00</div>
+        <div class="invoice-status">
+          <span class="status-indicator paid"></span>
+          <span class="status-text">Paid</span>
+        </div>
+        <div class="invoice-action">Download</div>
+      </div>
+
+      <div class="billing-row">
+        <div class="invoice-info">
+          <span class="invoice-id">INV-2025-OVR</span>
+          <span class="invoice-desc">Usage Overage</span>
+        </div>
+        <div class="invoice-date">Oct 15, 2025</div>
+        <div class="invoice-amount">$24.50</div>
+        <div class="invoice-status">
+          <span class="status-indicator pending"></span>
+          <span class="status-text">Pending</span>
+        </div>
+        <div class="invoice-action">Pay Now</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="payment-card">
+      <div class="payment-header">
+        <span class="payment-title">Payment Method</span>
+        <span class="edit-link">Change</span>
+      </div>
+      <div class="payment-method">
+        <div class="card-icon">
+          <div class="card-icon-inner"></div>
+        </div>
+        <div class="card-details">
+          <div class="card-number">•••• •••• •••• 4242</div>
+          <div class="card-expiry">Expires 12/2027</div>
+        </div>
+        <span class="card-badge">DEFAULT</span>
+      </div>
+    </div>
+
+    <div class="address-card">
+      <div class="address-header">
+        <span class="address-title">Billing Address</span>
+        <span class="edit-link">Edit</span>
+      </div>
+      <div class="address-content">
+        <strong>BlackRoad OS, Inc.</strong><br>
+        123 Innovation Way<br>
+        San Francisco, CA 94107<br>
+        United States
+      </div>
+    </div>
+  </div>
+
+  <div class="alerts-card">
+    <div class="alerts-header">
+      <span class="alerts-title">Spend Alerts</span>
+      <span class="edit-link">Add Alert</span>
+    </div>
+
+    <div class="alert-item">
+      <div class="alert-info">
+        <span class="alert-threshold">$500</span>
+        <span class="alert-label">Monthly spend threshold</span>
+      </div>
+      <div class="alert-toggle active"></div>
+    </div>
+
+    <div class="alert-item">
+      <div class="alert-info">
+        <span class="alert-threshold">80%</span>
+        <span class="alert-label">Usage limit warning</span>
+      </div>
+      <div class="alert-toggle active"></div>
+    </div>
+
+    <div class="alert-item">
+      <div class="alert-info">
+        <span class="alert-threshold">95%</span>
+        <span class="alert-label">Critical usage alert</span>
+      </div>
+      <div class="alert-toggle"></div>
+    </div>
+  </div>
+
+</body>
+</html>

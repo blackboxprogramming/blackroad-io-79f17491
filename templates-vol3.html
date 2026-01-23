@@ -1,0 +1,2276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlackRoad OS • Grayscale Templates Vol. 3</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gray-950: #0a0a0a;
+      --gray-900: #171717;
+      --gray-800: #262626;
+      --gray-700: #404040;
+      --gray-600: #525252;
+      --gray-500: #737373;
+      --gray-400: #a3a3a3;
+      --gray-300: #d4d4d4;
+      --gray-200: #e5e5e5;
+      --gray-100: #f5f5f5;
+      --gray-50: #fafafa;
+
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+
+      --transition: 150ms ease;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--gray-950);
+      color: var(--gray-100);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* Template Navigation */
+    .template-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: var(--gray-900);
+      border-bottom: 1px solid var(--gray-800);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .template-nav-title {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-300);
+      margin-right: 8px;
+    }
+
+    .template-nav-links {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .template-nav-link {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gray-500);
+      text-decoration: none;
+      padding: 6px 12px;
+      background: var(--gray-800);
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+    }
+
+    .template-nav-link:hover {
+      background: var(--gray-700);
+      color: var(--gray-100);
+    }
+
+    /* Template Sections */
+    .template-section {
+      padding: 80px 24px 60px;
+      border-bottom: 1px solid var(--gray-800);
+      min-height: 100vh;
+    }
+
+    .template-section:first-of-type {
+      padding-top: 100px;
+    }
+
+    .template-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gray-500);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .template-title {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--gray-50);
+      margin-bottom: 32px;
+    }
+
+    /* ============================================
+       TEMPLATE 13: DATA TABLE
+       ============================================ */
+    .data-table-container {
+      background: var(--gray-900);
+      border: 1px solid var(--gray-800);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .table-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--gray-800);
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .table-search {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gray-800);
+      border: 1px solid var(--gray-700);
+      border-radius: var(--radius-md);
+      padding: 8px 12px;
+      flex: 1;
+      max-width: 320px;
+    }
+
+    .table-search-icon {
+      color: var(--gray-500);
+      font-size: 14px;
+    }
+
+    .table-search input {
+      background: transparent;
+      border: none;
+      color: var(--gray-100);
+      font-family: var(--font-body);
+      font-size: 14px;
+      outline: none;
+      width: 100%;
+    }
+
+    .table-search input::placeholder {
+      color: var(--gray-500);
+    }
+
+    .table-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .table-action-btn {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--gray-700);
+      background: var(--gray-800);
+      color: var(--gray-300);
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .table-action-btn:hover {
+      background: var(--gray-700);
+      color: var(--gray-100);
+    }
+
+    .table-action-btn.primary {
+      background: var(--gray-100);
+      color: var(--gray-900);
+      border-color: var(--gray-100);
+    }
+
+    .table-action-btn.primary:hover {
+      background: var(--gray-50);
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .data-table th {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray-500);
+      text-align: left;
+      padding: 12px 16px;
+      background: var(--gray-900);
+      border-bottom: 1px solid var(--gray-800);
+      cursor: pointer;
+      user-select: none;
+      transition: var(--transition);
+    }
+
+    .data-table th:hover {
+      color: var(--gray-300);
+    }
+
+    .data-table th .sort-icon {
+      margin-left: 4px;
+      opacity: 0.5;
+    }
+
+    .data-table th.sorted .sort-icon {
+      opacity: 1;
+    }
+
+    .data-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--gray-800);
+      font-size: 14px;
+      color: var(--gray-300);
+    }
+
+    .data-table tr:hover td {
+      background: var(--gray-800);
+    }
+
+    .data-table .cell-checkbox {
+      width: 40px;
+    }
+
+    .data-table .cell-checkbox input {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--gray-400);
+      cursor: pointer;
+    }
+
+    .cell-primary {
+      color: var(--gray-100);
+      font-weight: 500;
+    }
+
+    .cell-mono {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--gray-400);
+    }
+
+    .cell-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .cell-badge.success {
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+    }
+
+    .cell-badge.warning {
+      background: rgba(234, 179, 8, 0.15);
+      color: #facc15;
+    }
+
+    .cell-badge.error {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+    }
+
+    .cell-badge.neutral {
+      background: var(--gray-800);
+      color: var(--gray-400);
+    }
+
+    .cell-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .cell-actions {
+      opacity: 0;
+      transition: var(--transition);
+      display: flex;
+      gap: 4px;
+    }
+
+    .data-table tr:hover .cell-actions {
+      opacity: 1;
+    }
+
+    .cell-action-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: var(--radius-sm);
+      border: none;
+      background: var(--gray-700);
+      color: var(--gray-400);
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    .cell-action-btn:hover {
+      background: var(--gray-600);
+      color: var(--gray-100);
+    }
+
+    .table-pagination {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      border-top: 1px solid var(--gray-800);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .pagination-info {
+      font-size: 13px;
+      color: var(--gray-500);
+    }
+
+    .pagination-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pagination-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--gray-700);
+      background: var(--gray-800);
+      color: var(--gray-400);
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    .pagination-btn:hover:not(:disabled) {
+      background: var(--gray-700);
+      color: var(--gray-100);
+    }
+
+    .pagination-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .pagination-btn.active {
+      background: var(--gray-100);
+      color: var(--gray-900);
+      border-color: var(--gray-100);
+    }
+
+    /* ============================================
+       TEMPLATE 14: ANALYTICS DASHBOARD
+       ============================================ */
+    .analytics-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .analytics-title {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--gray-100);
+    }
+
+    .date-range-picker {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gray-800);
+      border: 1px solid var(--gray-700);
+      border-radius: var(--radius-md);
+      padding: 8px 12px;
+    }
+
+    .date-range-icon {
+      color: var(--gray-500);
+      font-size: 14px;
+    }
+
+    .date-range-text {
+      font-size: 13px;
+      color: var(--gray-300);
+    }
+
+    .date-range-chevron {
+      color: var(--gray-500);
+      font-size: 12px;
+    }
+
+    .stat-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: var(--gray-900);
+      border: 1px solid var(--gray-800);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+    }
+
+    .stat-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .stat-card-label {
+      font-size: 13px;
+      color: var(--gray-500);
+    }
+
+    .stat-card-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-md);
+      background: var(--gray-800);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray-400);
+      font-size: 14px;
+    }
+
+    .stat-card-value {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--gray-50);
+      margin-bottom: 8px;
+    }
+
+    .stat-card-change {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+    }
+
+    .stat-card-change.positive {
+      color: #4ade80;
+    }
+
+    .stat-card-change.negative {
+      color: #f87171;
+    }
+
+    .stat-card-change span {
+      color: var(--gray-500);
+    }
+
+    .charts-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .charts-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .chart-card {
+      background: var(--gray-900);
+      border: 1px solid var(--gray-800);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+    }
+
+    .chart-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .chart-card-title {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--gray-100);
+    }
+
+    .chart-card-tabs {
+      display: flex;
+      gap: 4px;
+      background: var(--gray-800);
+      border-radius: var(--radius-sm);
+      padding: 2px;
+    }
+
+    .chart-tab {
+      font-size: 12px;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      border: none;
+      background: transparent;
+      color: var(--gray-500);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .chart-tab:hover {
+      color: var(--gray-300);
+    }
+
+    .chart-tab.active {
+      background: var(--gray-700);
+      color: var(--gray-100);
+    }
+
+    .chart-placeholder {
+      height: 240px;
+      background: var(--gray-800);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px dashed var(--gray-700);
+    }
+
+    .chart-placeholder-text {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--gray-600);
+    }
+
+    .chart-legend {
+      display: flex;
+      gap: 16px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--gray-400);
+    }
+
+    .legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .legend-dot.series-1 { background: var(--gray-300); }
+    .legend-dot.series-2 { background: var(--gray-500); }
+    .legend-dot.series-3 { background: var(--gray-700); }
+
+    /* Donut chart placeholder */
+    .donut-placeholder {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: conic-gradient(
+        var(--gray-300) 0deg 126deg,
+        var(--gray-500) 126deg 234deg,
+        var(--gray-700) 234deg 306deg,
+        var(--gray-800) 306deg 360deg
+      );
+      margin: 0 auto 16px;
+      position: relative;
+    }
+
+    .donut-placeholder::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100px;
+      height: 100px;
+      background: var(--gray-900);
+      border-radius: 50%;
+    }
+
+    .donut-center-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      text-align: center;
+    }
+
+    .donut-center-value {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--gray-100);
+    }
+
+    .donut-center-label {
+      font-size: 11px;
+      color: var(--gray-500);
+    }
+
+    /* ============================================
+       TEMPLATE 15: NOTIFICATIONS / TOASTS
+       ============================================ */
+    .notifications-demo {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 420px;
+    }
+
+    .toast {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      background: var(--gray-900);
+      border: 1px solid var(--gray-800);
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      animation: slideIn 200ms ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .toast-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .toast.success .toast-icon {
+      background: rgba(34, 197, 94, 0.2);
+      color: #4ade80;
+    }
+
+    .toast.error .toast-icon {
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+    }
+
+    .toast.warning .toast-icon {
+      background: rgba(234, 179, 8, 0.2);
+      color: #facc15;
+    }
+
+    .toast.info .toast-icon {
+      background: rgba(59, 130, 246, 0.2);
+      color: #60a5fa;
+    }
+
+    .toast-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .toast-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray-100);
+      margin-bottom: 2px;
+    }
+
+    .toast-message {
+      font-size: 13px;
+      color: var(--gray-400);
+      line-height: 1.4;
+    }
+
+    .toast-close {
+      width: 24px;
+      height: 24px;
+      border-radius: var(--radius-sm);
+      border: none;
+      background: transparent;
+      color: var(--gray-500);
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .toast-close:hover {
+      background: var(--gray-800);
+      color: var(--gray-300);
+    }
+
+    .toast-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .toast-action-btn {
+      font-size: 12px;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .toast-action-btn.primary {
+      background: var(--gray-100);
+      color: var(--gray-900);
+    }
+
+    .toast-action-btn.primary:hover {
+      background: var(--gray-50);
+    }
+
+    .toast-action-btn.secondary {
+      background: var(--gray-800);
+      color: var(--gray-300);
+    }
+
+    .toast-action-btn.secondary:hover {
+      background: var(--gray-700);
+    }
+
+    .toast-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gray-800);
+      border-radius: 0 0 var(--radius-md) var(--radius-md);
+      overflow: hidden;
+    }
+
+    .toast-progress-bar {
+      height: 100%;
+      background: var(--gray-400);
+      width: 70%;
+      animation: progress 5s linear;
+    }
+
+    @keyframes progress {
+      from { width: 100%; }
+      to { width: 0%; }
+    }
+
+    .toast.with-progress {
+      position: relative;
+      padding-bottom: 17px;
+    }
+
+    /* Notification Center */
+    .notification-center {
+      background: var(--gray-900);
+      border: 1px solid var(--gray-800);
+      border-radius: var(--radius-lg);
+      width: 380px;
+      max-height: 480px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .notification-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px;
+      border-bottom: 1px solid var(--gray-800);
+    }
+
+    .notification-header-title {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--gray-100);
+    }
+
+    .notification-badge {
+      background: var(--gray-700);
+      color: var(--gray-300);
+      font-size: 11px;
+      font-weight: 500;
+      padding: 2px 8px;
+      border-radius: 999px;
+      margin-left: 8px;
+    }
+
+    .notification-mark-read {
+      font-size: 12px;
+      color: var(--gray-500);
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .notification-mark-read:hover {
+      color: var(--gray-300);
+    }
+
+    .notification-list {
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .notification-item {
+      display: flex;
+      gap: 12px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--gray-800);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .notification-item:hover {
+      background: var(--gray-800);
+    }
+
+    .notification-item.unread {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .notification-item.unread::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      background: var(--gray-400);
+      border-radius: 50%;
+    }
+
+    .notification-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--gray-700);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray-400);
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .notification-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .notification-text {
+      font-size: 13px;
+      color: var(--gray-300);
+      line-height: 1.4;
+      margin-bottom: 4px;
+    }
+
+    .notification-text strong {
+      color: var(--gray-100);
+      font-weight: 500;
+    }
+
+    .notification-time {
+      font-size: 11px;
+      color: var(--gray-500);
+    }
+
+    /* ============================================
+       TEMPLATE 16: COMMAND PALETTE
+       ============================================ */
+    .command-palette-overlay {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 60px 20px;
+      border-radius: var(--radius-lg);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .command-palette {
+      width: 100%;
+      max-width: 560px;
+      background: var(--gray-900);
+      border: 1px solid var(--gray-700);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+    }
+
+    .command-input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--gray-800);
+    }
+
+    .command-search-icon {
+      color: var(--gray-500);
+      font-size: 18px;
+    }
+
+    .command-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      font-family: var(--font-body);
+      font-size: 16px;
+      color: var(--gray-100);
+      outline: none;
+    }
+
+    .command-input::placeholder {
+      color: var(--gray-500);
+    }
+
+    .command-shortcut {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gray-500);
+      padding: 4px 8px;
+      background: var(--gray-800);
+      border-radius: var(--radius-sm);
+    }
+
+    .command-results {
+      max-height: 360px;
+      overflow-y: auto;
+    }
+
+    .command-group {
+      padding: 8px 0;
+    }
+
+    .command-group-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray-500);
+      padding: 8px 20px 4px;
+    }
+
+    .command-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .command-item:hover,
+    .command-item.selected {
+      background: var(--gray-800);
+    }
+
+    .command-item-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-md);
+      background: var(--gray-800);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray-400);
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .command-item:hover .command-item-icon,
+    .command-item.selected .command-item-icon {
+      background: var(--gray-700);
+    }
+
+    .command-item-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .command-item-title {
+      font-size: 14px;
+      color: var(--gray-100);
+      margin-bottom: 2px;
+    }
+
+    .command-item-description {
+      font-size: 12px;
+      color: var(--gray-500);
+    }
+
+    .command-item-shortcut {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gray-500);
+      display: flex;
+      gap: 4px;
+    }
+
+    .command-item-shortcut kbd {
+      padding: 2px 6px;
+      background: var(--gray-800);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--gray-700);
+    }
+
+    .command-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      border-top: 1px solid var(--gray-800);
+      background: var(--gray-900);
+    }
+
+    .command-footer-hints {
+      display: flex;
+      gap: 16px;
+    }
+
+    .command-hint {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--gray-500);
+    }
+
+    .command-hint kbd {
+      font-family: var(--font-mono);
+      padding: 2px 6px;
+      background: var(--gray-800);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--gray-700);
+    }
+
+    /* ============================================
+       TEMPLATE 17: AGENT PROFILE
+       ============================================ */
+    .agent-profile {
+      max-width: 900px;
+    }
+
+    .agent-profile-header {
+      display: flex;
+      gap: 24px;
+      padding: 24px;
+      background: var(--gray-900);
+      border: 1px solid var(--gray-800);
+      border-radius: var(--radius-lg);
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .agent-profile-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+    }
+
+    .agent-avatar-large {
+      width: 96px;
+      height: 96px;
+      border-radius: var(--radius-lg);
+      background: var(--gray-800);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 32px;
+      color: var(--gray-400);
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .agent-status-indicator {
+      position: absolute;
+      bottom: -4px;
+      right: -4px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--gray-900);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .agent-status-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #4ade80;
+    }
+
+    .agent-status-dot.idle {
+      background: #facc15;
+    }
+
+    .agent-status-dot.offline {
+      background: var(--gray-600);
+    }
+
+    .agent-profile-info {
+      flex: 1;
+    }
+
+    .agent-name {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--gray-50);
+      margin-bottom: 4px;
+    }
+
+    .agent-role {
+      font-size: 14px;
+      color: var(--gray-400);
+      margin-bottom: 12px;
+    }
+
+    .agent-meta {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .agent-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--gray-500);
+    }
+
+    .agent-meta-item span {
+      color: var(--gray-300);
+    }
+
+    .agent-profile-actions {
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .agent-action-btn {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 10px 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--gray-700);
+      background: var(--gray-800);
+      color: var(--gray-300);
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .agent-action-btn:hover {
+      background: var(--gray-700);
+      color: var(--gray-100);
+    }
+
+    .agent-action-btn.primary {
+      background: var(--gray-100);
+      color: var(--gray-900);
+      border-color: var(--gray-100);
+    }
+
+    .agent-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 700px) {
+      .agent-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .agent-stat-card {
+      background: var(--gray-900);
+      border: 1px solid var(--gray-800);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      text-align: center;
+    }
+
+    .agent-stat-value {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--gray-100);
+      margin-bottom: 4px;
+    }
+
+    .agent-stat-label {
+      font-size: 12px;
+      color: var(--gray-500);
+    }
+
+    .agent-tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 20px;
+      background: var(--gray-900);
+      border: 1px solid var(--gray-800);
+      border-radius: var(--radius-md);
+      padding: 4px;
+    }
+
+    .agent-tab {
+      flex: 1;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-500);
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .agent-tab:hover {
+      color: var(--gray-300);
+    }
+
+    .agent-tab.active {
+      background: var(--gray-800);
+      color: var(--gray-100);
+    }
+
+    .agent-config-section {
+      background: var(--gray-900);
+      border: 1px solid var(--gray-800);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+    }
+
+    .config-section-title {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--gray-100);
+      margin-bottom: 16px;
+    }
+
+    .config-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--gray-800);
+    }
+
+    .config-row:last-child {
+      border-bottom: none;
+    }
+
+    .config-label {
+      font-size: 14px;
+      color: var(--gray-300);
+    }
+
+    .config-value {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--gray-400);
+      background: var(--gray-800);
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+    }
+
+    /* ============================================
+       TEMPLATE 18: SPLIT VIEW / EDITOR
+       ============================================ */
+    .split-view {
+      display: grid;
+      grid-template-columns: 240px 1fr 320px;
+      gap: 1px;
+      background: var(--gray-800);
+      border: 1px solid var(--gray-800);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      height: 500px;
+    }
+
+    @media (max-width: 1000px) {
+      .split-view {
+        grid-template-columns: 1fr;
+        height: auto;
+      }
+    }
+
+    .split-sidebar {
+      background: var(--gray-900);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .split-sidebar-header {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--gray-800);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .split-sidebar-title {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-200);
+    }
+
+    .split-sidebar-action {
+      width: 24px;
+      height: 24px;
+      border-radius: var(--radius-sm);
+      border: none;
+      background: transparent;
+      color: var(--gray-500);
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .split-sidebar-action:hover {
+      background: var(--gray-800);
+      color: var(--gray-300);
+    }
+
+    .file-tree {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px 0;
+    }
+
+    .file-tree-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      font-size: 13px;
+      color: var(--gray-400);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .file-tree-item:hover {
+      background: var(--gray-800);
+      color: var(--gray-300);
+    }
+
+    .file-tree-item.active {
+      background: var(--gray-800);
+      color: var(--gray-100);
+    }
+
+    .file-tree-item.folder {
+      color: var(--gray-300);
+    }
+
+    .file-tree-item.nested {
+      padding-left: 32px;
+    }
+
+    .file-tree-icon {
+      width: 16px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .split-main {
+      background: var(--gray-950);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .editor-tabs {
+      display: flex;
+      background: var(--gray-900);
+      border-bottom: 1px solid var(--gray-800);
+    }
+
+    .editor-tab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      font-size: 13px;
+      color: var(--gray-500);
+      border-right: 1px solid var(--gray-800);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .editor-tab:hover {
+      background: var(--gray-800);
+      color: var(--gray-300);
+    }
+
+    .editor-tab.active {
+      background: var(--gray-950);
+      color: var(--gray-100);
+      border-bottom: 2px solid var(--gray-400);
+      margin-bottom: -1px;
+    }
+
+    .editor-tab-close {
+      width: 16px;
+      height: 16px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .editor-tab:hover .editor-tab-close {
+      opacity: 1;
+    }
+
+    .editor-tab-close:hover {
+      background: var(--gray-700);
+    }
+
+    .editor-content {
+      flex: 1;
+      padding: 16px;
+      overflow: auto;
+    }
+
+    .code-lines {
+      display: flex;
+      gap: 16px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .line-numbers {
+      color: var(--gray-600);
+      text-align: right;
+      user-select: none;
+    }
+
+    .line-content {
+      color: var(--gray-300);
+    }
+
+    .line-content .keyword { color: var(--gray-400); }
+    .line-content .string { color: var(--gray-300); }
+    .line-content .comment { color: var(--gray-600); font-style: italic; }
+    .line-content .function { color: var(--gray-200); }
+
+    .split-preview {
+      background: var(--gray-900);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .preview-header {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--gray-800);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .preview-title {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .preview-actions {
+      display: flex;
+      gap: 4px;
+    }
+
+    .preview-action {
+      width: 24px;
+      height: 24px;
+      border-radius: var(--radius-sm);
+      border: none;
+      background: transparent;
+      color: var(--gray-500);
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    .preview-action:hover {
+      background: var(--gray-800);
+      color: var(--gray-300);
+    }
+
+    .preview-content {
+      flex: 1;
+      padding: 16px;
+      overflow: auto;
+    }
+
+    .preview-card {
+      background: var(--gray-800);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    .preview-card-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray-200);
+      margin-bottom: 8px;
+    }
+
+    .preview-card-text {
+      font-size: 13px;
+      color: var(--gray-400);
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <!-- Template Navigation -->
+  <nav class="template-nav">
+    <span class="template-nav-title">Vol. 3</span>
+    <div class="template-nav-links">
+      <a href="#data-table" class="template-nav-link">13. Data Table</a>
+      <a href="#analytics" class="template-nav-link">14. Analytics</a>
+      <a href="#notifications" class="template-nav-link">15. Notifications</a>
+      <a href="#command-palette" class="template-nav-link">16. Command Palette</a>
+      <a href="#agent-profile" class="template-nav-link">17. Agent Profile</a>
+      <a href="#split-view" class="template-nav-link">18. Split View</a>
+    </div>
+  </nav>
+
+  <!-- TEMPLATE 13: DATA TABLE -->
+  <section id="data-table" class="template-section">
+    <div class="template-label">Template 13</div>
+    <h2 class="template-title">Data Table</h2>
+
+    <div class="data-table-container">
+      <div class="table-toolbar">
+        <div class="table-search">
+          <span class="table-search-icon">⌕</span>
+          <input type="text" placeholder="Search agents...">
+        </div>
+        <div class="table-actions">
+          <button class="table-action-btn">
+            <span>⚙</span> Filter
+          </button>
+          <button class="table-action-btn">
+            <span>↓</span> Export
+          </button>
+          <button class="table-action-btn primary">
+            <span>+</span> New Agent
+          </button>
+        </div>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th class="cell-checkbox"><input type="checkbox"></th>
+            <th class="sorted">Name <span class="sort-icon">↑</span></th>
+            <th>ID</th>
+            <th>Status</th>
+            <th>Tasks</th>
+            <th>Last Active</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="cell-checkbox"><input type="checkbox"></td>
+            <td class="cell-primary">Lucidia Prime</td>
+            <td class="cell-mono">agt_001x7k9</td>
+            <td><span class="cell-badge success"><span class="cell-badge-dot"></span>Active</span></td>
+            <td>2,847</td>
+            <td class="cell-mono">2 min ago</td>
+            <td>
+              <div class="cell-actions">
+                <button class="cell-action-btn">✎</button>
+                <button class="cell-action-btn">⋯</button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="cell-checkbox"><input type="checkbox"></td>
+            <td class="cell-primary">Orchestrator Alpha</td>
+            <td class="cell-mono">agt_002m3n</td>
+            <td><span class="cell-badge success"><span class="cell-badge-dot"></span>Active</span></td>
+            <td>1,293</td>
+            <td class="cell-mono">5 min ago</td>
+            <td>
+              <div class="cell-actions">
+                <button class="cell-action-btn">✎</button>
+                <button class="cell-action-btn">⋯</button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="cell-checkbox"><input type="checkbox"></td>
+            <td class="cell-primary">Memory Keeper</td>
+            <td class="cell-mono">agt_003p5q</td>
+            <td><span class="cell-badge warning"><span class="cell-badge-dot"></span>Idle</span></td>
+            <td>856</td>
+            <td class="cell-mono">1 hour ago</td>
+            <td>
+              <div class="cell-actions">
+                <button class="cell-action-btn">✎</button>
+                <button class="cell-action-btn">⋯</button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="cell-checkbox"><input type="checkbox"></td>
+            <td class="cell-primary">Vector Indexer</td>
+            <td class="cell-mono">agt_004r8s</td>
+            <td><span class="cell-badge error"><span class="cell-badge-dot"></span>Error</span></td>
+            <td>412</td>
+            <td class="cell-mono">3 hours ago</td>
+            <td>
+              <div class="cell-actions">
+                <button class="cell-action-btn">✎</button>
+                <button class="cell-action-btn">⋯</button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="cell-checkbox"><input type="checkbox"></td>
+            <td class="cell-primary">Task Router</td>
+            <td class="cell-mono">agt_005t2u</td>
+            <td><span class="cell-badge neutral"><span class="cell-badge-dot"></span>Offline</span></td>
+            <td>0</td>
+            <td class="cell-mono">2 days ago</td>
+            <td>
+              <div class="cell-actions">
+                <button class="cell-action-btn">✎</button>
+                <button class="cell-action-btn">⋯</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="table-pagination">
+        <span class="pagination-info">Showing 1-5 of 247 agents</span>
+        <div class="pagination-controls">
+          <button class="pagination-btn" disabled>‹</button>
+          <button class="pagination-btn active">1</button>
+          <button class="pagination-btn">2</button>
+          <button class="pagination-btn">3</button>
+          <button class="pagination-btn">...</button>
+          <button class="pagination-btn">50</button>
+          <button class="pagination-btn">›</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEMPLATE 14: ANALYTICS DASHBOARD -->
+  <section id="analytics" class="template-section">
+    <div class="template-label">Template 14</div>
+    <h2 class="template-title">Analytics Dashboard</h2>
+
+    <div class="analytics-header">
+      <h3 class="analytics-title">System Overview</h3>
+      <div class="date-range-picker">
+        <span class="date-range-icon">◷</span>
+        <span class="date-range-text">Jan 1 - Jan 23, 2026</span>
+        <span class="date-range-chevron">▾</span>
+      </div>
+    </div>
+
+    <div class="stat-cards">
+      <div class="stat-card">
+        <div class="stat-card-header">
+          <span class="stat-card-label">Total Tasks</span>
+          <div class="stat-card-icon">⚡</div>
+        </div>
+        <div class="stat-card-value">847,293</div>
+        <div class="stat-card-change positive">
+          ↑ 12.5% <span>vs last period</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-header">
+          <span class="stat-card-label">Active Agents</span>
+          <div class="stat-card-icon">◉</div>
+        </div>
+        <div class="stat-card-value">892</div>
+        <div class="stat-card-change positive">
+          ↑ 8.3% <span>vs last period</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-header">
+          <span class="stat-card-label">Avg Response</span>
+          <div class="stat-card-icon">◷</div>
+        </div>
+        <div class="stat-card-value">42ms</div>
+        <div class="stat-card-change negative">
+          ↓ 3.1% <span>vs last period</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-header">
+          <span class="stat-card-label">Success Rate</span>
+          <div class="stat-card-icon">✓</div>
+        </div>
+        <div class="stat-card-value">99.7%</div>
+        <div class="stat-card-change positive">
+          ↑ 0.2% <span>vs last period</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-card">
+        <div class="chart-card-header">
+          <h4 class="chart-card-title">Task Volume</h4>
+          <div class="chart-card-tabs">
+            <button class="chart-tab active">Day</button>
+            <button class="chart-tab">Week</button>
+            <button class="chart-tab">Month</button>
+          </div>
+        </div>
+        <div class="chart-placeholder">
+          <span class="chart-placeholder-text">[Line/Area Chart]</span>
+        </div>
+        <div class="chart-legend">
+          <div class="legend-item">
+            <span class="legend-dot series-1"></span>
+            Completed
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot series-2"></span>
+            In Progress
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot series-3"></span>
+            Failed
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-card-header">
+          <h4 class="chart-card-title">Agent Distribution</h4>
+        </div>
+        <div style="position: relative;">
+          <div class="donut-placeholder">
+            <div class="donut-center-text">
+              <div class="donut-center-value">892</div>
+              <div class="donut-center-label">Total</div>
+            </div>
+          </div>
+        </div>
+        <div class="chart-legend" style="justify-content: center;">
+          <div class="legend-item">
+            <span class="legend-dot series-1"></span>
+            Active (35%)
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot series-2"></span>
+            Idle (30%)
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot series-3"></span>
+            Standby (20%)
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEMPLATE 15: NOTIFICATIONS -->
+  <section id="notifications" class="template-section">
+    <div class="template-label">Template 15</div>
+    <h2 class="template-title">Notifications / Toasts</h2>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 40px;">
+      <div>
+        <h4 style="font-size: 14px; color: var(--gray-400); margin-bottom: 16px;">Toast Variants</h4>
+        <div class="notifications-demo">
+          <div class="toast success">
+            <div class="toast-icon">✓</div>
+            <div class="toast-content">
+              <div class="toast-title">Agent deployed successfully</div>
+              <div class="toast-message">Lucidia Prime is now active and processing tasks.</div>
+            </div>
+            <button class="toast-close">✕</button>
+          </div>
+
+          <div class="toast error">
+            <div class="toast-icon">!</div>
+            <div class="toast-content">
+              <div class="toast-title">Deployment failed</div>
+              <div class="toast-message">Unable to connect to the orchestration layer.</div>
+              <div class="toast-actions">
+                <button class="toast-action-btn primary">Retry</button>
+                <button class="toast-action-btn secondary">View Logs</button>
+              </div>
+            </div>
+            <button class="toast-close">✕</button>
+          </div>
+
+          <div class="toast warning">
+            <div class="toast-icon">⚠</div>
+            <div class="toast-content">
+              <div class="toast-title">Memory threshold reached</div>
+              <div class="toast-message">System is using 85% of available memory.</div>
+            </div>
+            <button class="toast-close">✕</button>
+          </div>
+
+          <div class="toast info with-progress">
+            <div class="toast-icon">ℹ</div>
+            <div class="toast-content">
+              <div class="toast-title">Processing batch job</div>
+              <div class="toast-message">Task queue optimization in progress...</div>
+            </div>
+            <button class="toast-close">✕</button>
+            <div class="toast-progress">
+              <div class="toast-progress-bar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h4 style="font-size: 14px; color: var(--gray-400); margin-bottom: 16px;">Notification Center</h4>
+        <div class="notification-center">
+          <div class="notification-header">
+            <div style="display: flex; align-items: center;">
+              <span class="notification-header-title">Notifications</span>
+              <span class="notification-badge">3</span>
+            </div>
+            <button class="notification-mark-read">Mark all as read</button>
+          </div>
+          <div class="notification-list">
+            <div class="notification-item unread" style="position: relative;">
+              <div class="notification-avatar">L</div>
+              <div class="notification-content">
+                <div class="notification-text">
+                  <strong>Lucidia Prime</strong> completed batch processing with 99.8% success rate
+                </div>
+                <div class="notification-time">2 minutes ago</div>
+              </div>
+            </div>
+            <div class="notification-item unread" style="position: relative;">
+              <div class="notification-avatar">⚠</div>
+              <div class="notification-content">
+                <div class="notification-text">
+                  Memory usage exceeded 80% threshold on <strong>Worker-03</strong>
+                </div>
+                <div class="notification-time">15 minutes ago</div>
+              </div>
+            </div>
+            <div class="notification-item unread" style="position: relative;">
+              <div class="notification-avatar">◉</div>
+              <div class="notification-content">
+                <div class="notification-text">
+                  <strong>3 new agents</strong> deployed to production cluster
+                </div>
+                <div class="notification-time">1 hour ago</div>
+              </div>
+            </div>
+            <div class="notification-item">
+              <div class="notification-avatar">✓</div>
+              <div class="notification-content">
+                <div class="notification-text">
+                  System backup completed successfully
+                </div>
+                <div class="notification-time">3 hours ago</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEMPLATE 16: COMMAND PALETTE -->
+  <section id="command-palette" class="template-section">
+    <div class="template-label">Template 16</div>
+    <h2 class="template-title">Command Palette</h2>
+
+    <div class="command-palette-overlay">
+      <div class="command-palette">
+        <div class="command-input-wrapper">
+          <span class="command-search-icon">⌕</span>
+          <input type="text" class="command-input" placeholder="Type a command or search...">
+          <span class="command-shortcut">ESC</span>
+        </div>
+
+        <div class="command-results">
+          <div class="command-group">
+            <div class="command-group-label">Quick Actions</div>
+            <div class="command-item selected">
+              <div class="command-item-icon">+</div>
+              <div class="command-item-content">
+                <div class="command-item-title">Create New Agent</div>
+                <div class="command-item-description">Deploy a new agent to the cluster</div>
+              </div>
+              <div class="command-item-shortcut">
+                <kbd>⌘</kbd><kbd>N</kbd>
+              </div>
+            </div>
+            <div class="command-item">
+              <div class="command-item-icon">◷</div>
+              <div class="command-item-content">
+                <div class="command-item-title">View Task Queue</div>
+                <div class="command-item-description">Monitor pending and active tasks</div>
+              </div>
+              <div class="command-item-shortcut">
+                <kbd>⌘</kbd><kbd>T</kbd>
+              </div>
+            </div>
+            <div class="command-item">
+              <div class="command-item-icon">⚙</div>
+              <div class="command-item-content">
+                <div class="command-item-title">System Settings</div>
+                <div class="command-item-description">Configure system preferences</div>
+              </div>
+              <div class="command-item-shortcut">
+                <kbd>⌘</kbd><kbd>,</kbd>
+              </div>
+            </div>
+          </div>
+
+          <div class="command-group">
+            <div class="command-group-label">Recent</div>
+            <div class="command-item">
+              <div class="command-item-icon">◉</div>
+              <div class="command-item-content">
+                <div class="command-item-title">Lucidia Prime</div>
+                <div class="command-item-description">Agent · Active</div>
+              </div>
+            </div>
+            <div class="command-item">
+              <div class="command-item-icon">▤</div>
+              <div class="command-item-content">
+                <div class="command-item-title">Memory Journal</div>
+                <div class="command-item-description">Document · Updated 2h ago</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="command-footer">
+          <div class="command-footer-hints">
+            <div class="command-hint">
+              <kbd>↑↓</kbd> Navigate
+            </div>
+            <div class="command-hint">
+              <kbd>↵</kbd> Select
+            </div>
+            <div class="command-hint">
+              <kbd>ESC</kbd> Close
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEMPLATE 17: AGENT PROFILE -->
+  <section id="agent-profile" class="template-section">
+    <div class="template-label">Template 17</div>
+    <h2 class="template-title">Agent Profile</h2>
+
+    <div class="agent-profile">
+      <div class="agent-profile-header">
+        <div class="agent-avatar-large">
+          L
+          <div class="agent-status-indicator">
+            <div class="agent-status-dot"></div>
+          </div>
+        </div>
+        <div class="agent-profile-info">
+          <h3 class="agent-name">Lucidia Prime</h3>
+          <p class="agent-role">Primary Orchestration Agent · Tier 1</p>
+          <div class="agent-meta">
+            <div class="agent-meta-item">
+              ◷ Created <span>Nov 15, 2025</span>
+            </div>
+            <div class="agent-meta-item">
+              ◉ Uptime <span>99.97%</span>
+            </div>
+            <div class="agent-meta-item">
+              # ID <span>agt_001x7k9m</span>
+            </div>
+          </div>
+        </div>
+        <div class="agent-profile-actions">
+          <button class="agent-action-btn">
+            ⟲ Restart
+          </button>
+          <button class="agent-action-btn primary">
+            ▶ View Logs
+          </button>
+        </div>
+      </div>
+
+      <div class="agent-stats-grid">
+        <div class="agent-stat-card">
+          <div class="agent-stat-value">847,293</div>
+          <div class="agent-stat-label">Tasks Processed</div>
+        </div>
+        <div class="agent-stat-card">
+          <div class="agent-stat-value">42ms</div>
+          <div class="agent-stat-label">Avg Response</div>
+        </div>
+        <div class="agent-stat-card">
+          <div class="agent-stat-value">99.7%</div>
+          <div class="agent-stat-label">Success Rate</div>
+        </div>
+        <div class="agent-stat-card">
+          <div class="agent-stat-value">2.4GB</div>
+          <div class="agent-stat-label">Memory Usage</div>
+        </div>
+      </div>
+
+      <div class="agent-tabs">
+        <button class="agent-tab active">Configuration</button>
+        <button class="agent-tab">Activity</button>
+        <button class="agent-tab">Connections</button>
+        <button class="agent-tab">Memory</button>
+      </div>
+
+      <div class="agent-config-section">
+        <h4 class="config-section-title">Runtime Configuration</h4>
+        <div class="config-row">
+          <span class="config-label">Model Version</span>
+          <span class="config-value">lucidia-core-v2.1.0</span>
+        </div>
+        <div class="config-row">
+          <span class="config-label">Max Concurrent Tasks</span>
+          <span class="config-value">256</span>
+        </div>
+        <div class="config-row">
+          <span class="config-label">Memory Limit</span>
+          <span class="config-value">4096 MB</span>
+        </div>
+        <div class="config-row">
+          <span class="config-label">Event Bus Channel</span>
+          <span class="config-value">nats://events.blackroad.io</span>
+        </div>
+        <div class="config-row">
+          <span class="config-label">Truth State Hash</span>
+          <span class="config-value">ps-sha∞:a7b3c9...</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEMPLATE 18: SPLIT VIEW / EDITOR -->
+  <section id="split-view" class="template-section">
+    <div class="template-label">Template 18</div>
+    <h2 class="template-title">Split View / Editor</h2>
+
+    <div class="split-view">
+      <div class="split-sidebar">
+        <div class="split-sidebar-header">
+          <span class="split-sidebar-title">Explorer</span>
+          <button class="split-sidebar-action">+</button>
+        </div>
+        <div class="file-tree">
+          <div class="file-tree-item folder">
+            <span class="file-tree-icon">▾</span>
+            <span>src</span>
+          </div>
+          <div class="file-tree-item nested active">
+            <span class="file-tree-icon">◇</span>
+            <span>agent.ts</span>
+          </div>
+          <div class="file-tree-item nested">
+            <span class="file-tree-icon">◇</span>
+            <span>config.ts</span>
+          </div>
+          <div class="file-tree-item nested">
+            <span class="file-tree-icon">{ }</span>
+            <span>types.ts</span>
+          </div>
+          <div class="file-tree-item folder">
+            <span class="file-tree-icon">▸</span>
+            <span>lib</span>
+          </div>
+          <div class="file-tree-item folder">
+            <span class="file-tree-icon">▸</span>
+            <span>tests</span>
+          </div>
+          <div class="file-tree-item">
+            <span class="file-tree-icon">◇</span>
+            <span>index.ts</span>
+          </div>
+          <div class="file-tree-item">
+            <span class="file-tree-icon">{ }</span>
+            <span>package.json</span>
+          </div>
+          <div class="file-tree-item">
+            <span class="file-tree-icon">▤</span>
+            <span>README.md</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="split-main">
+        <div class="editor-tabs">
+          <div class="editor-tab active">
+            <span>◇</span>
+            <span>agent.ts</span>
+            <span class="editor-tab-close">✕</span>
+          </div>
+          <div class="editor-tab">
+            <span>◇</span>
+            <span>config.ts</span>
+            <span class="editor-tab-close">✕</span>
+          </div>
+        </div>
+        <div class="editor-content">
+          <div class="code-lines">
+            <div class="line-numbers">
+              <div>1</div>
+              <div>2</div>
+              <div>3</div>
+              <div>4</div>
+              <div>5</div>
+              <div>6</div>
+              <div>7</div>
+              <div>8</div>
+              <div>9</div>
+              <div>10</div>
+              <div>11</div>
+              <div>12</div>
+              <div>13</div>
+              <div>14</div>
+            </div>
+            <div class="line-content">
+              <div><span class="keyword">import</span> { EventBus } <span class="keyword">from</span> <span class="string">'./lib/events'</span>;</div>
+              <div><span class="keyword">import</span> { Memory } <span class="keyword">from</span> <span class="string">'./lib/memory'</span>;</div>
+              <div></div>
+              <div><span class="comment">// Agent configuration</span></div>
+              <div><span class="keyword">export interface</span> <span class="function">AgentConfig</span> {</div>
+              <div>  id: <span class="keyword">string</span>;</div>
+              <div>  name: <span class="keyword">string</span>;</div>
+              <div>  tier: <span class="keyword">number</span>;</div>
+              <div>  capabilities: <span class="keyword">string</span>[];</div>
+              <div>}</div>
+              <div></div>
+              <div><span class="keyword">export class</span> <span class="function">Agent</span> {</div>
+              <div>  <span class="keyword">private</span> bus: EventBus;</div>
+              <div>  <span class="keyword">private</span> memory: Memory;</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="split-preview">
+        <div class="preview-header">
+          <span class="preview-title">Preview</span>
+          <div class="preview-actions">
+            <button class="preview-action">⟲</button>
+            <button class="preview-action">⤢</button>
+          </div>
+        </div>
+        <div class="preview-content">
+          <div class="preview-card">
+            <div class="preview-card-title">AgentConfig Interface</div>
+            <div class="preview-card-text">
+              Defines the configuration schema for BlackRoad agents including identifier, display name, permission tier, and capability list.
+            </div>
+          </div>
+          <div class="preview-card">
+            <div class="preview-card-title">Agent Class</div>
+            <div class="preview-card-text">
+              Core agent implementation with event bus integration and persistent memory system using PS-SHA∞ hashing.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

@@ -8,9 +8,13 @@
 
 ```
 blackroad-io/
-├── index.html          # Main template showcase (all UI patterns)
-├── CLAUDE.md           # This file - AI assistant guidelines
-└── .git/               # Git version control
+├── index.html              # Vol.1: Core templates (1-6)
+├── templates-vol2.html     # Vol.2: Application templates (7-12)
+├── templates-vol3.html     # Vol.3: Advanced components (13-18)
+├── templates-vol4.html     # Vol.4: Modal & Onboarding (19-20)
+├── templates-billing.html  # Billing & Usage wireframe
+├── CLAUDE.md               # This file - AI assistant guidelines
+└── .git/                   # Git version control
 ```
 
 ## Technology Stack
@@ -60,6 +64,7 @@ The design follows a **grayscale-first** philosophy with accent colors used spar
 
 ### UI Templates Included
 
+**Vol.1 - Core Templates** (`index.html`):
 1. **Hero Landing** (`#hero`) - Marketing landing page with stats grid
 2. **Dashboard Layout** (`#dashboard`) - Admin panel with sidebar, metrics, tables
 3. **Agent Cards** (`#agents`) - Card grid with avatars, tags, status indicators
@@ -67,13 +72,37 @@ The design follows a **grayscale-first** philosophy with accent colors used spar
 5. **Terminal/CLI** (`#terminal`) - Command-line aesthetic with blinking cursor
 6. **Pricing Tiers** (`#pricing`) - Three-tier pricing cards
 
+**Vol.2 - Application Templates** (`templates-vol2.html`):
+7. **Settings Panel** (`#settings`) - Tabbed settings with toggles and forms
+8. **Login Page** (`#login`) - Authentication form with social logins
+9. **Activity Logs** (`#logs`) - Timestamped event stream with filters
+10. **Forms** (`#forms`) - Input components, selects, checkboxes, validation
+11. **Empty States** (`#empty`) - Zero-data states with illustrations
+12. **Error Pages** (`#errors`) - 404, 500, maintenance pages
+
+**Vol.3 - Advanced Components** (`templates-vol3.html`):
+13. **Data Table** (`#data-table`) - Sortable, filterable data grid
+14. **Analytics Dashboard** (`#analytics`) - Charts, graphs, KPI cards
+15. **Notifications/Toasts** (`#notifications`) - Alert types, toast stack
+16. **Command Palette** (`#command-palette`) - Keyboard-driven command search
+17. **Agent Profile** (`#agent-profile`) - Detailed agent view with stats
+18. **Split View/Editor** (`#split-view`) - Code editor with preview pane
+
+**Vol.4 - Modals & Onboarding** (`templates-vol4.html`):
+19. **Modal/Dialog System** (`#modals`) - Confirmation, form, alert, command modals
+20. **Onboarding Wizard** (`#onboarding`) - Multi-step setup flow with progress
+
+**Specialty Templates**:
+- **Billing & Usage** (`templates-billing.html`) - Plan cards, usage meters, payment methods
+
 ## Development Workflow
 
 ### Getting Started
 
-1. Edit `index.html` directly
+1. Edit template files directly (index.html, templates-vol2.html, etc.)
 2. Open in browser to preview (or use local server)
 3. Commit and push changes
+4. Each template file is self-contained with its own CSS
 
 ### Serving Locally
 
