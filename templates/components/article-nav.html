@@ -1,0 +1,33 @@
+<!-- Article Navigation Component -->
+<!--
+  Variables:
+    - prev: { title, href } (optional)
+    - next: { title, href } (optional)
+-->
+<nav class="article-nav {{class}}">
+  {{#if prev}}
+  <a href="{{prev.href}}" class="article-nav-link prev">
+    <div class="nav-link-label">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
+        <path d="m15 18-6-6 6-6"/>
+      </svg>
+      Previous
+    </div>
+    <div class="nav-link-title">{{prev.title}}</div>
+  </a>
+  {{else}}
+  <div class="article-nav-link placeholder"></div>
+  {{/if}}
+
+  {{#if next}}
+  <a href="{{next.href}}" class="article-nav-link next">
+    <div class="nav-link-label">
+      Next
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
+        <path d="m9 18 6-6-6-6"/>
+      </svg>
+    </div>
+    <div class="nav-link-title">{{next.title}}</div>
+  </a>
+  {{/if}}
+</nav>

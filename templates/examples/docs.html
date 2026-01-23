@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quick Start — BlackRoad Docs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/variables.css">
+  <link rel="stylesheet" href="../styles/base.css">
+  <link rel="stylesheet" href="../styles/typography.css">
+  <link rel="stylesheet" href="../styles/components.css">
+  <link rel="stylesheet" href="../styles/docs.css">
+</head>
+<body class="docs-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="docs-sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">BlackRoad Docs</div>
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.35-4.35"/>
+        </svg>
+        <span class="search-text">Search docs...</span>
+        <span class="search-shortcut">⌘K</span>
+      </div>
+    </div>
+
+    <nav class="nav-section">
+      <div class="nav-label">Getting Started</div>
+      <a href="#" class="nav-item">Introduction</a>
+      <a href="#" class="nav-item active">Quick Start</a>
+      <a href="#" class="nav-item">Installation</a>
+      <a href="#" class="nav-item">Configuration</a>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">Core Concepts</div>
+      <a href="#" class="nav-item">Agents</a>
+      <div class="nav-group">
+        <a href="#" class="nav-item">Creating Agents</a>
+        <a href="#" class="nav-item">Agent Lifecycle</a>
+        <a href="#" class="nav-item">Communication</a>
+      </div>
+      <a href="#" class="nav-item">Memory</a>
+      <div class="nav-group">
+        <a href="#" class="nav-item">Journal Mode</a>
+        <a href="#" class="nav-item">PS-SHA Hashing</a>
+        <a href="#" class="nav-item">Persistence</a>
+      </div>
+      <a href="#" class="nav-item">Logic Engine</a>
+      <div class="nav-group">
+        <a href="#" class="nav-item">Trinary States</a>
+        <a href="#" class="nav-item">Contradictions</a>
+      </div>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">API Reference</div>
+      <a href="#" class="nav-item">REST API</a>
+      <a href="#" class="nav-item">WebSocket</a>
+      <a href="#" class="nav-item">Events</a>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">Guides</div>
+      <a href="#" class="nav-item">Deployment</a>
+      <a href="#" class="nav-item">Scaling</a>
+      <a href="#" class="nav-item">Security</a>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="docs-main">
+
+    <!-- CONTENT -->
+    <article class="docs-content">
+
+      <!-- BREADCRUMB -->
+      <nav class="breadcrumb">
+        <span>Docs</span>
+        <span class="breadcrumb-sep">/</span>
+        <span>Getting Started</span>
+        <span class="breadcrumb-sep">/</span>
+        <span class="breadcrumb-current">Quick Start</span>
+      </nav>
+
+      <!-- HEADER -->
+      <header class="article-header">
+        <h1 class="article-title">Quick Start</h1>
+        <div class="article-meta">
+          <div class="article-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+              <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+            </svg>
+            <span>5 min read</span>
+          </div>
+          <div class="article-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+            </svg>
+            <span>Updated Jan 15, 2024</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- PROSE -->
+      <div class="prose">
+
+        <p>This guide will help you get up and running with BlackRoad in under five minutes. You'll create your first agent and understand the basic concepts of the system.</p>
+
+        <div class="callout callout-note">
+          <div class="callout-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+            </svg>
+          </div>
+          <div class="callout-content">
+            <div class="callout-title">Prerequisites</div>
+            <div>Before starting, ensure you have Node.js 18+ and npm installed on your system.</div>
+          </div>
+        </div>
+
+        <h2>Installation</h2>
+
+        <p>Install the BlackRoad CLI globally using npm. This provides you with the <code>blackroad</code> command for managing your projects.</p>
+
+        <pre><code># Install BlackRoad CLI
+npm install -g @blackroad/cli
+
+# Initialize a new project
+blackroad init my-project
+
+# Start the development server
+cd my-project && blackroad dev</code></pre>
+
+        <h2>Creating Your First Agent</h2>
+
+        <p>Agents are the core building blocks of BlackRoad. Each agent has its own memory, logic engine, and can communicate with other agents in the network.</p>
+
+        <pre><code>import { Agent } from '@blackroad/core';
+
+const agent = new Agent({
+  name: 'Lucidia',
+  role: 'Core Intelligence',
+  memory: {
+    type: 'journal',
+    persistence: true
+  }
+});
+
+await agent.start();</code></pre>
+
+        <h3>Agent Configuration</h3>
+
+        <p>The agent constructor accepts several configuration options. Here's a complete reference:</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Option</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>name</code></td>
+              <td><code>string</code></td>
+              <td>—</td>
+              <td>Unique identifier for the agent</td>
+            </tr>
+            <tr>
+              <td><code>role</code></td>
+              <td><code>string</code></td>
+              <td>—</td>
+              <td>Description of the agent's function</td>
+            </tr>
+            <tr>
+              <td><code>memory</code></td>
+              <td><code>object</code></td>
+              <td><code>{}</code></td>
+              <td>Memory configuration object</td>
+            </tr>
+            <tr>
+              <td><code>logic</code></td>
+              <td><code>string</code></td>
+              <td><code>"trinary"</code></td>
+              <td>Logic engine type (trinary, binary)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>Memory System</h2>
+
+        <p>BlackRoad uses an append-only journal system for memory persistence. This ensures complete auditability and prevents data corruption through immutable logging.</p>
+
+        <div class="callout callout-tip">
+          <div class="callout-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+              <path d="M12 2v1M12 21v1M4.22 4.22l.77.77M18.01 4.22l-.77.77M1 12h2M21 12h2"/>
+              <circle cx="12" cy="12" r="5"/>
+            </svg>
+          </div>
+          <div class="callout-content">
+            <div class="callout-title">Tip</div>
+            <div>For development, you can use mutable memory mode for faster iteration. Switch to journal mode for production deployments.</div>
+          </div>
+        </div>
+
+        <ul>
+          <li><strong>Append-only journal</strong> — All memory operations are logged immutably</li>
+          <li><strong>PS-SHA hashing</strong> — Cryptographic verification of memory integrity</li>
+          <li><strong>Automatic persistence</strong> — Memory state is saved on every operation</li>
+          <li><strong>Point-in-time recovery</strong> — Restore to any previous state</li>
+        </ul>
+
+        <h2>Next Steps</h2>
+
+        <p>Now that you have a basic agent running, explore these topics to build more sophisticated systems:</p>
+
+        <ol>
+          <li><a href="#">Learn about agent communication</a> — Enable agents to work together</li>
+          <li><a href="#">Configure the logic engine</a> — Handle complex reasoning with trinary states</li>
+          <li><a href="#">Deploy to production</a> — Scale your agent network across infrastructure</li>
+        </ol>
+
+      </div>
+
+      <!-- NAV FOOTER -->
+      <nav class="article-nav">
+        <a href="#" class="article-nav-link prev">
+          <div class="nav-link-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
+              <path d="m15 18-6-6 6-6"/>
+            </svg>
+            Previous
+          </div>
+          <div class="nav-link-title">Introduction</div>
+        </a>
+        <a href="#" class="article-nav-link next">
+          <div class="nav-link-label">
+            Next
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
+              <path d="m9 18 6-6-6-6"/>
+            </svg>
+          </div>
+          <div class="nav-link-title">Installation</div>
+        </a>
+      </nav>
+
+    </article>
+
+    <!-- TOC -->
+    <aside class="toc">
+      <div class="toc-title">On this page</div>
+      <ul class="toc-list">
+        <li class="toc-item active"><a href="#installation">Installation</a></li>
+        <li class="toc-item"><a href="#creating-your-first-agent">Creating Your First Agent</a></li>
+        <li class="toc-item nested"><a href="#agent-configuration">Agent Configuration</a></li>
+        <li class="toc-item"><a href="#memory-system">Memory System</a></li>
+        <li class="toc-item"><a href="#next-steps">Next Steps</a></li>
+      </ul>
+    </aside>
+
+  </main>
+
+</body>
+</html>

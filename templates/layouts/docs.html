@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}} — {{#if site_title}}{{site_title}}{{else}}Documentation{{/if}}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{base_url}}/templates/styles/variables.css">
+  <link rel="stylesheet" href="{{base_url}}/templates/styles/base.css">
+  <link rel="stylesheet" href="{{base_url}}/templates/styles/typography.css">
+  <link rel="stylesheet" href="{{base_url}}/templates/styles/components.css">
+  <link rel="stylesheet" href="{{base_url}}/templates/styles/docs.css">
+</head>
+<body class="docs-layout">
+  <!-- Docs Sidebar -->
+  {{> docs-sidebar}}
+
+  <!-- Main Content -->
+  <main class="docs-main">
+    <!-- Article Content -->
+    <article class="docs-content">
+      <!-- Breadcrumb -->
+      {{#if breadcrumb}}
+      {{> breadcrumb}}
+      {{/if}}
+
+      <!-- Article Header -->
+      <header class="article-header">
+        <h1 class="article-title">{{page_title}}</h1>
+        {{#if meta}}
+        <div class="article-meta">
+          {{#if meta.read_time}}
+          <div class="article-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+            </svg>
+            <span>{{meta.read_time}}</span>
+          </div>
+          {{/if}}
+          {{#if meta.updated}}
+          <div class="article-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+            </svg>
+            <span>Updated {{meta.updated}}</span>
+          </div>
+          {{/if}}
+        </div>
+        {{/if}}
+      </header>
+
+      <!-- Prose Content -->
+      <div class="prose">
+        {{content}}
+      </div>
+
+      <!-- Article Navigation -->
+      {{#if nav}}
+      {{> article-nav}}
+      {{/if}}
+    </article>
+
+    <!-- Table of Contents -->
+    {{#if toc}}
+    {{> toc}}
+    {{/if}}
+  </main>
+</body>
+</html>

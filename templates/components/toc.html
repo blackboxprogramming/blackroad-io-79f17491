@@ -1,0 +1,16 @@
+<!-- Table of Contents Component -->
+<!--
+  Variables:
+    - title: TOC title (default: "On this page")
+    - items: Array of { text, href, active, nested }
+-->
+<aside class="toc">
+  <div class="toc-title">{{#if title}}{{title}}{{else}}On this page{{/if}}</div>
+  <ul class="toc-list">
+    {{#each items}}
+    <li class="toc-item {{#if active}}active{{/if}} {{#if nested}}nested{{/if}}">
+      <a href="{{href}}">{{text}}</a>
+    </li>
+    {{/each}}
+  </ul>
+</aside>

@@ -1,0 +1,46 @@
+<!-- Documentation Sidebar Component -->
+<!--
+  Variables:
+    - logo: Logo text (default: "Docs")
+    - search_placeholder: Search placeholder text
+    - sections: Array of {
+        label: string,
+        items: Array of {
+          text: string,
+          href: string,
+          active: boolean,
+          children: Array of { text, href, active } (optional)
+        }
+      }
+-->
+<aside class="docs-sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">{{#if logo}}{{logo}}{{else}}Docs{{/if}}</div>
+    <div class="search-box">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="m21 21-4.35-4.35"/>
+      </svg>
+      <span class="search-text">{{#if search_placeholder}}{{search_placeholder}}{{else}}Search docs...{{/if}}</span>
+      <span class="search-shortcut">⌘K</span>
+    </div>
+  </div>
+
+  {{#each sections}}
+  <nav class="nav-section">
+    {{#if label}}
+    <div class="nav-label">{{label}}</div>
+    {{/if}}
+    {{#each items}}
+    <a href="{{href}}" class="nav-item {{#if active}}active{{/if}}">{{text}}</a>
+    {{#if children}}
+    <div class="nav-group">
+      {{#each children}}
+      <a href="{{href}}" class="nav-item {{#if active}}active{{/if}}">{{text}}</a>
+      {{/each}}
+    </div>
+    {{/if}}
+    {{/each}}
+  </nav>
+  {{/each}}
+</aside>
