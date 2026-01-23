@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics — BlackRoad</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/variables.css">
+  <link rel="stylesheet" href="../styles/base.css">
+  <link rel="stylesheet" href="../styles/typography.css">
+  <link rel="stylesheet" href="../styles/components.css">
+  <link rel="stylesheet" href="../styles/dashboard.css">
+  <link rel="stylesheet" href="../styles/analytics.css">
+</head>
+<body>
+  <div class="analytics-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">BlackRoad</div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+            <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+          </svg>
+          Dashboard
+        </a>
+        <a href="#" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+          Agents
+        </a>
+        <a href="#" class="nav-item active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+            <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+          </svg>
+          Analytics
+        </a>
+        <a href="#" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+          Activity
+        </a>
+        <a href="#" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+            <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+          Settings
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="analytics-main">
+      <!-- Header -->
+      <header class="analytics-header">
+        <div class="header-content">
+          <h1 class="page-title">Analytics</h1>
+          <p class="page-subtitle">Monitor agent performance and system metrics</p>
+        </div>
+        <div class="header-actions">
+          <span class="live-badge">
+            <span class="live-dot active"></span>
+            Live
+          </span>
+          <div class="date-picker">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            Jan 17 - Jan 23, 2025
+          </div>
+          <button class="btn btn-ghost">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Export
+          </button>
+        </div>
+      </header>
+
+      <!-- KPI Cards -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <span class="kpi-label">Total Agents</span>
+            <span class="kpi-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </span>
+          </div>
+          <div class="kpi-value">24</div>
+          <div class="kpi-change">
+            <span class="change-indicator positive">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
+                <polyline points="18 15 12 9 6 15"/>
+              </svg>
+            </span>
+            <span class="change-positive">+3</span>
+            <span class="change-text">from last week</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <span class="kpi-label">Tasks Completed</span>
+            <span class="kpi-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+            </span>
+          </div>
+          <div class="kpi-value">1,847</div>
+          <div class="kpi-change">
+            <span class="change-indicator positive">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
+                <polyline points="18 15 12 9 6 15"/>
+              </svg>
+            </span>
+            <span class="change-positive">+12.5%</span>
+            <span class="change-text">from last week</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <span class="kpi-label">Memory Entries</span>
+            <span class="kpi-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+              </svg>
+            </span>
+          </div>
+          <div class="kpi-value">45.2K</div>
+          <div class="kpi-change">
+            <span class="change-indicator positive">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
+                <polyline points="18 15 12 9 6 15"/>
+              </svg>
+            </span>
+            <span class="change-positive">+847</span>
+            <span class="change-text">today</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <span class="kpi-label">Avg Response Time</span>
+            <span class="kpi-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </span>
+          </div>
+          <div class="kpi-value">142ms</div>
+          <div class="kpi-change">
+            <span class="change-indicator negative">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </span>
+            <span class="change-negative">-23ms</span>
+            <span class="change-text">improved</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts Row -->
+      <div class="charts-row">
+        <div class="chart-card">
+          <div class="chart-header">
+            <span class="chart-title">Agent Activity</span>
+            <div class="chart-tabs">
+              <button class="chart-tab active">7D</button>
+              <button class="chart-tab">30D</button>
+              <button class="chart-tab">90D</button>
+            </div>
+          </div>
+          <div class="line-chart">
+            <div class="chart-grid">
+              <div class="grid-line"><span class="grid-label">800</span></div>
+              <div class="grid-line"><span class="grid-label">600</span></div>
+              <div class="grid-line"><span class="grid-label">400</span></div>
+              <div class="grid-line"><span class="grid-label">200</span></div>
+              <div class="grid-line"><span class="grid-label">0</span></div>
+            </div>
+            <div class="chart-area"></div>
+            <div class="chart-line"></div>
+            <div class="chart-line chart-line-2"></div>
+          </div>
+          <div class="chart-x-axis">
+            <span class="x-label">Mon</span>
+            <span class="x-label">Tue</span>
+            <span class="x-label">Wed</span>
+            <span class="x-label">Thu</span>
+            <span class="x-label">Fri</span>
+            <span class="x-label">Sat</span>
+            <span class="x-label">Sun</span>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-header">
+            <span class="chart-title">Task Distribution</span>
+          </div>
+          <div class="donut-chart">
+            <div class="donut-ring">
+              <div class="donut-segment"></div>
+              <div class="donut-center">
+                <span class="donut-value">2,156</span>
+                <span class="donut-label">Total Tasks</span>
+              </div>
+            </div>
+          </div>
+          <div class="chart-legend">
+            <div class="legend-item">
+              <span class="legend-label">
+                <span class="legend-dot" style="background: var(--gray-400)"></span>
+                Completed
+              </span>
+              <span class="legend-value">1,847</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-label">
+                <span class="legend-dot" style="background: var(--gray-600)"></span>
+                In Progress
+              </span>
+              <span class="legend-value">189</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-label">
+                <span class="legend-dot" style="background: var(--gray-700)"></span>
+                Pending
+              </span>
+              <span class="legend-value">120</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Row -->
+      <div class="bottom-row">
+        <div class="chart-card">
+          <div class="chart-header">
+            <span class="chart-title">Performance by Category</span>
+          </div>
+          <div class="bar-chart">
+            <div class="bar-row">
+              <span class="bar-label">Code Generation</span>
+              <div class="bar-track">
+                <div class="bar-fill" style="width: 85%"></div>
+              </div>
+              <span class="bar-value">85%</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">Data Analysis</span>
+              <div class="bar-track">
+                <div class="bar-fill" style="width: 72%"></div>
+              </div>
+              <span class="bar-value">72%</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">Documentation</span>
+              <div class="bar-track">
+                <div class="bar-fill" style="width: 64%"></div>
+              </div>
+              <span class="bar-value">64%</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">Testing</span>
+              <div class="bar-track">
+                <div class="bar-fill" style="width: 58%"></div>
+              </div>
+              <span class="bar-value">58%</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">DevOps</span>
+              <div class="bar-track">
+                <div class="bar-fill" style="width: 45%"></div>
+              </div>
+              <span class="bar-value">45%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-header">
+            <span class="chart-title">Top Performing Agents</span>
+          </div>
+          <table class="analytics-table">
+            <thead>
+              <tr>
+                <th>Agent</th>
+                <th>Tasks</th>
+                <th>Trend</th>
+                <th>Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="table-name">
+                    <span class="table-avatar"></span>
+                    <span class="table-primary">Atlas</span>
+                  </div>
+                </td>
+                <td class="table-mono">342</td>
+                <td><div class="sparkline"></div></td>
+                <td class="table-mono">98.2</td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="table-name">
+                    <span class="table-avatar"></span>
+                    <span class="table-primary">Nova</span>
+                  </div>
+                </td>
+                <td class="table-mono">287</td>
+                <td><div class="sparkline"></div></td>
+                <td class="table-mono">96.8</td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="table-name">
+                    <span class="table-avatar"></span>
+                    <span class="table-primary">Echo</span>
+                  </div>
+                </td>
+                <td class="table-mono">256</td>
+                <td><div class="sparkline"></div></td>
+                <td class="table-mono">94.5</td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="table-name">
+                    <span class="table-avatar"></span>
+                    <span class="table-primary">Sentinel</span>
+                  </div>
+                </td>
+                <td class="table-mono">198</td>
+                <td><div class="sparkline"></div></td>
+                <td class="table-mono">92.1</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
