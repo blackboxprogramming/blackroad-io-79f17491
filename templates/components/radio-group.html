@@ -1,0 +1,26 @@
+<!-- Radio Group Component -->
+<!--
+  Variables:
+    - name: Input name for the radio group
+    - options: Array of { value, label, description, selected }
+-->
+<div class="radio-group {{class}}">
+  {{#each options}}
+  <label class="radio-item {{#if selected}}selected{{/if}}">
+    <input
+      type="radio"
+      name="{{../name}}"
+      value="{{value}}"
+      class="radio-input"
+      {{#if selected}}checked{{/if}}
+    >
+    <span class="radio-circle"></span>
+    <div class="radio-content">
+      <div class="radio-label">{{label}}</div>
+      {{#if description}}
+      <div class="radio-desc">{{description}}</div>
+      {{/if}}
+    </div>
+  </label>
+  {{/each}}
+</div>

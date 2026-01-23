@@ -1,0 +1,20 @@
+<!-- Page Header Component -->
+<!--
+  Variables:
+    - title: Page title
+    - subtitle: Page subtitle/description (optional)
+    - actions: HTML for action buttons (optional)
+-->
+<div class="page-header {{class}}">
+  <div class="page-header-content">
+    <h1 class="page-title">{{title}}</h1>
+    {{#if subtitle}}
+    <p class="page-subtitle">{{subtitle}}</p>
+    {{/if}}
+  </div>
+  {{#if actions}}
+  <div class="header-actions">
+    {{actions}}
+  </div>
+  {{/if}}
+</div>

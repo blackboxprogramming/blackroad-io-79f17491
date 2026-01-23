@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}} — Settings — BlackRoad</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{base_url}}/templates/styles/variables.css">
+  <link rel="stylesheet" href="{{base_url}}/templates/styles/base.css">
+  <link rel="stylesheet" href="{{base_url}}/templates/styles/typography.css">
+  <link rel="stylesheet" href="{{base_url}}/templates/styles/components.css">
+  <link rel="stylesheet" href="{{base_url}}/templates/styles/settings.css">
+</head>
+<body class="settings-layout">
+  <!-- Settings Navigation -->
+  {{> settings-nav}}
+
+  <!-- Settings Main Content -->
+  <main class="settings-main">
+    <div class="settings-header">
+      <h1 class="settings-title">{{page_title}}</h1>
+      {{#if page_desc}}
+      <p class="settings-desc">{{page_desc}}</p>
+      {{/if}}
+    </div>
+
+    {{content}}
+
+    {{#if show_save}}
+    <div class="btn-row">
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+      <button type="button" class="btn btn-ghost">Cancel</button>
+    </div>
+    {{/if}}
+  </main>
+</body>
+</html>

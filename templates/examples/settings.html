@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile — Settings — BlackRoad</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/variables.css">
+  <link rel="stylesheet" href="../styles/base.css">
+  <link rel="stylesheet" href="../styles/typography.css">
+  <link rel="stylesheet" href="../styles/components.css">
+  <link rel="stylesheet" href="../styles/settings.css">
+</head>
+<body class="settings-layout">
+
+  <!-- SETTINGS NAV -->
+  <aside class="settings-nav">
+    <div class="nav-header">
+      <div class="nav-title">Settings</div>
+    </div>
+
+    <nav class="nav-section">
+      <div class="nav-label">General</div>
+      <a href="#" class="nav-item active">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
+          </svg>
+        </span>
+        Profile
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 6v6l4 2"/>
+          </svg>
+        </span>
+        Appearance
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+        </span>
+        Notifications
+      </a>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">System</div>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+            <path d="M8 21h8M12 17v4"/>
+          </svg>
+        </span>
+        Memory
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <path d="M12 20V10M18 20V4M6 20v-4"/>
+          </svg>
+        </span>
+        Logic Engine
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+          </svg>
+        </span>
+        Agents
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </span>
+        API Keys
+      </a>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">Advanced</div>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <path d="M16 18l2-2v-3a2 2 0 0 0-2-2h-1a2 2 0 0 1-2-2V7a2 2 0 0 0-2-2H8L6 7"/>
+            <path d="M18 22H6a2 2 0 0 1-2-2V8l4-4h8a2 2 0 0 1 2 2v16"/>
+          </svg>
+        </span>
+        Developer
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+        </span>
+        Danger Zone
+      </a>
+    </nav>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="settings-main">
+
+    <div class="settings-header">
+      <h1 class="settings-title">Profile</h1>
+      <p class="settings-desc">Manage your account settings and preferences</p>
+    </div>
+
+    <!-- SECTION: OPERATOR INFO -->
+    <div class="settings-section">
+      <div class="settings-section-header">
+        <h2 class="settings-section-title">Operator Information</h2>
+        <p class="settings-section-desc">Your identity within the BlackRoad system</p>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Display Name</label>
+          <input type="text" class="input" value="Cecilia">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Handle</label>
+          <input type="text" class="input input-mono" value="@cecilia">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" class="input" value="cecilia@blackroad.local">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Bio</label>
+        <textarea class="input textarea">System operator and agent coordinator for the BlackRoad network.</textarea>
+        <p class="form-hint">Brief description visible to other operators</p>
+      </div>
+    </div>
+
+    <!-- SECTION: PREFERENCES -->
+    <div class="settings-section">
+      <div class="settings-section-header">
+        <h2 class="settings-section-title">Preferences</h2>
+        <p class="settings-section-desc">Customize your experience</p>
+      </div>
+
+      <div class="toggle-group">
+        <div class="toggle-info">
+          <div class="toggle-label">Dark Mode</div>
+          <div class="toggle-desc">Use dark theme across the interface</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" class="toggle-input" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+      <div class="toggle-group">
+        <div class="toggle-info">
+          <div class="toggle-label">Sound Effects</div>
+          <div class="toggle-desc">Play sounds for notifications and events</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" class="toggle-input">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+      <div class="toggle-group">
+        <div class="toggle-info">
+          <div class="toggle-label">Compact View</div>
+          <div class="toggle-desc">Reduce spacing for denser information display</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" class="toggle-input">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+      <div class="toggle-group">
+        <div class="toggle-info">
+          <div class="toggle-label">Show Agent Avatars</div>
+          <div class="toggle-desc">Display visual avatars in agent lists</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" class="toggle-input" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- SECTION: MEMORY MODE -->
+    <div class="settings-section">
+      <div class="settings-section-header">
+        <h2 class="settings-section-title">Memory Mode</h2>
+        <p class="settings-section-desc">Configure how the system handles memory persistence</p>
+      </div>
+
+      <div class="radio-group">
+        <label class="radio-item selected">
+          <input type="radio" name="memory_mode" value="append" class="radio-input" checked>
+          <span class="radio-circle"></span>
+          <div class="radio-content">
+            <div class="radio-label">Append-Only Journal</div>
+            <div class="radio-desc">Immutable log with PS-SHA hashing. Maximum auditability.</div>
+          </div>
+        </label>
+        <label class="radio-item">
+          <input type="radio" name="memory_mode" value="mutable" class="radio-input">
+          <span class="radio-circle"></span>
+          <div class="radio-content">
+            <div class="radio-label">Mutable State</div>
+            <div class="radio-desc">Allows overwrites. Faster but less traceable.</div>
+          </div>
+        </label>
+        <label class="radio-item">
+          <input type="radio" name="memory_mode" value="hybrid" class="radio-input">
+          <span class="radio-circle"></span>
+          <div class="radio-content">
+            <div class="radio-label">Hybrid</div>
+            <div class="radio-desc">Journal for critical data, mutable for ephemeral state.</div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- SECTION: SYSTEM INFO -->
+    <div class="settings-section">
+      <div class="settings-section-header">
+        <h2 class="settings-section-title">System Information</h2>
+        <p class="settings-section-desc">Read-only configuration values</p>
+      </div>
+
+      <div class="kv-list">
+        <div class="kv-row">
+          <div class="kv-key">Operator ID</div>
+          <div class="kv-value">OPR-7f3a8c2b-9d4e</div>
+        </div>
+        <div class="kv-row">
+          <div class="kv-key">Instance</div>
+          <div class="kv-value">blackroad-alpha-01</div>
+        </div>
+        <div class="kv-row">
+          <div class="kv-key">Version</div>
+          <div class="kv-value">0.4.2-alpha</div>
+        </div>
+        <div class="kv-row">
+          <div class="kv-key">Logic Engine</div>
+          <div class="kv-value">Trinary (1/0/-1)</div>
+        </div>
+        <div class="kv-row">
+          <div class="kv-key">Memory Backend</div>
+          <div class="kv-value">PS-SHA-Infinity</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION: DANGER -->
+    <div class="settings-section">
+      <div class="danger-zone">
+        <div class="settings-section-header">
+          <h2 class="settings-section-title">Danger Zone</h2>
+        </div>
+
+        <div class="danger-item">
+          <div class="danger-info">
+            <div class="danger-label">Reset Preferences</div>
+            <div class="danger-desc">Restore all settings to default values</div>
+          </div>
+          <button class="btn btn-ghost">Reset</button>
+        </div>
+
+        <div class="danger-item">
+          <div class="danger-info">
+            <div class="danger-label">Clear Memory Cache</div>
+            <div class="danger-desc">Purge all cached memory entries</div>
+          </div>
+          <button class="btn btn-ghost">Clear</button>
+        </div>
+
+        <div class="danger-item">
+          <div class="danger-info">
+            <div class="danger-label">Delete Account</div>
+            <div class="danger-desc">Permanently remove your operator profile</div>
+          </div>
+          <button class="btn btn-danger">Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SAVE -->
+    <div class="btn-row">
+      <button class="btn btn-primary">Save Changes</button>
+      <button class="btn btn-ghost">Cancel</button>
+    </div>
+
+  </main>
+
+</body>
+</html>

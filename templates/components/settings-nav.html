@@ -1,0 +1,29 @@
+<!-- Settings Navigation Component -->
+<!--
+  Variables:
+    - title: Navigation header title (default: "Settings")
+    - sections: Array of { label, items: [{ href, icon, text, active }] }
+-->
+<aside class="settings-nav">
+  <div class="nav-header">
+    <div class="nav-title">{{#if title}}{{title}}{{else}}Settings{{/if}}</div>
+  </div>
+
+  {{#each sections}}
+  <nav class="nav-section">
+    {{#if label}}
+    <div class="nav-label">{{label}}</div>
+    {{/if}}
+    {{#each items}}
+    <a href="{{href}}" class="nav-item {{#if active}}active{{/if}}">
+      {{#if icon}}
+      <span class="nav-icon">{{icon}}</span>
+      {{else}}
+      <span class="nav-icon"></span>
+      {{/if}}
+      {{text}}
+    </a>
+    {{/each}}
+  </nav>
+  {{/each}}
+</aside>
