@@ -1,12 +1,1746 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>BlackRoad</title>
-  </head>
-  <body style="font-family: system-ui; padding: 40px;">
-    <h1>BlackRoad</h1>
-    <p>Building sovereign, local-first AI systems.</p>
-    <p>Status: Online.</p>
-  </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackRoad OS - Grayscale Templates</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Grayscale Foundation */
+            --gray-950: #0a0a0a;
+            --gray-900: #121212;
+            --gray-850: #1a1a1a;
+            --gray-800: #1f1f1f;
+            --gray-700: #2d2d2d;
+            --gray-600: #404040;
+            --gray-500: #525252;
+            --gray-400: #737373;
+            --gray-300: #a3a3a3;
+            --gray-200: #d4d4d4;
+            --gray-100: #e5e5e5;
+            --gray-50: #f5f5f5;
+
+            /* Accent Layer (used sparingly) */
+            --accent-orange: #ff6b00;
+            --accent-pink: #ff1493;
+            --accent-magenta: #ff00ff;
+            --accent-blue: #1e90ff;
+
+            /* Typography */
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--gray-950);
+            color: var(--gray-200);
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           TEMPLATE NAVIGATOR
+        ═══════════════════════════════════════════════════════════════ */
+        .template-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--gray-900);
+            border-bottom: 1px solid var(--gray-800);
+            padding: 12px 24px;
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            backdrop-filter: blur(12px);
+        }
+
+        .template-nav-label {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .template-nav a {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--gray-400);
+            text-decoration: none;
+            padding: 6px 12px;
+            border: 1px solid var(--gray-700);
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .template-nav a:hover {
+            color: var(--gray-100);
+            border-color: var(--gray-500);
+            background: var(--gray-800);
+        }
+
+        .template-section {
+            min-height: 100vh;
+            padding: 80px 0 40px;
+            border-bottom: 1px solid var(--gray-800);
+        }
+
+        .template-header {
+            padding: 24px 48px;
+            border-bottom: 1px solid var(--gray-800);
+            margin-bottom: 40px;
+        }
+
+        .template-title {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 4px;
+        }
+
+        .template-name {
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--gray-100);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           TEMPLATE 1: HERO LANDING
+        ═══════════════════════════════════════════════════════════════ */
+        .hero-landing {
+            background: linear-gradient(180deg, var(--gray-950) 0%, var(--gray-900) 100%);
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 48px;
+        }
+
+        .hero-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            border-bottom: 1px solid var(--gray-800);
+        }
+
+        .hero-logo {
+            font-family: var(--font-display);
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--gray-100);
+            letter-spacing: -0.02em;
+        }
+
+        .hero-logo span {
+            color: var(--gray-500);
+            font-weight: 400;
+        }
+
+        .hero-nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .hero-nav-links a {
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: var(--gray-400);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .hero-nav-links a:hover {
+            color: var(--gray-100);
+        }
+
+        .hero-content {
+            padding: 120px 0;
+            max-width: 800px;
+        }
+
+        .hero-tag {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero-tag::before {
+            content: '';
+            width: 24px;
+            height: 1px;
+            background: var(--gray-600);
+        }
+
+        .hero-headline {
+            font-family: var(--font-display);
+            font-size: 64px;
+            font-weight: 700;
+            color: var(--gray-50);
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 24px;
+        }
+
+        .hero-headline .highlight {
+            color: var(--gray-400);
+        }
+
+        .hero-subhead {
+            font-family: var(--font-body);
+            font-size: 18px;
+            color: var(--gray-400);
+            line-height: 1.7;
+            margin-bottom: 48px;
+            max-width: 560px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+        }
+
+        .btn-primary {
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 500;
+            padding: 14px 28px;
+            background: var(--gray-100);
+            color: var(--gray-900);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--gray-50);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 500;
+            padding: 14px 28px;
+            background: transparent;
+            color: var(--gray-300);
+            border: 1px solid var(--gray-700);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--gray-500);
+            color: var(--gray-100);
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--gray-800);
+            border: 1px solid var(--gray-800);
+            margin-top: 80px;
+        }
+
+        .hero-stat {
+            background: var(--gray-900);
+            padding: 32px;
+        }
+
+        .hero-stat-value {
+            font-family: var(--font-display);
+            font-size: 36px;
+            font-weight: 600;
+            color: var(--gray-100);
+            margin-bottom: 8px;
+        }
+
+        .hero-stat-label {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           TEMPLATE 2: DASHBOARD LAYOUT
+        ═══════════════════════════════════════════════════════════════ */
+        .dashboard-layout {
+            background: var(--gray-950);
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            min-height: calc(100vh - 80px);
+        }
+
+        .dashboard-sidebar {
+            background: var(--gray-900);
+            border-right: 1px solid var(--gray-800);
+            padding: 24px 0;
+        }
+
+        .sidebar-brand {
+            padding: 0 20px 24px;
+            border-bottom: 1px solid var(--gray-800);
+            margin-bottom: 24px;
+        }
+
+        .sidebar-brand-text {
+            font-family: var(--font-display);
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--gray-100);
+        }
+
+        .sidebar-section {
+            margin-bottom: 24px;
+        }
+
+        .sidebar-section-title {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            padding: 0 20px;
+            margin-bottom: 8px;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 20px;
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: var(--gray-400);
+            text-decoration: none;
+            transition: all 0.15s ease;
+        }
+
+        .sidebar-link:hover {
+            background: var(--gray-850);
+            color: var(--gray-200);
+        }
+
+        .sidebar-link.active {
+            background: var(--gray-800);
+            color: var(--gray-100);
+            border-left: 2px solid var(--gray-400);
+        }
+
+        .sidebar-icon {
+            width: 16px;
+            height: 16px;
+            background: var(--gray-600);
+            border-radius: 3px;
+        }
+
+        .dashboard-main {
+            padding: 32px;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 32px;
+        }
+
+        .dashboard-title {
+            font-family: var(--font-display);
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--gray-100);
+            margin-bottom: 4px;
+        }
+
+        .dashboard-subtitle {
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: var(--gray-500);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .metric-card {
+            background: var(--gray-900);
+            border: 1px solid var(--gray-800);
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .metric-label {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+        }
+
+        .metric-value {
+            font-family: var(--font-display);
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--gray-100);
+            margin-bottom: 8px;
+        }
+
+        .metric-change {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--gray-400);
+        }
+
+        .metric-change.positive {
+            color: var(--gray-300);
+        }
+
+        .dashboard-table {
+            background: var(--gray-900);
+            border: 1px solid var(--gray-800);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .table-header {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 80px;
+            padding: 16px 24px;
+            background: var(--gray-850);
+            border-bottom: 1px solid var(--gray-800);
+        }
+
+        .table-header span {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .table-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 80px;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--gray-800);
+            align-items: center;
+            transition: background 0.15s ease;
+        }
+
+        .table-row:last-child {
+            border-bottom: none;
+        }
+
+        .table-row:hover {
+            background: var(--gray-850);
+        }
+
+        .table-cell {
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: var(--gray-300);
+        }
+
+        .table-cell.mono {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--gray-400);
+        }
+
+        .table-cell.primary {
+            color: var(--gray-100);
+            font-weight: 500;
+        }
+
+        .status-badge {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .status-badge.active {
+            background: var(--gray-800);
+            color: var(--gray-300);
+        }
+
+        .status-badge.pending {
+            background: var(--gray-800);
+            color: var(--gray-500);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           TEMPLATE 3: AGENT CARDS
+        ═══════════════════════════════════════════════════════════════ */
+        .agent-cards-section {
+            background: var(--gray-950);
+        }
+
+        .cards-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 48px;
+        }
+
+        .cards-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .cards-title {
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--gray-100);
+        }
+
+        .cards-filter {
+            display: flex;
+            gap: 8px;
+        }
+
+        .filter-btn {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            padding: 8px 16px;
+            background: transparent;
+            color: var(--gray-500);
+            border: 1px solid var(--gray-800);
+            border-radius: 4px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.15s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--gray-800);
+            color: var(--gray-200);
+            border-color: var(--gray-700);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .agent-card {
+            background: var(--gray-900);
+            border: 1px solid var(--gray-800);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .agent-card:hover {
+            border-color: var(--gray-700);
+            transform: translateY(-2px);
+        }
+
+        .agent-card-header {
+            padding: 24px 24px 0;
+            display: flex;
+            gap: 16px;
+        }
+
+        .agent-avatar {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--gray-700) 0%, var(--gray-800) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--gray-400);
+        }
+
+        .agent-info {
+            flex: 1;
+        }
+
+        .agent-name {
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--gray-100);
+            margin-bottom: 4px;
+        }
+
+        .agent-role {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .agent-card-body {
+            padding: 20px 24px;
+        }
+
+        .agent-desc {
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: var(--gray-400);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .agent-capabilities {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .capability-tag {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            padding: 4px 10px;
+            background: var(--gray-800);
+            color: var(--gray-400);
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .agent-card-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--gray-800);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .agent-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--gray-500);
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--gray-500);
+            border-radius: 50%;
+        }
+
+        .status-dot.online {
+            background: var(--gray-300);
+        }
+
+        .agent-action {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--gray-400);
+            text-decoration: none;
+            padding: 6px 12px;
+            border: 1px solid var(--gray-700);
+            border-radius: 4px;
+            transition: all 0.15s ease;
+        }
+
+        .agent-action:hover {
+            color: var(--gray-100);
+            border-color: var(--gray-500);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           TEMPLATE 4: DOCUMENTATION
+        ═══════════════════════════════════════════════════════════════ */
+        .docs-section {
+            background: var(--gray-950);
+        }
+
+        .docs-layout {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 260px 1fr 200px;
+            gap: 1px;
+            background: var(--gray-800);
+            min-height: calc(100vh - 80px);
+        }
+
+        .docs-nav {
+            background: var(--gray-900);
+            padding: 32px 24px;
+        }
+
+        .docs-nav-section {
+            margin-bottom: 28px;
+        }
+
+        .docs-nav-title {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 12px;
+        }
+
+        .docs-nav-link {
+            display: block;
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: var(--gray-400);
+            text-decoration: none;
+            padding: 8px 0;
+            transition: color 0.15s ease;
+        }
+
+        .docs-nav-link:hover {
+            color: var(--gray-200);
+        }
+
+        .docs-nav-link.active {
+            color: var(--gray-100);
+        }
+
+        .docs-content {
+            background: var(--gray-950);
+            padding: 48px 64px;
+        }
+
+        .docs-breadcrumb {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--gray-500);
+            margin-bottom: 24px;
+        }
+
+        .docs-breadcrumb a {
+            color: var(--gray-500);
+            text-decoration: none;
+        }
+
+        .docs-breadcrumb a:hover {
+            color: var(--gray-300);
+        }
+
+        .docs-h1 {
+            font-family: var(--font-display);
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--gray-50);
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .docs-lead {
+            font-family: var(--font-body);
+            font-size: 18px;
+            color: var(--gray-400);
+            line-height: 1.7;
+            margin-bottom: 48px;
+            max-width: 640px;
+        }
+
+        .docs-h2 {
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--gray-100);
+            margin: 48px 0 16px;
+        }
+
+        .docs-p {
+            font-family: var(--font-body);
+            font-size: 16px;
+            color: var(--gray-300);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            max-width: 720px;
+        }
+
+        .docs-code-block {
+            background: var(--gray-900);
+            border: 1px solid var(--gray-800);
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin: 24px 0;
+            overflow-x: auto;
+        }
+
+        .docs-code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--gray-800);
+        }
+
+        .docs-code-lang {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .docs-code-copy {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--gray-500);
+            background: none;
+            border: 1px solid var(--gray-700);
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .docs-code-copy:hover {
+            color: var(--gray-300);
+            border-color: var(--gray-500);
+        }
+
+        .docs-code {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--gray-300);
+            line-height: 1.6;
+        }
+
+        .docs-code .comment {
+            color: var(--gray-600);
+        }
+
+        .docs-code .keyword {
+            color: var(--gray-400);
+        }
+
+        .docs-code .string {
+            color: var(--gray-300);
+        }
+
+        .docs-toc {
+            background: var(--gray-900);
+            padding: 32px 20px;
+        }
+
+        .docs-toc-title {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 16px;
+        }
+
+        .docs-toc-link {
+            display: block;
+            font-family: var(--font-body);
+            font-size: 13px;
+            color: var(--gray-500);
+            text-decoration: none;
+            padding: 6px 0;
+            transition: color 0.15s ease;
+        }
+
+        .docs-toc-link:hover {
+            color: var(--gray-300);
+        }
+
+        .docs-toc-link.active {
+            color: var(--gray-200);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           TEMPLATE 5: TERMINAL/CLI AESTHETIC
+        ═══════════════════════════════════════════════════════════════ */
+        .terminal-section {
+            background: var(--gray-950);
+        }
+
+        .terminal-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 48px;
+        }
+
+        .terminal-window {
+            background: var(--gray-900);
+            border: 1px solid var(--gray-800);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .terminal-titlebar {
+            background: var(--gray-850);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--gray-800);
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--gray-700);
+        }
+
+        .terminal-title {
+            flex: 1;
+            text-align: center;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--gray-500);
+        }
+
+        .terminal-body {
+            padding: 24px;
+            font-family: var(--font-mono);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .terminal-line {
+            margin-bottom: 4px;
+        }
+
+        .terminal-prompt {
+            color: var(--gray-500);
+        }
+
+        .terminal-command {
+            color: var(--gray-200);
+        }
+
+        .terminal-output {
+            color: var(--gray-400);
+            padding-left: 0;
+        }
+
+        .terminal-success {
+            color: var(--gray-300);
+        }
+
+        .terminal-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 16px;
+            background: var(--gray-400);
+            animation: blink 1s infinite;
+            vertical-align: middle;
+            margin-left: 4px;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           TEMPLATE 6: PRICING/TIERS
+        ═══════════════════════════════════════════════════════════════ */
+        .pricing-section {
+            background: var(--gray-950);
+        }
+
+        .pricing-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 48px;
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .pricing-title {
+            font-family: var(--font-display);
+            font-size: 40px;
+            font-weight: 700;
+            color: var(--gray-50);
+            margin-bottom: 16px;
+        }
+
+        .pricing-subtitle {
+            font-family: var(--font-body);
+            font-size: 18px;
+            color: var(--gray-400);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .pricing-card {
+            background: var(--gray-900);
+            border: 1px solid var(--gray-800);
+            border-radius: 16px;
+            padding: 40px 32px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pricing-card.featured {
+            background: var(--gray-850);
+            border-color: var(--gray-700);
+            transform: scale(1.02);
+        }
+
+        .pricing-tier {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 8px;
+        }
+
+        .pricing-name {
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--gray-100);
+            margin-bottom: 16px;
+        }
+
+        .pricing-price {
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+
+        .pricing-amount {
+            font-family: var(--font-display);
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--gray-50);
+        }
+
+        .pricing-period {
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: var(--gray-500);
+        }
+
+        .pricing-desc {
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: var(--gray-400);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .pricing-features {
+            flex: 1;
+            margin-bottom: 32px;
+        }
+
+        .pricing-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 0;
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: var(--gray-300);
+        }
+
+        .pricing-check {
+            width: 16px;
+            height: 16px;
+            border: 1px solid var(--gray-600);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .pricing-check::after {
+            content: '✓';
+            font-size: 10px;
+            color: var(--gray-400);
+        }
+
+        .pricing-cta {
+            width: 100%;
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 500;
+            padding: 14px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .pricing-cta.primary {
+            background: var(--gray-100);
+            color: var(--gray-900);
+            border: none;
+        }
+
+        .pricing-cta.primary:hover {
+            background: var(--gray-50);
+        }
+
+        .pricing-cta.secondary {
+            background: transparent;
+            color: var(--gray-300);
+            border: 1px solid var(--gray-700);
+        }
+
+        .pricing-cta.secondary:hover {
+            border-color: var(--gray-500);
+            color: var(--gray-100);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           ACCENT LAYER DEMO
+        ═══════════════════════════════════════════════════════════════ */
+        .accent-demo {
+            background: var(--gray-950);
+            padding: 80px 48px;
+        }
+
+        .accent-title {
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--gray-100);
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .accent-swatches {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+
+        .accent-swatch {
+            text-align: center;
+        }
+
+        .swatch-color {
+            width: 64px;
+            height: 64px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+        }
+
+        .swatch-label {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .accent-gradient {
+            height: 4px;
+            max-width: 600px;
+            margin: 0 auto;
+            background: linear-gradient(90deg,
+                var(--accent-orange) 0%,
+                #ff4500 25%,
+                var(--accent-pink) 50%,
+                var(--accent-magenta) 75%,
+                var(--accent-blue) 100%
+            );
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Template Navigator -->
+    <nav class="template-nav">
+        <span class="template-nav-label">Templates</span>
+        <a href="#hero">Hero</a>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#agents">Agents</a>
+        <a href="#docs">Docs</a>
+        <a href="#terminal">Terminal</a>
+        <a href="#pricing">Pricing</a>
+    </nav>
+
+    <!-- Template 1: Hero Landing -->
+    <section id="hero" class="template-section hero-landing">
+        <div class="template-header">
+            <div class="template-title">Template 01</div>
+            <div class="template-name">Hero Landing</div>
+        </div>
+        <div class="hero-container">
+            <nav class="hero-nav">
+                <div class="hero-logo">BlackRoad<span>OS</span></div>
+                <div class="hero-nav-links">
+                    <a href="#">Platform</a>
+                    <a href="#">Agents</a>
+                    <a href="#">Docs</a>
+                    <a href="#">Pricing</a>
+                </div>
+            </nav>
+            <div class="hero-content">
+                <div class="hero-tag">Browser-Native Operating System</div>
+                <h1 class="hero-headline">
+                    Orchestrate intelligence <span class="highlight">at scale</span>
+                </h1>
+                <p class="hero-subhead">
+                    A new foundation for AI agent coordination. 30,000 agents serving millions of users through a unified browser-native infrastructure.
+                </p>
+                <div class="hero-actions">
+                    <button class="btn-primary">Get Started</button>
+                    <button class="btn-secondary">Read Docs</button>
+                </div>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-value">30K</div>
+                    <div class="hero-stat-label">Active Agents</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">1M+</div>
+                    <div class="hero-stat-label">Users Served</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">17</div>
+                    <div class="hero-stat-label">Domains</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">99.9%</div>
+                    <div class="hero-stat-label">Uptime</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Template 2: Dashboard -->
+    <section id="dashboard" class="template-section">
+        <div class="template-header">
+            <div class="template-title">Template 02</div>
+            <div class="template-name">Dashboard Layout</div>
+        </div>
+        <div class="dashboard-layout">
+            <aside class="dashboard-sidebar">
+                <div class="sidebar-brand">
+                    <div class="sidebar-brand-text">Prism Console</div>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Overview</div>
+                    <a href="#" class="sidebar-link active">
+                        <div class="sidebar-icon"></div>
+                        Dashboard
+                    </a>
+                    <a href="#" class="sidebar-link">
+                        <div class="sidebar-icon"></div>
+                        Analytics
+                    </a>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Infrastructure</div>
+                    <a href="#" class="sidebar-link">
+                        <div class="sidebar-icon"></div>
+                        Agents
+                    </a>
+                    <a href="#" class="sidebar-link">
+                        <div class="sidebar-icon"></div>
+                        Workers
+                    </a>
+                    <a href="#" class="sidebar-link">
+                        <div class="sidebar-icon"></div>
+                        Databases
+                    </a>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Settings</div>
+                    <a href="#" class="sidebar-link">
+                        <div class="sidebar-icon"></div>
+                        Configuration
+                    </a>
+                    <a href="#" class="sidebar-link">
+                        <div class="sidebar-icon"></div>
+                        API Keys
+                    </a>
+                </div>
+            </aside>
+            <main class="dashboard-main">
+                <div class="dashboard-header">
+                    <div>
+                        <h1 class="dashboard-title">Dashboard</h1>
+                        <p class="dashboard-subtitle">Monitor your agent infrastructure</p>
+                    </div>
+                    <button class="btn-secondary">Export</button>
+                </div>
+                <div class="dashboard-grid">
+                    <div class="metric-card">
+                        <div class="metric-label">Total Agents</div>
+                        <div class="metric-value">1,247</div>
+                        <div class="metric-change positive">+12.4% from last week</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Messages/Hour</div>
+                        <div class="metric-value">84.2K</div>
+                        <div class="metric-change positive">+8.1% from last week</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Avg Latency</div>
+                        <div class="metric-value">142ms</div>
+                        <div class="metric-change">-3.2% from last week</div>
+                    </div>
+                </div>
+                <div class="dashboard-table">
+                    <div class="table-header">
+                        <span>Agent</span>
+                        <span>Type</span>
+                        <span>Messages</span>
+                        <span>Status</span>
+                        <span></span>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell primary">lucidia-core-001</div>
+                        <div class="table-cell mono">Orchestrator</div>
+                        <div class="table-cell mono">24,891</div>
+                        <div class="table-cell"><span class="status-badge active">Active</span></div>
+                        <div class="table-cell">→</div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell primary">alice-inference</div>
+                        <div class="table-cell mono">Compute</div>
+                        <div class="table-cell mono">18,442</div>
+                        <div class="table-cell"><span class="status-badge active">Active</span></div>
+                        <div class="table-cell">→</div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell primary">octavia-hailo</div>
+                        <div class="table-cell mono">Worker</div>
+                        <div class="table-cell mono">12,103</div>
+                        <div class="table-cell"><span class="status-badge pending">Pending</span></div>
+                        <div class="table-cell">→</div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </section>
+
+    <!-- Template 3: Agent Cards -->
+    <section id="agents" class="template-section agent-cards-section">
+        <div class="template-header">
+            <div class="template-title">Template 03</div>
+            <div class="template-name">Agent Cards</div>
+        </div>
+        <div class="cards-container">
+            <div class="cards-header">
+                <h2 class="cards-title">Agent Registry</h2>
+                <div class="cards-filter">
+                    <button class="filter-btn active">All</button>
+                    <button class="filter-btn">Orchestrators</button>
+                    <button class="filter-btn">Workers</button>
+                    <button class="filter-btn">Specialized</button>
+                </div>
+            </div>
+            <div class="cards-grid">
+                <div class="agent-card">
+                    <div class="agent-card-header">
+                        <div class="agent-avatar">L</div>
+                        <div class="agent-info">
+                            <div class="agent-name">Lucidia</div>
+                            <div class="agent-role">Core Orchestrator</div>
+                        </div>
+                    </div>
+                    <div class="agent-card-body">
+                        <p class="agent-desc">Recursive AI system with trinary logic and paraconsistent contradiction handling. The central coordinator for all agent operations.</p>
+                        <div class="agent-capabilities">
+                            <span class="capability-tag">Reasoning</span>
+                            <span class="capability-tag">Memory</span>
+                            <span class="capability-tag">Coordination</span>
+                        </div>
+                    </div>
+                    <div class="agent-card-footer">
+                        <div class="agent-status">
+                            <span class="status-dot online"></span>
+                            Online
+                        </div>
+                        <a href="#" class="agent-action">Configure</a>
+                    </div>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-card-header">
+                        <div class="agent-avatar">A</div>
+                        <div class="agent-info">
+                            <div class="agent-name">Alice</div>
+                            <div class="agent-role">Gateway Node</div>
+                        </div>
+                    </div>
+                    <div class="agent-card-body">
+                        <p class="agent-desc">K3s/Traefik gateway handling ingress, Redis caching, and API routing. Primary entry point for external requests.</p>
+                        <div class="agent-capabilities">
+                            <span class="capability-tag">Routing</span>
+                            <span class="capability-tag">Cache</span>
+                            <span class="capability-tag">Auth</span>
+                        </div>
+                    </div>
+                    <div class="agent-card-footer">
+                        <div class="agent-status">
+                            <span class="status-dot online"></span>
+                            Online
+                        </div>
+                        <a href="#" class="agent-action">Configure</a>
+                    </div>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-card-header">
+                        <div class="agent-avatar">O</div>
+                        <div class="agent-info">
+                            <div class="agent-name">Octavia</div>
+                            <div class="agent-role">Hailo Worker</div>
+                        </div>
+                    </div>
+                    <div class="agent-card-body">
+                        <p class="agent-desc">Dedicated hardware acceleration worker for inference tasks. Handles compute-intensive operations via job queues.</p>
+                        <div class="agent-capabilities">
+                            <span class="capability-tag">Inference</span>
+                            <span class="capability-tag">Batch</span>
+                            <span class="capability-tag">GPU</span>
+                        </div>
+                    </div>
+                    <div class="agent-card-footer">
+                        <div class="agent-status">
+                            <span class="status-dot"></span>
+                            Standby
+                        </div>
+                        <a href="#" class="agent-action">Configure</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Template 4: Documentation -->
+    <section id="docs" class="template-section docs-section">
+        <div class="template-header">
+            <div class="template-title">Template 04</div>
+            <div class="template-name">Documentation Layout</div>
+        </div>
+        <div class="docs-layout">
+            <nav class="docs-nav">
+                <div class="docs-nav-section">
+                    <div class="docs-nav-title">Getting Started</div>
+                    <a href="#" class="docs-nav-link active">Introduction</a>
+                    <a href="#" class="docs-nav-link">Quick Start</a>
+                    <a href="#" class="docs-nav-link">Installation</a>
+                </div>
+                <div class="docs-nav-section">
+                    <div class="docs-nav-title">Core Concepts</div>
+                    <a href="#" class="docs-nav-link">Agent Architecture</a>
+                    <a href="#" class="docs-nav-link">Event Bus</a>
+                    <a href="#" class="docs-nav-link">Memory System</a>
+                    <a href="#" class="docs-nav-link">Contradiction Handling</a>
+                </div>
+                <div class="docs-nav-section">
+                    <div class="docs-nav-title">API Reference</div>
+                    <a href="#" class="docs-nav-link">Agents</a>
+                    <a href="#" class="docs-nav-link">Messages</a>
+                    <a href="#" class="docs-nav-link">Tasks</a>
+                </div>
+            </nav>
+            <main class="docs-content">
+                <div class="docs-breadcrumb">
+                    <a href="#">Docs</a> / <a href="#">Getting Started</a> / Introduction
+                </div>
+                <h1 class="docs-h1">Introduction to BlackRoad OS</h1>
+                <p class="docs-lead">
+                    BlackRoad OS is a browser-native operating system designed around AI agent orchestration. This guide covers the fundamental concepts and architecture.
+                </p>
+
+                <h2 class="docs-h2">Architecture Overview</h2>
+                <p class="docs-p">
+                    The system operates on three layers: the Universe layer (fundamental physics), the Lucidia layer (canonical world where agents live), and the Metaverse layer (buildable platform for developers).
+                </p>
+
+                <div class="docs-code-block">
+                    <div class="docs-code-header">
+                        <span class="docs-code-lang">TypeScript</span>
+                        <button class="docs-code-copy">Copy</button>
+                    </div>
+                    <pre class="docs-code"><span class="comment">// Initialize the agent orchestrator</span>
+<span class="keyword">import</span> { Orchestrator } <span class="keyword">from</span> <span class="string">'@blackroad/core'</span>;
+
+<span class="keyword">const</span> orchestrator = <span class="keyword">new</span> Orchestrator({
+  memory: <span class="string">'persistent'</span>,
+  logic: <span class="string">'trinary'</span>,
+  contradictionHandling: <span class="string">'quarantine'</span>
+});
+
+<span class="keyword">await</span> orchestrator.initialize();</pre>
+                </div>
+
+                <h2 class="docs-h2">Core Principles</h2>
+                <p class="docs-p">
+                    Agents communicate through an event bus architecture using pub/sub messaging. Each agent maintains append-only memory journals with truth_state_hash commits for full auditability.
+                </p>
+            </main>
+            <aside class="docs-toc">
+                <div class="docs-toc-title">On This Page</div>
+                <a href="#" class="docs-toc-link active">Architecture Overview</a>
+                <a href="#" class="docs-toc-link">Core Principles</a>
+                <a href="#" class="docs-toc-link">Getting Started</a>
+                <a href="#" class="docs-toc-link">Next Steps</a>
+            </aside>
+        </div>
+    </section>
+
+    <!-- Template 5: Terminal -->
+    <section id="terminal" class="template-section terminal-section">
+        <div class="template-header">
+            <div class="template-title">Template 05</div>
+            <div class="template-name">Terminal / CLI Aesthetic</div>
+        </div>
+        <div class="terminal-container">
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dot"></div>
+                    <div class="terminal-dot"></div>
+                    <div class="terminal-dot"></div>
+                    <div class="terminal-title">lucidia — bash — 80×24</div>
+                </div>
+                <div class="terminal-body">
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">cecilia@lucidia:~$ </span>
+                        <span class="terminal-command">lucidia status</span>
+                    </div>
+                    <div class="terminal-line terminal-output">
+                        ╭────────────────────────────────────────╮
+                    </div>
+                    <div class="terminal-line terminal-output">
+                        │  LUCIDIA CORE v0.1.0                   │
+                    </div>
+                    <div class="terminal-line terminal-output">
+                        ├────────────────────────────────────────┤
+                    </div>
+                    <div class="terminal-line terminal-output">
+                        │  Status:    <span class="terminal-success">● Online</span>                    │
+                    </div>
+                    <div class="terminal-line terminal-output">
+                        │  Agents:    1,247 active               │
+                    </div>
+                    <div class="terminal-line terminal-output">
+                        │  Memory:    847.2 MB / 2.0 GB          │
+                    </div>
+                    <div class="terminal-line terminal-output">
+                        │  Uptime:    14d 7h 23m                  │
+                    </div>
+                    <div class="terminal-line terminal-output">
+                        ╰────────────────────────────────────────╯
+                    </div>
+                    <div class="terminal-line" style="margin-top: 12px;">
+                        <span class="terminal-prompt">cecilia@lucidia:~$ </span>
+                        <span class="terminal-command">lucidia agents list --limit 3</span>
+                    </div>
+                    <div class="terminal-line terminal-output" style="margin-top: 8px;">
+                        ID            NAME           TYPE          STATUS
+                    </div>
+                    <div class="terminal-line terminal-output">
+                        luc-001       lucidia-core   orchestrator  <span class="terminal-success">active</span>
+                    </div>
+                    <div class="terminal-line terminal-output">
+                        ali-001       alice          gateway       <span class="terminal-success">active</span>
+                    </div>
+                    <div class="terminal-line terminal-output">
+                        oct-001       octavia        worker        standby
+                    </div>
+                    <div class="terminal-line" style="margin-top: 12px;">
+                        <span class="terminal-prompt">cecilia@lucidia:~$ </span>
+                        <span class="terminal-cursor"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Template 6: Pricing -->
+    <section id="pricing" class="template-section pricing-section">
+        <div class="template-header">
+            <div class="template-title">Template 06</div>
+            <div class="template-name">Pricing Tiers</div>
+        </div>
+        <div class="pricing-container">
+            <div class="pricing-header">
+                <h2 class="pricing-title">Simple, transparent pricing</h2>
+                <p class="pricing-subtitle">Scale your agent infrastructure without complexity</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-tier">Starter</div>
+                    <div class="pricing-name">Developer</div>
+                    <div class="pricing-price">
+                        <span class="pricing-amount">$0</span>
+                        <span class="pricing-period">/month</span>
+                    </div>
+                    <p class="pricing-desc">Perfect for experimenting and building your first agents</p>
+                    <div class="pricing-features">
+                        <div class="pricing-feature">
+                            <span class="pricing-check"></span>
+                            Up to 10 agents
+                        </div>
+                        <div class="pricing-feature">
+                            <span class="pricing-check"></span>
+                            1,000 messages/day
+                        </div>
+                        <div class="pricing-feature">
+                            <span class="pricing-check"></span>
+                            Community support
+                        </div>
+                        <div class="pricing-feature">
+                            <span class="pricing-check"></span>
+                            Basic analytics
+                        </div>
+                    </div>
+                    <button class="pricing-cta secondary">Get Started</button>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="pricing-tier">Popular</div>
+                    <div class="pricing-name">Professional</div>
+                    <div class="pricing-price">
+                        <span class="pricing-amount">$99</span>
+                        <span class="pricing-period">/month</span>
+                    </div>
+                    <p class="pricing-desc">For teams building production agent systems</p>
+                    <div class="pricing-features">
+                        <div class="pricing-feature">
+                            <span class="pricing-check"></span>
+                            Up to 500 agents
+                        </div>
+                        <div class="pricing-feature">
+                            <span class="pricing-check"></span>
+                            100,000 messages/day
+                        </div>
+                        <div class="pricing-feature">
+                            <span class="pricing-check"></span>
+                            Priority support
+                        </div>
+                        <div class="pricing-feature">
+                            <span class="pricing-check"></span>
+                            Advanced analytics
+                        </div>
+                        <div class="pricing-feature">
+                            <span class="pricing-check"></span>
+                            Custom integrations
+                        </div>
+                    </div>
+                    <button class="pricing-cta primary">Start Trial</button>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-tier">Scale</div>
+                    <div class="pricing-name">Enterprise</div>
+                    <div class="pricing-price">
+                        <span class="pricing-amount">Custom</span>
+                    </div>
+                    <p class="pricing-desc">For organizations with advanced requirements</p>
+                    <div class="pricing-features">
+                        <div class="pricing-feature">
+                            <span class="pricing-check"></span>
+                            Unlimited agents
+                        </div>
+                        <div class="pricing-feature">
+                            <span class="pricing-check"></span>
+                            Unlimited messages
+                        </div>
+                        <div class="pricing-feature">
+                            <span class="pricing-check"></span>
+                            Dedicated support
+                        </div>
+                        <div class="pricing-feature">
+                            <span class="pricing-check"></span>
+                            SLA guarantee
+                        </div>
+                        <div class="pricing-feature">
+                            <span class="pricing-check"></span>
+                            On-premise option
+                        </div>
+                    </div>
+                    <button class="pricing-cta secondary">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Accent Color Reference -->
+    <section class="accent-demo">
+        <h2 class="accent-title">Accent Layer (Color as Enhancement)</h2>
+        <div class="accent-swatches">
+            <div class="accent-swatch">
+                <div class="swatch-color" style="background: var(--accent-orange);"></div>
+                <div class="swatch-label">Orange</div>
+            </div>
+            <div class="accent-swatch">
+                <div class="swatch-color" style="background: #ff4500;"></div>
+                <div class="swatch-label">Dark Orange</div>
+            </div>
+            <div class="accent-swatch">
+                <div class="swatch-color" style="background: var(--accent-pink);"></div>
+                <div class="swatch-label">Pink</div>
+            </div>
+            <div class="accent-swatch">
+                <div class="swatch-color" style="background: #ba55d3;"></div>
+                <div class="swatch-label">Orchid</div>
+            </div>
+            <div class="accent-swatch">
+                <div class="swatch-color" style="background: var(--accent-magenta);"></div>
+                <div class="swatch-label">Magenta</div>
+            </div>
+            <div class="accent-swatch">
+                <div class="swatch-color" style="background: var(--accent-blue);"></div>
+                <div class="swatch-label">Blue</div>
+            </div>
+        </div>
+        <div class="accent-gradient"></div>
+    </section>
+
+</body>
 </html>
