@@ -1,0 +1,64 @@
+<!-- State Card Component -->
+<!--
+  Variables:
+    - type: 'error', 'empty', 'success', 'offline', 'maintenance', 'permission'
+    - error_code: HTTP error code for error type (e.g., 404, 500)
+    - icon: Icon HTML (optional)
+    - title: State title
+    - description: State description
+    - primary_btn: Primary button label (optional)
+    - primary_action: Primary button action
+    - secondary_btn: Secondary button label (optional)
+    - secondary_action: Secondary button action
+    - class: Additional CSS classes (optional)
+-->
+<div class="state-card {{type}} {{class}}">
+  {{#if error_code}}
+  <div class="error-code">{{error_code}}</div>
+  {{else if icon}}
+  <div class="state-icon {{type}}">
+    {{{icon}}}
+  </div>
+  {{else}}
+  {{#if (eq type 'success')}}
+  <div class="success-icon">
+    <div class="success-check"></div>
+  </div>
+  {{else if (eq type 'offline')}}
+  <div class="offline-icon">
+    <div class="offline-cloud"></div>
+    <div class="offline-slash"></div>
+  </div>
+  {{else if (eq type 'maintenance')}}
+  <div class="maintenance-icon">
+    <div class="gear"></div>
+    <div class="gear-small"></div>
+  </div>
+  {{else if (eq type 'permission')}}
+  <div class="permission-icon">
+    <div class="lock-body">
+      <div class="lock-shackle"></div>
+    </div>
+  </div>
+  {{else}}
+  <div class="state-icon">
+    <span class="state-icon-inner"></span>
+  </div>
+  {{/if}}
+  {{/if}}
+
+  <h1 class="state-title">{{title}}</h1>
+
+  {{#if description}}
+  <p class="state-desc">{{description}}</p>
+  {{/if}}
+
+  {{#if primary_btn}}
+  <div class="state-actions">
+    <button class="state-btn state-btn-primary" data-action="{{primary_action}}">{{primary_btn}}</button>
+    {{#if secondary_btn}}
+    <button class="state-btn state-btn-secondary" data-action="{{secondary_action}}">{{secondary_btn}}</button>
+    {{/if}}
+  </div>
+  {{/if}}
+</div>

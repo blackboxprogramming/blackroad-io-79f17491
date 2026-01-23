@@ -1,0 +1,44 @@
+<!-- Empty State Component -->
+<!--
+  Variables:
+    - variant: 'default' or 'search' (for different illustrations)
+    - icon: Custom icon HTML (optional)
+    - title: Empty state title
+    - description: Empty state description
+    - query: Search query (for search variant)
+    - primary_btn: Primary button label (optional)
+    - primary_action: Primary button action
+    - secondary_btn: Secondary button label (optional)
+    - secondary_action: Secondary button action
+    - class: Additional CSS classes (optional)
+-->
+<div class="state-card empty {{class}}">
+  {{#if (eq variant 'search')}}
+  <div class="empty-illustration">
+    <span class="empty-line"></span>
+    <span class="empty-line"></span>
+    <span class="empty-line"></span>
+    <div class="empty-box"></div>
+  </div>
+  {{else if icon}}
+  <div class="state-icon">
+    {{{icon}}}
+  </div>
+  {{else}}
+  <div class="state-icon">
+    <span class="state-icon-inner"></span>
+  </div>
+  {{/if}}
+
+  <h1 class="state-title">{{title}}</h1>
+  <p class="state-desc">{{description}}</p>
+
+  {{#if primary_btn}}
+  <div class="state-actions">
+    <button class="state-btn state-btn-primary" data-action="{{primary_action}}">{{primary_btn}}</button>
+    {{#if secondary_btn}}
+    <button class="state-btn state-btn-secondary" data-action="{{secondary_action}}">{{secondary_btn}}</button>
+    {{/if}}
+  </div>
+  {{/if}}
+</div>

@@ -1,0 +1,30 @@
+<!-- Permission Denied State Component -->
+<!--
+  Variables:
+    - title: Permission title (default: "Access denied")
+    - description: Permission description
+    - request_btn: Request access button label (optional)
+    - request_action: Request access action
+    - back_btn: Go back button label (optional)
+    - back_action: Go back action
+    - class: Additional CSS classes (optional)
+-->
+<div class="state-card permission {{class}}">
+  <div class="permission-icon">
+    <div class="lock-body">
+      <div class="lock-shackle"></div>
+    </div>
+  </div>
+
+  <h1 class="state-title">{{title}}</h1>
+  <p class="state-desc">{{description}}</p>
+
+  {{#if request_btn}}
+  <div class="state-actions">
+    <button class="state-btn state-btn-secondary" data-action="{{request_action}}">{{request_btn}}</button>
+    {{#if back_btn}}
+    <button class="state-btn state-btn-secondary" data-action="{{back_action}}">{{back_btn}}</button>
+    {{/if}}
+  </div>
+  {{/if}}
+</div>
