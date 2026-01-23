@@ -1,0 +1,18 @@
+<!-- Step Header Component -->
+<!--
+  Variables:
+    - title: Step title
+    - description: Step description
+    - icon: Icon HTML (optional)
+-->
+<div class="step-header {{class}}">
+  {{#if icon}}
+  <div class="step-icon">{{{icon}}}</div>
+  {{else}}
+  <div class="step-icon"></div>
+  {{/if}}
+  <h1 class="step-title">{{title}}</h1>
+  {{#if description}}
+  <p class="step-desc">{{description}}</p>
+  {{/if}}
+</div>
