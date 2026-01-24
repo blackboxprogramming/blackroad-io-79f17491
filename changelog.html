@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BlackRoad Changelog - Version history and release notes.">
+    <title>Changelog - BlackRoad</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      /* Changelog page-specific styles */
+      .changelog-hero {
+        margin-bottom: 3rem;
+      }
+
+      .changelog-hero h1 {
+        margin-bottom: 1rem;
+      }
+
+      .release {
+        margin-bottom: 3rem;
+        padding-bottom: 3rem;
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .release:last-of-type {
+        border-bottom: none;
+      }
+
+      .release-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        flex-wrap: wrap;
+      }
+
+      .release-version {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--color-text);
+      }
+
+      .release-date {
+        font-size: 0.875rem;
+        color: var(--color-text-muted);
+      }
+
+      .release-tag {
+        font-size: 0.75rem;
+        font-weight: 500;
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .release-tag.latest {
+        background: rgba(34, 197, 94, 0.1);
+        color: #22c55e;
+      }
+
+      .release-tag.beta {
+        background: rgba(59, 130, 246, 0.1);
+        color: #3b82f6;
+      }
+
+      .release-tag.security {
+        background: rgba(239, 68, 68, 0.1);
+        color: #ef4444;
+      }
+
+      .release-summary {
+        font-size: 1rem;
+        color: var(--color-text-muted);
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+      }
+
+      .change-section {
+        margin-bottom: 1.5rem;
+      }
+
+      .change-section h3 {
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.75rem;
+        margin-top: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .change-section h3.added {
+        color: #22c55e;
+      }
+
+      .change-section h3.changed {
+        color: #3b82f6;
+      }
+
+      .change-section h3.fixed {
+        color: #f59e0b;
+      }
+
+      .change-section h3.removed {
+        color: #ef4444;
+      }
+
+      .change-section h3.security {
+        color: #ef4444;
+      }
+
+      .change-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .change-list li {
+        position: relative;
+        padding-left: 1.25rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.875rem;
+        color: var(--color-text-muted);
+      }
+
+      .change-list li::before {
+        content: '•';
+        position: absolute;
+        left: 0;
+        color: var(--color-border);
+      }
+
+      .change-list code {
+        font-size: 0.8rem;
+      }
+
+      .release-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+        flex-wrap: wrap;
+      }
+
+      .release-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+        color: var(--color-accent);
+      }
+
+      .release-link:hover {
+        color: var(--color-accent-hover);
+      }
+
+      .release-link svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      .older-releases {
+        text-align: center;
+        padding: 2rem;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+      }
+
+      .older-releases p {
+        margin-bottom: 1rem;
+      }
+
+      .older-releases a {
+        font-weight: 500;
+      }
+
+      .subscribe-updates {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .subscribe-updates-text h3 {
+        font-size: 1rem;
+        margin-bottom: 0.25rem;
+        margin-top: 0;
+      }
+
+      .subscribe-updates-text p {
+        font-size: 0.875rem;
+        margin-bottom: 0;
+      }
+
+      .subscribe-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--color-accent);
+        color: white;
+        padding: 0.75rem 1.25rem;
+        border-radius: 6px;
+        font-weight: 500;
+        font-size: 0.875rem;
+        transition: background 0.2s;
+      }
+
+      .subscribe-btn:hover {
+        background: var(--color-accent-hover);
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="index.html" class="logo">BlackRoad</a>
+      <nav>
+        <a href="about.html">About</a>
+        <a href="features.html">Features</a>
+        <a href="downloads.html">Downloads</a>
+        <a href="docs.html">Docs</a>
+        <a href="activity.html">Activity</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="changelog-hero">
+        <h1>Changelog</h1>
+        <p class="subtitle">Version history and release notes for BlackRoad.</p>
+      </div>
+
+      <div class="subscribe-updates">
+        <div class="subscribe-updates-text">
+          <h3>Stay Updated</h3>
+          <p>Get notified when new versions are released.</p>
+        </div>
+        <a href="#" class="subscribe-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;">
+            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
+            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
+          </svg>
+          Watch Releases
+        </a>
+      </div>
+
+      <div class="release">
+        <div class="release-header">
+          <span class="release-version">v0.9.2</span>
+          <span class="release-date">January 20, 2025</span>
+          <span class="release-tag latest">Latest</span>
+        </div>
+        <p class="release-summary">Performance improvements and bug fixes. This release focuses on reducing memory usage during inference and improving startup times.</p>
+
+        <div class="change-section">
+          <h3 class="added">Added</h3>
+          <ul class="change-list">
+            <li>Support for Phi-3 model family including phi-3-mini and phi-3-medium</li>
+            <li>New <code>--low-memory</code> flag for memory-constrained devices</li>
+            <li>ARM64 native builds for Raspberry Pi 5</li>
+            <li>Experimental Vulkan backend for AMD GPUs</li>
+          </ul>
+        </div>
+
+        <div class="change-section">
+          <h3 class="changed">Changed</h3>
+          <ul class="change-list">
+            <li>Reduced memory footprint by 15% during model loading</li>
+            <li>Improved startup time by lazy-loading model metadata</li>
+            <li>Updated llama.cpp to latest upstream (b1842)</li>
+          </ul>
+        </div>
+
+        <div class="change-section">
+          <h3 class="fixed">Fixed</h3>
+          <ul class="change-list">
+            <li>Fixed crash when using CUDA with certain GGUF quantizations</li>
+            <li>Resolved memory leak in long-running inference sessions</li>
+            <li>Fixed incorrect token counting for multi-byte UTF-8 characters</li>
+          </ul>
+        </div>
+
+        <div class="release-links">
+          <a href="downloads.html" class="release-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Download
+          </a>
+          <a href="#" class="release-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+            View on GitHub
+          </a>
+        </div>
+      </div>
+
+      <div class="release">
+        <div class="release-header">
+          <span class="release-version">v0.9.1</span>
+          <span class="release-date">December 15, 2024</span>
+          <span class="release-tag security">Security</span>
+        </div>
+        <p class="release-summary">Security patch addressing a vulnerability in the API server. All users are recommended to upgrade.</p>
+
+        <div class="change-section">
+          <h3 class="security">Security</h3>
+          <ul class="change-list">
+            <li>Fixed path traversal vulnerability in model file loading (CVE-2024-XXXXX)</li>
+            <li>Added input validation for API endpoints</li>
+          </ul>
+        </div>
+
+        <div class="change-section">
+          <h3 class="fixed">Fixed</h3>
+          <ul class="change-list">
+            <li>Fixed race condition in concurrent inference requests</li>
+            <li>Resolved issue with Metal backend on macOS Sequoia</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release">
+        <div class="release-header">
+          <span class="release-version">v0.9.0</span>
+          <span class="release-date">November 28, 2024</span>
+        </div>
+        <p class="release-summary">Major release introducing OpenAI-compatible API, plugin system, and significant performance improvements.</p>
+
+        <div class="change-section">
+          <h3 class="added">Added</h3>
+          <ul class="change-list">
+            <li>OpenAI-compatible REST API (<code>/v1/chat/completions</code>, <code>/v1/embeddings</code>)</li>
+            <li>Plugin system for extending functionality</li>
+            <li>Support for GGUF v3 format</li>
+            <li>New web UI for interactive chat sessions</li>
+            <li>Model quantization tool (<code>blackroad quantize</code>)</li>
+            <li>Configuration profiles for different use cases</li>
+          </ul>
+        </div>
+
+        <div class="change-section">
+          <h3 class="changed">Changed</h3>
+          <ul class="change-list">
+            <li>Rewrote inference engine for 2x throughput improvement</li>
+            <li>New configuration file format (automatic migration provided)</li>
+            <li>Minimum macOS version is now 12.0 (Monterey)</li>
+          </ul>
+        </div>
+
+        <div class="change-section">
+          <h3 class="removed">Removed</h3>
+          <ul class="change-list">
+            <li>Deprecated GGML format support (use GGUF instead)</li>
+            <li>Removed legacy <code>--threads</code> flag (use <code>--n-threads</code>)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release">
+        <div class="release-header">
+          <span class="release-version">v0.8.5</span>
+          <span class="release-date">October 10, 2024</span>
+        </div>
+        <p class="release-summary">Bug fixes and stability improvements.</p>
+
+        <div class="change-section">
+          <h3 class="fixed">Fixed</h3>
+          <ul class="change-list">
+            <li>Fixed incorrect logits on certain Llama 2 models</li>
+            <li>Resolved Windows installer PATH issues</li>
+            <li>Fixed crash on systems with AVX but no AVX2</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release">
+        <div class="release-header">
+          <span class="release-version">v0.8.0</span>
+          <span class="release-date">September 1, 2024</span>
+        </div>
+        <p class="release-summary">Initial public beta release of BlackRoad.</p>
+
+        <div class="change-section">
+          <h3 class="added">Added</h3>
+          <ul class="change-list">
+            <li>Core inference engine with CPU and CUDA support</li>
+            <li>Model management and downloading</li>
+            <li>CLI interface with interactive mode</li>
+            <li>Configuration system</li>
+            <li>Basic documentation</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="older-releases">
+        <p>Looking for older releases?</p>
+        <a href="#">View all releases on GitHub</a>
+      </div>
+    </main>
+
+    <footer>
+      <p>BlackRoad &copy; 2025. Building the future of sovereign AI.</p>
+    </footer>
+  </body>
+</html>

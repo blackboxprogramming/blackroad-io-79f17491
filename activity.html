@@ -657,6 +657,22 @@
       font-size: 0.875rem;
     }
 
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-links a {
+      color: var(--gray-500);
+      font-size: 0.875rem;
+    }
+
+    .footer-links a:hover {
+      color: var(--gray-300);
+    }
+
     /* Responsive */
     @media (max-width: 900px) {
       .main-content {
@@ -1000,6 +1016,11 @@ resolution: PENDING_HUMAN_REVIEW</div>
 
   <!-- Site Footer -->
   <footer class="site-footer">
+    <div class="footer-links">
+      <a href="status.html">Status</a>
+      <a href="changelog.html">Changelog</a>
+      <a href="privacy.html">Privacy</a>
+    </div>
     <p>BlackRoad &copy; 2025. Building the future of sovereign AI.</p>
   </footer>
 </body>

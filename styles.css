@@ -156,6 +156,22 @@ footer {
   font-size: 0.875rem;
 }
 
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.footer-links a {
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.footer-links a:hover {
+  color: var(--color-text);
+}
+
 /* Form styles */
 form {
   background: var(--color-surface);
