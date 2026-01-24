@@ -12,6 +12,8 @@ blackroad-io/
 ├── templates-vol2.html     # Vol.2: Application templates (7-12)
 ├── templates-vol3.html     # Vol.3: Advanced components (13-18)
 ├── templates-vol4.html     # Vol.4: Modal & Onboarding (19-20)
+├── templates-vol5.html     # Vol.5: Productivity tools (21-23)
+├── templates-vol6.html     # Vol.6: Team & Operations (24-26)
 ├── templates-billing.html  # Billing & Usage wireframe
 ├── CLAUDE.md               # This file - AI assistant guidelines
 └── .git/                   # Git version control
@@ -91,6 +93,16 @@ The design follows a **grayscale-first** philosophy with accent colors used spar
 **Vol.4 - Modals & Onboarding** (`templates-vol4.html`):
 19. **Modal/Dialog System** (`#modals`) - Confirmation, form, alert, command modals
 20. **Onboarding Wizard** (`#onboarding`) - Multi-step setup flow with progress
+
+**Vol.5 - Productivity Tools** (`templates-vol5.html`):
+21. **File Browser** (`#file-browser`) - File explorer for configs, logs, resources
+22. **Chat Interface** (`#chat`) - Conversational UI for agent interaction
+23. **Kanban Board** (`#kanban`) - Task management for agent workflows
+
+**Vol.6 - Team & Operations** (`templates-vol6.html`):
+24. **Team Management** (`#team`) - User roles, permissions, invitations
+25. **Integrations** (`#integrations`) - Third-party service connections
+26. **Timeline/Gantt** (`#timeline`) - Agent schedules and deployment windows
 
 **Specialty Templates**:
 - **Billing & Usage** (`templates-billing.html`) - Plan cards, usage meters, payment methods

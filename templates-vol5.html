@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackRoad OS - UI Templates Vol.5</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --gray-950: #0a0a0a; --gray-900: #121212; --gray-850: #1a1a1a; --gray-800: #1f1f1f;
+            --gray-700: #2d2d2d; --gray-600: #404040; --gray-500: #525252; --gray-400: #737373;
+            --gray-300: #a3a3a3; --gray-200: #d4d4d4; --gray-100: #e5e5e5; --gray-50: #f5f5f5;
+            --accent-orange: #ff6b00; --accent-pink: #ff1493; --accent-magenta: #ff00ff;
+            --accent-blue: #1e90ff; --accent-green: #00d26a; --accent-red: #ff4757; --accent-yellow: #ffc107;
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+        body { font-family: var(--font-body); background: var(--gray-950); color: var(--gray-200); line-height: 1.6; }
+        .template-section { padding: 64px 32px; border-bottom: 1px solid var(--gray-800); }
+        .template-header { max-width: 1200px; margin: 0 auto 48px; }
+        .template-number { font-family: var(--font-mono); font-size: 12px; color: var(--accent-orange); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+        .template-title { font-family: var(--font-display); font-size: 32px; font-weight: 600; color: var(--gray-50); margin-bottom: 8px; }
+        .template-description { color: var(--gray-400); font-size: 14px; }
+
+        /* ===== TEMPLATE 21: FILE BROWSER ===== */
+        .file-browser { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 260px 1fr; background: var(--gray-900); border-radius: 12px; border: 1px solid var(--gray-800); overflow: hidden; min-height: 500px; }
+        .file-sidebar { background: var(--gray-850); border-right: 1px solid var(--gray-800); padding: 16px; }
+        .file-sidebar-title { font-family: var(--font-mono); font-size: 10px; color: var(--gray-500); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+        .file-tree { display: flex; flex-direction: column; gap: 2px; }
+        .file-tree-item { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 6px; cursor: pointer; transition: background 0.15s; }
+        .file-tree-item:hover { background: var(--gray-800); }
+        .file-tree-item.active { background: var(--gray-700); }
+        .file-tree-item svg { width: 16px; height: 16px; color: var(--gray-400); flex-shrink: 0; }
+        .file-tree-item.folder svg { color: var(--accent-yellow); }
+        .file-tree-item span { font-size: 13px; color: var(--gray-300); }
+        .file-tree-item.active span { color: var(--gray-100); }
+        .file-tree-nested { margin-left: 20px; }
+        .file-main { display: flex; flex-direction: column; }
+        .file-toolbar { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--gray-800); background: var(--gray-850); }
+        .file-breadcrumb { display: flex; align-items: center; gap: 4px; flex: 1; }
+        .file-breadcrumb span { font-size: 13px; color: var(--gray-400); }
+        .file-breadcrumb span.current { color: var(--gray-100); }
+        .file-breadcrumb svg { width: 14px; height: 14px; color: var(--gray-600); }
+        .file-toolbar-btn { padding: 6px 12px; background: var(--gray-700); border: 1px solid var(--gray-600); border-radius: 6px; color: var(--gray-200); font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+        .file-toolbar-btn:hover { background: var(--gray-600); }
+        .file-toolbar-btn svg { width: 14px; height: 14px; }
+        .file-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; padding: 24px; flex: 1; }
+        .file-item { display: flex; flex-direction: column; align-items: center; padding: 16px; border-radius: 8px; cursor: pointer; transition: background 0.15s; }
+        .file-item:hover { background: var(--gray-800); }
+        .file-item.selected { background: rgba(30, 144, 255, 0.15); outline: 2px solid var(--accent-blue); }
+        .file-item-icon { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; }
+        .file-item-icon svg { width: 40px; height: 40px; }
+        .file-item-icon.folder svg { color: var(--accent-yellow); }
+        .file-item-icon.code svg { color: var(--accent-blue); }
+        .file-item-icon.config svg { color: var(--accent-green); }
+        .file-item-icon.log svg { color: var(--gray-400); }
+        .file-item-name { font-size: 12px; color: var(--gray-200); text-align: center; word-break: break-all; }
+        .file-item-meta { font-size: 10px; color: var(--gray-500); margin-top: 4px; }
+        .file-status { display: flex; align-items: center; justify-content: space-between; padding: 8px 16px; border-top: 1px solid var(--gray-800); background: var(--gray-850); font-size: 11px; color: var(--gray-500); }
+
+        /* ===== TEMPLATE 22: CHAT INTERFACE ===== */
+        .chat-container { max-width: 900px; margin: 0 auto; background: var(--gray-900); border-radius: 12px; border: 1px solid var(--gray-800); overflow: hidden; }
+        .chat-header { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--gray-800); background: var(--gray-850); }
+        .chat-avatar { width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, var(--accent-orange), var(--accent-pink)); display: flex; align-items: center; justify-content: center; }
+        .chat-avatar svg { width: 20px; height: 20px; color: white; }
+        .chat-header-info { flex: 1; }
+        .chat-header-name { font-family: var(--font-display); font-size: 15px; font-weight: 600; color: var(--gray-50); }
+        .chat-header-status { font-size: 12px; color: var(--accent-green); display: flex; align-items: center; gap: 6px; }
+        .chat-header-status::before { content: ''; width: 6px; height: 6px; background: var(--accent-green); border-radius: 50%; }
+        .chat-header-actions { display: flex; gap: 8px; }
+        .chat-header-btn { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: var(--gray-700); border-radius: 8px; cursor: pointer; transition: background 0.15s; }
+        .chat-header-btn:hover { background: var(--gray-600); }
+        .chat-header-btn svg { width: 18px; height: 18px; color: var(--gray-300); }
+        .chat-messages { padding: 24px; min-height: 400px; max-height: 500px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; }
+        .chat-message { display: flex; gap: 12px; max-width: 80%; }
+        .chat-message.user { margin-left: auto; flex-direction: row-reverse; }
+        .chat-message-avatar { width: 32px; height: 32px; border-radius: 8px; background: var(--gray-700); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .chat-message.agent .chat-message-avatar { background: linear-gradient(135deg, var(--accent-orange), var(--accent-pink)); }
+        .chat-message-avatar svg { width: 16px; height: 16px; color: var(--gray-300); }
+        .chat-message.agent .chat-message-avatar svg { color: white; }
+        .chat-message-content { display: flex; flex-direction: column; gap: 4px; }
+        .chat-message-bubble { padding: 12px 16px; border-radius: 12px; font-size: 14px; line-height: 1.5; }
+        .chat-message.agent .chat-message-bubble { background: var(--gray-800); color: var(--gray-200); border-bottom-left-radius: 4px; }
+        .chat-message.user .chat-message-bubble { background: var(--accent-blue); color: white; border-bottom-right-radius: 4px; }
+        .chat-message-time { font-size: 11px; color: var(--gray-500); }
+        .chat-message.user .chat-message-time { text-align: right; }
+        .chat-message-code { background: var(--gray-900); border: 1px solid var(--gray-700); border-radius: 8px; padding: 12px; margin-top: 8px; font-family: var(--font-mono); font-size: 12px; color: var(--gray-300); overflow-x: auto; }
+        .chat-typing { display: flex; align-items: center; gap: 12px; padding: 0 24px 16px; }
+        .chat-typing-indicator { display: flex; gap: 4px; }
+        .chat-typing-dot { width: 6px; height: 6px; background: var(--gray-500); border-radius: 50%; animation: typing 1.4s infinite; }
+        .chat-typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .chat-typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typing { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-4px); } }
+        .chat-typing-text { font-size: 12px; color: var(--gray-500); }
+        .chat-input-area { display: flex; align-items: flex-end; gap: 12px; padding: 16px 20px; border-top: 1px solid var(--gray-800); background: var(--gray-850); }
+        .chat-input-wrapper { flex: 1; background: var(--gray-900); border: 1px solid var(--gray-700); border-radius: 12px; padding: 12px 16px; }
+        .chat-input { width: 100%; background: transparent; border: none; color: var(--gray-100); font-family: var(--font-body); font-size: 14px; resize: none; outline: none; }
+        .chat-input::placeholder { color: var(--gray-500); }
+        .chat-input-actions { display: flex; gap: 8px; margin-top: 8px; }
+        .chat-input-action { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 6px; cursor: pointer; transition: background 0.15s; }
+        .chat-input-action:hover { background: var(--gray-700); }
+        .chat-input-action svg { width: 16px; height: 16px; color: var(--gray-400); }
+        .chat-send { width: 44px; height: 44px; background: var(--accent-blue); border-radius: 12px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.15s; }
+        .chat-send:hover { background: #3aa0ff; }
+        .chat-send svg { width: 20px; height: 20px; color: white; }
+
+        /* ===== TEMPLATE 23: KANBAN BOARD ===== */
+        .kanban-container { max-width: 1200px; margin: 0 auto; }
+        .kanban-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+        .kanban-title { font-family: var(--font-display); font-size: 20px; font-weight: 600; color: var(--gray-50); }
+        .kanban-filters { display: flex; gap: 8px; }
+        .kanban-filter { padding: 6px 12px; background: var(--gray-800); border: 1px solid var(--gray-700); border-radius: 6px; font-size: 12px; color: var(--gray-300); cursor: pointer; }
+        .kanban-filter:hover { background: var(--gray-700); }
+        .kanban-board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .kanban-column { background: var(--gray-900); border-radius: 12px; border: 1px solid var(--gray-800); min-height: 500px; display: flex; flex-direction: column; }
+        .kanban-column-header { display: flex; align-items: center; justify-content: space-between; padding: 16px; border-bottom: 1px solid var(--gray-800); }
+        .kanban-column-title { display: flex; align-items: center; gap: 8px; }
+        .kanban-column-dot { width: 8px; height: 8px; border-radius: 50%; }
+        .kanban-column-dot.backlog { background: var(--gray-500); }
+        .kanban-column-dot.todo { background: var(--accent-blue); }
+        .kanban-column-dot.progress { background: var(--accent-yellow); }
+        .kanban-column-dot.done { background: var(--accent-green); }
+        .kanban-column-name { font-family: var(--font-display); font-size: 14px; font-weight: 600; color: var(--gray-100); }
+        .kanban-column-count { font-family: var(--font-mono); font-size: 11px; color: var(--gray-500); background: var(--gray-800); padding: 2px 8px; border-radius: 10px; }
+        .kanban-column-add { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 6px; cursor: pointer; transition: background 0.15s; }
+        .kanban-column-add:hover { background: var(--gray-700); }
+        .kanban-column-add svg { width: 14px; height: 14px; color: var(--gray-400); }
+        .kanban-cards { padding: 12px; flex: 1; display: flex; flex-direction: column; gap: 12px; overflow-y: auto; }
+        .kanban-card { background: var(--gray-850); border: 1px solid var(--gray-700); border-radius: 8px; padding: 14px; cursor: pointer; transition: all 0.15s; }
+        .kanban-card:hover { border-color: var(--gray-600); transform: translateY(-2px); }
+        .kanban-card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 8px; }
+        .kanban-card-id { font-family: var(--font-mono); font-size: 10px; color: var(--gray-500); }
+        .kanban-card-priority { width: 6px; height: 6px; border-radius: 50%; }
+        .kanban-card-priority.high { background: var(--accent-red); }
+        .kanban-card-priority.medium { background: var(--accent-yellow); }
+        .kanban-card-priority.low { background: var(--accent-green); }
+        .kanban-card-title { font-size: 13px; font-weight: 500; color: var(--gray-100); line-height: 1.4; margin-bottom: 10px; }
+        .kanban-card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+        .kanban-card-tag { font-family: var(--font-mono); font-size: 10px; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .kanban-card-tag.agent { background: rgba(255, 107, 0, 0.15); color: var(--accent-orange); }
+        .kanban-card-tag.infra { background: rgba(30, 144, 255, 0.15); color: var(--accent-blue); }
+        .kanban-card-tag.bug { background: rgba(255, 71, 87, 0.15); color: var(--accent-red); }
+        .kanban-card-footer { display: flex; align-items: center; justify-content: space-between; }
+        .kanban-card-assignee { width: 24px; height: 24px; border-radius: 6px; background: var(--gray-600); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; color: var(--gray-200); }
+        .kanban-card-meta { display: flex; align-items: center; gap: 10px; font-size: 11px; color: var(--gray-500); }
+        .kanban-card-meta span { display: flex; align-items: center; gap: 4px; }
+        .kanban-card-meta svg { width: 12px; height: 12px; }
+    </style>
+</head>
+<body>
+
+    <!-- TEMPLATE 21: FILE BROWSER -->
+    <section id="file-browser" class="template-section">
+        <div class="template-header">
+            <div class="template-number">Template 21</div>
+            <h2 class="template-title">File Browser</h2>
+            <p class="template-description">File explorer for agent configs, logs, and resources.</p>
+        </div>
+        <div class="file-browser">
+            <div class="file-sidebar">
+                <div class="file-sidebar-title">Workspace</div>
+                <div class="file-tree">
+                    <div class="file-tree-item folder active">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
+                        <span>agents</span>
+                    </div>
+                    <div class="file-tree-nested">
+                        <div class="file-tree-item folder">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
+                            <span>lucidia</span>
+                        </div>
+                        <div class="file-tree-item folder">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
+                            <span>alice</span>
+                        </div>
+                    </div>
+                    <div class="file-tree-item folder">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
+                        <span>configs</span>
+                    </div>
+                    <div class="file-tree-item folder">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
+                        <span>logs</span>
+                    </div>
+                </div>
+            </div>
+            <div class="file-main">
+                <div class="file-toolbar">
+                    <div class="file-breadcrumb">
+                        <span>workspace</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                        <span class="current">agents</span>
+                    </div>
+                    <button class="file-toolbar-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg> Upload</button>
+                    <button class="file-toolbar-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> New</button>
+                </div>
+                <div class="file-grid">
+                    <div class="file-item">
+                        <div class="file-item-icon folder"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg></div>
+                        <div class="file-item-name">lucidia</div>
+                        <div class="file-item-meta">12 items</div>
+                    </div>
+                    <div class="file-item">
+                        <div class="file-item-icon folder"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg></div>
+                        <div class="file-item-name">alice</div>
+                        <div class="file-item-meta">8 items</div>
+                    </div>
+                    <div class="file-item selected">
+                        <div class="file-item-icon config"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15h6"/></svg></div>
+                        <div class="file-item-name">config.yaml</div>
+                        <div class="file-item-meta">2.4 KB</div>
+                    </div>
+                    <div class="file-item">
+                        <div class="file-item-icon code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13l-4 4-4-4"/></svg></div>
+                        <div class="file-item-name">agent.py</div>
+                        <div class="file-item-meta">18.2 KB</div>
+                    </div>
+                    <div class="file-item">
+                        <div class="file-item-icon log"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></div>
+                        <div class="file-item-name">debug.log</div>
+                        <div class="file-item-meta">156 KB</div>
+                    </div>
+                </div>
+                <div class="file-status">
+                    <span>5 items</span>
+                    <span>1 selected (2.4 KB)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEMPLATE 22: CHAT INTERFACE -->
+    <section id="chat" class="template-section">
+        <div class="template-header">
+            <div class="template-number">Template 22</div>
+            <h2 class="template-title">Chat Interface</h2>
+            <p class="template-description">Conversational UI for interacting with AI agents.</p>
+        </div>
+        <div class="chat-container">
+            <div class="chat-header">
+                <div class="chat-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                <div class="chat-header-info">
+                    <div class="chat-header-name">Lucidia</div>
+                    <div class="chat-header-status">Online</div>
+                </div>
+                <div class="chat-header-actions">
+                    <div class="chat-header-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg></div>
+                </div>
+            </div>
+            <div class="chat-messages">
+                <div class="chat-message agent">
+                    <div class="chat-message-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg></div>
+                    <div class="chat-message-content">
+                        <div class="chat-message-bubble">Hello! I'm Lucidia, your AI orchestration assistant. How can I help you today?</div>
+                        <div class="chat-message-time">10:32 AM</div>
+                    </div>
+                </div>
+                <div class="chat-message user">
+                    <div class="chat-message-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                    <div class="chat-message-content">
+                        <div class="chat-message-bubble">Can you show me how to deploy a new agent?</div>
+                        <div class="chat-message-time">10:33 AM</div>
+                    </div>
+                </div>
+                <div class="chat-message agent">
+                    <div class="chat-message-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg></div>
+                    <div class="chat-message-content">
+                        <div class="chat-message-bubble">Of course! Here's a quick example:</div>
+                        <div class="chat-message-code">blackroad deploy --agent my-agent \<br>  --config ./config.yaml \<br>  --replicas 3</div>
+                        <div class="chat-message-time">10:33 AM</div>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-typing">
+                <div class="chat-typing-indicator"><div class="chat-typing-dot"></div><div class="chat-typing-dot"></div><div class="chat-typing-dot"></div></div>
+                <span class="chat-typing-text">Lucidia is typing...</span>
+            </div>
+            <div class="chat-input-area">
+                <div class="chat-input-wrapper">
+                    <textarea class="chat-input" placeholder="Message Lucidia..." rows="1"></textarea>
+                    <div class="chat-input-actions">
+                        <div class="chat-input-action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/></svg></div>
+                        <div class="chat-input-action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg></div>
+                    </div>
+                </div>
+                <div class="chat-send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEMPLATE 23: KANBAN BOARD -->
+    <section id="kanban" class="template-section">
+        <div class="template-header">
+            <div class="template-number">Template 23</div>
+            <h2 class="template-title">Kanban Board</h2>
+            <p class="template-description">Task management board for agent workflows and sprints.</p>
+        </div>
+        <div class="kanban-container">
+            <div class="kanban-header">
+                <div class="kanban-title">Agent Development Sprint</div>
+                <div class="kanban-filters">
+                    <button class="kanban-filter">All Tasks</button>
+                    <button class="kanban-filter">My Tasks</button>
+                </div>
+            </div>
+            <div class="kanban-board">
+                <div class="kanban-column">
+                    <div class="kanban-column-header">
+                        <div class="kanban-column-title"><div class="kanban-column-dot backlog"></div><span class="kanban-column-name">Backlog</span></div>
+                        <span class="kanban-column-count">4</span>
+                    </div>
+                    <div class="kanban-cards">
+                        <div class="kanban-card">
+                            <div class="kanban-card-header"><span class="kanban-card-id">BR-42</span><div class="kanban-card-priority low"></div></div>
+                            <div class="kanban-card-title">Research vector DB options for memory</div>
+                            <div class="kanban-card-tags"><span class="kanban-card-tag infra">infra</span></div>
+                            <div class="kanban-card-footer"><div class="kanban-card-assignee">JD</div><div class="kanban-card-meta"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>2</span></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="kanban-column">
+                    <div class="kanban-column-header">
+                        <div class="kanban-column-title"><div class="kanban-column-dot todo"></div><span class="kanban-column-name">To Do</span></div>
+                        <span class="kanban-column-count">3</span>
+                    </div>
+                    <div class="kanban-cards">
+                        <div class="kanban-card">
+                            <div class="kanban-card-header"><span class="kanban-card-id">BR-38</span><div class="kanban-card-priority high"></div></div>
+                            <div class="kanban-card-title">Fix Lucidia memory leak in long sessions</div>
+                            <div class="kanban-card-tags"><span class="kanban-card-tag bug">bug</span><span class="kanban-card-tag agent">agent</span></div>
+                            <div class="kanban-card-footer"><div class="kanban-card-assignee">AK</div><div class="kanban-card-meta"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>5</span></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="kanban-column">
+                    <div class="kanban-column-header">
+                        <div class="kanban-column-title"><div class="kanban-column-dot progress"></div><span class="kanban-column-name">In Progress</span></div>
+                        <span class="kanban-column-count">2</span>
+                    </div>
+                    <div class="kanban-cards">
+                        <div class="kanban-card">
+                            <div class="kanban-card-header"><span class="kanban-card-id">BR-35</span><div class="kanban-card-priority medium"></div></div>
+                            <div class="kanban-card-title">Implement Alice gateway caching layer</div>
+                            <div class="kanban-card-tags"><span class="kanban-card-tag agent">agent</span><span class="kanban-card-tag infra">infra</span></div>
+                            <div class="kanban-card-footer"><div class="kanban-card-assignee">MR</div><div class="kanban-card-meta"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>8</span></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="kanban-column">
+                    <div class="kanban-column-header">
+                        <div class="kanban-column-title"><div class="kanban-column-dot done"></div><span class="kanban-column-name">Done</span></div>
+                        <span class="kanban-column-count">6</span>
+                    </div>
+                    <div class="kanban-cards">
+                        <div class="kanban-card">
+                            <div class="kanban-card-header"><span class="kanban-card-id">BR-31</span><div class="kanban-card-priority medium"></div></div>
+                            <div class="kanban-card-title">Add Octavia health monitoring endpoint</div>
+                            <div class="kanban-card-tags"><span class="kanban-card-tag agent">agent</span></div>
+                            <div class="kanban-card-footer"><div class="kanban-card-assignee">SK</div><div class="kanban-card-meta"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>3</span></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

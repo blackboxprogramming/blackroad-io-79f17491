@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackRoad OS - UI Templates Vol.6</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --gray-950: #0a0a0a; --gray-900: #121212; --gray-850: #1a1a1a; --gray-800: #1f1f1f;
+            --gray-700: #2d2d2d; --gray-600: #404040; --gray-500: #525252; --gray-400: #737373;
+            --gray-300: #a3a3a3; --gray-200: #d4d4d4; --gray-100: #e5e5e5; --gray-50: #f5f5f5;
+            --accent-orange: #ff6b00; --accent-pink: #ff1493; --accent-magenta: #ff00ff;
+            --accent-blue: #1e90ff; --accent-green: #00d26a; --accent-red: #ff4757; --accent-yellow: #ffc107;
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+        body { font-family: var(--font-body); background: var(--gray-950); color: var(--gray-200); line-height: 1.6; }
+        .template-section { padding: 64px 32px; border-bottom: 1px solid var(--gray-800); }
+        .template-header { max-width: 1200px; margin: 0 auto 48px; }
+        .template-number { font-family: var(--font-mono); font-size: 12px; color: var(--accent-orange); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+        .template-title { font-family: var(--font-display); font-size: 32px; font-weight: 600; color: var(--gray-50); margin-bottom: 8px; }
+        .template-description { color: var(--gray-400); font-size: 14px; }
+
+        /* ===== TEMPLATE 24: TEAM MANAGEMENT ===== */
+        .team-container { max-width: 1200px; margin: 0 auto; }
+        .team-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; }
+        .team-header-left h2 { font-family: var(--font-display); font-size: 24px; font-weight: 600; color: var(--gray-50); margin-bottom: 4px; }
+        .team-header-left p { font-size: 14px; color: var(--gray-400); }
+        .team-invite-btn { display: flex; align-items: center; gap: 8px; padding: 10px 20px; background: var(--gray-100); color: var(--gray-900); border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; }
+        .team-invite-btn svg { width: 16px; height: 16px; }
+        .team-tabs { display: flex; gap: 4px; margin-bottom: 24px; border-bottom: 1px solid var(--gray-800); }
+        .team-tab { padding: 12px 20px; font-size: 14px; color: var(--gray-400); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.15s; }
+        .team-tab:hover { color: var(--gray-200); }
+        .team-tab.active { color: var(--gray-100); border-bottom-color: var(--accent-orange); }
+        .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .team-card { background: var(--gray-900); border: 1px solid var(--gray-800); border-radius: 12px; padding: 24px; transition: border-color 0.15s; }
+        .team-card:hover { border-color: var(--gray-700); }
+        .team-card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; }
+        .team-card-avatar { width: 48px; height: 48px; border-radius: 12px; background: linear-gradient(135deg, var(--accent-blue), var(--accent-magenta)); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 18px; font-weight: 600; color: white; }
+        .team-card-menu { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 6px; cursor: pointer; }
+        .team-card-menu:hover { background: var(--gray-800); }
+        .team-card-menu svg { width: 16px; height: 16px; color: var(--gray-400); }
+        .team-card-name { font-family: var(--font-display); font-size: 16px; font-weight: 600; color: var(--gray-100); margin-bottom: 2px; }
+        .team-card-email { font-size: 13px; color: var(--gray-400); margin-bottom: 12px; }
+        .team-card-role { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: var(--gray-800); border-radius: 6px; font-family: var(--font-mono); font-size: 11px; color: var(--gray-300); text-transform: uppercase; letter-spacing: 0.5px; }
+        .team-card-role.admin { background: rgba(255, 107, 0, 0.15); color: var(--accent-orange); }
+        .team-card-role.owner { background: rgba(255, 20, 147, 0.15); color: var(--accent-pink); }
+        .team-card-stats { display: flex; gap: 16px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--gray-800); }
+        .team-card-stat { flex: 1; }
+        .team-card-stat-value { font-family: var(--font-display); font-size: 18px; font-weight: 600; color: var(--gray-100); }
+        .team-card-stat-label { font-size: 11px; color: var(--gray-500); }
+        .team-pending { background: var(--gray-900); border: 1px solid var(--gray-800); border-radius: 12px; margin-top: 32px; }
+        .team-pending-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--gray-800); }
+        .team-pending-title { font-family: var(--font-display); font-size: 14px; font-weight: 600; color: var(--gray-100); }
+        .team-pending-count { font-family: var(--font-mono); font-size: 11px; color: var(--gray-500); background: var(--gray-800); padding: 2px 8px; border-radius: 10px; }
+        .team-pending-list { padding: 12px; }
+        .team-pending-item { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 8px; }
+        .team-pending-item:hover { background: var(--gray-850); }
+        .team-pending-avatar { width: 36px; height: 36px; border-radius: 8px; background: var(--gray-700); display: flex; align-items: center; justify-content: center; }
+        .team-pending-avatar svg { width: 18px; height: 18px; color: var(--gray-400); }
+        .team-pending-info { flex: 1; }
+        .team-pending-email { font-size: 14px; color: var(--gray-200); }
+        .team-pending-meta { font-size: 12px; color: var(--gray-500); }
+        .team-pending-actions { display: flex; gap: 8px; }
+        .team-pending-btn { padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; }
+        .team-pending-btn.approve { background: var(--accent-green); color: white; }
+        .team-pending-btn.revoke { background: var(--gray-700); color: var(--gray-300); }
+
+        /* ===== TEMPLATE 25: INTEGRATIONS ===== */
+        .integrations-container { max-width: 1200px; margin: 0 auto; }
+        .integrations-header { margin-bottom: 32px; }
+        .integrations-header h2 { font-family: var(--font-display); font-size: 24px; font-weight: 600; color: var(--gray-50); margin-bottom: 8px; }
+        .integrations-header p { font-size: 14px; color: var(--gray-400); max-width: 600px; }
+        .integrations-search { display: flex; gap: 12px; margin-bottom: 32px; }
+        .integrations-search-input { flex: 1; max-width: 400px; padding: 12px 16px; background: var(--gray-900); border: 1px solid var(--gray-700); border-radius: 8px; color: var(--gray-100); font-size: 14px; }
+        .integrations-search-input::placeholder { color: var(--gray-500); }
+        .integrations-categories { display: flex; gap: 8px; }
+        .integrations-category { padding: 8px 16px; background: var(--gray-800); border-radius: 20px; font-size: 13px; color: var(--gray-300); cursor: pointer; transition: all 0.15s; }
+        .integrations-category:hover { background: var(--gray-700); }
+        .integrations-category.active { background: var(--gray-100); color: var(--gray-900); }
+        .integrations-section { margin-bottom: 40px; }
+        .integrations-section-title { font-family: var(--font-mono); font-size: 11px; color: var(--gray-500); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+        .integrations-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .integration-card { background: var(--gray-900); border: 1px solid var(--gray-800); border-radius: 12px; padding: 20px; display: flex; gap: 16px; transition: all 0.15s; cursor: pointer; }
+        .integration-card:hover { border-color: var(--gray-700); transform: translateY(-2px); }
+        .integration-card.connected { border-color: var(--accent-green); }
+        .integration-icon { width: 48px; height: 48px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .integration-icon.github { background: #24292e; }
+        .integration-icon.slack { background: #4a154b; }
+        .integration-icon.datadog { background: #632ca6; }
+        .integration-icon.aws { background: #ff9900; }
+        .integration-icon.gcp { background: #4285f4; }
+        .integration-icon.pagerduty { background: #06ac38; }
+        .integration-icon svg { width: 24px; height: 24px; color: white; }
+        .integration-content { flex: 1; min-width: 0; }
+        .integration-name { font-family: var(--font-display); font-size: 15px; font-weight: 600; color: var(--gray-100); margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+        .integration-status { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-green); }
+        .integration-desc { font-size: 13px; color: var(--gray-400); line-height: 1.5; }
+        .integration-action { display: flex; align-items: center; }
+        .integration-btn { padding: 8px 16px; border-radius: 6px; font-size: 12px; font-weight: 500; cursor: pointer; }
+        .integration-btn.connect { background: var(--gray-700); color: var(--gray-200); }
+        .integration-btn.connect:hover { background: var(--gray-600); }
+        .integration-btn.manage { background: transparent; border: 1px solid var(--gray-600); color: var(--gray-300); }
+
+        /* ===== TEMPLATE 26: TIMELINE ===== */
+        .timeline-container { max-width: 1200px; margin: 0 auto; }
+        .timeline-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+        .timeline-header-left h2 { font-family: var(--font-display); font-size: 24px; font-weight: 600; color: var(--gray-50); margin-bottom: 4px; }
+        .timeline-header-left p { font-size: 14px; color: var(--gray-400); }
+        .timeline-controls { display: flex; gap: 8px; }
+        .timeline-control { padding: 8px 16px; background: var(--gray-800); border: 1px solid var(--gray-700); border-radius: 6px; font-size: 13px; color: var(--gray-300); cursor: pointer; display: flex; align-items: center; gap: 6px; }
+        .timeline-control:hover { background: var(--gray-700); }
+        .timeline-control svg { width: 14px; height: 14px; }
+        .timeline-wrapper { background: var(--gray-900); border: 1px solid var(--gray-800); border-radius: 12px; overflow: hidden; }
+        .timeline-toolbar { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid var(--gray-800); background: var(--gray-850); }
+        .timeline-nav { display: flex; align-items: center; gap: 12px; }
+        .timeline-nav-btn { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: var(--gray-700); border-radius: 6px; cursor: pointer; }
+        .timeline-nav-btn:hover { background: var(--gray-600); }
+        .timeline-nav-btn svg { width: 16px; height: 16px; color: var(--gray-300); }
+        .timeline-period { font-family: var(--font-display); font-size: 14px; font-weight: 600; color: var(--gray-100); }
+        .timeline-zoom { display: flex; gap: 4px; }
+        .timeline-zoom-btn { padding: 6px 12px; background: var(--gray-800); border-radius: 4px; font-size: 12px; color: var(--gray-400); cursor: pointer; }
+        .timeline-zoom-btn:hover { background: var(--gray-700); color: var(--gray-200); }
+        .timeline-zoom-btn.active { background: var(--gray-700); color: var(--gray-100); }
+        .timeline-content { display: flex; }
+        .timeline-sidebar { width: 200px; flex-shrink: 0; border-right: 1px solid var(--gray-800); }
+        .timeline-sidebar-header { height: 40px; border-bottom: 1px solid var(--gray-800); display: flex; align-items: center; padding: 0 16px; font-family: var(--font-mono); font-size: 11px; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px; }
+        .timeline-row-label { height: 60px; display: flex; align-items: center; gap: 10px; padding: 0 16px; border-bottom: 1px solid var(--gray-800); }
+        .timeline-row-avatar { width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; }
+        .timeline-row-avatar.lucidia { background: linear-gradient(135deg, var(--accent-orange), var(--accent-pink)); color: white; }
+        .timeline-row-avatar.alice { background: linear-gradient(135deg, var(--accent-blue), var(--accent-magenta)); color: white; }
+        .timeline-row-avatar.octavia { background: linear-gradient(135deg, var(--accent-green), var(--accent-blue)); color: white; }
+        .timeline-row-name { font-size: 13px; color: var(--gray-200); }
+        .timeline-grid { flex: 1; overflow-x: auto; }
+        .timeline-dates { height: 40px; display: flex; border-bottom: 1px solid var(--gray-800); }
+        .timeline-date { width: 120px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 11px; color: var(--gray-500); border-right: 1px solid var(--gray-800); }
+        .timeline-date.today { background: rgba(30, 144, 255, 0.1); color: var(--accent-blue); }
+        .timeline-row { height: 60px; display: flex; border-bottom: 1px solid var(--gray-800); position: relative; }
+        .timeline-cell { width: 120px; flex-shrink: 0; border-right: 1px solid var(--gray-800); }
+        .timeline-cell.today { background: rgba(30, 144, 255, 0.05); }
+        .timeline-bar { position: absolute; height: 32px; top: 14px; border-radius: 6px; display: flex; align-items: center; padding: 0 10px; font-size: 11px; font-weight: 500; color: white; }
+        .timeline-bar.task { background: var(--accent-blue); }
+        .timeline-bar.deploy { background: var(--accent-green); }
+        .timeline-bar.maintenance { background: var(--accent-yellow); color: var(--gray-900); }
+        .timeline-legend { display: flex; gap: 20px; padding: 12px 16px; border-top: 1px solid var(--gray-800); background: var(--gray-850); }
+        .timeline-legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--gray-400); }
+        .timeline-legend-dot { width: 12px; height: 12px; border-radius: 4px; }
+        .timeline-legend-dot.task { background: var(--accent-blue); }
+        .timeline-legend-dot.deploy { background: var(--accent-green); }
+        .timeline-legend-dot.maintenance { background: var(--accent-yellow); }
+    </style>
+</head>
+<body>
+
+    <!-- TEMPLATE 24: TEAM MANAGEMENT -->
+    <section id="team" class="template-section">
+        <div class="template-header">
+            <div class="template-number">Template 24</div>
+            <h2 class="template-title">Team Management</h2>
+            <p class="template-description">User roles, permissions, and team member administration.</p>
+        </div>
+        <div class="team-container">
+            <div class="team-header">
+                <div class="team-header-left">
+                    <h2>Team Members</h2>
+                    <p>Manage your workspace members and their permissions</p>
+                </div>
+                <button class="team-invite-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg> Invite Member</button>
+            </div>
+            <div class="team-tabs">
+                <div class="team-tab active">All Members (8)</div>
+                <div class="team-tab">Admins (2)</div>
+                <div class="team-tab">Members (5)</div>
+                <div class="team-tab">Guests (1)</div>
+            </div>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-card-header">
+                        <div class="team-card-avatar">SK</div>
+                        <div class="team-card-menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg></div>
+                    </div>
+                    <div class="team-card-name">Sarah Kim</div>
+                    <div class="team-card-email">sarah@blackroad.io</div>
+                    <div class="team-card-role owner">Owner</div>
+                    <div class="team-card-stats">
+                        <div class="team-card-stat"><div class="team-card-stat-value">12</div><div class="team-card-stat-label">Agents</div></div>
+                        <div class="team-card-stat"><div class="team-card-stat-value">48</div><div class="team-card-stat-label">Deployments</div></div>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-card-header">
+                        <div class="team-card-avatar">JD</div>
+                        <div class="team-card-menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg></div>
+                    </div>
+                    <div class="team-card-name">James Davis</div>
+                    <div class="team-card-email">james@blackroad.io</div>
+                    <div class="team-card-role admin">Admin</div>
+                    <div class="team-card-stats">
+                        <div class="team-card-stat"><div class="team-card-stat-value">8</div><div class="team-card-stat-label">Agents</div></div>
+                        <div class="team-card-stat"><div class="team-card-stat-value">32</div><div class="team-card-stat-label">Deployments</div></div>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-card-header">
+                        <div class="team-card-avatar">MR</div>
+                        <div class="team-card-menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg></div>
+                    </div>
+                    <div class="team-card-name">Maria Rodriguez</div>
+                    <div class="team-card-email">maria@blackroad.io</div>
+                    <div class="team-card-role">Member</div>
+                    <div class="team-card-stats">
+                        <div class="team-card-stat"><div class="team-card-stat-value">5</div><div class="team-card-stat-label">Agents</div></div>
+                        <div class="team-card-stat"><div class="team-card-stat-value">21</div><div class="team-card-stat-label">Deployments</div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="team-pending">
+                <div class="team-pending-header">
+                    <span class="team-pending-title">Pending Invitations</span>
+                    <span class="team-pending-count">2</span>
+                </div>
+                <div class="team-pending-list">
+                    <div class="team-pending-item">
+                        <div class="team-pending-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+                        <div class="team-pending-info">
+                            <div class="team-pending-email">alex.chen@company.com</div>
+                            <div class="team-pending-meta">Invited 2 days ago as Member</div>
+                        </div>
+                        <div class="team-pending-actions">
+                            <button class="team-pending-btn revoke">Revoke</button>
+                            <button class="team-pending-btn approve">Resend</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEMPLATE 25: INTEGRATIONS -->
+    <section id="integrations" class="template-section">
+        <div class="template-header">
+            <div class="template-number">Template 25</div>
+            <h2 class="template-title">Integrations</h2>
+            <p class="template-description">Connect third-party services and tools to your workspace.</p>
+        </div>
+        <div class="integrations-container">
+            <div class="integrations-header">
+                <h2>Available Integrations</h2>
+                <p>Connect your favorite tools to enhance your AI agent workflows and automate operations.</p>
+            </div>
+            <div class="integrations-search">
+                <input type="text" class="integrations-search-input" placeholder="Search integrations...">
+                <div class="integrations-categories">
+                    <span class="integrations-category active">All</span>
+                    <span class="integrations-category">DevOps</span>
+                    <span class="integrations-category">Monitoring</span>
+                    <span class="integrations-category">Communication</span>
+                    <span class="integrations-category">Cloud</span>
+                </div>
+            </div>
+            <div class="integrations-section">
+                <div class="integrations-section-title">Connected</div>
+                <div class="integrations-grid">
+                    <div class="integration-card connected">
+                        <div class="integration-icon github"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 016 0c2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18a4.65 4.65 0 011.23 3.22c0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58A12 12 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></div>
+                        <div class="integration-content">
+                            <div class="integration-name">GitHub <span class="integration-status"></span></div>
+                            <div class="integration-desc">Sync repositories and deploy agents on push</div>
+                        </div>
+                        <div class="integration-action"><button class="integration-btn manage">Manage</button></div>
+                    </div>
+                    <div class="integration-card connected">
+                        <div class="integration-icon slack"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.04 15.16a2.53 2.53 0 01-2.52 2.53A2.53 2.53 0 010 15.16a2.53 2.53 0 012.52-2.52h2.52v2.52zm1.27 0a2.53 2.53 0 012.52-2.52 2.53 2.53 0 012.52 2.52v6.32A2.53 2.53 0 018.83 24a2.53 2.53 0 01-2.52-2.52v-6.32zM8.83 5.04a2.53 2.53 0 01-2.52-2.52A2.53 2.53 0 018.83 0a2.53 2.53 0 012.52 2.52v2.52H8.83zm0 1.27a2.53 2.53 0 012.52 2.52 2.53 2.53 0 01-2.52 2.52H2.52A2.53 2.53 0 010 8.83a2.53 2.53 0 012.52-2.52h6.31zm10.13 2.52a2.53 2.53 0 012.52-2.52A2.53 2.53 0 0124 8.83a2.53 2.53 0 01-2.52 2.52h-2.52V8.83zm-1.27 0a2.53 2.53 0 01-2.52 2.52 2.53 2.53 0 01-2.52-2.52V2.52A2.53 2.53 0 0115.17 0a2.53 2.53 0 012.52 2.52v6.31zm-2.52 10.13a2.53 2.53 0 012.52 2.52A2.53 2.53 0 0115.17 24a2.53 2.53 0 01-2.52-2.52v-2.52h2.52zm0-1.27a2.53 2.53 0 01-2.52-2.52 2.53 2.53 0 012.52-2.52h6.31A2.53 2.53 0 0124 15.17a2.53 2.53 0 01-2.52 2.52h-6.31z"/></svg></div>
+                        <div class="integration-content">
+                            <div class="integration-name">Slack <span class="integration-status"></span></div>
+                            <div class="integration-desc">Get alerts and interact with agents via Slack</div>
+                        </div>
+                        <div class="integration-action"><button class="integration-btn manage">Manage</button></div>
+                    </div>
+                </div>
+            </div>
+            <div class="integrations-section">
+                <div class="integrations-section-title">Available</div>
+                <div class="integrations-grid">
+                    <div class="integration-card">
+                        <div class="integration-icon datadog"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18l7.25 3.63L12 11.44 4.75 7.81 12 4.18zM4 9.08l7 3.5v7.34l-7-3.5V9.08zm16 7.34l-7 3.5v-7.34l7-3.5v7.34z"/></svg></div>
+                        <div class="integration-content">
+                            <div class="integration-name">Datadog</div>
+                            <div class="integration-desc">Monitor agent performance and metrics</div>
+                        </div>
+                        <div class="integration-action"><button class="integration-btn connect">Connect</button></div>
+                    </div>
+                    <div class="integration-card">
+                        <div class="integration-icon aws"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg></div>
+                        <div class="integration-content">
+                            <div class="integration-name">AWS</div>
+                            <div class="integration-desc">Deploy agents to AWS infrastructure</div>
+                        </div>
+                        <div class="integration-action"><button class="integration-btn connect">Connect</button></div>
+                    </div>
+                    <div class="integration-card">
+                        <div class="integration-icon pagerduty"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
+                        <div class="integration-content">
+                            <div class="integration-name">PagerDuty</div>
+                            <div class="integration-desc">On-call alerting for agent incidents</div>
+                        </div>
+                        <div class="integration-action"><button class="integration-btn connect">Connect</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEMPLATE 26: TIMELINE -->
+    <section id="timeline" class="template-section">
+        <div class="template-header">
+            <div class="template-number">Template 26</div>
+            <h2 class="template-title">Timeline / Gantt View</h2>
+            <p class="template-description">Visualize agent schedules, deployments, and maintenance windows.</p>
+        </div>
+        <div class="timeline-container">
+            <div class="timeline-header">
+                <div class="timeline-header-left">
+                    <h2>Agent Schedule</h2>
+                    <p>View and manage agent activities over time</p>
+                </div>
+                <div class="timeline-controls">
+                    <button class="timeline-control"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Today</button>
+                    <button class="timeline-control"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Add Task</button>
+                </div>
+            </div>
+            <div class="timeline-wrapper">
+                <div class="timeline-toolbar">
+                    <div class="timeline-nav">
+                        <div class="timeline-nav-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></div>
+                        <span class="timeline-period">January 20 - 26, 2026</span>
+                        <div class="timeline-nav-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+                    </div>
+                    <div class="timeline-zoom">
+                        <span class="timeline-zoom-btn">Day</span>
+                        <span class="timeline-zoom-btn active">Week</span>
+                        <span class="timeline-zoom-btn">Month</span>
+                    </div>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-sidebar">
+                        <div class="timeline-sidebar-header">Agents</div>
+                        <div class="timeline-row-label"><div class="timeline-row-avatar lucidia">L</div><span class="timeline-row-name">Lucidia</span></div>
+                        <div class="timeline-row-label"><div class="timeline-row-avatar alice">A</div><span class="timeline-row-name">Alice</span></div>
+                        <div class="timeline-row-label"><div class="timeline-row-avatar octavia">O</div><span class="timeline-row-name">Octavia</span></div>
+                    </div>
+                    <div class="timeline-grid">
+                        <div class="timeline-dates">
+                            <div class="timeline-date">Mon 20</div>
+                            <div class="timeline-date">Tue 21</div>
+                            <div class="timeline-date">Wed 22</div>
+                            <div class="timeline-date">Thu 23</div>
+                            <div class="timeline-date today">Fri 24</div>
+                            <div class="timeline-date">Sat 25</div>
+                            <div class="timeline-date">Sun 26</div>
+                        </div>
+                        <div class="timeline-row">
+                            <div class="timeline-cell"></div><div class="timeline-cell"></div><div class="timeline-cell"></div><div class="timeline-cell"></div><div class="timeline-cell today"></div><div class="timeline-cell"></div><div class="timeline-cell"></div>
+                            <div class="timeline-bar task" style="left: 20px; width: 220px;">Memory optimization</div>
+                            <div class="timeline-bar deploy" style="left: 500px; width: 100px;">v2.1 Deploy</div>
+                        </div>
+                        <div class="timeline-row">
+                            <div class="timeline-cell"></div><div class="timeline-cell"></div><div class="timeline-cell"></div><div class="timeline-cell"></div><div class="timeline-cell today"></div><div class="timeline-cell"></div><div class="timeline-cell"></div>
+                            <div class="timeline-bar maintenance" style="left: 260px; width: 120px;">Maintenance</div>
+                        </div>
+                        <div class="timeline-row">
+                            <div class="timeline-cell"></div><div class="timeline-cell"></div><div class="timeline-cell"></div><div class="timeline-cell"></div><div class="timeline-cell today"></div><div class="timeline-cell"></div><div class="timeline-cell"></div>
+                            <div class="timeline-bar task" style="left: 140px; width: 340px;">Hailo driver update</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-legend">
+                    <div class="timeline-legend-item"><div class="timeline-legend-dot task"></div> Active Task</div>
+                    <div class="timeline-legend-item"><div class="timeline-legend-dot deploy"></div> Deployment</div>
+                    <div class="timeline-legend-item"><div class="timeline-legend-dot maintenance"></div> Maintenance</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
