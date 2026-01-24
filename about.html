@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="BlackRoad - Building sovereign, local-first AI systems that respect privacy and user autonomy.">
-    <title>BlackRoad - Sovereign AI Systems</title>
+    <meta name="description" content="About BlackRoad - Learn about our mission to build sovereign, local-first AI systems.">
+    <title>About - BlackRoad</title>
     <style>
       :root {
         --color-bg: #0a0a0a;
@@ -72,82 +72,54 @@
 
       main {
         flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 2rem;
+        padding: 4rem 2rem;
+        max-width: 800px;
+        margin: 0 auto;
+        width: 100%;
       }
 
-      .hero {
-        max-width: 600px;
-        text-align: center;
-      }
-
-      .hero h1 {
-        font-size: clamp(2.5rem, 8vw, 4rem);
+      h1 {
+        font-size: 2.5rem;
         font-weight: 700;
         letter-spacing: -0.03em;
-        margin-bottom: 1.5rem;
-        background: linear-gradient(135deg, var(--color-text) 0%, var(--color-accent) 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-
-      .hero .tagline {
-        font-size: 1.25rem;
-        color: var(--color-text-muted);
         margin-bottom: 2rem;
       }
 
-      .features {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 1rem;
-        margin-top: 3rem;
+      h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
       }
 
-      .feature {
+      p {
+        color: var(--color-text-muted);
+        margin-bottom: 1rem;
+      }
+
+      .values {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+
+      .value-card {
         background: var(--color-surface);
         border: 1px solid var(--color-border);
         border-radius: 8px;
-        padding: 1.25rem;
-        text-align: left;
+        padding: 1.5rem;
       }
 
-      .feature h3 {
-        font-size: 0.875rem;
+      .value-card h3 {
+        font-size: 1rem;
         font-weight: 600;
         margin-bottom: 0.5rem;
       }
 
-      .feature p {
-        font-size: 0.8rem;
-        color: var(--color-text-muted);
-      }
-
-      .status {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        background: var(--color-surface);
-        border: 1px solid var(--color-border);
-        border-radius: 9999px;
-        padding: 0.5rem 1rem;
+      .value-card p {
         font-size: 0.875rem;
-      }
-
-      .status-dot {
-        width: 8px;
-        height: 8px;
-        background: #22c55e;
-        border-radius: 50%;
-        animation: pulse 2s infinite;
-      }
-
-      @keyframes pulse {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.5; }
+        margin-bottom: 0;
       }
 
       footer {
@@ -162,16 +134,12 @@
         header {
           flex-direction: column;
           gap: 1rem;
-          padding: 1rem;
-        }
-        footer {
-          padding: 1rem;
         }
         main {
-          padding: 1rem;
+          padding: 2rem 1rem;
         }
-        .features {
-          grid-template-columns: 1fr;
+        h1 {
+          font-size: 2rem;
         }
       }
     </style>
@@ -187,30 +155,37 @@
     </header>
 
     <main>
-      <section class="hero">
-        <h1>Sovereign AI</h1>
-        <p class="tagline">Building local-first AI systems that respect privacy and user autonomy.</p>
+      <h1>About BlackRoad</h1>
 
-        <div class="status">
-          <span class="status-dot"></span>
-          <span>System Online</span>
-        </div>
+      <p>BlackRoad is building the infrastructure for sovereign AI—systems that run locally, respect user privacy, and remain under individual control.</p>
 
-        <div class="features">
-          <div class="feature">
-            <h3>Local-First</h3>
-            <p>Your data stays on your machine. No cloud required.</p>
-          </div>
-          <div class="feature">
-            <h3>Privacy-Focused</h3>
-            <p>Complete control over your AI interactions.</p>
-          </div>
-          <div class="feature">
-            <h3>Open Source</h3>
-            <p>Transparent, auditable, and community-driven.</p>
-          </div>
+      <p>We believe AI should empower individuals, not surveil them. Our tools are designed to work entirely on your hardware, with no data leaving your machine unless you explicitly choose to share it.</p>
+
+      <h2>Our Mission</h2>
+      <p>To democratize access to powerful AI capabilities while preserving individual sovereignty, privacy, and autonomy. We're creating tools that put users in complete control of their AI interactions.</p>
+
+      <h2>Core Values</h2>
+      <div class="values">
+        <div class="value-card">
+          <h3>Privacy by Design</h3>
+          <p>Your data never leaves your device. We build systems that work entirely offline.</p>
         </div>
-      </section>
+        <div class="value-card">
+          <h3>User Sovereignty</h3>
+          <p>You own your AI. No subscriptions, no API limits, no external dependencies.</p>
+        </div>
+        <div class="value-card">
+          <h3>Open Development</h3>
+          <p>Transparent, auditable code. Community-driven development and governance.</p>
+        </div>
+        <div class="value-card">
+          <h3>Accessibility</h3>
+          <p>AI for everyone, regardless of technical expertise or resources.</p>
+        </div>
+      </div>
+
+      <h2>The Future We're Building</h2>
+      <p>We envision a world where powerful AI assistants run on consumer hardware, where individuals maintain full control over their digital tools, and where privacy is the default—not a premium feature.</p>
     </main>
 
     <footer>

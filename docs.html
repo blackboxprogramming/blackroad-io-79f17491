@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BlackRoad Documentation - Get started with sovereign, local-first AI systems.">
+    <title>Documentation - BlackRoad</title>
+    <style>
+      :root {
+        --color-bg: #0a0a0a;
+        --color-surface: #141414;
+        --color-text: #e5e5e5;
+        --color-text-muted: #888;
+        --color-accent: #3b82f6;
+        --color-accent-hover: #60a5fa;
+        --color-border: #262626;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background-color: var(--color-bg);
+        color: var(--color-text);
+        line-height: 1.6;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      a {
+        color: var(--color-accent);
+        text-decoration: none;
+      }
+
+      a:hover {
+        color: var(--color-accent-hover);
+      }
+
+      header {
+        padding: 1.5rem 2rem;
+        border-bottom: 1px solid var(--color-border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.25rem;
+        font-weight: 700;
+        letter-spacing: -0.025em;
+        color: var(--color-text);
+      }
+
+      nav {
+        display: flex;
+        gap: 1.5rem;
+      }
+
+      nav a {
+        color: var(--color-text-muted);
+        font-size: 0.875rem;
+      }
+
+      nav a:hover {
+        color: var(--color-text);
+      }
+
+      main {
+        flex: 1;
+        padding: 4rem 2rem;
+        max-width: 800px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        margin-bottom: 1rem;
+      }
+
+      .subtitle {
+        color: var(--color-text-muted);
+        font-size: 1.125rem;
+        margin-bottom: 3rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      h3 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+      }
+
+      p {
+        color: var(--color-text-muted);
+        margin-bottom: 1rem;
+      }
+
+      code {
+        font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+        background: var(--color-surface);
+        padding: 0.2em 0.4em;
+        border-radius: 4px;
+        font-size: 0.875em;
+      }
+
+      pre {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        padding: 1rem;
+        overflow-x: auto;
+        margin: 1rem 0;
+      }
+
+      pre code {
+        background: none;
+        padding: 0;
+      }
+
+      .step {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .step-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        background: var(--color-accent);
+        color: white;
+        border-radius: 50%;
+        font-size: 0.875rem;
+        font-weight: 600;
+        margin-right: 0.75rem;
+      }
+
+      .step h3 {
+        display: inline;
+        margin: 0;
+      }
+
+      .step p {
+        margin-top: 0.75rem;
+        margin-bottom: 0;
+      }
+
+      ul {
+        color: var(--color-text-muted);
+        margin: 1rem 0;
+        padding-left: 1.5rem;
+      }
+
+      li {
+        margin-bottom: 0.5rem;
+      }
+
+      footer {
+        padding: 1.5rem 2rem;
+        border-top: 1px solid var(--color-border);
+        text-align: center;
+        color: var(--color-text-muted);
+        font-size: 0.875rem;
+      }
+
+      @media (max-width: 480px) {
+        header {
+          flex-direction: column;
+          gap: 1rem;
+        }
+        main {
+          padding: 2rem 1rem;
+        }
+        h1 {
+          font-size: 2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="index.html" class="logo">BlackRoad</a>
+      <nav>
+        <a href="about.html">About</a>
+        <a href="docs.html">Docs</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <h1>Documentation</h1>
+      <p class="subtitle">Get started with BlackRoad's local-first AI tools.</p>
+
+      <h2>Quick Start</h2>
+
+      <div class="step">
+        <span class="step-number">1</span>
+        <h3>Check System Requirements</h3>
+        <p>Ensure your system meets the minimum requirements:</p>
+        <ul>
+          <li>64-bit operating system (Windows, macOS, or Linux)</li>
+          <li>8GB RAM minimum (16GB recommended)</li>
+          <li>10GB free disk space</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <span class="step-number">2</span>
+        <h3>Download BlackRoad</h3>
+        <p>Download the latest release for your platform from our releases page. Extract the archive to your preferred location.</p>
+      </div>
+
+      <div class="step">
+        <span class="step-number">3</span>
+        <h3>Initialize the Environment</h3>
+        <p>Open a terminal and run the initialization command:</p>
+        <pre><code>blackroad init</code></pre>
+        <p>This will set up the local model storage and configuration files.</p>
+      </div>
+
+      <div class="step">
+        <span class="step-number">4</span>
+        <h3>Start the Service</h3>
+        <p>Launch the BlackRoad service:</p>
+        <pre><code>blackroad start</code></pre>
+        <p>The service will run locally on <code>http://localhost:8080</code>.</p>
+      </div>
+
+      <h2>Configuration</h2>
+      <p>BlackRoad stores its configuration in <code>~/.blackroad/config.json</code>. You can customize:</p>
+      <ul>
+        <li><strong>Model selection</strong> - Choose which AI models to use</li>
+        <li><strong>Resource limits</strong> - Set memory and CPU constraints</li>
+        <li><strong>Storage location</strong> - Specify where models are stored</li>
+        <li><strong>Network settings</strong> - Configure ports and interfaces</li>
+      </ul>
+
+      <h2>Commands Reference</h2>
+      <h3>blackroad init</h3>
+      <p>Initialize a new BlackRoad environment. Creates configuration files and prepares model storage.</p>
+
+      <h3>blackroad start</h3>
+      <p>Start the BlackRoad service. Loads configured models and begins accepting requests.</p>
+
+      <h3>blackroad stop</h3>
+      <p>Gracefully stop the running service.</p>
+
+      <h3>blackroad status</h3>
+      <p>Display the current service status, loaded models, and resource usage.</p>
+
+      <h2>Need Help?</h2>
+      <p>Check out our <a href="contact.html">contact page</a> for support options, or join our community forums for discussions and troubleshooting.</p>
+    </main>
+
+    <footer>
+      <p>BlackRoad &copy; 2025. Building the future of sovereign AI.</p>
+    </footer>
+  </body>
+</html>
