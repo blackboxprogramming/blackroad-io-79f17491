@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Download BlackRoad - Get the latest release for your platform.">
+    <title>Downloads - BlackRoad</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      /* Downloads page-specific styles */
+      .download-hero {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .download-hero h1 {
+        margin-bottom: 1rem;
+      }
+
+      .version-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 9999px;
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+        margin-bottom: 1rem;
+      }
+
+      .version-badge strong {
+        color: var(--color-text);
+      }
+
+      .platforms {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+      }
+
+      .platform-card {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        padding: 1.5rem;
+        text-align: center;
+        transition: border-color 0.2s;
+      }
+
+      .platform-card:hover {
+        border-color: var(--color-accent);
+      }
+
+      .platform-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .platform-card h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+        margin-top: 0;
+        color: var(--color-text);
+      }
+
+      .platform-card .arch {
+        font-size: 0.875rem;
+        color: var(--color-text-muted);
+        margin-bottom: 1rem;
+      }
+
+      .download-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        width: 100%;
+        background: var(--color-accent);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        font-weight: 500;
+        transition: background 0.2s;
+        margin-bottom: 0.75rem;
+      }
+
+      .download-btn:hover {
+        background: var(--color-accent-hover);
+        color: white;
+      }
+
+      .download-size {
+        font-size: 0.75rem;
+        color: var(--color-text-muted);
+      }
+
+      .alt-downloads {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--color-border);
+      }
+
+      .alt-downloads a {
+        font-size: 0.875rem;
+      }
+
+      .checksums {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 3rem;
+      }
+
+      .checksums h3 {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+        margin-top: 0;
+      }
+
+      .checksum-list {
+        font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+        font-size: 0.75rem;
+        color: var(--color-text-muted);
+        background: var(--color-bg);
+        border-radius: 6px;
+        padding: 1rem;
+        overflow-x: auto;
+      }
+
+      .checksum-list div {
+        margin-bottom: 0.5rem;
+      }
+
+      .checksum-list div:last-child {
+        margin-bottom: 0;
+      }
+
+      .checksum-list .filename {
+        color: var(--color-text);
+      }
+
+      .other-options {
+        text-align: center;
+      }
+
+      .other-options h2 {
+        margin-bottom: 1.5rem;
+      }
+
+      .option-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+      }
+
+      .option-card {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        padding: 1.25rem;
+        text-align: left;
+      }
+
+      .option-card h4 {
+        font-size: 0.875rem;
+        margin-bottom: 0.5rem;
+        color: var(--color-text);
+      }
+
+      .option-card p {
+        font-size: 0.8rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .option-card code {
+        font-size: 0.75rem;
+      }
+
+      .requirements {
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--color-border);
+      }
+
+      .requirements h2 {
+        margin-bottom: 1rem;
+      }
+
+      .req-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .req-item h4 {
+        font-size: 0.875rem;
+        color: var(--color-text);
+        margin-bottom: 0.5rem;
+      }
+
+      .req-item p {
+        font-size: 0.875rem;
+        margin-bottom: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="index.html" class="logo">BlackRoad</a>
+      <nav>
+        <a href="about.html">About</a>
+        <a href="features.html">Features</a>
+        <a href="downloads.html">Downloads</a>
+        <a href="docs.html">Docs</a>
+        <a href="activity.html">Activity</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="download-hero">
+        <h1>Download BlackRoad</h1>
+        <div class="version-badge">
+          <span>Latest Release:</span>
+          <strong>v0.9.2</strong>
+        </div>
+        <p class="subtitle">Choose your platform to get started with local-first AI.</p>
+      </div>
+
+      <div class="platforms">
+        <div class="platform-card">
+          <div class="platform-icon">&#x1F4E6;</div>
+          <h3>macOS</h3>
+          <p class="arch">Apple Silicon (M1/M2/M3) & Intel</p>
+          <a href="#" class="download-btn">Download for macOS</a>
+          <span class="download-size">Universal Binary • 48 MB</span>
+          <div class="alt-downloads">
+            <a href="#">ARM64</a>
+            <a href="#">x86_64</a>
+            <a href="#">Homebrew</a>
+          </div>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-icon">&#x1F5A5;</div>
+          <h3>Linux</h3>
+          <p class="arch">x86_64, ARM64, ARMv7</p>
+          <a href="#" class="download-btn">Download for Linux</a>
+          <span class="download-size">x86_64 • 52 MB</span>
+          <div class="alt-downloads">
+            <a href="#">ARM64</a>
+            <a href="#">ARMv7</a>
+            <a href="#">AppImage</a>
+          </div>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-icon">&#x1FA9F;</div>
+          <h3>Windows</h3>
+          <p class="arch">Windows 10/11 (64-bit)</p>
+          <a href="#" class="download-btn">Download for Windows</a>
+          <span class="download-size">Installer • 55 MB</span>
+          <div class="alt-downloads">
+            <a href="#">Portable</a>
+            <a href="#">Winget</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="checksums">
+        <h3>Verify Your Download</h3>
+        <div class="checksum-list">
+          <div><span class="filename">blackroad-0.9.2-darwin-universal.tar.gz</span></div>
+          <div>SHA256: a7f3c2d8e9b4f1a6c5d8e7f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2</div>
+          <div style="margin-top: 1rem;"><span class="filename">blackroad-0.9.2-linux-x86_64.tar.gz</span></div>
+          <div>SHA256: b8f4d3e9f0a5b2c6d7e8f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2</div>
+          <div style="margin-top: 1rem;"><span class="filename">blackroad-0.9.2-windows-x64.zip</span></div>
+          <div>SHA256: c9a5e4f0a1b6c3d7e8f9a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3</div>
+        </div>
+      </div>
+
+      <div class="other-options">
+        <h2>Other Installation Methods</h2>
+        <div class="option-grid">
+          <div class="option-card">
+            <h4>Docker</h4>
+            <p>Run BlackRoad in a container.</p>
+            <code>docker pull blackroad/blackroad:latest</code>
+          </div>
+          <div class="option-card">
+            <h4>Homebrew (macOS)</h4>
+            <p>Install via Homebrew on macOS.</p>
+            <code>brew install blackroad</code>
+          </div>
+          <div class="option-card">
+            <h4>Build from Source</h4>
+            <p>Compile from the source code.</p>
+            <code>git clone github.com/blackroad/blackroad</code>
+          </div>
+          <div class="option-card">
+            <h4>Nix</h4>
+            <p>Available in nixpkgs.</p>
+            <code>nix-env -iA nixpkgs.blackroad</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="requirements">
+        <h2>System Requirements</h2>
+        <div class="req-grid">
+          <div class="req-item">
+            <h4>Operating System</h4>
+            <p>macOS 12+, Ubuntu 20.04+, Windows 10+</p>
+          </div>
+          <div class="req-item">
+            <h4>Memory</h4>
+            <p>8 GB minimum, 16 GB recommended</p>
+          </div>
+          <div class="req-item">
+            <h4>Storage</h4>
+            <p>10 GB for app + models</p>
+          </div>
+          <div class="req-item">
+            <h4>GPU (Optional)</h4>
+            <p>CUDA 11.8+, Metal, or Vulkan</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>BlackRoad &copy; 2025. Building the future of sovereign AI.</p>
+    </footer>
+  </body>
+</html>

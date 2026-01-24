@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BlackRoad Status - System health and service status.">
+    <title>Status - BlackRoad</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      /* Status page-specific styles */
+      .status-hero {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .status-hero h1 {
+        margin-bottom: 1rem;
+      }
+
+      .overall-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 9999px;
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        font-weight: 500;
+      }
+
+      .status-indicator {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+      }
+
+      .status-indicator.operational {
+        background: #22c55e;
+      }
+
+      .status-indicator.degraded {
+        background: #f59e0b;
+      }
+
+      .status-indicator.outage {
+        background: #ef4444;
+      }
+
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.6; }
+      }
+
+      .status-section {
+        margin-bottom: 2rem;
+      }
+
+      .status-section h2 {
+        font-size: 1.125rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .service-list {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .service-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 1.25rem;
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .service-item:last-child {
+        border-bottom: none;
+      }
+
+      .service-info {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .service-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+
+      .service-dot.operational {
+        background: #22c55e;
+      }
+
+      .service-dot.degraded {
+        background: #f59e0b;
+      }
+
+      .service-dot.outage {
+        background: #ef4444;
+      }
+
+      .service-dot.maintenance {
+        background: #3b82f6;
+      }
+
+      .service-name {
+        font-weight: 500;
+        color: var(--color-text);
+      }
+
+      .service-status {
+        font-size: 0.875rem;
+        color: var(--color-text-muted);
+      }
+
+      .service-status.operational {
+        color: #22c55e;
+      }
+
+      .service-status.degraded {
+        color: #f59e0b;
+      }
+
+      .service-status.outage {
+        color: #ef4444;
+      }
+
+      .service-status.maintenance {
+        color: #3b82f6;
+      }
+
+      .uptime-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .uptime-card {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        padding: 1.25rem;
+        text-align: center;
+      }
+
+      .uptime-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--color-text);
+        line-height: 1;
+        margin-bottom: 0.5rem;
+      }
+
+      .uptime-label {
+        font-size: 0.875rem;
+        color: var(--color-text-muted);
+      }
+
+      .uptime-bar {
+        display: flex;
+        gap: 2px;
+        margin-top: 1rem;
+        height: 24px;
+      }
+
+      .uptime-day {
+        flex: 1;
+        background: #22c55e;
+        border-radius: 2px;
+        position: relative;
+      }
+
+      .uptime-day.degraded {
+        background: #f59e0b;
+      }
+
+      .uptime-day.outage {
+        background: #ef4444;
+      }
+
+      .uptime-day:hover::after {
+        content: attr(data-date);
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--color-bg);
+        border: 1px solid var(--color-border);
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        white-space: nowrap;
+        margin-bottom: 4px;
+      }
+
+      .uptime-legend {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.75rem;
+        color: var(--color-text-muted);
+        margin-top: 0.5rem;
+      }
+
+      .incidents {
+        margin-top: 3rem;
+      }
+
+      .incidents h2 {
+        margin-bottom: 1rem;
+      }
+
+      .incident-list {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+      }
+
+      .incident-item {
+        padding: 1.25rem;
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .incident-item:last-child {
+        border-bottom: none;
+      }
+
+      .incident-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+      }
+
+      .incident-title {
+        font-weight: 500;
+        color: var(--color-text);
+      }
+
+      .incident-date {
+        font-size: 0.875rem;
+        color: var(--color-text-muted);
+      }
+
+      .incident-badge {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 500;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        margin-right: 0.5rem;
+      }
+
+      .incident-badge.resolved {
+        background: rgba(34, 197, 94, 0.1);
+        color: #22c55e;
+      }
+
+      .incident-badge.investigating {
+        background: rgba(245, 158, 11, 0.1);
+        color: #f59e0b;
+      }
+
+      .incident-badge.scheduled {
+        background: rgba(59, 130, 246, 0.1);
+        color: #3b82f6;
+      }
+
+      .incident-description {
+        font-size: 0.875rem;
+        color: var(--color-text-muted);
+        margin-top: 0.5rem;
+      }
+
+      .incident-updates {
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--color-border);
+      }
+
+      .incident-update {
+        display: flex;
+        gap: 1rem;
+        font-size: 0.875rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .incident-update:last-child {
+        margin-bottom: 0;
+      }
+
+      .incident-update-time {
+        color: var(--color-text-muted);
+        flex-shrink: 0;
+        width: 80px;
+      }
+
+      .incident-update-text {
+        color: var(--color-text-muted);
+      }
+
+      .no-incidents {
+        padding: 2rem;
+        text-align: center;
+        color: var(--color-text-muted);
+      }
+
+      .subscribe {
+        margin-top: 3rem;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        padding: 1.5rem;
+        text-align: center;
+      }
+
+      .subscribe h3 {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .subscribe p {
+        font-size: 0.875rem;
+        margin-bottom: 1rem;
+      }
+
+      .subscribe-form {
+        display: flex;
+        gap: 0.5rem;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      .subscribe-form input {
+        flex: 1;
+        padding: 0.75rem 1rem;
+        background: var(--color-bg);
+        border: 1px solid var(--color-border);
+        border-radius: 6px;
+        color: var(--color-text);
+        font-size: 0.875rem;
+      }
+
+      .subscribe-form input:focus {
+        outline: none;
+        border-color: var(--color-accent);
+      }
+
+      .subscribe-form button {
+        padding: 0.75rem 1.5rem;
+        background: var(--color-accent);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .subscribe-form button:hover {
+        background: var(--color-accent-hover);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="index.html" class="logo">BlackRoad</a>
+      <nav>
+        <a href="about.html">About</a>
+        <a href="features.html">Features</a>
+        <a href="downloads.html">Downloads</a>
+        <a href="docs.html">Docs</a>
+        <a href="activity.html">Activity</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="status-hero">
+        <h1>System Status</h1>
+        <div class="overall-status">
+          <span class="status-indicator operational"></span>
+          <span>All Systems Operational</span>
+        </div>
+      </div>
+
+      <div class="uptime-grid">
+        <div class="uptime-card">
+          <div class="uptime-value">99.98%</div>
+          <div class="uptime-label">Uptime (30 days)</div>
+        </div>
+        <div class="uptime-card">
+          <div class="uptime-value">23ms</div>
+          <div class="uptime-label">Avg Response Time</div>
+        </div>
+        <div class="uptime-card">
+          <div class="uptime-value">0</div>
+          <div class="uptime-label">Active Incidents</div>
+        </div>
+      </div>
+
+      <div class="status-section">
+        <h2>90-Day Uptime</h2>
+        <div class="uptime-bar">
+          <div class="uptime-day" data-date="Oct 26"></div>
+          <div class="uptime-day" data-date="Oct 27"></div>
+          <div class="uptime-day" data-date="Oct 28"></div>
+          <div class="uptime-day" data-date="Oct 29"></div>
+          <div class="uptime-day" data-date="Oct 30"></div>
+          <div class="uptime-day" data-date="Oct 31"></div>
+          <div class="uptime-day" data-date="Nov 1"></div>
+          <div class="uptime-day" data-date="Nov 2"></div>
+          <div class="uptime-day" data-date="Nov 3"></div>
+          <div class="uptime-day degraded" data-date="Nov 4"></div>
+          <div class="uptime-day" data-date="Nov 5"></div>
+          <div class="uptime-day" data-date="Nov 6"></div>
+          <div class="uptime-day" data-date="Nov 7"></div>
+          <div class="uptime-day" data-date="Nov 8"></div>
+          <div class="uptime-day" data-date="Nov 9"></div>
+          <div class="uptime-day" data-date="Nov 10"></div>
+          <div class="uptime-day" data-date="Nov 11"></div>
+          <div class="uptime-day" data-date="Nov 12"></div>
+          <div class="uptime-day" data-date="Nov 13"></div>
+          <div class="uptime-day" data-date="Nov 14"></div>
+          <div class="uptime-day" data-date="Nov 15"></div>
+          <div class="uptime-day" data-date="Nov 16"></div>
+          <div class="uptime-day" data-date="Nov 17"></div>
+          <div class="uptime-day" data-date="Nov 18"></div>
+          <div class="uptime-day" data-date="Nov 19"></div>
+          <div class="uptime-day" data-date="Nov 20"></div>
+          <div class="uptime-day" data-date="Nov 21"></div>
+          <div class="uptime-day" data-date="Nov 22"></div>
+          <div class="uptime-day" data-date="Nov 23"></div>
+          <div class="uptime-day" data-date="Nov 24"></div>
+          <div class="uptime-day" data-date="Nov 25"></div>
+          <div class="uptime-day" data-date="Nov 26"></div>
+          <div class="uptime-day" data-date="Nov 27"></div>
+          <div class="uptime-day" data-date="Nov 28"></div>
+          <div class="uptime-day" data-date="Nov 29"></div>
+          <div class="uptime-day" data-date="Nov 30"></div>
+          <div class="uptime-day" data-date="Dec 1"></div>
+          <div class="uptime-day" data-date="Dec 2"></div>
+          <div class="uptime-day" data-date="Dec 3"></div>
+          <div class="uptime-day" data-date="Dec 4"></div>
+          <div class="uptime-day" data-date="Dec 5"></div>
+          <div class="uptime-day" data-date="Dec 6"></div>
+          <div class="uptime-day" data-date="Dec 7"></div>
+          <div class="uptime-day" data-date="Dec 8"></div>
+          <div class="uptime-day" data-date="Dec 9"></div>
+          <div class="uptime-day" data-date="Dec 10"></div>
+          <div class="uptime-day" data-date="Dec 11"></div>
+          <div class="uptime-day outage" data-date="Dec 12"></div>
+          <div class="uptime-day" data-date="Dec 13"></div>
+          <div class="uptime-day" data-date="Dec 14"></div>
+          <div class="uptime-day" data-date="Dec 15"></div>
+          <div class="uptime-day" data-date="Dec 16"></div>
+          <div class="uptime-day" data-date="Dec 17"></div>
+          <div class="uptime-day" data-date="Dec 18"></div>
+          <div class="uptime-day" data-date="Dec 19"></div>
+          <div class="uptime-day" data-date="Dec 20"></div>
+          <div class="uptime-day" data-date="Dec 21"></div>
+          <div class="uptime-day" data-date="Dec 22"></div>
+          <div class="uptime-day" data-date="Dec 23"></div>
+          <div class="uptime-day" data-date="Dec 24"></div>
+          <div class="uptime-day" data-date="Dec 25"></div>
+          <div class="uptime-day" data-date="Dec 26"></div>
+          <div class="uptime-day" data-date="Dec 27"></div>
+          <div class="uptime-day" data-date="Dec 28"></div>
+          <div class="uptime-day" data-date="Dec 29"></div>
+          <div class="uptime-day" data-date="Dec 30"></div>
+          <div class="uptime-day" data-date="Dec 31"></div>
+          <div class="uptime-day" data-date="Jan 1"></div>
+          <div class="uptime-day" data-date="Jan 2"></div>
+          <div class="uptime-day" data-date="Jan 3"></div>
+          <div class="uptime-day" data-date="Jan 4"></div>
+          <div class="uptime-day" data-date="Jan 5"></div>
+          <div class="uptime-day" data-date="Jan 6"></div>
+          <div class="uptime-day" data-date="Jan 7"></div>
+          <div class="uptime-day" data-date="Jan 8"></div>
+          <div class="uptime-day" data-date="Jan 9"></div>
+          <div class="uptime-day" data-date="Jan 10"></div>
+          <div class="uptime-day" data-date="Jan 11"></div>
+          <div class="uptime-day" data-date="Jan 12"></div>
+          <div class="uptime-day" data-date="Jan 13"></div>
+          <div class="uptime-day" data-date="Jan 14"></div>
+          <div class="uptime-day" data-date="Jan 15"></div>
+          <div class="uptime-day" data-date="Jan 16"></div>
+          <div class="uptime-day" data-date="Jan 17"></div>
+          <div class="uptime-day" data-date="Jan 18"></div>
+          <div class="uptime-day" data-date="Jan 19"></div>
+          <div class="uptime-day" data-date="Jan 20"></div>
+          <div class="uptime-day" data-date="Jan 21"></div>
+          <div class="uptime-day" data-date="Jan 22"></div>
+          <div class="uptime-day" data-date="Jan 23"></div>
+          <div class="uptime-day" data-date="Jan 24"></div>
+        </div>
+        <div class="uptime-legend">
+          <span>90 days ago</span>
+          <span>Today</span>
+        </div>
+      </div>
+
+      <div class="status-section">
+        <h2>Services</h2>
+        <div class="service-list">
+          <div class="service-item">
+            <div class="service-info">
+              <span class="service-dot operational"></span>
+              <span class="service-name">Model Registry</span>
+            </div>
+            <span class="service-status operational">Operational</span>
+          </div>
+          <div class="service-item">
+            <div class="service-info">
+              <span class="service-dot operational"></span>
+              <span class="service-name">Download Servers</span>
+            </div>
+            <span class="service-status operational">Operational</span>
+          </div>
+          <div class="service-item">
+            <div class="service-info">
+              <span class="service-dot operational"></span>
+              <span class="service-name">Documentation</span>
+            </div>
+            <span class="service-status operational">Operational</span>
+          </div>
+          <div class="service-item">
+            <div class="service-info">
+              <span class="service-dot operational"></span>
+              <span class="service-name">Community Forums</span>
+            </div>
+            <span class="service-status operational">Operational</span>
+          </div>
+          <div class="service-item">
+            <div class="service-info">
+              <span class="service-dot maintenance"></span>
+              <span class="service-name">Telemetry (opt-in)</span>
+            </div>
+            <span class="service-status maintenance">Maintenance</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="incidents">
+        <h2>Recent Incidents</h2>
+        <div class="incident-list">
+          <div class="incident-item">
+            <div class="incident-header">
+              <div>
+                <span class="incident-badge scheduled">Scheduled</span>
+                <span class="incident-title">Cluster Maintenance Window</span>
+              </div>
+              <span class="incident-date">Jan 25, 2025</span>
+            </div>
+            <p class="incident-description">Scheduled maintenance for infrastructure upgrades. Expected duration: 2 hours.</p>
+          </div>
+          <div class="incident-item">
+            <div class="incident-header">
+              <div>
+                <span class="incident-badge resolved">Resolved</span>
+                <span class="incident-title">Download Server Latency</span>
+              </div>
+              <span class="incident-date">Dec 12, 2024</span>
+            </div>
+            <p class="incident-description">Elevated latency on download servers affecting model downloads in EU region.</p>
+            <div class="incident-updates">
+              <div class="incident-update">
+                <span class="incident-update-time">14:32 UTC</span>
+                <span class="incident-update-text">Issue resolved. CDN configuration updated.</span>
+              </div>
+              <div class="incident-update">
+                <span class="incident-update-time">13:45 UTC</span>
+                <span class="incident-update-text">Identified CDN routing issue. Implementing fix.</span>
+              </div>
+              <div class="incident-update">
+                <span class="incident-update-time">13:20 UTC</span>
+                <span class="incident-update-text">Investigating reports of slow downloads.</span>
+              </div>
+            </div>
+          </div>
+          <div class="incident-item">
+            <div class="incident-header">
+              <div>
+                <span class="incident-badge resolved">Resolved</span>
+                <span class="incident-title">Model Registry Intermittent Errors</span>
+              </div>
+              <span class="incident-date">Nov 4, 2024</span>
+            </div>
+            <p class="incident-description">Some users experienced 503 errors when accessing model metadata.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="subscribe">
+        <h3>Get Status Updates</h3>
+        <p>Subscribe to receive notifications about incidents and maintenance.</p>
+        <form class="subscribe-form">
+          <input type="email" placeholder="your@email.com" required>
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </main>
+
+    <footer>
+      <p>BlackRoad &copy; 2025. Building the future of sovereign AI.</p>
+    </footer>
+  </body>
+</html>
