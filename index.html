@@ -1,12 +1,183 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>BlackRoad</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BlackRoad - Building sovereign, local-first AI systems that respect privacy and user autonomy.">
+    <title>BlackRoad - Sovereign AI Systems</title>
+    <style>
+      :root {
+        --color-bg: #0a0a0a;
+        --color-surface: #141414;
+        --color-text: #e5e5e5;
+        --color-text-muted: #888;
+        --color-accent: #3b82f6;
+        --color-accent-hover: #60a5fa;
+        --color-border: #262626;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background-color: var(--color-bg);
+        color: var(--color-text);
+        line-height: 1.6;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      header {
+        padding: 1.5rem 2rem;
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .logo {
+        font-size: 1.25rem;
+        font-weight: 700;
+        letter-spacing: -0.025em;
+      }
+
+      main {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+      }
+
+      .hero {
+        max-width: 600px;
+        text-align: center;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.5rem, 8vw, 4rem);
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(135deg, var(--color-text) 0%, var(--color-accent) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .hero .tagline {
+        font-size: 1.25rem;
+        color: var(--color-text-muted);
+        margin-bottom: 2rem;
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        margin-top: 3rem;
+      }
+
+      .feature {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        padding: 1.25rem;
+        text-align: left;
+      }
+
+      .feature h3 {
+        font-size: 0.875rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .feature p {
+        font-size: 0.8rem;
+        color: var(--color-text-muted);
+      }
+
+      .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 9999px;
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+      }
+
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        background: #22c55e;
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+      }
+
+      footer {
+        padding: 1.5rem 2rem;
+        border-top: 1px solid var(--color-border);
+        text-align: center;
+        color: var(--color-text-muted);
+        font-size: 0.875rem;
+      }
+
+      @media (max-width: 480px) {
+        header, footer {
+          padding: 1rem;
+        }
+        main {
+          padding: 1rem;
+        }
+        .features {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
   </head>
-  <body style="font-family: system-ui; padding: 40px;">
-    <h1>BlackRoad</h1>
-    <p>Building sovereign, local-first AI systems.</p>
-    <p>Status: Online.</p>
+  <body>
+    <header>
+      <div class="logo">BlackRoad</div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Sovereign AI</h1>
+        <p class="tagline">Building local-first AI systems that respect privacy and user autonomy.</p>
+
+        <div class="status">
+          <span class="status-dot"></span>
+          <span>System Online</span>
+        </div>
+
+        <div class="features">
+          <div class="feature">
+            <h3>Local-First</h3>
+            <p>Your data stays on your machine. No cloud required.</p>
+          </div>
+          <div class="feature">
+            <h3>Privacy-Focused</h3>
+            <p>Complete control over your AI interactions.</p>
+          </div>
+          <div class="feature">
+            <h3>Open Source</h3>
+            <p>Transparent, auditable, and community-driven.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>BlackRoad &copy; 2025. Building the future of sovereign AI.</p>
+    </footer>
   </body>
 </html>
