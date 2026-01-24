@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BlackRoad Features - Discover the capabilities of sovereign, local-first AI.">
+    <title>Features - BlackRoad</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      /* Features page-specific styles */
+      .feature-hero {
+        text-align: center;
+        margin-bottom: 4rem;
+      }
+
+      .feature-hero h1 {
+        margin-bottom: 1rem;
+      }
+
+      .feature-section {
+        margin-bottom: 4rem;
+      }
+
+      .feature-section h2 {
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .feature-card {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        padding: 1.5rem;
+      }
+
+      .feature-card h3 {
+        font-size: 1.125rem;
+        margin-top: 0;
+        margin-bottom: 0.75rem;
+        color: var(--color-text);
+      }
+
+      .feature-card p {
+        font-size: 0.875rem;
+        margin-bottom: 0;
+      }
+
+      .feature-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: var(--color-accent);
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        font-size: 1.25rem;
+      }
+
+      .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1.5rem;
+      }
+
+      .comparison-table th,
+      .comparison-table td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .comparison-table th {
+        background: var(--color-surface);
+        font-weight: 600;
+        color: var(--color-text);
+      }
+
+      .comparison-table td {
+        color: var(--color-text-muted);
+      }
+
+      .comparison-table tr:last-child td {
+        border-bottom: none;
+      }
+
+      .check {
+        color: #22c55e;
+      }
+
+      .cross {
+        color: var(--color-text-muted);
+      }
+
+      .cta-section {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        padding: 3rem;
+        text-align: center;
+      }
+
+      .cta-section h2 {
+        margin-top: 0;
+      }
+
+      .cta-section p {
+        max-width: 500px;
+        margin: 0 auto 1.5rem;
+      }
+
+      .cta-button {
+        display: inline-block;
+        background: var(--color-accent);
+        color: white;
+        padding: 0.75rem 2rem;
+        border-radius: 6px;
+        font-weight: 500;
+        transition: background 0.2s;
+      }
+
+      .cta-button:hover {
+        background: var(--color-accent-hover);
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="index.html" class="logo">BlackRoad</a>
+      <nav>
+        <a href="about.html">About</a>
+        <a href="features.html">Features</a>
+        <a href="docs.html">Docs</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="feature-hero">
+        <h1>Features</h1>
+        <p class="subtitle">Everything you need to run AI locally, with full control.</p>
+      </div>
+
+      <section class="feature-section">
+        <h2>Core Capabilities</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-icon">*</div>
+            <h3>Local Model Inference</h3>
+            <p>Run state-of-the-art language models entirely on your hardware. No API calls, no latency, no usage limits.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">#</div>
+            <h3>Model Management</h3>
+            <p>Download, update, and switch between models effortlessly. Support for GGUF, GGML, and other popular formats.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">@</div>
+            <h3>API Compatibility</h3>
+            <p>Drop-in replacement for OpenAI API. Use your existing tools and integrations without modification.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">%</div>
+            <h3>GPU Acceleration</h3>
+            <p>Leverage CUDA, Metal, and Vulkan for blazing-fast inference on modern GPUs.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="feature-section">
+        <h2>Privacy & Security</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-icon">!</div>
+            <h3>Zero Data Collection</h3>
+            <p>We don't collect telemetry, usage data, or model outputs. Your conversations stay on your machine.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">&</div>
+            <h3>Offline Operation</h3>
+            <p>Full functionality without an internet connection. Perfect for air-gapped environments and sensitive work.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">^</div>
+            <h3>Encrypted Storage</h3>
+            <p>Optional encryption for model files and conversation history using industry-standard algorithms.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">~</div>
+            <h3>Audit Logging</h3>
+            <p>Complete visibility into model operations for compliance and debugging purposes.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="feature-section">
+        <h2>Developer Experience</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-icon">></div>
+            <h3>CLI & GUI</h3>
+            <p>Powerful command-line interface for automation plus an intuitive web UI for interactive use.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">+</div>
+            <h3>Plugin System</h3>
+            <p>Extend functionality with custom plugins. Add tools, integrate with services, or modify behavior.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">=</div>
+            <h3>Configuration as Code</h3>
+            <p>Version control your setup. Share configurations across machines and teams.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">$</div>
+            <h3>Resource Controls</h3>
+            <p>Fine-grained control over memory, CPU, and GPU allocation. Run efficiently on any hardware.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="feature-section">
+        <h2>BlackRoad vs Cloud AI</h2>
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>BlackRoad</th>
+              <th>Cloud AI</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Data Privacy</td>
+              <td class="check">100% Local</td>
+              <td class="cross">Sent to servers</td>
+            </tr>
+            <tr>
+              <td>Internet Required</td>
+              <td class="check">No</td>
+              <td class="cross">Yes</td>
+            </tr>
+            <tr>
+              <td>Usage Limits</td>
+              <td class="check">Unlimited</td>
+              <td class="cross">Rate limited</td>
+            </tr>
+            <tr>
+              <td>Monthly Cost</td>
+              <td class="check">$0</td>
+              <td class="cross">$20-100+</td>
+            </tr>
+            <tr>
+              <td>Latency</td>
+              <td class="check">Instant</td>
+              <td class="cross">Network dependent</td>
+            </tr>
+            <tr>
+              <td>Customization</td>
+              <td class="check">Full control</td>
+              <td class="cross">Limited</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="cta-section">
+        <h2>Ready to Get Started?</h2>
+        <p>Join thousands of users running AI on their own terms. It takes just minutes to set up.</p>
+        <a href="docs.html" class="cta-button">View Documentation</a>
+      </section>
+    </main>
+
+    <footer>
+      <p>BlackRoad &copy; 2025. Building the future of sovereign AI.</p>
+    </footer>
+  </body>
+</html>
