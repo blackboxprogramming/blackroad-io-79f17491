@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackRoad OS — Template 12</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #000;
+            --gray-950: #070707;
+            --gray-900: #0d0d0d;
+            --gray-850: #131313;
+            --gray-800: #191919;
+            --gray-750: #1f1f1f;
+            --gray-700: #272727;
+            --gray-600: #3a3a3a;
+            --gray-500: #555;
+            --gray-400: #777;
+            --gray-300: #999;
+            --gray-200: #bbb;
+            --gray-100: #ddd;
+            --white: #f0f0f0;
+
+            --status-operational: #4a4a4a;
+            --status-degraded: #5a5a5a;
+            --status-outage: #6a6a6a;
+
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 15px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--black);
+            color: var(--gray-400);
+            line-height: 1.6;
+        }
+
+        ::selection {
+            background: var(--gray-700);
+            color: var(--white);
+        }
+
+        a {
+            color: var(--gray-300);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        a:hover {
+            color: var(--white);
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header */
+        .header {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-mark {
+            width: 24px;
+            height: 24px;
+            background: var(--white);
+            display: grid;
+            place-items: center;
+        }
+
+        .logo-mark-inner {
+            width: 8px;
+            height: 8px;
+            background: var(--black);
+        }
+
+        .logo-text {
+            font-family: var(--font-display);
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .logo-badge {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-500);
+            background: var(--gray-900);
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+            margin-left: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .subscribe-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-400);
+            background: var(--gray-900);
+            border: 1px solid var(--gray-850);
+            padding: 0.5rem 0.875rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .subscribe-btn:hover {
+            color: var(--white);
+            border-color: var(--gray-700);
+        }
+
+        /* Overall Status Banner */
+        .status-banner {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            background: var(--gray-400);
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .status-indicator.operational::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border: 2px solid var(--gray-600);
+            border-radius: 50%;
+            animation: ping 2s infinite;
+        }
+
+        @keyframes ping {
+            0% { transform: scale(1); opacity: 0.5; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        .status-text {
+            flex: 1;
+        }
+
+        .status-title {
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .status-updated {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            margin-top: 0.125rem;
+        }
+
+        /* Uptime Chart */
+        .uptime-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .section-meta {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-500);
+        }
+
+        .uptime-bar {
+            display: flex;
+            gap: 2px;
+            height: 32px;
+            margin-bottom: 0.5rem;
+        }
+
+        .uptime-day {
+            flex: 1;
+            background: var(--gray-700);
+            border-radius: 2px;
+            transition: all 0.15s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .uptime-day:hover {
+            background: var(--gray-600);
+            transform: scaleY(1.1);
+        }
+
+        .uptime-day.degraded {
+            background: var(--gray-500);
+        }
+
+        .uptime-day.outage {
+            background: var(--gray-400);
+        }
+
+        .uptime-day:hover::after {
+            content: attr(data-date);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-300);
+            background: var(--gray-800);
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+            white-space: nowrap;
+            margin-bottom: 4px;
+        }
+
+        .uptime-labels {
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-600);
+        }
+
+        .uptime-percent {
+            font-family: var(--font-mono);
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--white);
+            margin-top: 1rem;
+        }
+
+        .uptime-percent span {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+        }
+
+        /* Services List */
+        .services {
+            margin-bottom: 2.5rem;
+        }
+
+        .service {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .service:last-child {
+            border-bottom: none;
+        }
+
+        .service-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .service-status {
+            width: 8px;
+            height: 8px;
+            background: var(--gray-500);
+            border-radius: 50%;
+        }
+
+        .service-status.operational {
+            background: var(--gray-400);
+        }
+
+        .service-status.degraded {
+            background: var(--gray-300);
+        }
+
+        .service-name {
+            font-size: 0.875rem;
+            color: var(--gray-200);
+        }
+
+        .service-uptime {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        /* Metrics Grid */
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--gray-900);
+            border: 1px solid var(--gray-900);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 2.5rem;
+        }
+
+        .metric {
+            background: var(--gray-950);
+            padding: 1.25rem;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-family: var(--font-mono);
+            font-size: 1.375rem;
+            font-weight: 500;
+            color: var(--white);
+        }
+
+        .metric-label {
+            font-size: 0.6875rem;
+            color: var(--gray-500);
+            margin-top: 0.25rem;
+        }
+
+        .metric-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 2px;
+            height: 24px;
+            margin-top: 0.75rem;
+        }
+
+        .metric-bar {
+            width: 4px;
+            background: var(--gray-700);
+            border-radius: 1px;
+        }
+
+        /* Incidents */
+        .incidents {
+            margin-bottom: 3rem;
+        }
+
+        .incidents-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .incidents-title {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .incidents-filter {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-500);
+            background: var(--gray-900);
+            border: 1px solid var(--gray-850);
+            padding: 0.375rem 0.75rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .incidents-filter:hover {
+            color: var(--gray-300);
+            border-color: var(--gray-700);
+        }
+
+        .incident-day {
+            margin-bottom: 1.5rem;
+        }
+
+        .incident-date {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-600);
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .incident {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .incident:last-child {
+            margin-bottom: 0;
+        }
+
+        .incident-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .incident-severity {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            padding: 0.1875rem 0.5rem;
+            border-radius: 3px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .incident-severity.resolved {
+            color: var(--gray-400);
+            background: var(--gray-850);
+        }
+
+        .incident-severity.investigating {
+            color: var(--gray-300);
+            background: var(--gray-800);
+        }
+
+        .incident-severity.identified {
+            color: var(--gray-200);
+            background: var(--gray-750);
+        }
+
+        .incident-title {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--gray-200);
+        }
+
+        .incident-time {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-600);
+            margin-left: auto;
+        }
+
+        .incident-body {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+            line-height: 1.6;
+        }
+
+        .incident-updates {
+            margin-top: 1rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--gray-900);
+        }
+
+        .incident-update {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            font-size: 0.75rem;
+        }
+
+        .incident-update-time {
+            font-family: var(--font-mono);
+            color: var(--gray-600);
+            flex-shrink: 0;
+            width: 48px;
+        }
+
+        .incident-update-text {
+            color: var(--gray-500);
+        }
+
+        .incident-update-status {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-400);
+            background: var(--gray-900);
+            padding: 0.125rem 0.375rem;
+            border-radius: 2px;
+            margin-right: 0.5rem;
+        }
+
+        /* No Incidents */
+        .no-incidents {
+            text-align: center;
+            padding: 2.5rem;
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 8px;
+        }
+
+        .no-incidents-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .no-incidents-text {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+        }
+
+        /* Subscribe Section */
+        .subscribe-section {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .subscribe-title {
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .subscribe-text {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+            margin-bottom: 1.25rem;
+        }
+
+        .subscribe-form {
+            display: flex;
+            gap: 0.5rem;
+            max-width: 360px;
+            margin: 0 auto;
+        }
+
+        .subscribe-input {
+            flex: 1;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--gray-300);
+            background: var(--gray-900);
+            border: 1px solid var(--gray-850);
+            padding: 0.625rem 0.875rem;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.15s;
+        }
+
+        .subscribe-input::placeholder {
+            color: var(--gray-600);
+        }
+
+        .subscribe-input:focus {
+            border-color: var(--gray-700);
+        }
+
+        .subscribe-submit {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--black);
+            background: var(--white);
+            border: none;
+            padding: 0.625rem 1.25rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .subscribe-submit:hover {
+            background: var(--gray-200);
+        }
+
+        .subscribe-options {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .subscribe-option {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            cursor: pointer;
+            transition: color 0.15s;
+        }
+
+        .subscribe-option:hover {
+            color: var(--gray-300);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 1.5rem 0;
+            border-top: 1px solid var(--gray-900);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-copy {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-link {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+        }
+
+        .footer-link:hover {
+            color: var(--gray-300);
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .metrics {
+                grid-template-columns: 1fr;
+            }
+
+            .subscribe-form {
+                flex-direction: column;
+            }
+
+            .subscribe-options {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .incident-header {
+                flex-wrap: wrap;
+            }
+
+            .incident-time {
+                width: 100%;
+                margin-left: 0;
+                margin-top: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-inner">
+                <a href="#" class="logo">
+                    <div class="logo-mark">
+                        <div class="logo-mark-inner"></div>
+                    </div>
+                    <span class="logo-text">BlackRoad</span>
+                    <span class="logo-badge">Status</span>
+                </a>
+                <button class="subscribe-btn">
+                    <span>◉</span>
+                    Subscribe
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="status-banner">
+                <div class="status-indicator operational"></div>
+                <div class="status-text">
+                    <div class="status-title">All Systems Operational</div>
+                    <div class="status-updated">Updated 2 minutes ago</div>
+                </div>
+            </div>
+
+            <section class="uptime-section">
+                <div class="section-header">
+                    <h2 class="section-title">Uptime — Last 90 Days</h2>
+                    <span class="section-meta">Hover for details</span>
+                </div>
+                <div class="uptime-bar">
+                    <div class="uptime-day" data-date="Oct 27 · 100%"></div>
+                    <div class="uptime-day" data-date="Oct 28 · 100%"></div>
+                    <div class="uptime-day" data-date="Oct 29 · 100%"></div>
+                    <div class="uptime-day" data-date="Oct 30 · 100%"></div>
+                    <div class="uptime-day" data-date="Oct 31 · 100%"></div>
+                    <div class="uptime-day" data-date="Nov 1 · 100%"></div>
+                    <div class="uptime-day" data-date="Nov 2 · 100%"></div>
+                    <div class="uptime-day" data-date="Nov 3 · 100%"></div>
+                    <div class="uptime-day degraded" data-date="Nov 4 · 99.2%"></div>
+                    <div class="uptime-day" data-date="Nov 5 · 100%"></div>
+                    <div class="uptime-day" data-date="Nov 6 · 100%"></div>
+                    <div class="uptime-day" data-date="Nov 7 · 100%"></div>
+                    <div class="uptime-day" data-date="Nov 8 · 100%"></div>
+                    <div class="uptime-day" data-date="Nov 9 · 100%"></div>
+                    <div class="uptime-day" data-date="Nov 10 · 100%"></div>
+                    <div class="uptime-day" data-date="Nov 11 · 100%"></div>
+                    <div class="uptime-day" data-date="Nov 12 · 100%"></div>
+                    <div class="uptime-day" data-date="Nov 13 · 100%"></div>
+                    <div class="uptime-day" data-date="Nov 14 · 100%"></div>
+                    <div class="uptime-day" data-date="Nov 15 · 100%"></div>
+                    <div class="uptime-day" data-date="Nov 16 · 100%"></div>
+                    <div class="uptime-day" data-date="Nov 17 · 100%"></div>
+                    <div class="uptime-day" data-date="Nov 18 · 100%"></div>
+                    <div class="uptime-day" data-date="Nov 19 · 100%"></div>
+                    <div class="uptime-day" data-date="Nov 20 · 100%"></div>
+                    <div class="uptime-day" data-date="Nov 21 · 100%"></div>
+                    <div class="uptime-day" data-date="Nov 22 · 100%"></div>
+                    <div class="uptime-day outage" data-date="Nov 23 · 97.8%"></div>
+                    <div class="uptime-day" data-date="Nov 24 · 100%"></div>
+                    <div class="uptime-day" data-date="Nov 25 · 100%"></div>
+                    <div class="uptime-day" data-date="Nov 26 · 100%"></div>
+                    <div class="uptime-day" data-date="Nov 27 · 100%"></div>
+                    <div class="uptime-day" data-date="Nov 28 · 100%"></div>
+                    <div class="uptime-day" data-date="Nov 29 · 100%"></div>
+                    <div class="uptime-day" data-date="Nov 30 · 100%"></div>
+                    <div class="uptime-day" data-date="Dec 1 · 100%"></div>
+                    <div class="uptime-day" data-date="Dec 2 · 100%"></div>
+                    <div class="uptime-day" data-date="Dec 3 · 100%"></div>
+                    <div class="uptime-day" data-date="Dec 4 · 100%"></div>
+                    <div class="uptime-day" data-date="Dec 5 · 100%"></div>
+                    <div class="uptime-day" data-date="Dec 6 · 100%"></div>
+                    <div class="uptime-day" data-date="Dec 7 · 100%"></div>
+                    <div class="uptime-day" data-date="Dec 8 · 100%"></div>
+                    <div class="uptime-day" data-date="Dec 9 · 100%"></div>
+                    <div class="uptime-day" data-date="Dec 10 · 100%"></div>
+                    <div class="uptime-day" data-date="Dec 11 · 100%"></div>
+                    <div class="uptime-day" data-date="Dec 12 · 100%"></div>
+                    <div class="uptime-day" data-date="Dec 13 · 100%"></div>
+                    <div class="uptime-day" data-date="Dec 14 · 100%"></div>
+                    <div class="uptime-day" data-date="Dec 15 · 100%"></div>
+                    <div class="uptime-day" data-date="Dec 16 · 100%"></div>
+                    <div class="uptime-day" data-date="Dec 17 · 100%"></div>
+                    <div class="uptime-day" data-date="Dec 18 · 100%"></div>
+                    <div class="uptime-day" data-date="Dec 19 · 100%"></div>
+                    <div class="uptime-day" data-date="Dec 20 · 100%"></div>
+                    <div class="uptime-day degraded" data-date="Dec 21 · 99.5%"></div>
+                    <div class="uptime-day" data-date="Dec 22 · 100%"></div>
+                    <div class="uptime-day" data-date="Dec 23 · 100%"></div>
+                    <div class="uptime-day" data-date="Dec 24 · 100%"></div>
+                    <div class="uptime-day" data-date="Dec 25 · 100%"></div>
+                    <div class="uptime-day" data-date="Dec 26 · 100%"></div>
+                    <div class="uptime-day" data-date="Dec 27 · 100%"></div>
+                    <div class="uptime-day" data-date="Dec 28 · 100%"></div>
+                    <div class="uptime-day" data-date="Dec 29 · 100%"></div>
+                    <div class="uptime-day" data-date="Dec 30 · 100%"></div>
+                    <div class="uptime-day" data-date="Dec 31 · 100%"></div>
+                    <div class="uptime-day" data-date="Jan 1 · 100%"></div>
+                    <div class="uptime-day" data-date="Jan 2 · 100%"></div>
+                    <div class="uptime-day" data-date="Jan 3 · 100%"></div>
+                    <div class="uptime-day" data-date="Jan 4 · 100%"></div>
+                    <div class="uptime-day" data-date="Jan 5 · 100%"></div>
+                    <div class="uptime-day" data-date="Jan 6 · 100%"></div>
+                    <div class="uptime-day" data-date="Jan 7 · 100%"></div>
+                    <div class="uptime-day" data-date="Jan 8 · 100%"></div>
+                    <div class="uptime-day" data-date="Jan 9 · 100%"></div>
+                    <div class="uptime-day" data-date="Jan 10 · 100%"></div>
+                    <div class="uptime-day" data-date="Jan 11 · 100%"></div>
+                    <div class="uptime-day" data-date="Jan 12 · 100%"></div>
+                    <div class="uptime-day" data-date="Jan 13 · 100%"></div>
+                    <div class="uptime-day" data-date="Jan 14 · 100%"></div>
+                    <div class="uptime-day" data-date="Jan 15 · 100%"></div>
+                    <div class="uptime-day" data-date="Jan 16 · 100%"></div>
+                    <div class="uptime-day" data-date="Jan 17 · 100%"></div>
+                    <div class="uptime-day" data-date="Jan 18 · 100%"></div>
+                    <div class="uptime-day" data-date="Jan 19 · 100%"></div>
+                    <div class="uptime-day" data-date="Jan 20 · 100%"></div>
+                    <div class="uptime-day" data-date="Jan 21 · 100%"></div>
+                    <div class="uptime-day" data-date="Jan 22 · 100%"></div>
+                    <div class="uptime-day" data-date="Jan 23 · 100%"></div>
+                    <div class="uptime-day" data-date="Jan 24 · 100%"></div>
+                </div>
+                <div class="uptime-labels">
+                    <span>90 days ago</span>
+                    <span>Today</span>
+                </div>
+                <div class="uptime-percent">99.96% <span>uptime</span></div>
+            </section>
+
+            <section class="services">
+                <div class="section-header">
+                    <h2 class="section-title">Services</h2>
+                </div>
+                <div class="service">
+                    <div class="service-info">
+                        <div class="service-status operational"></div>
+                        <span class="service-name">API Gateway</span>
+                    </div>
+                    <span class="service-uptime">100%</span>
+                </div>
+                <div class="service">
+                    <div class="service-info">
+                        <div class="service-status operational"></div>
+                        <span class="service-name">Agent Orchestration</span>
+                    </div>
+                    <span class="service-uptime">100%</span>
+                </div>
+                <div class="service">
+                    <div class="service-info">
+                        <div class="service-status operational"></div>
+                        <span class="service-name">Event Bus (NATS)</span>
+                    </div>
+                    <span class="service-uptime">99.99%</span>
+                </div>
+                <div class="service">
+                    <div class="service-info">
+                        <div class="service-status operational"></div>
+                        <span class="service-name">Memory Persistence</span>
+                    </div>
+                    <span class="service-uptime">100%</span>
+                </div>
+                <div class="service">
+                    <div class="service-info">
+                        <div class="service-status operational"></div>
+                        <span class="service-name">Vector Store (Milvus)</span>
+                    </div>
+                    <span class="service-uptime">99.98%</span>
+                </div>
+                <div class="service">
+                    <div class="service-info">
+                        <div class="service-status operational"></div>
+                        <span class="service-name">LLM Inference (vLLM)</span>
+                    </div>
+                    <span class="service-uptime">99.95%</span>
+                </div>
+            </section>
+
+            <section class="metrics">
+                <div class="metric">
+                    <div class="metric-value">42ms</div>
+                    <div class="metric-label">Avg. Response</div>
+                    <div class="metric-chart">
+                        <div class="metric-bar" style="height: 60%"></div>
+                        <div class="metric-bar" style="height: 75%"></div>
+                        <div class="metric-bar" style="height: 50%"></div>
+                        <div class="metric-bar" style="height: 80%"></div>
+                        <div class="metric-bar" style="height: 65%"></div>
+                        <div class="metric-bar" style="height: 70%"></div>
+                        <div class="metric-bar" style="height: 55%"></div>
+                    </div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">847</div>
+                    <div class="metric-label">Active Agents</div>
+                    <div class="metric-chart">
+                        <div class="metric-bar" style="height: 40%"></div>
+                        <div class="metric-bar" style="height: 55%"></div>
+                        <div class="metric-bar" style="height: 70%"></div>
+                        <div class="metric-bar" style="height: 65%"></div>
+                        <div class="metric-bar" style="height: 80%"></div>
+                        <div class="metric-bar" style="height: 85%"></div>
+                        <div class="metric-bar" style="height: 90%"></div>
+                    </div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">1.2M</div>
+                    <div class="metric-label">Events / Hour</div>
+                    <div class="metric-chart">
+                        <div class="metric-bar" style="height: 70%"></div>
+                        <div class="metric-bar" style="height: 85%"></div>
+                        <div class="metric-bar" style="height: 75%"></div>
+                        <div class="metric-bar" style="height: 90%"></div>
+                        <div class="metric-bar" style="height: 80%"></div>
+                        <div class="metric-bar" style="height: 95%"></div>
+                        <div class="metric-bar" style="height: 88%"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="incidents">
+                <div class="incidents-header">
+                    <h2 class="incidents-title">Past Incidents</h2>
+                    <button class="incidents-filter">Last 7 days ▾</button>
+                </div>
+
+                <div class="incident-day">
+                    <div class="incident-date">January 24, 2025</div>
+                    <div class="no-incidents">
+                        <div class="no-incidents-icon">◇</div>
+                        <div class="no-incidents-text">No incidents reported today</div>
+                    </div>
+                </div>
+
+                <div class="incident-day">
+                    <div class="incident-date">December 21, 2024</div>
+                    <div class="incident">
+                        <div class="incident-header">
+                            <span class="incident-severity resolved">Resolved</span>
+                            <span class="incident-title">Elevated API latency</span>
+                            <span class="incident-time">14:32 – 15:08 UTC</span>
+                        </div>
+                        <p class="incident-body">
+                            Some API requests experienced increased latency due to a traffic spike
+                            during a load test. Auto-scaling resolved the issue.
+                        </p>
+                        <div class="incident-updates">
+                            <div class="incident-update">
+                                <span class="incident-update-time">15:08</span>
+                                <span class="incident-update-text">
+                                    <span class="incident-update-status">Resolved</span>
+                                    All systems operating normally
+                                </span>
+                            </div>
+                            <div class="incident-update">
+                                <span class="incident-update-time">14:45</span>
+                                <span class="incident-update-text">
+                                    <span class="incident-update-status">Identified</span>
+                                    Scaling additional nodes
+                                </span>
+                            </div>
+                            <div class="incident-update">
+                                <span class="incident-update-time">14:32</span>
+                                <span class="incident-update-text">
+                                    <span class="incident-update-status">Investigating</span>
+                                    Monitoring elevated latency
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="incident-day">
+                    <div class="incident-date">November 23, 2024</div>
+                    <div class="incident">
+                        <div class="incident-header">
+                            <span class="incident-severity resolved">Resolved</span>
+                            <span class="incident-title">Event bus connectivity issues</span>
+                            <span class="incident-time">08:15 – 08:47 UTC</span>
+                        </div>
+                        <p class="incident-body">
+                            NATS cluster experienced brief connectivity issues following a
+                            configuration update. Rollback restored service.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="subscribe-section">
+                <h2 class="subscribe-title">Get Notified</h2>
+                <p class="subscribe-text">Subscribe to receive updates on incidents and maintenance.</p>
+                <form class="subscribe-form">
+                    <input type="email" class="subscribe-input" placeholder="you@example.com">
+                    <button type="submit" class="subscribe-submit">Subscribe</button>
+                </form>
+                <div class="subscribe-options">
+                    <label class="subscribe-option">
+                        <span>◉</span> Email
+                    </label>
+                    <label class="subscribe-option">
+                        <span>◎</span> Slack
+                    </label>
+                    <label class="subscribe-option">
+                        <span>◎</span> Webhook
+                    </label>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <span class="footer-copy">© 2025 BlackRoad OS, Inc.</span>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">API Status</a>
+                    <a href="#" class="footer-link">Docs</a>
+                    <a href="#" class="footer-link">Support</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
