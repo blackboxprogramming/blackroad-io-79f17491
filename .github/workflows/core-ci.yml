@@ -2,9 +2,9 @@ name: CORE CI
 
 on:
   pull_request:
-    branches: [ main, master ]
+    branches: &main_branches [ main, master ]
   push:
-    branches: [ main, master ]
+    branches: *main_branches
 
 jobs:
   guard:
