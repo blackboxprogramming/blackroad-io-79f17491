@@ -1,12 +1,1221 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>BlackRoad</title>
-  </head>
-  <body style="font-family: system-ui; padding: 40px;">
-    <h1>BlackRoad</h1>
-    <p>Building sovereign, local-first AI systems.</p>
-    <p>Status: Online.</p>
-  </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackRoad OS — Template 03</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #000;
+            --gray-950: #0a0a0a;
+            --gray-900: #111;
+            --gray-850: #181818;
+            --gray-800: #1f1f1f;
+            --gray-700: #2a2a2a;
+            --gray-600: #3d3d3d;
+            --gray-500: #555;
+            --gray-400: #777;
+            --gray-300: #999;
+            --gray-200: #bbb;
+            --gray-100: #ddd;
+            --gray-50: #eee;
+            --white: #fff;
+
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+
+            --grid-gap: 1.5rem;
+            --section-pad: 8rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--gray-950);
+            color: var(--gray-300);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 3rem;
+        }
+
+        /* Swiss Grid System */
+        .grid-12 {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: var(--grid-gap);
+        }
+
+        /* Top Bar */
+        .topbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            height: 4rem;
+            background: var(--gray-950);
+            border-bottom: 1px solid var(--gray-900);
+            display: flex;
+            align-items: center;
+        }
+
+        .topbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-box {
+            width: 24px;
+            height: 24px;
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-box-inner {
+            width: 8px;
+            height: 8px;
+            background: var(--black);
+        }
+
+        .topbar-nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .topbar-nav a {
+            font-family: var(--font-body);
+            font-size: 0.8125rem;
+            font-weight: 400;
+            color: var(--gray-400);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        .topbar-nav a:hover {
+            color: var(--white);
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn-sm {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            transition: all 0.15s;
+            letter-spacing: 0.02em;
+        }
+
+        .btn-ghost {
+            color: var(--gray-400);
+            border: 1px solid transparent;
+        }
+
+        .btn-ghost:hover {
+            color: var(--white);
+        }
+
+        .btn-outline {
+            color: var(--white);
+            border: 1px solid var(--gray-700);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--gray-500);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            padding-top: 4rem;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-content {
+            grid-column: 1 / 8;
+            padding: 6rem 0;
+        }
+
+        .hero-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-tag {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            font-weight: 500;
+            color: var(--black);
+            background: var(--white);
+            padding: 0.25rem 0.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        .hero-version {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-600);
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(3.5rem, 7vw, 6rem);
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title-sub {
+            display: block;
+            font-weight: 300;
+            color: var(--gray-500);
+        }
+
+        .hero-desc {
+            font-size: 1.0625rem;
+            font-weight: 300;
+            color: var(--gray-400);
+            max-width: 480px;
+            line-height: 1.7;
+            margin-bottom: 3rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            transition: all 0.15s;
+            letter-spacing: 0.03em;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .btn-primary:hover {
+            background: var(--gray-200);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--gray-300);
+            border: 1px solid var(--gray-700);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--gray-500);
+            color: var(--white);
+        }
+
+        .hero-aside {
+            grid-column: 9 / 13;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 2rem;
+            padding: 4rem 0;
+        }
+
+        .hero-stat {
+            border-left: 1px solid var(--gray-800);
+            padding-left: 1.5rem;
+        }
+
+        .hero-stat-value {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--white);
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+
+        .hero-stat-label {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 0.5rem;
+        }
+
+        /* Section Headers */
+        .section-header {
+            margin-bottom: 4rem;
+        }
+
+        .section-num {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-700);
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--white);
+            letter-spacing: -0.02em;
+        }
+
+        .section-title-light {
+            font-weight: 300;
+            color: var(--gray-500);
+        }
+
+        /* Features Grid */
+        .features {
+            padding: var(--section-pad) 0;
+            background: var(--black);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--gray-900);
+        }
+
+        .feature {
+            background: var(--black);
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            min-height: 280px;
+        }
+
+        .feature-num {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-700);
+            margin-bottom: auto;
+        }
+
+        .feature-title {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.01em;
+        }
+
+        .feature-desc {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            line-height: 1.6;
+        }
+
+        /* Architecture Section */
+        .architecture {
+            padding: var(--section-pad) 0;
+            background: var(--gray-950);
+        }
+
+        .arch-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .arch-diagram {
+            background: var(--black);
+            border: 1px solid var(--gray-900);
+            padding: 3rem;
+            position: relative;
+        }
+
+        .arch-layer {
+            padding: 1.5rem;
+            border: 1px solid var(--gray-850);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .arch-layer:last-child {
+            margin-bottom: 0;
+        }
+
+        .arch-layer-num {
+            position: absolute;
+            top: -0.5rem;
+            left: 1rem;
+            background: var(--black);
+            padding: 0 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+            letter-spacing: 0.1em;
+        }
+
+        .arch-layer-name {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 0.25rem;
+        }
+
+        .arch-layer-desc {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        .arch-connector {
+            width: 1px;
+            height: 1rem;
+            background: var(--gray-800);
+            margin: 0 auto;
+        }
+
+        .arch-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .arch-title {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .arch-text {
+            font-size: 0.9375rem;
+            color: var(--gray-400);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .arch-list {
+            list-style: none;
+        }
+
+        .arch-list li {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--gray-900);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .arch-list li:last-child {
+            border-bottom: none;
+        }
+
+        .arch-list-value {
+            color: var(--white);
+        }
+
+        /* Stack Section */
+        .stack {
+            padding: var(--section-pad) 0;
+            background: var(--black);
+        }
+
+        .stack-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .stack-table thead {
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .stack-table th {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            font-weight: 500;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-align: left;
+            padding: 1rem 0;
+        }
+
+        .stack-table th:last-child {
+            text-align: right;
+        }
+
+        .stack-table td {
+            padding: 1.25rem 0;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .stack-table tr:hover td {
+            background: var(--gray-950);
+        }
+
+        .stack-name {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--white);
+        }
+
+        .stack-desc {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+        }
+
+        .stack-category {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-600);
+            text-align: right;
+            letter-spacing: 0.03em;
+        }
+
+        /* Cluster Section */
+        .cluster {
+            padding: var(--section-pad) 0;
+            background: var(--gray-950);
+        }
+
+        .cluster-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--grid-gap);
+        }
+
+        .cluster-card {
+            background: var(--black);
+            border: 1px solid var(--gray-900);
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cluster-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gray-800);
+        }
+
+        .cluster-card.active::before {
+            background: var(--gray-400);
+        }
+
+        .cluster-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cluster-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--gray-700);
+        }
+
+        .cluster-dot.on {
+            background: var(--gray-300);
+        }
+
+        .cluster-status-text {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .cluster-name {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 0.25rem;
+        }
+
+        .cluster-role {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+            margin-bottom: 1.5rem;
+        }
+
+        .cluster-specs {
+            border-top: 1px solid var(--gray-900);
+            padding-top: 1.5rem;
+        }
+
+        .cluster-spec {
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-600);
+            margin-bottom: 0.5rem;
+        }
+
+        .cluster-spec-value {
+            color: var(--gray-400);
+        }
+
+        /* Code Section */
+        .code-section {
+            padding: var(--section-pad) 0;
+            background: var(--black);
+        }
+
+        .code-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .code-intro h2 {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .code-intro p {
+            font-size: 0.9375rem;
+            color: var(--gray-400);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .code-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .code-feature {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-500);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .code-feature::before {
+            content: '';
+            width: 4px;
+            height: 4px;
+            background: var(--gray-600);
+        }
+
+        .code-block-wrapper {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1.25rem;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .code-file {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-500);
+        }
+
+        .code-lang {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-700);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .code-body {
+            padding: 1.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.8125rem;
+            line-height: 1.8;
+            overflow-x: auto;
+        }
+
+        .code-line {
+            display: block;
+        }
+
+        .c-comment { color: var(--gray-700); }
+        .c-keyword { color: var(--gray-300); }
+        .c-string { color: var(--gray-500); }
+        .c-function { color: var(--white); }
+        .c-bracket { color: var(--gray-600); }
+
+        /* Footer */
+        .footer {
+            padding: 3rem 0;
+            border-top: 1px solid var(--gray-900);
+            background: var(--gray-950);
+        }
+
+        .footer-grid {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--gray-500);
+            letter-spacing: -0.01em;
+        }
+
+        .footer-copy {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-700);
+            letter-spacing: 0.02em;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-link {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-600);
+            text-decoration: none;
+            letter-spacing: 0.02em;
+            transition: color 0.15s;
+        }
+
+        .footer-link:hover {
+            color: var(--white);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 2rem;
+            }
+
+            .hero-content {
+                grid-column: 1 / 10;
+            }
+
+            .hero-aside {
+                grid-column: 10 / 13;
+            }
+
+            .features-grid,
+            .cluster-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .arch-grid,
+            .code-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .topbar-nav {
+                display: none;
+            }
+
+            .hero-content {
+                grid-column: 1 / -1;
+            }
+
+            .hero-aside {
+                grid-column: 1 / -1;
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .hero-stat {
+                flex: 1;
+                min-width: 120px;
+            }
+
+            .features-grid,
+            .cluster-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .code-features {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <div class="container">
+            <div class="topbar-left">
+                <div class="logo">
+                    <div class="logo-box">
+                        <div class="logo-box-inner"></div>
+                    </div>
+                    BlackRoad
+                </div>
+                <nav class="topbar-nav">
+                    <a href="#">Platform</a>
+                    <a href="#">Agents</a>
+                    <a href="#">Documentation</a>
+                    <a href="#">Pricing</a>
+                </nav>
+            </div>
+            <div class="topbar-right">
+                <a href="#" class="btn-sm btn-ghost">Sign In</a>
+                <a href="#" class="btn-sm btn-outline">Get Started</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container grid-12">
+            <div class="hero-content">
+                <div class="hero-meta">
+                    <span class="hero-tag">NEW</span>
+                    <span class="hero-version">v0.1.0-alpha</span>
+                </div>
+                <h1 class="hero-title">
+                    Agent<br>
+                    <span class="hero-title-sub">Infrastructure</span>
+                </h1>
+                <p class="hero-desc">
+                    Browser-native operating system for AI agent orchestration.
+                    Build autonomous systems with memory persistence, trinary logic,
+                    and recursive intelligence at scale.
+                </p>
+                <div class="hero-actions">
+                    <a href="#" class="btn btn-primary">Start Building →</a>
+                    <a href="#" class="btn btn-secondary">Read Docs</a>
+                </div>
+            </div>
+            <aside class="hero-aside">
+                <div class="hero-stat">
+                    <div class="hero-stat-value">1,000</div>
+                    <div class="hero-stat-label">Active Agents</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">19</div>
+                    <div class="hero-stat-label">Domains</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">40+</div>
+                    <div class="hero-stat-label">Repositories</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">∞</div>
+                    <div class="hero-stat-label">Memory Depth</div>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-num">01 — CAPABILITIES</span>
+                <h2 class="section-title">Core <span class="section-title-light">Features</span></h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature">
+                    <span class="feature-num">01</span>
+                    <h3 class="feature-title">Trinary Logic</h3>
+                    <p class="feature-desc">1, 0, and -1 states enable nuanced reasoning beyond binary limitations. Handle uncertainty as a first-class concept.</p>
+                </div>
+                <div class="feature">
+                    <span class="feature-num">02</span>
+                    <h3 class="feature-title">Memory Persistence</h3>
+                    <p class="feature-desc">PS-SHA∞ cryptographic hashing with append-only journals. Every interaction persists through truth state commits.</p>
+                </div>
+                <div class="feature">
+                    <span class="feature-num">03</span>
+                    <h3 class="feature-title">Event Bus</h3>
+                    <p class="feature-desc">Pub/sub messaging architecture with capability registry for dynamic agent coordination and discovery.</p>
+                </div>
+                <div class="feature">
+                    <span class="feature-num">04</span>
+                    <h3 class="feature-title">Contradiction Handling</h3>
+                    <p class="feature-desc">Quarantine incompatible claims, branch contexts, and apply paraconsistent reasoning with bridge rules.</p>
+                </div>
+                <div class="feature">
+                    <span class="feature-num">05</span>
+                    <h3 class="feature-title">Hybrid Coordination</h3>
+                    <p class="feature-desc">Supervisor and peer-to-peer models that adapt to context. Human-in-loop for high-impact decisions.</p>
+                </div>
+                <div class="feature">
+                    <span class="feature-num">06</span>
+                    <h3 class="feature-title">Universe Layers</h3>
+                    <p class="feature-desc">Three-tier architecture: fundamental physics, Lucidia canonical world, and buildable metaverse platform.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="architecture">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-num">02 — ARCHITECTURE</span>
+                <h2 class="section-title">System <span class="section-title-light">Design</span></h2>
+            </div>
+            <div class="arch-grid">
+                <div class="arch-diagram">
+                    <div class="arch-layer">
+                        <span class="arch-layer-num">LAYER 03</span>
+                        <div class="arch-layer-name">Metaverse</div>
+                        <div class="arch-layer-desc">Buildable platform for developers</div>
+                    </div>
+                    <div class="arch-connector"></div>
+                    <div class="arch-layer">
+                        <span class="arch-layer-num">LAYER 02</span>
+                        <div class="arch-layer-name">Lucidia</div>
+                        <div class="arch-layer-desc">Canonical world where agents live</div>
+                    </div>
+                    <div class="arch-connector"></div>
+                    <div class="arch-layer">
+                        <span class="arch-layer-num">LAYER 01</span>
+                        <div class="arch-layer-name">Universe</div>
+                        <div class="arch-layer-desc">Fundamental physics layer</div>
+                    </div>
+                </div>
+                <div class="arch-content">
+                    <h3 class="arch-title">Three-Layer Stack</h3>
+                    <p class="arch-text">
+                        BlackRoad operates on a foundational architecture that separates
+                        concerns across three distinct layers. Each layer builds upon the
+                        one below it, creating a coherent system for agent existence.
+                    </p>
+                    <ul class="arch-list">
+                        <li>
+                            <span>Logic System</span>
+                            <span class="arch-list-value">Trinary (1/0/-1)</span>
+                        </li>
+                        <li>
+                            <span>Memory Hash</span>
+                            <span class="arch-list-value">PS-SHA∞</span>
+                        </li>
+                        <li>
+                            <span>Journal Type</span>
+                            <span class="arch-list-value">Append-Only</span>
+                        </li>
+                        <li>
+                            <span>Coordination</span>
+                            <span class="arch-list-value">Hybrid</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stack">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-num">03 — TECHNOLOGY</span>
+                <h2 class="section-title">Core <span class="section-title-light">Stack</span></h2>
+            </div>
+            <table class="stack-table">
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="stack-name">LangGraph + CrewAI</span></td>
+                        <td><span class="stack-desc">Agent orchestration framework</span></td>
+                        <td><span class="stack-category">AGENTS</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="stack-name">vLLM + llama.cpp</span></td>
+                        <td><span class="stack-desc">Local LLM inference</span></td>
+                        <td><span class="stack-category">LLM</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="stack-name">Milvus</span></td>
+                        <td><span class="stack-desc">Vector database for embeddings</span></td>
+                        <td><span class="stack-category">VECTORS</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="stack-name">NATS</span></td>
+                        <td><span class="stack-desc">Event messaging system</span></td>
+                        <td><span class="stack-category">MESSAGING</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="stack-name">Kubeflow + Langfuse</span></td>
+                        <td><span class="stack-desc">ML operations and observability</span></td>
+                        <td><span class="stack-category">MLOPS</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="stack-name">APISIX</span></td>
+                        <td><span class="stack-desc">API gateway management</span></td>
+                        <td><span class="stack-category">API</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="stack-name">Besu</span></td>
+                        <td><span class="stack-desc">Blockchain infrastructure</span></td>
+                        <td><span class="stack-category">CHAIN</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="stack-name">Ethereal Engine</span></td>
+                        <td><span class="stack-desc">Metaverse runtime</span></td>
+                        <td><span class="stack-category">METAVERSE</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="cluster">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-num">04 — INFRASTRUCTURE</span>
+                <h2 class="section-title">Cluster <span class="section-title-light">Nodes</span></h2>
+            </div>
+            <div class="cluster-grid">
+                <div class="cluster-card active">
+                    <div class="cluster-status">
+                        <span class="cluster-dot on"></span>
+                        <span class="cluster-status-text">Online</span>
+                    </div>
+                    <h3 class="cluster-name">Alice</h3>
+                    <p class="cluster-role">Gateway Node</p>
+                    <div class="cluster-specs">
+                        <div class="cluster-spec">
+                            <span>Services</span>
+                            <span class="cluster-spec-value">K3s, Traefik</span>
+                        </div>
+                        <div class="cluster-spec">
+                            <span>Storage</span>
+                            <span class="cluster-spec-value">Redis</span>
+                        </div>
+                        <div class="cluster-spec">
+                            <span>Hardware</span>
+                            <span class="cluster-spec-value">Pi 400</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="cluster-card active">
+                    <div class="cluster-status">
+                        <span class="cluster-dot on"></span>
+                        <span class="cluster-status-text">Online</span>
+                    </div>
+                    <h3 class="cluster-name">Octavia</h3>
+                    <p class="cluster-role">Inference Worker</p>
+                    <div class="cluster-specs">
+                        <div class="cluster-spec">
+                            <span>Accelerator</span>
+                            <span class="cluster-spec-value">Hailo</span>
+                        </div>
+                        <div class="cluster-spec">
+                            <span>Queue</span>
+                            <span class="cluster-spec-value">Active</span>
+                        </div>
+                        <div class="cluster-spec">
+                            <span>Hardware</span>
+                            <span class="cluster-spec-value">Edge</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="cluster-card active">
+                    <div class="cluster-status">
+                        <span class="cluster-dot on"></span>
+                        <span class="cluster-status-text">Online</span>
+                    </div>
+                    <h3 class="cluster-name">Lucidia-1</h3>
+                    <p class="cluster-role">LLM Compute</p>
+                    <div class="cluster-specs">
+                        <div class="cluster-spec">
+                            <span>Runtime</span>
+                            <span class="cluster-spec-value">Ollama</span>
+                        </div>
+                        <div class="cluster-spec">
+                            <span>Inference</span>
+                            <span class="cluster-spec-value">vLLM</span>
+                        </div>
+                        <div class="cluster-spec">
+                            <span>Hardware</span>
+                            <span class="cluster-spec-value">Pi 5</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="cluster-card">
+                    <div class="cluster-status">
+                        <span class="cluster-dot"></span>
+                        <span class="cluster-status-text">Standby</span>
+                    </div>
+                    <h3 class="cluster-name">Lucidia-2</h3>
+                    <p class="cluster-role">Backup Compute</p>
+                    <div class="cluster-specs">
+                        <div class="cluster-spec">
+                            <span>Model</span>
+                            <span class="cluster-spec-value">Phi-3</span>
+                        </div>
+                        <div class="cluster-spec">
+                            <span>Mode</span>
+                            <span class="cluster-spec-value">Reserve</span>
+                        </div>
+                        <div class="cluster-spec">
+                            <span>Hardware</span>
+                            <span class="cluster-spec-value">Pi 5</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="code-section">
+        <div class="container">
+            <div class="code-grid">
+                <div class="code-intro">
+                    <span class="section-num">05 — INTEGRATION</span>
+                    <h2>Simple API</h2>
+                    <p>
+                        Initialize agents with a few lines of code. Configure memory
+                        persistence, logic systems, and coordination models through
+                        a clean, declarative interface.
+                    </p>
+                    <div class="code-features">
+                        <span class="code-feature">TypeScript SDK</span>
+                        <span class="code-feature">Python SDK</span>
+                        <span class="code-feature">REST API</span>
+                        <span class="code-feature">WebSocket</span>
+                    </div>
+                </div>
+                <div class="code-block-wrapper">
+                    <div class="code-header">
+                        <span class="code-file">agent.ts</span>
+                        <span class="code-lang">TypeScript</span>
+                    </div>
+                    <div class="code-body">
+<span class="code-line"><span class="c-keyword">import</span> <span class="c-bracket">{</span> Lucidia, Memory <span class="c-bracket">}</span> <span class="c-keyword">from</span> <span class="c-string">'@blackroad/sdk'</span>;</span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c-keyword">const</span> agent = <span class="c-keyword">await</span> <span class="c-function">Lucidia</span>.<span class="c-function">create</span><span class="c-bracket">({</span></span>
+<span class="code-line">  name: <span class="c-string">'cecilia'</span>,</span>
+<span class="code-line">  logic: <span class="c-string">'trinary'</span>,</span>
+<span class="code-line">  memory: <span class="c-function">Memory</span>.<span class="c-function">persistent</span><span class="c-bracket">({</span></span>
+<span class="code-line">    hash: <span class="c-string">'ps-sha-infinity'</span>,</span>
+<span class="code-line">    journal: <span class="c-string">'append-only'</span></span>
+<span class="code-line">  <span class="c-bracket">})</span>,</span>
+<span class="code-line">  contradiction: <span class="c-string">'quarantine'</span></span>
+<span class="code-line"><span class="c-bracket">})</span>;</span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c-keyword">await</span> agent.<span class="c-function">connect</span><span class="c-bracket">()</span>;</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <span class="footer-logo">BlackRoad</span>
+                    <span class="footer-copy">© 2025 BlackRoad OS, Inc. All rights reserved.</span>
+                </div>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">GitHub</a>
+                    <a href="#" class="footer-link">Discord</a>
+                    <a href="#" class="footer-link">Twitter</a>
+                    <a href="#" class="footer-link">Status</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
 </html>
