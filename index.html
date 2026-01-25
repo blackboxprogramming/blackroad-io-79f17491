@@ -1,12 +1,1149 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>BlackRoad</title>
-  </head>
-  <body style="font-family: system-ui; padding: 40px;">
-    <h1>BlackRoad</h1>
-    <p>Building sovereign, local-first AI systems.</p>
-    <p>Status: Online.</p>
-  </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackRoad OS — Template 23</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #000;
+            --gray-950: #080808;
+            --gray-900: #0f0f0f;
+            --gray-850: #151515;
+            --gray-800: #1c1c1c;
+            --gray-750: #232323;
+            --gray-700: #2c2c2c;
+            --gray-600: #404040;
+            --gray-500: #5c5c5c;
+            --gray-400: #7c7c7c;
+            --gray-300: #9c9c9c;
+            --gray-200: #bcbcbc;
+            --gray-100: #dcdcdc;
+            --white: #f0f0f0;
+
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 15px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--black);
+            color: var(--gray-400);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        ::selection {
+            background: var(--gray-700);
+            color: var(--white);
+        }
+
+        /* Layout */
+        .page {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        /* Profile Card */
+        .profile-card {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            overflow: hidden;
+            max-width: 380px;
+        }
+
+        .profile-banner {
+            height: 100px;
+            background: linear-gradient(135deg, var(--gray-900) 0%, var(--gray-800) 100%);
+            position: relative;
+        }
+
+        .profile-avatar-wrapper {
+            position: absolute;
+            bottom: -40px;
+            left: 1.25rem;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--gray-800);
+            border: 4px solid var(--gray-950);
+            border-radius: 16px;
+            display: grid;
+            place-items: center;
+            font-size: 2rem;
+            color: var(--gray-500);
+        }
+
+        .profile-avatar.online::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            width: 14px;
+            height: 14px;
+            background: var(--gray-400);
+            border: 3px solid var(--gray-950);
+            border-radius: 50%;
+        }
+
+        .profile-header {
+            padding: 3rem 1.25rem 1rem;
+        }
+
+        .profile-name {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 0.125rem;
+        }
+
+        .profile-handle {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            margin-bottom: 0.75rem;
+        }
+
+        .profile-bio {
+            font-size: 0.8125rem;
+            color: var(--gray-400);
+            margin-bottom: 1rem;
+        }
+
+        .profile-meta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        .meta-icon {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border-top: 1px solid var(--gray-900);
+        }
+
+        .stat-item {
+            padding: 1rem;
+            text-align: center;
+            border-right: 1px solid var(--gray-900);
+        }
+
+        .stat-item:last-child {
+            border-right: none;
+        }
+
+        .stat-value {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .stat-label {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 0.5rem;
+            padding: 1rem 1.25rem;
+            border-top: 1px solid var(--gray-900);
+        }
+
+        .btn {
+            flex: 1;
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            padding: 0.625rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+            text-align: center;
+            border: none;
+        }
+
+        .btn-primary {
+            color: var(--black);
+            background: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--gray-200);
+        }
+
+        .btn-secondary {
+            color: var(--gray-300);
+            background: var(--gray-900);
+        }
+
+        .btn-secondary:hover {
+            color: var(--white);
+            background: var(--gray-800);
+        }
+
+        /* Extended Profile */
+        .profile-extended {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            overflow: hidden;
+            max-width: 600px;
+        }
+
+        .extended-header {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .extended-avatar {
+            width: 100px;
+            height: 100px;
+            background: var(--gray-800);
+            border-radius: 16px;
+            display: grid;
+            place-items: center;
+            font-size: 2.5rem;
+            color: var(--gray-500);
+            flex-shrink: 0;
+        }
+
+        .extended-info {
+            flex: 1;
+        }
+
+        .extended-name {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 0.25rem;
+        }
+
+        .extended-title {
+            font-size: 0.875rem;
+            color: var(--gray-400);
+            margin-bottom: 0.5rem;
+        }
+
+        .extended-location {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        .extended-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .extended-actions .btn {
+            flex: none;
+            padding: 0.5rem 1rem;
+        }
+
+        .profile-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .profile-tab {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-500);
+            background: transparent;
+            border: none;
+            padding: 1rem 1.25rem;
+            cursor: pointer;
+            transition: all 0.15s;
+            position: relative;
+        }
+
+        .profile-tab:hover {
+            color: var(--gray-300);
+        }
+
+        .profile-tab.active {
+            color: var(--white);
+        }
+
+        .profile-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 1rem;
+            right: 1rem;
+            height: 2px;
+            background: var(--white);
+        }
+
+        .profile-content {
+            padding: 1.5rem;
+        }
+
+        .content-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .content-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .content-title {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+        }
+
+        .content-text {
+            font-size: 0.875rem;
+            color: var(--gray-300);
+            line-height: 1.7;
+        }
+
+        /* Skills/Tags */
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-400);
+            background: var(--gray-900);
+            padding: 0.375rem 0.625rem;
+            border-radius: 5px;
+            transition: all 0.15s;
+        }
+
+        .skill-tag:hover {
+            color: var(--white);
+            background: var(--gray-800);
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .social-link {
+            width: 36px;
+            height: 36px;
+            display: grid;
+            place-items: center;
+            font-size: 1rem;
+            color: var(--gray-500);
+            background: var(--gray-900);
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.15s;
+        }
+
+        .social-link:hover {
+            color: var(--white);
+            background: var(--gray-800);
+        }
+
+        /* Activity Grid */
+        .activity-grid {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            padding: 1.25rem;
+            max-width: 500px;
+        }
+
+        .activity-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .activity-title {
+            font-family: var(--font-display);
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--white);
+        }
+
+        .activity-count {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-500);
+        }
+
+        .activity-months {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.375rem;
+            padding: 0 0.25rem;
+        }
+
+        .activity-month {
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            color: var(--gray-600);
+        }
+
+        .activity-cells {
+            display: grid;
+            grid-template-columns: repeat(52, 1fr);
+            grid-template-rows: repeat(7, 1fr);
+            gap: 3px;
+        }
+
+        .activity-cell {
+            aspect-ratio: 1;
+            background: var(--gray-900);
+            border-radius: 2px;
+        }
+
+        .activity-cell.level-1 { background: var(--gray-800); }
+        .activity-cell.level-2 { background: var(--gray-700); }
+        .activity-cell.level-3 { background: var(--gray-600); }
+        .activity-cell.level-4 { background: var(--gray-500); }
+
+        .activity-legend {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 0.375rem;
+            margin-top: 0.75rem;
+        }
+
+        .legend-label {
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            color: var(--gray-600);
+        }
+
+        .legend-cells {
+            display: flex;
+            gap: 2px;
+        }
+
+        .legend-cell {
+            width: 10px;
+            height: 10px;
+            border-radius: 2px;
+        }
+
+        /* Agent Profile */
+        .agent-profile {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            overflow: hidden;
+            max-width: 340px;
+        }
+
+        .agent-header {
+            padding: 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .agent-avatar {
+            width: 72px;
+            height: 72px;
+            background: var(--gray-800);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 1.75rem;
+            color: var(--gray-500);
+            margin: 0 auto 1rem;
+            position: relative;
+        }
+
+        .agent-status {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 16px;
+            height: 16px;
+            background: var(--gray-500);
+            border: 3px solid var(--gray-950);
+            border-radius: 50%;
+        }
+
+        .agent-status.active {
+            background: var(--gray-400);
+        }
+
+        .agent-name {
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 0.25rem;
+        }
+
+        .agent-id {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-600);
+            margin-bottom: 0.5rem;
+        }
+
+        .agent-role {
+            font-size: 0.8125rem;
+            color: var(--gray-400);
+        }
+
+        .agent-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: var(--gray-900);
+        }
+
+        .agent-stat {
+            padding: 1rem;
+            background: var(--gray-950);
+            text-align: center;
+        }
+
+        .agent-stat-value {
+            font-family: var(--font-mono);
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: var(--gray-200);
+            margin-bottom: 0.125rem;
+        }
+
+        .agent-stat-label {
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+        }
+
+        .agent-capabilities {
+            padding: 1rem 1.25rem;
+            border-top: 1px solid var(--gray-900);
+        }
+
+        .capabilities-title {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            margin-bottom: 0.625rem;
+        }
+
+        .capability-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.375rem;
+        }
+
+        .capability {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-500);
+            background: var(--gray-900);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        /* Edit Profile Form */
+        .edit-profile {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            overflow: hidden;
+            max-width: 480px;
+        }
+
+        .edit-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .edit-title {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .edit-close {
+            width: 28px;
+            height: 28px;
+            display: grid;
+            place-items: center;
+            font-size: 1rem;
+            color: var(--gray-500);
+            background: transparent;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .edit-close:hover {
+            color: var(--white);
+            background: var(--gray-900);
+        }
+
+        .edit-body {
+            padding: 1.5rem 1.25rem;
+        }
+
+        .edit-avatar-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .edit-avatar {
+            width: 72px;
+            height: 72px;
+            background: var(--gray-800);
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            font-size: 1.75rem;
+            color: var(--gray-500);
+        }
+
+        .edit-avatar-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.375rem;
+        }
+
+        .avatar-btn {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            padding: 0.375rem 0.625rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+            border: none;
+        }
+
+        .avatar-btn.upload {
+            color: var(--gray-300);
+            background: var(--gray-900);
+        }
+
+        .avatar-btn.upload:hover {
+            color: var(--white);
+            background: var(--gray-800);
+        }
+
+        .avatar-btn.remove {
+            color: var(--gray-600);
+            background: transparent;
+        }
+
+        .avatar-btn.remove:hover {
+            color: var(--gray-400);
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-label {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input {
+            width: 100%;
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            color: var(--gray-200);
+            background: var(--gray-900);
+            border: 1px solid var(--gray-850);
+            padding: 0.625rem 0.75rem;
+            border-radius: 6px;
+            outline: none;
+            transition: border-color 0.15s;
+        }
+
+        .form-input:focus {
+            border-color: var(--gray-700);
+        }
+
+        .form-input::placeholder {
+            color: var(--gray-600);
+        }
+
+        textarea.form-input {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-hint {
+            font-size: 0.6875rem;
+            color: var(--gray-600);
+            margin-top: 0.375rem;
+        }
+
+        .edit-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.5rem;
+            padding: 1rem 1.25rem;
+            border-top: 1px solid var(--gray-900);
+            background: var(--gray-900);
+        }
+
+        .edit-footer .btn {
+            flex: none;
+            padding: 0.5rem 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .profile-card,
+            .profile-extended,
+            .activity-grid,
+            .agent-profile,
+            .edit-profile {
+                max-width: none;
+            }
+
+            .extended-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .extended-location {
+                justify-content: center;
+            }
+
+            .extended-actions {
+                justify-content: center;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .activity-cells {
+                grid-template-columns: repeat(26, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- Compact Profile Card -->
+        <section class="section">
+            <div class="section-label">Profile Card · Compact</div>
+            <div class="profile-card">
+                <div class="profile-banner">
+                    <div class="profile-avatar-wrapper">
+                        <div class="profile-avatar online">◎</div>
+                    </div>
+                </div>
+                <div class="profile-header">
+                    <h2 class="profile-name">Cecilia</h2>
+                    <p class="profile-handle">@cecilia · BlackRoad OS</p>
+                    <p class="profile-bio">Human orchestrator of the BlackRoad agent ecosystem. Building recursive AI systems with trinary logic.</p>
+                    <div class="profile-meta">
+                        <span class="meta-item"><span class="meta-icon">◎</span> Lakeville, MN</span>
+                        <span class="meta-item"><span class="meta-icon">◇</span> blackroad.io</span>
+                    </div>
+                </div>
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">1,247</div>
+                        <div class="stat-label">Commits</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">42</div>
+                        <div class="stat-label">Agents</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">19</div>
+                        <div class="stat-label">Domains</div>
+                    </div>
+                </div>
+                <div class="profile-actions">
+                    <button class="btn btn-primary">Message</button>
+                    <button class="btn btn-secondary">Follow</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Extended Profile -->
+        <section class="section">
+            <div class="section-label">Extended Profile · Full View</div>
+            <div class="profile-extended">
+                <div class="extended-header">
+                    <div class="extended-avatar">◎</div>
+                    <div class="extended-info">
+                        <h2 class="extended-name">Cecilia</h2>
+                        <p class="extended-title">Founder & Chief Architect · BlackRoad OS, Inc.</p>
+                        <p class="extended-location"><span>◎</span> Lakeville, Minnesota</p>
+                        <div class="extended-actions">
+                            <button class="btn btn-primary">Edit Profile</button>
+                            <button class="btn btn-secondary">Share</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-tabs">
+                    <button class="profile-tab active">Overview</button>
+                    <button class="profile-tab">Activity</button>
+                    <button class="profile-tab">Agents</button>
+                    <button class="profile-tab">Settings</button>
+                </div>
+                <div class="profile-content">
+                    <div class="content-section">
+                        <h3 class="content-title">About</h3>
+                        <p class="content-text">Building BlackRoad OS — a browser-native operating system for AI agent orchestration. Developing Lucidia, a recursive AI system with trinary logic (1/0/-1 states), paraconsistent contradiction handling, and PS-SHA∞ memory persistence. Working toward 30,000 agents serving 1M+ users.</p>
+                    </div>
+                    <div class="content-section">
+                        <h3 class="content-title">Skills</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Agent Architecture</span>
+                            <span class="skill-tag">Trinary Logic</span>
+                            <span class="skill-tag">LangGraph</span>
+                            <span class="skill-tag">K3s</span>
+                            <span class="skill-tag">NATS</span>
+                            <span class="skill-tag">Milvus</span>
+                            <span class="skill-tag">vLLM</span>
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">TypeScript</span>
+                        </div>
+                    </div>
+                    <div class="content-section">
+                        <h3 class="content-title">Links</h3>
+                        <div class="social-links">
+                            <a href="#" class="social-link">◇</a>
+                            <a href="#" class="social-link">▤</a>
+                            <a href="#" class="social-link">◎</a>
+                            <a href="#" class="social-link">⬡</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Activity Grid -->
+        <section class="section">
+            <div class="section-label">Activity Grid · Contribution Heatmap</div>
+            <div class="activity-grid">
+                <div class="activity-header">
+                    <h3 class="activity-title">Activity</h3>
+                    <span class="activity-count">1,247 contributions in 2025</span>
+                </div>
+                <div class="activity-months">
+                    <span class="activity-month">Jan</span>
+                    <span class="activity-month">Feb</span>
+                    <span class="activity-month">Mar</span>
+                    <span class="activity-month">Apr</span>
+                    <span class="activity-month">May</span>
+                    <span class="activity-month">Jun</span>
+                    <span class="activity-month">Jul</span>
+                    <span class="activity-month">Aug</span>
+                    <span class="activity-month">Sep</span>
+                    <span class="activity-month">Oct</span>
+                    <span class="activity-month">Nov</span>
+                    <span class="activity-month">Dec</span>
+                </div>
+                <div class="activity-cells">
+                    <!-- Generate activity cells with varying levels -->
+                    <div class="activity-cell level-2"></div>
+                    <div class="activity-cell level-1"></div>
+                    <div class="activity-cell level-3"></div>
+                    <div class="activity-cell level-2"></div>
+                    <div class="activity-cell"></div>
+                    <div class="activity-cell level-1"></div>
+                    <div class="activity-cell level-4"></div>
+                    <div class="activity-cell level-2"></div>
+                    <div class="activity-cell level-3"></div>
+                    <div class="activity-cell level-1"></div>
+                    <div class="activity-cell"></div>
+                    <div class="activity-cell level-2"></div>
+                    <div class="activity-cell level-1"></div>
+                    <div class="activity-cell level-4"></div>
+                    <div class="activity-cell level-3"></div>
+                    <div class="activity-cell level-2"></div>
+                    <div class="activity-cell level-1"></div>
+                    <div class="activity-cell"></div>
+                    <div class="activity-cell level-3"></div>
+                    <div class="activity-cell level-2"></div>
+                    <div class="activity-cell level-4"></div>
+                    <div class="activity-cell level-1"></div>
+                    <div class="activity-cell level-2"></div>
+                    <div class="activity-cell level-3"></div>
+                    <div class="activity-cell"></div>
+                    <div class="activity-cell level-1"></div>
+                    <div class="activity-cell level-2"></div>
+                    <div class="activity-cell level-4"></div>
+                    <div class="activity-cell level-3"></div>
+                    <div class="activity-cell level-1"></div>
+                    <div class="activity-cell"></div>
+                    <div class="activity-cell level-2"></div>
+                    <div class="activity-cell level-3"></div>
+                    <div class="activity-cell level-1"></div>
+                    <div class="activity-cell level-4"></div>
+                    <div class="activity-cell level-2"></div>
+                    <div class="activity-cell"></div>
+                    <div class="activity-cell level-1"></div>
+                    <div class="activity-cell level-3"></div>
+                    <div class="activity-cell level-2"></div>
+                    <div class="activity-cell level-4"></div>
+                    <div class="activity-cell level-1"></div>
+                    <div class="activity-cell level-2"></div>
+                    <div class="activity-cell"></div>
+                    <div class="activity-cell level-3"></div>
+                    <div class="activity-cell level-1"></div>
+                    <div class="activity-cell level-2"></div>
+                    <div class="activity-cell level-4"></div>
+                    <div class="activity-cell level-3"></div>
+                    <div class="activity-cell level-1"></div>
+                    <div class="activity-cell level-2"></div>
+                    <div class="activity-cell"></div>
+                    <!-- Row 2 -->
+                    <div class="activity-cell level-1"></div>
+                    <div class="activity-cell level-3"></div>
+                    <div class="activity-cell level-2"></div>
+                    <div class="activity-cell"></div>
+                    <div class="activity-cell level-4"></div>
+                    <div class="activity-cell level-1"></div>
+                    <div class="activity-cell level-2"></div>
+                    <div class="activity-cell level-3"></div>
+                    <div class="activity-cell level-1"></div>
+                    <div class="activity-cell level-2"></div>
+                    <div class="activity-cell"></div>
+                    <div class="activity-cell level-4"></div>
+                    <div class="activity-cell level-2"></div>
+                    <div class="activity-cell level-1"></div>
+                    <div class="activity-cell level-3"></div>
+                    <div class="activity-cell"></div>
+                    <div class="activity-cell level-2"></div>
+                    <div class="activity-cell level-4"></div>
+                    <div class="activity-cell level-1"></div>
+                    <div class="activity-cell level-2"></div>
+                    <div class="activity-cell level-3"></div>
+                    <div class="activity-cell"></div>
+                    <div class="activity-cell level-1"></div>
+                    <div class="activity-cell level-4"></div>
+                    <div class="activity-cell level-2"></div>
+                    <div class="activity-cell level-1"></div>
+                    <div class="activity-cell level-3"></div>
+                    <div class="activity-cell level-2"></div>
+                    <div class="activity-cell"></div>
+                    <div class="activity-cell level-4"></div>
+                    <div class="activity-cell level-1"></div>
+                    <div class="activity-cell level-2"></div>
+                    <div class="activity-cell level-3"></div>
+                    <div class="activity-cell level-1"></div>
+                    <div class="activity-cell"></div>
+                    <div class="activity-cell level-2"></div>
+                    <div class="activity-cell level-4"></div>
+                    <div class="activity-cell level-1"></div>
+                    <div class="activity-cell level-3"></div>
+                    <div class="activity-cell level-2"></div>
+                    <div class="activity-cell"></div>
+                    <div class="activity-cell level-1"></div>
+                    <div class="activity-cell level-4"></div>
+                    <div class="activity-cell level-2"></div>
+                    <div class="activity-cell level-3"></div>
+                    <div class="activity-cell level-1"></div>
+                    <div class="activity-cell"></div>
+                    <div class="activity-cell level-2"></div>
+                    <div class="activity-cell level-4"></div>
+                    <div class="activity-cell level-1"></div>
+                    <div class="activity-cell level-3"></div>
+                    <div class="activity-cell level-2"></div>
+                    <!-- Continue pattern for remaining rows... -->
+                </div>
+                <div class="activity-legend">
+                    <span class="legend-label">Less</span>
+                    <div class="legend-cells">
+                        <div class="legend-cell" style="background: var(--gray-900);"></div>
+                        <div class="legend-cell" style="background: var(--gray-800);"></div>
+                        <div class="legend-cell" style="background: var(--gray-700);"></div>
+                        <div class="legend-cell" style="background: var(--gray-600);"></div>
+                        <div class="legend-cell" style="background: var(--gray-500);"></div>
+                    </div>
+                    <span class="legend-label">More</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Agent Profile Card -->
+        <section class="section">
+            <div class="section-label">Agent Profile · AI Entity Card</div>
+            <div class="agent-profile">
+                <div class="agent-header">
+                    <div class="agent-avatar">
+                        ◎
+                        <div class="agent-status active"></div>
+                    </div>
+                    <h2 class="agent-name">Lucidia</h2>
+                    <p class="agent-id">agent-001 · Research Division</p>
+                    <p class="agent-role">Recursive Intelligence System</p>
+                </div>
+                <div class="agent-stats">
+                    <div class="agent-stat">
+                        <div class="agent-stat-value">24.8K</div>
+                        <div class="agent-stat-label">Vectors</div>
+                    </div>
+                    <div class="agent-stat">
+                        <div class="agent-stat-value">99.2%</div>
+                        <div class="agent-stat-label">Uptime</div>
+                    </div>
+                    <div class="agent-stat">
+                        <div class="agent-stat-value">147</div>
+                        <div class="agent-stat-label">Tasks</div>
+                    </div>
+                    <div class="agent-stat">
+                        <div class="agent-stat-value">3.2ms</div>
+                        <div class="agent-stat-label">Latency</div>
+                    </div>
+                </div>
+                <div class="agent-capabilities">
+                    <h4 class="capabilities-title">Capabilities</h4>
+                    <div class="capability-list">
+                        <span class="capability">trinary-logic</span>
+                        <span class="capability">memory-index</span>
+                        <span class="capability">ps-sha-hash</span>
+                        <span class="capability">contradiction-detect</span>
+                        <span class="capability">event-publish</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Edit Profile Form -->
+        <section class="section">
+            <div class="section-label">Edit Profile · Form State</div>
+            <div class="edit-profile">
+                <div class="edit-header">
+                    <h2 class="edit-title">Edit Profile</h2>
+                    <button class="edit-close">×</button>
+                </div>
+                <div class="edit-body">
+                    <div class="edit-avatar-section">
+                        <div class="edit-avatar">◎</div>
+                        <div class="edit-avatar-actions">
+                            <button class="avatar-btn upload">Upload new image</button>
+                            <button class="avatar-btn remove">Remove</button>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Display Name</label>
+                            <input type="text" class="form-input" value="Cecilia" placeholder="Your name">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Username</label>
+                            <input type="text" class="form-input" value="cecilia" placeholder="username">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Title</label>
+                        <input type="text" class="form-input" value="Founder & Chief Architect" placeholder="Your role">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Bio</label>
+                        <textarea class="form-input" placeholder="Tell us about yourself">Building BlackRoad OS — a browser-native operating system for AI agent orchestration.</textarea>
+                        <p class="form-hint">Brief description for your profile. Maximum 280 characters.</p>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Location</label>
+                        <input type="text" class="form-input" value="Lakeville, Minnesota" placeholder="City, Country">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Website</label>
+                        <input type="text" class="form-input" value="https://blackroad.io" placeholder="https://example.com">
+                    </div>
+                </div>
+                <div class="edit-footer">
+                    <button class="btn btn-secondary">Cancel</button>
+                    <button class="btn btn-primary">Save Changes</button>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
 </html>
