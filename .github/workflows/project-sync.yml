@@ -11,9 +11,10 @@ permissions:
 
 jobs:
   add-to-project:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/add-to-project@v1
-        with:
-          project-url: https://github.com/users/blackboxprogramming/projects/8
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+    uses: ./.github/workflows/reusable/project-sync.yml
+    with:
+      project-url: https://github.com/users/blackboxprogramming/projects/8
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write

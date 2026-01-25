@@ -1,0 +1,23 @@
+name: Project Sync (Reusable)
+
+on:
+  workflow_call:
+    inputs:
+      project-url:
+        description: 'GitHub Project URL to add items to'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  add-to-project:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/add-to-project@v1
+        with:
+          project-url: ${{ inputs.project-url }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}

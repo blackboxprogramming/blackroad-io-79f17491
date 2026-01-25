@@ -1,0 +1,43 @@
+name: Auto Label (Reusable)
+
+on:
+  workflow_call:
+    inputs:
+      repo-pattern-core:
+        description: 'Pattern to match for core label'
+        required: false
+        type: string
+        default: 'blackroad'
+      repo-pattern-labs:
+        description: 'Pattern to match for labs label'
+        required: false
+        type: string
+        default: 'lab'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const repo = context.repo.repo.toLowerCase()
+            let labels = []
+            
+            const corePattern = '${{ inputs.repo-pattern-core }}'
+            const labsPattern = '${{ inputs.repo-pattern-labs }}'
+            
+            if (corePattern && repo.includes(corePattern)) labels.push("core")
+            if (labsPattern && repo.includes(labsPattern)) labels.push("labs")
+            
+            if (labels.length) {
+              await github.rest.issues.addLabels({
+                ...context.repo,
+                issue_number: context.issue.number,
+                labels
+              })
+            }
