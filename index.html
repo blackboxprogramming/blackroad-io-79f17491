@@ -1,12 +1,1004 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>BlackRoad</title>
-  </head>
-  <body style="font-family: system-ui; padding: 40px;">
-    <h1>BlackRoad</h1>
-    <p>Building sovereign, local-first AI systems.</p>
-    <p>Status: Online.</p>
-  </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackRoad OS — Template 27</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #000;
+            --gray-950: #080808;
+            --gray-900: #0f0f0f;
+            --gray-850: #151515;
+            --gray-800: #1c1c1c;
+            --gray-750: #232323;
+            --gray-700: #2c2c2c;
+            --gray-600: #404040;
+            --gray-500: #5c5c5c;
+            --gray-400: #7c7c7c;
+            --gray-300: #9c9c9c;
+            --gray-200: #bcbcbc;
+            --gray-100: #dcdcdc;
+            --white: #f0f0f0;
+
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+
+            /* Syntax colors - grayscale only */
+            --syn-keyword: var(--gray-300);
+            --syn-string: var(--gray-400);
+            --syn-comment: var(--gray-600);
+            --syn-function: var(--gray-200);
+            --syn-variable: var(--gray-300);
+            --syn-number: var(--gray-400);
+            --syn-operator: var(--gray-500);
+            --syn-type: var(--gray-300);
+            --syn-decorator: var(--gray-500);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 15px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--black);
+            color: var(--gray-400);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        ::selection {
+            background: var(--gray-700);
+            color: var(--white);
+        }
+
+        /* Layout */
+        .page {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        /* Code Block */
+        .code-block {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .code-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            background: var(--gray-900);
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .code-filename {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--gray-400);
+        }
+
+        .code-filename-icon {
+            color: var(--gray-600);
+        }
+
+        .code-actions {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .code-action {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-500);
+            background: transparent;
+            border: none;
+            padding: 0.375rem 0.625rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .code-action:hover {
+            color: var(--gray-300);
+            background: var(--gray-800);
+        }
+
+        .code-body {
+            display: flex;
+            overflow-x: auto;
+        }
+
+        .code-lines {
+            padding: 1rem 0;
+            text-align: right;
+            user-select: none;
+            border-right: 1px solid var(--gray-900);
+            flex-shrink: 0;
+        }
+
+        .line-number {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--gray-700);
+            padding: 0 1rem;
+            line-height: 1.65;
+            display: block;
+        }
+
+        .code-content {
+            flex: 1;
+            padding: 1rem 1.25rem;
+            overflow-x: auto;
+        }
+
+        .code-content pre {
+            font-family: var(--font-mono);
+            font-size: 0.8125rem;
+            line-height: 1.65;
+            color: var(--gray-300);
+            margin: 0;
+        }
+
+        /* Syntax Highlighting */
+        .kw { color: var(--syn-keyword); }
+        .str { color: var(--syn-string); }
+        .cmt { color: var(--syn-comment); font-style: italic; }
+        .fn { color: var(--syn-function); }
+        .var { color: var(--syn-variable); }
+        .num { color: var(--syn-number); }
+        .op { color: var(--syn-operator); }
+        .typ { color: var(--syn-type); }
+        .dec { color: var(--syn-decorator); }
+
+        /* Code Block without line numbers */
+        .code-block.simple .code-body {
+            display: block;
+        }
+
+        .code-block.simple .code-content {
+            padding: 1rem 1.25rem;
+        }
+
+        /* Inline Code */
+        .inline-code {
+            font-family: var(--font-mono);
+            font-size: 0.8125rem;
+            color: var(--gray-300);
+            background: var(--gray-900);
+            padding: 0.125rem 0.375rem;
+            border-radius: 4px;
+        }
+
+        .prose {
+            font-size: 0.9375rem;
+            color: var(--gray-400);
+            line-height: 1.7;
+        }
+
+        /* Terminal Output */
+        .terminal {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            background: var(--gray-900);
+            border-bottom: 1px solid var(--gray-850);
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 0.375rem;
+        }
+
+        .terminal-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--gray-800);
+        }
+
+        .terminal-title {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-600);
+            margin-left: 0.5rem;
+        }
+
+        .terminal-body {
+            padding: 1rem 1.25rem;
+            overflow-x: auto;
+        }
+
+        .terminal-line {
+            font-family: var(--font-mono);
+            font-size: 0.8125rem;
+            line-height: 1.65;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .terminal-prompt {
+            color: var(--gray-600);
+            user-select: none;
+        }
+
+        .terminal-command {
+            color: var(--gray-300);
+        }
+
+        .terminal-output {
+            font-family: var(--font-mono);
+            font-size: 0.8125rem;
+            line-height: 1.65;
+            color: var(--gray-500);
+            margin-top: 0.25rem;
+        }
+
+        .terminal-success {
+            color: var(--gray-400);
+        }
+
+        .terminal-error {
+            color: var(--gray-500);
+        }
+
+        .terminal-dim {
+            color: var(--gray-700);
+        }
+
+        /* Diff View */
+        .diff-block {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .diff-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            background: var(--gray-900);
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .diff-title {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--gray-400);
+        }
+
+        .diff-stats {
+            display: flex;
+            gap: 0.75rem;
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+        }
+
+        .diff-add {
+            color: var(--gray-400);
+        }
+
+        .diff-del {
+            color: var(--gray-500);
+        }
+
+        .diff-body {
+            overflow-x: auto;
+        }
+
+        .diff-line {
+            display: flex;
+            font-family: var(--font-mono);
+            font-size: 0.8125rem;
+            line-height: 1.65;
+        }
+
+        .diff-line-num {
+            padding: 0 0.75rem;
+            color: var(--gray-700);
+            text-align: right;
+            user-select: none;
+            min-width: 3rem;
+            border-right: 1px solid var(--gray-900);
+        }
+
+        .diff-line-num.old {
+            background: var(--gray-950);
+        }
+
+        .diff-line-num.new {
+            background: var(--gray-950);
+        }
+
+        .diff-line-content {
+            flex: 1;
+            padding: 0 1rem;
+            white-space: pre;
+        }
+
+        .diff-line.addition {
+            background: rgba(100, 100, 100, 0.1);
+        }
+
+        .diff-line.addition .diff-line-content::before {
+            content: '+';
+            color: var(--gray-500);
+            margin-right: 0.5rem;
+        }
+
+        .diff-line.deletion {
+            background: rgba(60, 60, 60, 0.1);
+        }
+
+        .diff-line.deletion .diff-line-content {
+            color: var(--gray-600);
+        }
+
+        .diff-line.deletion .diff-line-content::before {
+            content: '-';
+            color: var(--gray-600);
+            margin-right: 0.5rem;
+        }
+
+        .diff-line.context .diff-line-content {
+            color: var(--gray-500);
+        }
+
+        .diff-line.context .diff-line-content::before {
+            content: ' ';
+            margin-right: 0.5rem;
+        }
+
+        /* Code Tabs */
+        .code-tabs {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .tabs-header {
+            display: flex;
+            background: var(--gray-900);
+            border-bottom: 1px solid var(--gray-900);
+            overflow-x: auto;
+        }
+
+        .tab {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--gray-600);
+            background: transparent;
+            border: none;
+            padding: 0.75rem 1.25rem;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.15s;
+            white-space: nowrap;
+        }
+
+        .tab:hover {
+            color: var(--gray-400);
+        }
+
+        .tab.active {
+            color: var(--gray-300);
+            border-bottom-color: var(--gray-600);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Command Palette Style */
+        .command-code {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+        }
+
+        .command-icon {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+        }
+
+        .command-text {
+            flex: 1;
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            color: var(--gray-300);
+        }
+
+        .command-copy {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-500);
+            background: var(--gray-900);
+            border: none;
+            padding: 0.375rem 0.625rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .command-copy:hover {
+            color: var(--gray-300);
+            background: var(--gray-800);
+        }
+
+        /* Code Snippet Cards */
+        .snippet-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .snippet-card {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .snippet-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.625rem 1rem;
+            background: var(--gray-900);
+        }
+
+        .snippet-title {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-500);
+        }
+
+        .snippet-lang {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+            background: var(--gray-850);
+            padding: 0.125rem 0.375rem;
+            border-radius: 3px;
+        }
+
+        .snippet-body {
+            padding: 0.875rem 1rem;
+        }
+
+        .snippet-body pre {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            line-height: 1.6;
+            color: var(--gray-400);
+            margin: 0;
+        }
+
+        /* Log Output */
+        .log-output {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .log-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            background: var(--gray-900);
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .log-title {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--gray-400);
+        }
+
+        .log-filter {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-500);
+            background: var(--gray-850);
+            border: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .log-body {
+            padding: 0.5rem 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .log-line {
+            display: flex;
+            gap: 1rem;
+            padding: 0.375rem 1rem;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            transition: background 0.1s;
+        }
+
+        .log-line:hover {
+            background: var(--gray-900);
+        }
+
+        .log-time {
+            color: var(--gray-700);
+            white-space: nowrap;
+        }
+
+        .log-level {
+            width: 50px;
+            text-transform: uppercase;
+            font-size: 0.625rem;
+            font-weight: 500;
+        }
+
+        .log-level.info { color: var(--gray-500); }
+        .log-level.warn { color: var(--gray-400); }
+        .log-level.error { color: var(--gray-400); }
+        .log-level.debug { color: var(--gray-600); }
+
+        .log-message {
+            flex: 1;
+            color: var(--gray-400);
+        }
+
+        .log-source {
+            color: var(--gray-700);
+            white-space: nowrap;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .snippet-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .diff-stats {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- Code Block with Line Numbers -->
+        <section class="section">
+            <div class="section-label">Code Block · With Line Numbers</div>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-filename">
+                        <span class="code-filename-icon">◇</span>
+                        trinary_logic.py
+                    </span>
+                    <div class="code-actions">
+                        <button class="code-action">Copy</button>
+                        <button class="code-action">Raw</button>
+                    </div>
+                </div>
+                <div class="code-body">
+                    <div class="code-lines">
+                        <span class="line-number">1</span>
+                        <span class="line-number">2</span>
+                        <span class="line-number">3</span>
+                        <span class="line-number">4</span>
+                        <span class="line-number">5</span>
+                        <span class="line-number">6</span>
+                        <span class="line-number">7</span>
+                        <span class="line-number">8</span>
+                        <span class="line-number">9</span>
+                        <span class="line-number">10</span>
+                        <span class="line-number">11</span>
+                        <span class="line-number">12</span>
+                        <span class="line-number">13</span>
+                        <span class="line-number">14</span>
+                        <span class="line-number">15</span>
+                    </div>
+                    <div class="code-content">
+<pre><span class="cmt"># Trinary Logic Implementation for Lucidia</span>
+<span class="kw">from</span> enum <span class="kw">import</span> Enum
+<span class="kw">from</span> dataclasses <span class="kw">import</span> dataclass
+
+<span class="kw">class</span> <span class="typ">TrinaryState</span>(Enum):
+    TRUE <span class="op">=</span> <span class="num">1</span>
+    FALSE <span class="op">=</span> <span class="num">0</span>
+    UNKNOWN <span class="op">=</span> <span class="num">-1</span>
+
+<span class="dec">@dataclass</span>
+<span class="kw">class</span> <span class="typ">TrinaryValue</span>:
+    state: TrinaryState
+    confidence: <span class="typ">float</span> <span class="op">=</span> <span class="num">1.0</span>
+
+    <span class="kw">def</span> <span class="fn">evaluate</span>(<span class="var">self</span>) <span class="op">-></span> <span class="typ">bool</span> <span class="op">|</span> <span class="typ">None</span>:
+        <span class="kw">if</span> <span class="var">self</span>.state <span class="op">==</span> TrinaryState.UNKNOWN:
+            <span class="kw">return</span> <span class="kw">None</span>
+        <span class="kw">return</span> <span class="var">self</span>.state <span class="op">==</span> TrinaryState.TRUE</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Simple Code Block -->
+        <section class="section">
+            <div class="section-label">Code Block · Simple</div>
+            <div class="code-block simple">
+                <div class="code-header">
+                    <span class="code-filename">
+                        <span class="code-filename-icon">◇</span>
+                        config.yaml
+                    </span>
+                    <div class="code-actions">
+                        <button class="code-action">Copy</button>
+                    </div>
+                </div>
+                <div class="code-body">
+                    <div class="code-content">
+<pre><span class="var">agent</span>:
+  <span class="var">name</span>: <span class="str">"Lucidia"</span>
+  <span class="var">id</span>: <span class="str">"agent-001"</span>
+  <span class="var">division</span>: <span class="str">"Research"</span>
+
+<span class="var">logic</span>:
+  <span class="var">mode</span>: <span class="str">"trinary"</span>
+  <span class="var">states</span>: [<span class="num">1</span>, <span class="num">0</span>, <span class="num">-1</span>]
+
+<span class="var">memory</span>:
+  <span class="var">hash_algorithm</span>: <span class="str">"PS-SHA∞"</span>
+  <span class="var">journal_path</span>: <span class="str">"/var/lucidia/journal"</span></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Inline Code -->
+        <section class="section">
+            <div class="section-label">Inline Code · Within Text</div>
+            <p class="prose">
+                The agent state is managed through the <code class="inline-code">TrinaryState</code> enum,
+                which defines three possible values: <code class="inline-code">TRUE (1)</code>,
+                <code class="inline-code">FALSE (0)</code>, and <code class="inline-code">UNKNOWN (-1)</code>.
+                Memory persistence uses <code class="inline-code">PS-SHA∞</code> hashing to generate
+                unique identifiers for each journal entry. Events are published to
+                <code class="inline-code">nats://localhost:4222</code> using the subject pattern
+                <code class="inline-code">agent.{id}.state</code>.
+            </p>
+        </section>
+
+        <!-- Terminal Output -->
+        <section class="section">
+            <div class="section-label">Terminal · Command Output</div>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot"></div>
+                        <div class="terminal-dot"></div>
+                        <div class="terminal-dot"></div>
+                    </div>
+                    <span class="terminal-title">alice.blackroad.lan — bash</span>
+                </div>
+                <div class="terminal-body">
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">$</span>
+                        <span class="terminal-command">kubectl get pods -n blackroad</span>
+                    </div>
+                    <div class="terminal-output">
+NAME                        READY   STATUS    RESTARTS   AGE
+lucidia-core-7d4f8b9c6-x2k   1/1     Running   0          2d
+nats-0                       1/1     Running   0          5d
+milvus-standalone-0          1/1     Running   0          5d
+redis-master-0               1/1     Running   0          5d</div>
+
+                    <div class="terminal-line" style="margin-top: 1rem;">
+                        <span class="terminal-prompt">$</span>
+                        <span class="terminal-command">nats pub agent.lucidia.state '{"state": 1}'</span>
+                    </div>
+                    <div class="terminal-output terminal-success">Published 16 bytes to "agent.lucidia.state"</div>
+
+                    <div class="terminal-line" style="margin-top: 1rem;">
+                        <span class="terminal-prompt">$</span>
+                        <span class="terminal-command">lucidia status --format json | jq '.memory'</span>
+                    </div>
+                    <div class="terminal-output">{
+  "vectors": 24847,
+  "journal_entries": 1247,
+  "hash_algorithm": "PS-SHA∞",
+  "last_sync": "2025-01-25T14:32:00Z"
+}</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Diff View -->
+        <section class="section">
+            <div class="section-label">Diff View · Code Changes</div>
+            <div class="diff-block">
+                <div class="diff-header">
+                    <span class="diff-title">
+                        <span>◇</span>
+                        memory_sync.py
+                    </span>
+                    <div class="diff-stats">
+                        <span class="diff-add">+12</span>
+                        <span class="diff-del">-4</span>
+                    </div>
+                </div>
+                <div class="diff-body">
+                    <div class="diff-line context">
+                        <span class="diff-line-num old">45</span>
+                        <span class="diff-line-num new">45</span>
+                        <span class="diff-line-content"><span class="kw">class</span> <span class="typ">MemorySync</span>:</span>
+                    </div>
+                    <div class="diff-line context">
+                        <span class="diff-line-num old">46</span>
+                        <span class="diff-line-num new">46</span>
+                        <span class="diff-line-content">    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="var">self</span>, config):</span>
+                    </div>
+                    <div class="diff-line deletion">
+                        <span class="diff-line-num old">47</span>
+                        <span class="diff-line-num new"></span>
+                        <span class="diff-line-content">        <span class="var">self</span>.hash_algo = <span class="str">"sha256"</span></span>
+                    </div>
+                    <div class="diff-line addition">
+                        <span class="diff-line-num old"></span>
+                        <span class="diff-line-num new">47</span>
+                        <span class="diff-line-content">        <span class="var">self</span>.hash_algo = <span class="str">"PS-SHA∞"</span></span>
+                    </div>
+                    <div class="diff-line addition">
+                        <span class="diff-line-num old"></span>
+                        <span class="diff-line-num new">48</span>
+                        <span class="diff-line-content">        <span class="var">self</span>.journal = AppendOnlyJournal()</span>
+                    </div>
+                    <div class="diff-line context">
+                        <span class="diff-line-num old">48</span>
+                        <span class="diff-line-num new">49</span>
+                        <span class="diff-line-content">        <span class="var">self</span>.milvus = MilvusClient(config.endpoint)</span>
+                    </div>
+                    <div class="diff-line context">
+                        <span class="diff-line-num old">49</span>
+                        <span class="diff-line-num new">50</span>
+                        <span class="diff-line-content"></span>
+                    </div>
+                    <div class="diff-line addition">
+                        <span class="diff-line-num old"></span>
+                        <span class="diff-line-num new">51</span>
+                        <span class="diff-line-content">    <span class="kw">def</span> <span class="fn">commit_truth_state</span>(<span class="var">self</span>, state):</span>
+                    </div>
+                    <div class="diff-line addition">
+                        <span class="diff-line-num old"></span>
+                        <span class="diff-line-num new">52</span>
+                        <span class="diff-line-content">        <span class="str">"""Commit state with truth_state_hash"""</span></span>
+                    </div>
+                    <div class="diff-line addition">
+                        <span class="diff-line-num old"></span>
+                        <span class="diff-line-num new">53</span>
+                        <span class="diff-line-content">        hash = <span class="var">self</span>.compute_hash(state)</span>
+                    </div>
+                    <div class="diff-line addition">
+                        <span class="diff-line-num old"></span>
+                        <span class="diff-line-num new">54</span>
+                        <span class="diff-line-content">        <span class="var">self</span>.journal.append(state, hash)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Code Tabs -->
+        <section class="section">
+            <div class="section-label">Code Tabs · Multiple Files</div>
+            <div class="code-tabs">
+                <div class="tabs-header">
+                    <button class="tab active">Python</button>
+                    <button class="tab">TypeScript</button>
+                    <button class="tab">Rust</button>
+                </div>
+                <div class="tab-content active">
+                    <div class="code-content">
+<pre><span class="cmt"># Connect to NATS event bus</span>
+<span class="kw">import</span> nats
+
+<span class="kw">async def</span> <span class="fn">connect_nats</span>():
+    nc <span class="op">=</span> <span class="kw">await</span> nats.connect(<span class="str">"nats://localhost:4222"</span>)
+
+    <span class="kw">async def</span> <span class="fn">handler</span>(msg):
+        data <span class="op">=</span> msg.data.decode()
+        <span class="kw">print</span>(<span class="str">f"Received: </span>{data}<span class="str">"</span>)
+
+    <span class="kw">await</span> nc.subscribe(<span class="str">"agent.*.state"</span>, cb<span class="op">=</span>handler)</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Command Copy -->
+        <section class="section">
+            <div class="section-label">Command · Copy to Clipboard</div>
+            <div class="command-code">
+                <span class="command-icon">$</span>
+                <span class="command-text">pip install blackroad-sdk nats-py milvus</span>
+                <button class="command-copy">Copy</button>
+            </div>
+        </section>
+
+        <!-- Code Snippets Grid -->
+        <section class="section">
+            <div class="section-label">Code Snippets · Grid Layout</div>
+            <div class="snippet-grid">
+                <div class="snippet-card">
+                    <div class="snippet-header">
+                        <span class="snippet-title">Initialize Agent</span>
+                        <span class="snippet-lang">Python</span>
+                    </div>
+                    <div class="snippet-body">
+<pre><span class="kw">from</span> blackroad <span class="kw">import</span> Agent
+
+agent <span class="op">=</span> Agent(
+    name<span class="op">=</span><span class="str">"Lucidia"</span>,
+    logic<span class="op">=</span><span class="str">"trinary"</span>
+)</pre>
+                    </div>
+                </div>
+
+                <div class="snippet-card">
+                    <div class="snippet-header">
+                        <span class="snippet-title">Publish Event</span>
+                        <span class="snippet-lang">Python</span>
+                    </div>
+                    <div class="snippet-body">
+<pre><span class="kw">await</span> agent.publish(
+    subject<span class="op">=</span><span class="str">"state.changed"</span>,
+    data<span class="op">=</span>{<span class="str">"state"</span>: <span class="num">1</span>}
+)</pre>
+                    </div>
+                </div>
+
+                <div class="snippet-card">
+                    <div class="snippet-header">
+                        <span class="snippet-title">Query Vectors</span>
+                        <span class="snippet-lang">Python</span>
+                    </div>
+                    <div class="snippet-body">
+<pre>results <span class="op">=</span> agent.memory.search(
+    query<span class="op">=</span>embedding,
+    limit<span class="op">=</span><span class="num">10</span>
+)</pre>
+                    </div>
+                </div>
+
+                <div class="snippet-card">
+                    <div class="snippet-header">
+                        <span class="snippet-title">Commit State</span>
+                        <span class="snippet-lang">Python</span>
+                    </div>
+                    <div class="snippet-body">
+<pre>hash <span class="op">=</span> agent.commit(
+    state<span class="op">=</span>current_state,
+    algo<span class="op">=</span><span class="str">"PS-SHA∞"</span>
+)</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Log Output -->
+        <section class="section">
+            <div class="section-label">Log Output · Streaming</div>
+            <div class="log-output">
+                <div class="log-header">
+                    <span class="log-title">Agent Logs</span>
+                    <select class="log-filter">
+                        <option>All Levels</option>
+                        <option>Info</option>
+                        <option>Warn</option>
+                        <option>Error</option>
+                    </select>
+                </div>
+                <div class="log-body">
+                    <div class="log-line">
+                        <span class="log-time">14:32:01.234</span>
+                        <span class="log-level info">INFO</span>
+                        <span class="log-message">Agent initialized with trinary logic mode</span>
+                        <span class="log-source">lucidia/core</span>
+                    </div>
+                    <div class="log-line">
+                        <span class="log-time">14:32:01.456</span>
+                        <span class="log-level info">INFO</span>
+                        <span class="log-message">Connected to NATS at nats://localhost:4222</span>
+                        <span class="log-source">lucidia/events</span>
+                    </div>
+                    <div class="log-line">
+                        <span class="log-time">14:32:02.012</span>
+                        <span class="log-level debug">DEBUG</span>
+                        <span class="log-message">Memory sync started, 24847 vectors indexed</span>
+                        <span class="log-source">lucidia/memory</span>
+                    </div>
+                    <div class="log-line">
+                        <span class="log-time">14:32:05.789</span>
+                        <span class="log-level warn">WARN</span>
+                        <span class="log-message">Contradiction detected, quarantining claim #4821</span>
+                        <span class="log-source">lucidia/logic</span>
+                    </div>
+                    <div class="log-line">
+                        <span class="log-time">14:32:06.123</span>
+                        <span class="log-level info">INFO</span>
+                        <span class="log-message">Truth state committed: hash=ps-sha-7f3a9b...</span>
+                        <span class="log-source">lucidia/journal</span>
+                    </div>
+                    <div class="log-line">
+                        <span class="log-time">14:32:08.456</span>
+                        <span class="log-level error">ERROR</span>
+                        <span class="log-message">Milvus connection timeout after 5000ms</span>
+                        <span class="log-source">lucidia/memory</span>
+                    </div>
+                    <div class="log-line">
+                        <span class="log-time">14:32:09.001</span>
+                        <span class="log-level info">INFO</span>
+                        <span class="log-message">Reconnected to Milvus, resuming operations</span>
+                        <span class="log-source">lucidia/memory</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
 </html>
