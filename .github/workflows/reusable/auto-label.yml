@@ -27,13 +27,13 @@ jobs:
           script: |
             const repo = context.repo.repo.toLowerCase()
             let labels = []
-            
+
             const corePattern = '${{ inputs.repo-pattern-core }}'
             const labsPattern = '${{ inputs.repo-pattern-labs }}'
-            
+
             if (corePattern && repo.includes(corePattern)) labels.push("core")
             if (labsPattern && repo.includes(labsPattern)) labels.push("labs")
-            
+
             if (labels.length) {
               await github.rest.issues.addLabels({
                 ...context.repo,

@@ -1,0 +1,17 @@
+name: CI Failure Tracker
+
+on:
+  workflow_run:
+    workflows: ["CORE CI"]  # Change this to match your CI workflow name
+    types: [completed]
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  report:
+    uses: blackboxprogramming/blackroad-io/.github/workflows/reusable/failure-tracker.yml@main
+    permissions:
+      contents: read
+      issues: write

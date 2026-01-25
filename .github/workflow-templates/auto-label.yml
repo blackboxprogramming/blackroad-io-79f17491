@@ -1,0 +1,16 @@
+name: Auto Label
+
+on:
+  pull_request:
+    types: [opened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  label:
+    uses: blackboxprogramming/blackroad-io/.github/workflows/reusable/auto-label.yml@main
+    permissions:
+      contents: read
+      pull-requests: write
