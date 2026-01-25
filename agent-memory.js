@@ -18,7 +18,7 @@ class AgentMemory {
    * - "https://claude.ai/code/session_01ToNdyuPhUpgWkB37svZEY7"
    */
   extractSessionId(input) {
-    const sessionPattern = /(session_[a-zA-Z0-9]{20,})/;
+    const sessionPattern = /(session_[a-zA-Z0-9]{20,30})/;
     const match = input.match(sessionPattern);
     return match ? match[1] : null;
   }

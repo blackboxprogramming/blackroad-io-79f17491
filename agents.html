@@ -203,7 +203,7 @@
           id="nameInput" 
           placeholder="Agent name (optional)"
         />
-        <button onclick="addAgent()">Add Agent</button>
+        <button id="addAgentBtn">Add Agent</button>
       </div>
       <p style="font-size: 13px; color: #666; margin-top: -10px;">
         💡 Tip: Paste a Claude session URL or branch name ending with a session ID
@@ -228,8 +228,8 @@
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
         <h2 style="margin: 0;">All Agents</h2>
         <div style="display: flex; gap: 10px;">
-          <button class="secondary" onclick="exportAgents()">Export Data</button>
-          <button class="secondary" onclick="importAgents()">Import Data</button>
+          <button class="secondary" id="exportBtn">Export Data</button>
+          <button class="secondary" id="importBtn">Import Data</button>
         </div>
       </div>
       
@@ -390,6 +390,11 @@
         div.textContent = text;
         return div.innerHTML;
       }
+      
+      // Attach event listeners to main buttons
+      document.getElementById('addAgentBtn').addEventListener('click', addAgent);
+      document.getElementById('exportBtn').addEventListener('click', exportAgents);
+      document.getElementById('importBtn').addEventListener('click', importAgents);
       
       // Handle Enter key in inputs
       document.getElementById('sessionInput').addEventListener('keypress', (e) => {
