@@ -8,6 +8,10 @@ on:
       - '**.js'
       - '**.ts'
       - '**.css'
+      - '**.json'
+      - '**.yml'
+      - '**.yaml'
+      - 'Dockerfile*'
       - '.github/workflows/core-ci.yml'
   push:
     branches: [ main, master ]
@@ -16,6 +20,10 @@ on:
       - '**.js'
       - '**.ts'
       - '**.css'
+      - '**.json'
+      - '**.yml'
+      - '**.yaml'
+      - 'Dockerfile*'
       - '.github/workflows/core-ci.yml'
 
 jobs:

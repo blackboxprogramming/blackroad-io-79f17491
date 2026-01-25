@@ -25,7 +25,7 @@ jobs:
             const existingIssues = await github.rest.issues.listForRepo({
               ...context.repo,
               state: 'open',
-              labels: 'ci-failure',
+              labels: ['ci-failure'],
               per_page: 10
             });
 
