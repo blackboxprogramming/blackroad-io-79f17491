@@ -18,10 +18,10 @@ jobs:
             // Determine labels based on repository name
             const repoName = context.repo.repo.toLowerCase()
             const labels = []
-            
+
             if (repoName.includes("blackroad")) labels.push("core")
             if (repoName.includes("lab")) labels.push("labs")
-            
+
             // Add labels if any were found
             if (labels.length > 0) {
               await github.rest.issues.addLabels({

@@ -2,7 +2,7 @@ name: CORE CI
 
 on:
   pull_request:
-    branches: &main_branches [ main, master ]
+    branches: &main_branches [main, master]
   push:
     branches: *main_branches
 
