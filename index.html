@@ -1,12 +1,1087 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>BlackRoad</title>
-  </head>
-  <body style="font-family: system-ui; padding: 40px;">
-    <h1>BlackRoad</h1>
-    <p>Building sovereign, local-first AI systems.</p>
-    <p>Status: Online.</p>
-  </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackRoad OS — Template 29</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #000;
+            --gray-950: #080808;
+            --gray-900: #0f0f0f;
+            --gray-850: #151515;
+            --gray-800: #1c1c1c;
+            --gray-750: #232323;
+            --gray-700: #2c2c2c;
+            --gray-600: #404040;
+            --gray-500: #5c5c5c;
+            --gray-400: #7c7c7c;
+            --gray-300: #9c9c9c;
+            --gray-200: #bcbcbc;
+            --gray-100: #dcdcdc;
+            --white: #f0f0f0;
+
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 15px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--black);
+            color: var(--gray-400);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        ::selection {
+            background: var(--gray-700);
+            color: var(--white);
+        }
+
+        /* Layout */
+        .page {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        /* Basic Card */
+        .card {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.2s;
+        }
+
+        .card:hover {
+            border-color: var(--gray-800);
+        }
+
+        .card-title {
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-desc {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            line-height: 1.6;
+        }
+
+        /* Feature Cards */
+        .feature-card {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.2s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--gray-800);
+            transform: translateY(-2px);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            background: var(--gray-900);
+            border-radius: 12px;
+            font-size: 1.25rem;
+            color: var(--gray-400);
+            margin-bottom: 1.25rem;
+        }
+
+        .feature-title {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-desc {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+            line-height: 1.6;
+        }
+
+        /* Stat Cards */
+        .stat-card {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+            margin-bottom: 0.375rem;
+        }
+
+        .stat-value {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.2;
+        }
+
+        .stat-change {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-500);
+            margin-top: 0.5rem;
+        }
+
+        .stat-change.up {
+            color: var(--gray-400);
+        }
+
+        /* Team Cards */
+        .team-card {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .team-avatar {
+            width: 72px;
+            height: 72px;
+            background: var(--gray-900);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            margin: 0 auto 1rem;
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--gray-500);
+        }
+
+        .team-name {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 0.25rem;
+        }
+
+        .team-role {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+            margin-bottom: 0.75rem;
+        }
+
+        .team-meta {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-600);
+        }
+
+        /* Pricing Cards */
+        .pricing-card {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 16px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--gray-700);
+            position: relative;
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--black);
+            background: var(--white);
+            padding: 0.25rem 0.75rem;
+            border-radius: 10px;
+            text-transform: uppercase;
+        }
+
+        .pricing-name {
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-desc {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+            margin-bottom: 1.5rem;
+        }
+
+        .pricing-price {
+            margin-bottom: 1.5rem;
+        }
+
+        .pricing-amount {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .pricing-period {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            flex: 1;
+        }
+
+        .pricing-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.625rem;
+            font-size: 0.8125rem;
+            color: var(--gray-400);
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-check {
+            color: var(--gray-500);
+            flex-shrink: 0;
+        }
+
+        .pricing-btn {
+            font-family: var(--font-mono);
+            font-size: 0.8125rem;
+            padding: 0.875rem 1.5rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.15s;
+            text-align: center;
+        }
+
+        .pricing-btn.primary {
+            color: var(--black);
+            background: var(--white);
+        }
+
+        .pricing-btn.secondary {
+            color: var(--gray-300);
+            background: var(--gray-900);
+        }
+
+        /* Media Card */
+        .media-card {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .media-image {
+            aspect-ratio: 16/9;
+            background: var(--gray-900);
+            display: grid;
+            place-items: center;
+            font-size: 2rem;
+            color: var(--gray-700);
+        }
+
+        .media-body {
+            padding: 1.25rem;
+        }
+
+        .media-tag {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .media-title {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .media-desc {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+            line-height: 1.6;
+        }
+
+        .media-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.875rem 1.25rem;
+            border-top: 1px solid var(--gray-900);
+        }
+
+        .media-author {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .media-avatar {
+            width: 24px;
+            height: 24px;
+            background: var(--gray-800);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 0.5rem;
+            color: var(--gray-500);
+        }
+
+        .media-author-name {
+            font-size: 0.75rem;
+            color: var(--gray-400);
+        }
+
+        .media-date {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-600);
+        }
+
+        /* Action Card */
+        .action-card {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .action-card:hover {
+            border-color: var(--gray-800);
+            background: var(--gray-900);
+        }
+
+        .action-icon {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            background: var(--gray-900);
+            border-radius: 12px;
+            font-size: 1.25rem;
+            color: var(--gray-400);
+            flex-shrink: 0;
+        }
+
+        .action-card:hover .action-icon {
+            background: var(--gray-800);
+        }
+
+        .action-content {
+            flex: 1;
+        }
+
+        .action-title {
+            font-family: var(--font-display);
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 0.25rem;
+        }
+
+        .action-desc {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+        }
+
+        .action-arrow {
+            color: var(--gray-600);
+            font-size: 1rem;
+            transition: transform 0.15s;
+        }
+
+        .action-card:hover .action-arrow {
+            transform: translateX(4px);
+            color: var(--gray-400);
+        }
+
+        /* Horizontal Card */
+        .h-card {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .h-card-image {
+            width: 200px;
+            background: var(--gray-900);
+            display: grid;
+            place-items: center;
+            font-size: 2rem;
+            color: var(--gray-700);
+            flex-shrink: 0;
+        }
+
+        .h-card-body {
+            padding: 1.5rem;
+            flex: 1;
+        }
+
+        .h-card-tag {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .h-card-title {
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .h-card-desc {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .h-card-meta {
+            display: flex;
+            gap: 1rem;
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-600);
+        }
+
+        /* Expandable Card */
+        .expand-card {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .expand-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem 1.5rem;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .expand-header:hover {
+            background: var(--gray-900);
+        }
+
+        .expand-title {
+            font-family: var(--font-display);
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .expand-toggle {
+            color: var(--gray-600);
+            font-size: 0.75rem;
+            transition: transform 0.2s;
+        }
+
+        .expand-card.open .expand-toggle {
+            transform: rotate(180deg);
+        }
+
+        .expand-body {
+            display: none;
+            padding: 0 1.5rem 1.5rem;
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            line-height: 1.6;
+        }
+
+        .expand-card.open .expand-body {
+            display: block;
+        }
+
+        /* Status Card */
+        .status-card {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--gray-600);
+            flex-shrink: 0;
+        }
+
+        .status-indicator.online {
+            background: var(--gray-400);
+            box-shadow: 0 0 8px rgba(156, 156, 156, 0.4);
+        }
+
+        .status-indicator.offline {
+            background: var(--gray-700);
+        }
+
+        .status-content {
+            flex: 1;
+        }
+
+        .status-name {
+            font-size: 0.875rem;
+            color: var(--gray-300);
+        }
+
+        .status-detail {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-600);
+        }
+
+        .status-badge {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-500);
+            background: var(--gray-900);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        /* Mini Cards */
+        .mini-card {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.875rem;
+        }
+
+        .mini-icon {
+            width: 36px;
+            height: 36px;
+            display: grid;
+            place-items: center;
+            background: var(--gray-900);
+            border-radius: 8px;
+            font-size: 0.875rem;
+            color: var(--gray-500);
+        }
+
+        .mini-content {
+            flex: 1;
+        }
+
+        .mini-title {
+            font-size: 0.8125rem;
+            color: var(--gray-300);
+        }
+
+        .mini-meta {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-600);
+        }
+
+        /* Responsive */
+        @media (max-width: 800px) {
+            .grid-3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .h-card {
+                flex-direction: column;
+            }
+
+            .h-card-image {
+                width: 100%;
+                aspect-ratio: 16/9;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .grid-2,
+            .grid-3,
+            .grid-4 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- Feature Cards -->
+        <section class="section">
+            <div class="section-label">Feature Cards · Capabilities</div>
+            <div class="grid-3">
+                <div class="feature-card">
+                    <div class="feature-icon">◎</div>
+                    <div class="feature-title">Trinary Logic</div>
+                    <div class="feature-desc">Three-valued logic system supporting TRUE, FALSE, and UNKNOWN states with confidence scoring.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">◇</div>
+                    <div class="feature-title">Memory Persistence</div>
+                    <div class="feature-desc">Append-only journals with PS-SHA∞ hashing for immutable truth state tracking.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-title">Event Bus</div>
+                    <div class="feature-desc">NATS-powered pub/sub messaging for real-time agent coordination and state changes.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⬡</div>
+                    <div class="feature-title">Vector Search</div>
+                    <div class="feature-desc">Milvus integration for semantic memory retrieval across 24,847+ indexed vectors.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚠</div>
+                    <div class="feature-title">Contradiction Handling</div>
+                    <div class="feature-desc">Paraconsistent reasoning with automatic quarantine for conflicting claims.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">↻</div>
+                    <div class="feature-title">Agent Orchestration</div>
+                    <div class="feature-desc">Hybrid supervisor and peer-to-peer coordination via capability registry.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stat Cards -->
+        <section class="section">
+            <div class="section-label">Stat Cards · Metrics</div>
+            <div class="grid-4">
+                <div class="stat-card">
+                    <div class="stat-label">Active Agents</div>
+                    <div class="stat-value">42</div>
+                    <div class="stat-change up">↑ 12% this week</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Vector Index</div>
+                    <div class="stat-value">24.8K</div>
+                    <div class="stat-change up">↑ 847 today</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Events/Hour</div>
+                    <div class="stat-value">8.4K</div>
+                    <div class="stat-change up">↑ 23% avg</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Avg Latency</div>
+                    <div class="stat-value">3.2ms</div>
+                    <div class="stat-change">↓ 8% improved</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Cards -->
+        <section class="section">
+            <div class="section-label">Team Cards · Agents</div>
+            <div class="grid-4">
+                <div class="team-card">
+                    <div class="team-avatar">L</div>
+                    <div class="team-name">Lucidia</div>
+                    <div class="team-role">Core Intelligence</div>
+                    <div class="team-meta">
+                        <span>Research Division</span>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">CS</div>
+                    <div class="team-name">Code Synthesis</div>
+                    <div class="team-role">Generation Agent</div>
+                    <div class="team-meta">
+                        <span>Engineering</span>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">MS</div>
+                    <div class="team-name">Memory Sync</div>
+                    <div class="team-role">Persistence Agent</div>
+                    <div class="team-meta">
+                        <span>Infrastructure</span>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">QM</div>
+                    <div class="team-name">Quarantine</div>
+                    <div class="team-role">Logic Validator</div>
+                    <div class="team-meta">
+                        <span>Research Division</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Cards -->
+        <section class="section">
+            <div class="section-label">Pricing Cards · Plans</div>
+            <div class="grid-3">
+                <div class="pricing-card">
+                    <div class="pricing-name">Starter</div>
+                    <div class="pricing-desc">For individual developers exploring agent systems</div>
+                    <div class="pricing-price">
+                        <span class="pricing-amount">$0</span>
+                        <span class="pricing-period">/month</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><span class="pricing-check">✓</span> 5 active agents</li>
+                        <li><span class="pricing-check">✓</span> 10K events/month</li>
+                        <li><span class="pricing-check">✓</span> 1K vector storage</li>
+                        <li><span class="pricing-check">✓</span> Community support</li>
+                    </ul>
+                    <button class="pricing-btn secondary">Get Started</button>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">Popular</div>
+                    <div class="pricing-name">Professional</div>
+                    <div class="pricing-desc">For teams building production agent networks</div>
+                    <div class="pricing-price">
+                        <span class="pricing-amount">$49</span>
+                        <span class="pricing-period">/month</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><span class="pricing-check">✓</span> 50 active agents</li>
+                        <li><span class="pricing-check">✓</span> Unlimited events</li>
+                        <li><span class="pricing-check">✓</span> 100K vector storage</li>
+                        <li><span class="pricing-check">✓</span> Priority support</li>
+                        <li><span class="pricing-check">✓</span> Custom integrations</li>
+                    </ul>
+                    <button class="pricing-btn primary">Start Free Trial</button>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-name">Enterprise</div>
+                    <div class="pricing-desc">For organizations at scale with custom needs</div>
+                    <div class="pricing-price">
+                        <span class="pricing-amount">Custom</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><span class="pricing-check">✓</span> Unlimited agents</li>
+                        <li><span class="pricing-check">✓</span> Dedicated infrastructure</li>
+                        <li><span class="pricing-check">✓</span> Unlimited storage</li>
+                        <li><span class="pricing-check">✓</span> SLA guarantee</li>
+                        <li><span class="pricing-check">✓</span> On-premise option</li>
+                    </ul>
+                    <button class="pricing-btn secondary">Contact Sales</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Media Cards -->
+        <section class="section">
+            <div class="section-label">Media Cards · Content</div>
+            <div class="grid-3">
+                <div class="media-card">
+                    <div class="media-image">◎</div>
+                    <div class="media-body">
+                        <div class="media-tag">Documentation</div>
+                        <div class="media-title">Getting Started with Trinary Logic</div>
+                        <div class="media-desc">Learn how to implement three-valued logic states in your agent systems.</div>
+                    </div>
+                    <div class="media-footer">
+                        <div class="media-author">
+                            <div class="media-avatar">C</div>
+                            <span class="media-author-name">Cecilia</span>
+                        </div>
+                        <span class="media-date">Jan 20, 2025</span>
+                    </div>
+                </div>
+                <div class="media-card">
+                    <div class="media-image">◇</div>
+                    <div class="media-body">
+                        <div class="media-tag">Tutorial</div>
+                        <div class="media-title">PS-SHA∞ Hashing Deep Dive</div>
+                        <div class="media-desc">Understanding memory persistence and truth state verification.</div>
+                    </div>
+                    <div class="media-footer">
+                        <div class="media-author">
+                            <div class="media-avatar">L</div>
+                            <span class="media-author-name">Lucidia</span>
+                        </div>
+                        <span class="media-date">Jan 18, 2025</span>
+                    </div>
+                </div>
+                <div class="media-card">
+                    <div class="media-image">⚡</div>
+                    <div class="media-body">
+                        <div class="media-tag">Guide</div>
+                        <div class="media-title">NATS Event Bus Patterns</div>
+                        <div class="media-desc">Best practices for pub/sub messaging in agent coordination.</div>
+                    </div>
+                    <div class="media-footer">
+                        <div class="media-author">
+                            <div class="media-avatar">C</div>
+                            <span class="media-author-name">Cecilia</span>
+                        </div>
+                        <span class="media-date">Jan 15, 2025</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Action Cards -->
+        <section class="section">
+            <div class="section-label">Action Cards · Quick Actions</div>
+            <div class="grid-2">
+                <div class="action-card">
+                    <div class="action-icon">+</div>
+                    <div class="action-content">
+                        <div class="action-title">Create New Agent</div>
+                        <div class="action-desc">Configure and deploy a new agent to your network</div>
+                    </div>
+                    <span class="action-arrow">→</span>
+                </div>
+                <div class="action-card">
+                    <div class="action-icon">↑</div>
+                    <div class="action-content">
+                        <div class="action-title">Upload Configuration</div>
+                        <div class="action-desc">Import YAML or JSON agent configuration files</div>
+                    </div>
+                    <span class="action-arrow">→</span>
+                </div>
+                <div class="action-card">
+                    <div class="action-icon">◎</div>
+                    <div class="action-content">
+                        <div class="action-title">View Agent Dashboard</div>
+                        <div class="action-desc">Monitor active agents and their current states</div>
+                    </div>
+                    <span class="action-arrow">→</span>
+                </div>
+                <div class="action-card">
+                    <div class="action-icon">⚙</div>
+                    <div class="action-content">
+                        <div class="action-title">System Settings</div>
+                        <div class="action-desc">Configure global preferences and integrations</div>
+                    </div>
+                    <span class="action-arrow">→</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Horizontal Card -->
+        <section class="section">
+            <div class="section-label">Horizontal Card · Featured</div>
+            <div class="h-card">
+                <div class="h-card-image">◎</div>
+                <div class="h-card-body">
+                    <div class="h-card-tag">Featured Release</div>
+                    <div class="h-card-title">BlackRoad OS v1.0 — Stable Release</div>
+                    <div class="h-card-desc">The first stable release includes Lucidia core intelligence, trinary logic engine, NATS event bus integration, Milvus vector search, and PS-SHA∞ memory persistence. Ready for production agent deployments.</div>
+                    <div class="h-card-meta">
+                        <span>v1.0.0</span>
+                        <span>42 commits</span>
+                        <span>Jan 25, 2025</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Status Cards -->
+        <section class="section">
+            <div class="section-label">Status Cards · System Health</div>
+            <div class="grid-2">
+                <div class="status-card">
+                    <div class="status-indicator online"></div>
+                    <div class="status-content">
+                        <div class="status-name">Lucidia Core</div>
+                        <div class="status-detail">alice.blackroad.lan · 42 active tasks</div>
+                    </div>
+                    <span class="status-badge">Running</span>
+                </div>
+                <div class="status-card">
+                    <div class="status-indicator online"></div>
+                    <div class="status-content">
+                        <div class="status-name">NATS Event Bus</div>
+                        <div class="status-detail">nats://localhost:4222 · 8.4K/hr</div>
+                    </div>
+                    <span class="status-badge">Healthy</span>
+                </div>
+                <div class="status-card">
+                    <div class="status-indicator online"></div>
+                    <div class="status-content">
+                        <div class="status-name">Milvus Vector DB</div>
+                        <div class="status-detail">milvus://localhost:19530 · 24.8K vectors</div>
+                    </div>
+                    <span class="status-badge">Indexed</span>
+                </div>
+                <div class="status-card">
+                    <div class="status-indicator offline"></div>
+                    <div class="status-content">
+                        <div class="status-name">Octavia Worker</div>
+                        <div class="status-detail">octavia.blackroad.lan · Hailo tasks</div>
+                    </div>
+                    <span class="status-badge">Offline</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Expandable Cards -->
+        <section class="section">
+            <div class="section-label">Expandable Cards · FAQ</div>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <div class="expand-card open">
+                    <div class="expand-header">
+                        <span class="expand-title">What is trinary logic?</span>
+                        <span class="expand-toggle">▼</span>
+                    </div>
+                    <div class="expand-body">
+                        Trinary logic extends binary true/false with a third UNKNOWN state, allowing agents to explicitly represent uncertainty. Each state includes a confidence score from 0.0 to 1.0, enabling nuanced reasoning about partial knowledge.
+                    </div>
+                </div>
+                <div class="expand-card">
+                    <div class="expand-header">
+                        <span class="expand-title">How does contradiction quarantine work?</span>
+                        <span class="expand-toggle">▼</span>
+                    </div>
+                    <div class="expand-body">
+                        When the system detects contradictory claims, it isolates them in a quarantine zone using paraconsistent logic. Claims remain accessible but flagged, preventing them from corrupting other reasoning until human review resolves the conflict.
+                    </div>
+                </div>
+                <div class="expand-card">
+                    <div class="expand-header">
+                        <span class="expand-title">What is PS-SHA∞ hashing?</span>
+                        <span class="expand-toggle">▼</span>
+                    </div>
+                    <div class="expand-body">
+                        PS-SHA∞ is a cryptographic hashing algorithm designed for memory persistence. It generates unique identifiers for journal entries, enabling truth state verification and tamper-evident logging of agent memory states.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mini Cards -->
+        <section class="section">
+            <div class="section-label">Mini Cards · Compact</div>
+            <div class="grid-3">
+                <div class="mini-card">
+                    <div class="mini-icon">◎</div>
+                    <div class="mini-content">
+                        <div class="mini-title">Lucidia</div>
+                        <div class="mini-meta">Core · Online</div>
+                    </div>
+                </div>
+                <div class="mini-card">
+                    <div class="mini-icon">◇</div>
+                    <div class="mini-content">
+                        <div class="mini-title">Memory Sync</div>
+                        <div class="mini-meta">24.8K vectors</div>
+                    </div>
+                </div>
+                <div class="mini-card">
+                    <div class="mini-icon">⚡</div>
+                    <div class="mini-content">
+                        <div class="mini-title">Event Bus</div>
+                        <div class="mini-meta">8.4K events/hr</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
 </html>
