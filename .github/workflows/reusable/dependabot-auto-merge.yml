@@ -1,0 +1,91 @@
+name: Dependabot Auto-Merge (Reusable)
+
+on:
+  workflow_call:
+    inputs:
+      merge-minor:
+        description: 'Auto-merge minor version updates'
+        required: false
+        type: boolean
+        default: true
+      merge-patch:
+        description: 'Auto-merge patch version updates'
+        required: false
+        type: boolean
+        default: true
+      merge-major:
+        description: 'Auto-merge major version updates'
+        required: false
+        type: boolean
+        default: false
+      wait-for-ci:
+        description: 'Wait for CI checks to pass before merging'
+        required: false
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]'
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+
+            // Parse version update from PR title
+            // Expected format: "Bump package from x.y.z to a.b.c"
+            const title = pr.title;
+            const versionMatch = title.match(/from ([\d.]+) to ([\d.]+)/);
+
+            if (!versionMatch) {
+              console.log('Could not parse version information from PR title');
+              return;
+            }
+
+            const [, oldVersion, newVersion] = versionMatch;
+            const [oldMajor, oldMinor, oldPatch] = oldVersion.split('.').map(Number);
+            const [newMajor, newMinor, newPatch] = newVersion.split('.').map(Number);
+
+            let shouldMerge = false;
+
+            // Determine update type
+            if (newMajor > oldMajor) {
+              shouldMerge = ${{ inputs.merge-major }};
+              console.log('Major version update detected');
+            } else if (newMinor > oldMinor) {
+              shouldMerge = ${{ inputs.merge-minor }};
+              console.log('Minor version update detected');
+            } else if (newPatch > oldPatch) {
+              shouldMerge = ${{ inputs.merge-patch }};
+              console.log('Patch version update detected');
+            }
+
+            if (shouldMerge) {
+              // Enable auto-merge
+              await github.graphql(`
+                mutation($prId: ID!) {
+                  enablePullRequestAutoMerge(input: {
+                    pullRequestId: $prId,
+                    mergeMethod: SQUASH
+                  }) {
+                    pullRequest {
+                      autoMergeRequest {
+                        enabledAt
+                      }
+                    }
+                  }
+                }
+              `, {
+                prId: pr.node_id
+              });
+
+              console.log('Auto-merge enabled for PR #' + pr.number);
+            } else {
+              console.log('Auto-merge not enabled - update type not configured for auto-merge');
+            }

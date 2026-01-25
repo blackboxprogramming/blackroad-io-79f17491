@@ -1,0 +1,72 @@
+name: PR Size Labeler (Reusable)
+
+on:
+  workflow_call:
+    inputs:
+      xs-max-changes:
+        description: 'Max changes for XS label'
+        required: false
+        type: number
+        default: 10
+      s-max-changes:
+        description: 'Max changes for S label'
+        required: false
+        type: number
+        default: 50
+      m-max-changes:
+        description: 'Max changes for M label'
+        required: false
+        type: number
+        default: 250
+      l-max-changes:
+        description: 'Max changes for L label'
+        required: false
+        type: number
+        default: 1000
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  label-size:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const changes = pr.additions + pr.deletions;
+            
+            // Determine size label
+            let sizeLabel = 'size/XL';
+            if (changes <= ${{ inputs.xs-max-changes }}) {
+              sizeLabel = 'size/XS';
+            } else if (changes <= ${{ inputs.s-max-changes }}) {
+              sizeLabel = 'size/S';
+            } else if (changes <= ${{ inputs.m-max-changes }}) {
+              sizeLabel = 'size/M';
+            } else if (changes <= ${{ inputs.l-max-changes }}) {
+              sizeLabel = 'size/L';
+            }
+            
+            // Remove existing size labels
+            const existingLabels = pr.labels.map(l => l.name);
+            const sizeLabels = existingLabels.filter(l => l.startsWith('size/'));
+            
+            for (const label of sizeLabels) {
+              await github.rest.issues.removeLabel({
+                ...context.repo,
+                issue_number: pr.number,
+                name: label
+              });
+            }
+            
+            // Add new size label
+            await github.rest.issues.addLabels({
+              ...context.repo,
+              issue_number: pr.number,
+              labels: [sizeLabel]
+            });
+            
+            console.log(`Labeled PR with ${sizeLabel} (${changes} changes)`);

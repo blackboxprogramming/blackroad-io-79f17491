@@ -63,20 +63,58 @@ Look at how this repository uses the workflows in `.github/workflows/`.
 
 ## Workflow Capabilities
 
-### Auto Label
+### Core Automation
+
+**Auto Label**
 - Automatically applies labels to PRs based on repository name
 - Default patterns: "blackroad" → `core` label, "lab" → `labs` label
 - Customizable via input parameters
 
-### Project Sync  
+**Project Sync**
 - Automatically adds all PRs to organization project board
 - Default: https://github.com/users/blackboxprogramming/projects/8
 - Customizable project URL
 
-### Failure Tracker
+**Failure Tracker**
 - Creates GitHub issues when CI workflows fail
 - Includes link to failed workflow run
 - Helps track and resolve CI problems
+
+### PR Management
+
+**PR Validation**
+- Enforces PR description requirements (minimum length)
+- Validates branch naming conventions
+- Posts validation errors as comments
+
+**PR Size Labeler**
+- Labels PRs as XS/S/M/L/XL based on change count
+- Helps reviewers prioritize and estimate review time
+- Configurable size thresholds
+
+### Issue Management
+
+**Issue Triage**
+- Auto-labels issues based on keywords (bug, feature, docs)
+- Customizable keyword patterns
+- Streamlines issue organization
+
+**Stale Management**
+- Marks inactive issues/PRs as stale
+- Automatically closes after grace period
+- Configurable timeframes and exempt labels
+
+### Release & Dependencies
+
+**Release Generator**
+- Auto-creates GitHub releases from git tags
+- Generates changelog from commits
+- Supports pre-releases and drafts
+
+**Dependabot Auto-Merge**
+- Auto-merges dependency updates based on type
+- Configurable by major/minor/patch versions
+- Waits for CI checks to pass
 
 ## Quick Start Commands
 

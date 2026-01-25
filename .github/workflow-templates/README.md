@@ -25,19 +25,53 @@ curl -o .github/workflows/failure-tracker.yml https://raw.githubusercontent.com/
 
 ## Available Templates
 
-### 1. `auto-label.yml`
+### Core Automation
+
+#### 1. `auto-label.yml`
 Automatically labels PRs based on repository name patterns.
 - No customization needed
 - Works out of the box
 
-### 2. `project-sync.yml`
+#### 2. `project-sync.yml`
 Adds PRs to the organization's project board.
 - No customization needed
 - Uses the standard org project board
 
-### 3. `failure-tracker.yml`
+#### 3. `failure-tracker.yml`
 Creates issues when CI fails.
-- **Requires customization**: Update the workflow name on line 4 to match your CI workflow
+- **Requires customization**: Update the workflow name to match your CI workflow
+
+### PR Management
+
+#### 4. `pr-validation.yml`
+Validates PR descriptions and branch naming.
+- Optional: Customize description length and branch patterns
+
+#### 5. `pr-size-labeler.yml`
+Labels PRs by size (XS/S/M/L/XL).
+- No customization needed
+- Works out of the box
+
+### Issue Management
+
+#### 6. `issue-triage.yml`
+Auto-labels issues based on keywords.
+- Optional: Customize keyword lists
+
+#### 7. `stale-management.yml`
+Manages inactive issues and PRs.
+- Optional: Customize staleness thresholds
+
+### Release & Dependencies
+
+#### 8. `release-generator.yml`
+Creates releases from git tags.
+- No customization needed
+- Auto-generates changelogs
+
+#### 9. `dependabot-auto-merge.yml`
+Auto-merges Dependabot updates.
+- Optional: Configure which update types to auto-merge
 
 ## Quick Setup Script
 

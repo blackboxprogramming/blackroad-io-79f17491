@@ -1,0 +1,16 @@
+name: Issue Triage
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  triage:
+    uses: blackboxprogramming/blackroad-io/.github/workflows/reusable/issue-triage.yml@main
+    permissions:
+      contents: read
+      issues: write

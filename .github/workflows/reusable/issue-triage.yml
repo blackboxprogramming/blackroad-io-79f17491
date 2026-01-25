@@ -1,0 +1,69 @@
+name: Issue Triage (Reusable)
+
+on:
+  workflow_call:
+    inputs:
+      bug-keywords:
+        description: 'Keywords to identify bug issues (comma-separated)'
+        required: false
+        type: string
+        default: 'bug,error,crash,broken,not working'
+      feature-keywords:
+        description: 'Keywords to identify feature requests (comma-separated)'
+        required: false
+        type: string
+        default: 'feature,enhancement,add,new'
+      docs-keywords:
+        description: 'Keywords to identify documentation issues (comma-separated)'
+        required: false
+        type: string
+        default: 'docs,documentation,readme,typo'
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const title = issue.title.toLowerCase();
+            const body = (issue.body || '').toLowerCase();
+            const text = title + ' ' + body;
+
+            const labels = [];
+
+            // Parse keyword lists
+            const bugKeywords = '${{ inputs.bug-keywords }}'.split(',').map(k => k.trim());
+            const featureKeywords = '${{ inputs.feature-keywords }}'.split(',').map(k => k.trim());
+            const docsKeywords = '${{ inputs.docs-keywords }}'.split(',').map(k => k.trim());
+
+            // Check for bug indicators
+            if (bugKeywords.some(keyword => text.includes(keyword))) {
+              labels.push('bug');
+            }
+
+            // Check for feature requests
+            if (featureKeywords.some(keyword => text.includes(keyword))) {
+              labels.push('enhancement');
+            }
+
+            // Check for documentation issues
+            if (docsKeywords.some(keyword => text.includes(keyword))) {
+              labels.push('documentation');
+            }
+
+            // Apply labels if any were identified
+            if (labels.length > 0) {
+              await github.rest.issues.addLabels({
+                ...context.repo,
+                issue_number: issue.number,
+                labels
+              });
+
+              console.log(`Added labels: ${labels.join(', ')}`);
+            }

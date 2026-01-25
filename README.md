@@ -12,9 +12,22 @@ This repository serves as:
 
 This repository provides organization-wide GitHub Actions workflow templates that can be used in any repository. These workflows automate:
 
+**Core Automation:**
 - **Auto-labeling**: Automatically label PRs based on repository name patterns
 - **Project sync**: Add all PRs to a centralized GitHub Project board
 - **CI failure tracking**: Create issues when CI workflows fail
+
+**PR Management:**
+- **PR validation**: Enforce description requirements and branch naming conventions
+- **PR size labeling**: Automatically label PRs by size (XS/S/M/L/XL)
+
+**Issue Management:**
+- **Issue triage**: Auto-label issues based on keywords
+- **Stale management**: Mark and close inactive issues/PRs
+
+**Release & Dependencies:**
+- **Release generator**: Auto-create releases from tags with changelogs
+- **Dependabot auto-merge**: Automatically merge dependency updates
 
 ### Using These Workflows in Your Repository
 
@@ -30,11 +43,20 @@ For complete documentation and examples, see [.github/workflows/reusable/README.
 
 ### Quick Start
 
-Add these three files to `.github/workflows/` in any repository to get the full automation suite:
+Add workflows to `.github/workflows/` in any repository to get automation:
 
+**Core workflows** (recommended for all repos):
 1. **Auto Label** - Labels PRs automatically
 2. **Project Sync** - Syncs PRs to project board  
 3. **CI Failure Tracker** - Creates issues for CI failures
+
+**Additional workflows** (optional):
+4. **PR Validation** - Enforces PR quality standards
+5. **PR Size Labeler** - Labels PRs by change size
+6. **Issue Triage** - Auto-labels issues
+7. **Stale Management** - Manages inactive items
+8. **Release Generator** - Automates releases
+9. **Dependabot Auto-Merge** - Auto-merges dependency updates
 
 See the [reusable workflows README](.github/workflows/reusable/README.md) for copy-paste examples.
 

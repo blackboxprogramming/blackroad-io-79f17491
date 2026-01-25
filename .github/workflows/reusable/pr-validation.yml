@@ -1,0 +1,75 @@
+name: PR Validation (Reusable)
+
+on:
+  workflow_call:
+    inputs:
+      require-description:
+        description: 'Require PR description to be non-empty'
+        required: false
+        type: boolean
+        default: true
+      min-description-length:
+        description: 'Minimum length for PR description'
+        required: false
+        type: number
+        default: 10
+      check-branch-naming:
+        description: 'Enforce branch naming convention'
+        required: false
+        type: boolean
+        default: false
+      branch-pattern:
+        description: 'Regex pattern for branch names (e.g., "^(feature|fix|docs)/.*")'
+        required: false
+        type: string
+        default: ''
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const errors = [];
+
+            // Check PR description
+            if (${{ inputs.require-description }}) {
+              const description = pr.body || '';
+              const minLength = ${{ inputs.min-description-length }};
+
+              if (description.trim().length < minLength) {
+                errors.push(`PR description must be at least ${minLength} characters. Current length: ${description.trim().length}`);
+              }
+            }
+
+            // Check branch naming
+            if (${{ inputs.check-branch-naming }}) {
+              const branchPattern = '${{ inputs.branch-pattern }}';
+              if (branchPattern) {
+                const regex = new RegExp(branchPattern);
+                if (!regex.test(pr.head.ref)) {
+                  errors.push(`Branch name "${pr.head.ref}" does not match required pattern: ${branchPattern}`);
+                }
+              }
+            }
+
+            // Post errors as comment or approve
+            if (errors.length > 0) {
+              const body = '## ⚠️ PR Validation Failed\n\n' +
+                errors.map(e => `- ${e}`).join('\n') +
+                '\n\nPlease fix these issues before merging.';
+
+              await github.rest.issues.createComment({
+                ...context.repo,
+                issue_number: pr.number,
+                body
+              });
+
+              core.setFailed('PR validation failed: ' + errors.join(', '));
+            }

@@ -1,0 +1,19 @@
+name: PR Validation
+
+on:
+  pull_request:
+    types: [opened, edited]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  validate:
+    uses: blackboxprogramming/blackroad-io/.github/workflows/reusable/pr-validation.yml@main
+    with:
+      require-description: true
+      min-description-length: 10
+    permissions:
+      contents: read
+      pull-requests: write

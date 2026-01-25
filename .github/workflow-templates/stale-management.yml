@@ -1,0 +1,22 @@
+name: Stale Management
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Run daily at midnight
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  stale:
+    uses: blackboxprogramming/blackroad-io/.github/workflows/reusable/stale-management.yml@main
+    with:
+      days-before-stale: 60
+      days-before-close: 7
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
