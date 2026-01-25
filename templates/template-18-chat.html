@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackRoad OS — Template 18</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #000;
+            --gray-950: #080808;
+            --gray-900: #0f0f0f;
+            --gray-850: #151515;
+            --gray-800: #1c1c1c;
+            --gray-750: #232323;
+            --gray-700: #2c2c2c;
+            --gray-600: #404040;
+            --gray-500: #5c5c5c;
+            --gray-400: #7c7c7c;
+            --gray-300: #9c9c9c;
+            --gray-200: #bcbcbc;
+            --gray-100: #dcdcdc;
+            --white: #f0f0f0;
+
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 15px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--black);
+            color: var(--gray-400);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        ::selection {
+            background: var(--gray-700);
+            color: var(--white);
+        }
+
+        /* Layout */
+        .page {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        /* Chat Container */
+        .chat-container {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 600px;
+        }
+
+        /* Chat Header */
+        .chat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--gray-900);
+            background: var(--gray-950);
+        }
+
+        .chat-header-left {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .chat-avatar {
+            width: 36px;
+            height: 36px;
+            background: var(--gray-800);
+            border-radius: 8px;
+            display: grid;
+            place-items: center;
+            font-size: 1rem;
+            color: var(--gray-400);
+        }
+
+        .chat-avatar.online::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            width: 10px;
+            height: 10px;
+            background: var(--gray-500);
+            border: 2px solid var(--gray-950);
+            border-radius: 50%;
+        }
+
+        .chat-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-name {
+            font-family: var(--font-display);
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--white);
+        }
+
+        .chat-status {
+            font-size: 0.6875rem;
+            color: var(--gray-500);
+        }
+
+        .chat-header-actions {
+            display: flex;
+            gap: 0.375rem;
+        }
+
+        .header-btn {
+            width: 32px;
+            height: 32px;
+            display: grid;
+            place-items: center;
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .header-btn:hover {
+            color: var(--white);
+            background: var(--gray-900);
+        }
+
+        /* Chat Messages */
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message-group {
+            display: flex;
+            gap: 0.75rem;
+            max-width: 85%;
+        }
+
+        .message-group.outgoing {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            background: var(--gray-800);
+            border-radius: 8px;
+            display: grid;
+            place-items: center;
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            flex-shrink: 0;
+            align-self: flex-end;
+        }
+
+        .message-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .message-group.outgoing .message-content {
+            align-items: flex-end;
+        }
+
+        .message-bubble {
+            background: var(--gray-900);
+            border-radius: 12px;
+            border-bottom-left-radius: 4px;
+            padding: 0.75rem 1rem;
+            max-width: 100%;
+        }
+
+        .message-group.outgoing .message-bubble {
+            background: var(--gray-800);
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message-text {
+            font-size: 0.875rem;
+            color: var(--gray-200);
+            line-height: 1.5;
+        }
+
+        .message-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0 0.25rem;
+        }
+
+        .message-time {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+        }
+
+        .message-status {
+            font-size: 0.625rem;
+            color: var(--gray-500);
+        }
+
+        /* Code Block in Message */
+        .message-code {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-850);
+            border-radius: 8px;
+            padding: 0.75rem;
+            margin-top: 0.5rem;
+            overflow-x: auto;
+        }
+
+        .message-code pre {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--gray-300);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--gray-850);
+        }
+
+        .code-lang {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-500);
+            text-transform: uppercase;
+        }
+
+        .code-copy {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-500);
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .code-copy:hover {
+            color: var(--white);
+        }
+
+        /* Reactions */
+        .message-reactions {
+            display: flex;
+            gap: 0.375rem;
+            margin-top: 0.375rem;
+        }
+
+        .reaction {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.6875rem;
+            color: var(--gray-400);
+            background: var(--gray-900);
+            border: 1px solid var(--gray-850);
+            padding: 0.125rem 0.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .reaction:hover {
+            border-color: var(--gray-700);
+        }
+
+        .reaction.active {
+            background: var(--gray-800);
+            border-color: var(--gray-700);
+        }
+
+        /* File Attachment */
+        .message-attachment {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--gray-950);
+            border: 1px solid var(--gray-850);
+            border-radius: 8px;
+            padding: 0.75rem;
+            margin-top: 0.5rem;
+            cursor: pointer;
+            transition: border-color 0.15s;
+        }
+
+        .message-attachment:hover {
+            border-color: var(--gray-700);
+        }
+
+        .attachment-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--gray-900);
+            border-radius: 6px;
+            display: grid;
+            place-items: center;
+            font-size: 1rem;
+            color: var(--gray-500);
+        }
+
+        .attachment-info {
+            flex: 1;
+        }
+
+        .attachment-name {
+            font-size: 0.8125rem;
+            color: var(--gray-300);
+        }
+
+        .attachment-size {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-600);
+        }
+
+        /* Typing Indicator */
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0 0.25rem;
+        }
+
+        .typing-avatar {
+            width: 24px;
+            height: 24px;
+            background: var(--gray-800);
+            border-radius: 6px;
+            display: grid;
+            place-items: center;
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 0.25rem;
+            align-items: center;
+        }
+
+        .typing-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--gray-600);
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+            30% { opacity: 1; transform: translateY(-2px); }
+        }
+
+        .typing-text {
+            font-size: 0.6875rem;
+            color: var(--gray-500);
+        }
+
+        /* Date Divider */
+        .date-divider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.5rem 0;
+        }
+
+        .date-divider::before,
+        .date-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--gray-900);
+        }
+
+        .date-divider span {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        /* Chat Input */
+        .chat-input-container {
+            padding: 1rem 1.25rem;
+            border-top: 1px solid var(--gray-900);
+            background: var(--gray-950);
+        }
+
+        .chat-input-wrapper {
+            display: flex;
+            align-items: flex-end;
+            gap: 0.75rem;
+            background: var(--gray-900);
+            border: 1px solid var(--gray-850);
+            border-radius: 12px;
+            padding: 0.75rem;
+            transition: border-color 0.15s;
+        }
+
+        .chat-input-wrapper:focus-within {
+            border-color: var(--gray-700);
+        }
+
+        .input-actions-left {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .input-btn {
+            width: 32px;
+            height: 32px;
+            display: grid;
+            place-items: center;
+            font-size: 1rem;
+            color: var(--gray-500);
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .input-btn:hover {
+            color: var(--white);
+            background: var(--gray-800);
+        }
+
+        .chat-input {
+            flex: 1;
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            color: var(--gray-200);
+            background: transparent;
+            border: none;
+            outline: none;
+            resize: none;
+            min-height: 24px;
+            max-height: 120px;
+            line-height: 1.5;
+        }
+
+        .chat-input::placeholder {
+            color: var(--gray-600);
+        }
+
+        .send-btn {
+            width: 36px;
+            height: 36px;
+            display: grid;
+            place-items: center;
+            font-size: 1rem;
+            color: var(--black);
+            background: var(--white);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .send-btn:hover {
+            background: var(--gray-200);
+        }
+
+        .send-btn:disabled {
+            background: var(--gray-800);
+            color: var(--gray-600);
+            cursor: not-allowed;
+        }
+
+        /* Thread List */
+        .thread-list {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .thread-item {
+            display: flex;
+            align-items: center;
+            gap: 0.875rem;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--gray-900);
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .thread-item:last-child {
+            border-bottom: none;
+        }
+
+        .thread-item:hover {
+            background: var(--gray-900);
+        }
+
+        .thread-item.active {
+            background: var(--gray-900);
+            border-left: 2px solid var(--gray-500);
+        }
+
+        .thread-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--gray-800);
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            font-size: 1.125rem;
+            color: var(--gray-500);
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .thread-avatar .status-dot {
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            width: 12px;
+            height: 12px;
+            background: var(--gray-500);
+            border: 2px solid var(--gray-950);
+            border-radius: 50%;
+        }
+
+        .thread-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .thread-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.125rem;
+        }
+
+        .thread-name {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--gray-200);
+        }
+
+        .thread-time {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+        }
+
+        .thread-preview {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .thread-badge {
+            width: 18px;
+            height: 18px;
+            background: var(--gray-700);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--white);
+            flex-shrink: 0;
+        }
+
+        /* System Message */
+        .system-message {
+            text-align: center;
+            padding: 0.5rem;
+        }
+
+        .system-message-text {
+            display: inline-block;
+            font-size: 0.6875rem;
+            color: var(--gray-600);
+            background: var(--gray-900);
+            padding: 0.375rem 0.75rem;
+            border-radius: 10px;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: flex;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            border-top: 1px solid var(--gray-900);
+            overflow-x: auto;
+        }
+
+        .quick-action {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-400);
+            background: var(--gray-900);
+            border: 1px solid var(--gray-850);
+            padding: 0.375rem 0.75rem;
+            border-radius: 6px;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .quick-action:hover {
+            color: var(--white);
+            border-color: var(--gray-700);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .chat-container {
+                height: 500px;
+            }
+
+            .message-group {
+                max-width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- Full Chat Interface -->
+        <section class="section">
+            <div class="section-label">Chat Interface · Agent Conversation</div>
+            <div class="chat-container">
+                <div class="chat-header">
+                    <div class="chat-header-left">
+                        <div class="chat-avatar">◎</div>
+                        <div class="chat-info">
+                            <span class="chat-name">Lucidia Research</span>
+                            <span class="chat-status">Online · Last active just now</span>
+                        </div>
+                    </div>
+                    <div class="chat-header-actions">
+                        <button class="header-btn">◇</button>
+                        <button class="header-btn">▤</button>
+                        <button class="header-btn">⋮</button>
+                    </div>
+                </div>
+
+                <div class="chat-messages">
+                    <div class="date-divider"><span>Today</span></div>
+
+                    <div class="message-group">
+                        <div class="message-avatar">◎</div>
+                        <div class="message-content">
+                            <div class="message-bubble">
+                                <p class="message-text">I've completed the analysis of the event bus traffic patterns. Found some interesting anomalies in the NATS message routing.</p>
+                            </div>
+                            <div class="message-meta">
+                                <span class="message-time">2:34 PM</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="message-group outgoing">
+                        <div class="message-avatar">C</div>
+                        <div class="message-content">
+                            <div class="message-bubble">
+                                <p class="message-text">What kind of anomalies? Are we seeing dropped messages or latency spikes?</p>
+                            </div>
+                            <div class="message-meta">
+                                <span class="message-time">2:35 PM</span>
+                                <span class="message-status">✓✓</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="message-group">
+                        <div class="message-avatar">◎</div>
+                        <div class="message-content">
+                            <div class="message-bubble">
+                                <p class="message-text">Primarily latency spikes during high-volume memory commits. Here's the relevant code section:</p>
+                                <div class="message-code">
+                                    <div class="code-header">
+                                        <span class="code-lang">python</span>
+                                        <button class="code-copy">Copy</button>
+                                    </div>
+                                    <pre>async def commit_memory(self, vector_data):
+    async with self.nats_client as nc:
+        await nc.publish(
+            "memory.commit",
+            json.dumps(vector_data).encode()
+        )</pre>
+                                </div>
+                            </div>
+                            <div class="message-reactions">
+                                <span class="reaction active">👍 2</span>
+                                <span class="reaction">🔥 1</span>
+                            </div>
+                            <div class="message-meta">
+                                <span class="message-time">2:36 PM</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="message-group outgoing">
+                        <div class="message-avatar">C</div>
+                        <div class="message-content">
+                            <div class="message-bubble">
+                                <p class="message-text">I see the issue. We should batch these commits instead of publishing individually. Can you generate a performance report?</p>
+                            </div>
+                            <div class="message-meta">
+                                <span class="message-time">2:38 PM</span>
+                                <span class="message-status">✓✓</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="message-group">
+                        <div class="message-avatar">◎</div>
+                        <div class="message-content">
+                            <div class="message-bubble">
+                                <p class="message-text">Done. I've attached the full report with latency distribution charts and recommendations.</p>
+                                <div class="message-attachment">
+                                    <div class="attachment-icon">▤</div>
+                                    <div class="attachment-info">
+                                        <div class="attachment-name">nats-performance-report.pdf</div>
+                                        <div class="attachment-size">2.4 MB</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="message-meta">
+                                <span class="message-time">2:40 PM</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="system-message">
+                        <span class="system-message-text">Memory indexer joined the conversation</span>
+                    </div>
+
+                    <div class="typing-indicator">
+                        <div class="typing-avatar">◎</div>
+                        <div class="typing-dots">
+                            <span class="typing-dot"></span>
+                            <span class="typing-dot"></span>
+                            <span class="typing-dot"></span>
+                        </div>
+                        <span class="typing-text">Lucidia is typing...</span>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <button class="quick-action">📊 Generate report</button>
+                    <button class="quick-action">🔍 Search memories</button>
+                    <button class="quick-action">📝 Create task</button>
+                    <button class="quick-action">⚡ Run diagnostic</button>
+                </div>
+
+                <div class="chat-input-container">
+                    <div class="chat-input-wrapper">
+                        <div class="input-actions-left">
+                            <button class="input-btn">+</button>
+                            <button class="input-btn">◇</button>
+                        </div>
+                        <textarea class="chat-input" placeholder="Message Lucidia..." rows="1"></textarea>
+                        <button class="send-btn">↑</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Thread List -->
+        <section class="section">
+            <div class="section-label">Thread List · Conversation Sidebar</div>
+            <div class="thread-list">
+                <div class="thread-item active">
+                    <div class="thread-avatar">
+                        ◎
+                        <span class="status-dot"></span>
+                    </div>
+                    <div class="thread-content">
+                        <div class="thread-header">
+                            <span class="thread-name">Lucidia Research</span>
+                            <span class="thread-time">2:40 PM</span>
+                        </div>
+                        <p class="thread-preview">Done. I've attached the full report with latency distribution...</p>
+                    </div>
+                    <span class="thread-badge">3</span>
+                </div>
+                <div class="thread-item">
+                    <div class="thread-avatar">◇</div>
+                    <div class="thread-content">
+                        <div class="thread-header">
+                            <span class="thread-name">Event Router</span>
+                            <span class="thread-time">1:15 PM</span>
+                        </div>
+                        <p class="thread-preview">Successfully processed 12,847 events in the last hour</p>
+                    </div>
+                </div>
+                <div class="thread-item">
+                    <div class="thread-avatar">▤</div>
+                    <div class="thread-content">
+                        <div class="thread-header">
+                            <span class="thread-name">Code Synthesis</span>
+                            <span class="thread-time">Yesterday</span>
+                        </div>
+                        <p class="thread-preview">Refactoring complete. All tests passing.</p>
+                    </div>
+                </div>
+                <div class="thread-item">
+                    <div class="thread-avatar">◈</div>
+                    <div class="thread-content">
+                        <div class="thread-header">
+                            <span class="thread-name">Memory Indexer</span>
+                            <span class="thread-time">Yesterday</span>
+                        </div>
+                        <p class="thread-preview">Indexed 2.4M vectors to Milvus cluster</p>
+                    </div>
+                    <span class="thread-badge">1</span>
+                </div>
+                <div class="thread-item">
+                    <div class="thread-avatar">⚡</div>
+                    <div class="thread-content">
+                        <div class="thread-header">
+                            <span class="thread-name">System Alerts</span>
+                            <span class="thread-time">2 days ago</span>
+                        </div>
+                        <p class="thread-preview">All systems operational. No critical alerts.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Compact Chat -->
+        <section class="section">
+            <div class="section-label">Compact Chat · Embedded Widget</div>
+            <div style="max-width: 360px;">
+                <div class="chat-container" style="height: 400px;">
+                    <div class="chat-header" style="padding: 0.75rem 1rem;">
+                        <div class="chat-header-left">
+                            <div class="chat-avatar" style="width: 28px; height: 28px; font-size: 0.75rem;">◎</div>
+                            <div class="chat-info">
+                                <span class="chat-name" style="font-size: 0.8125rem;">Quick Chat</span>
+                            </div>
+                        </div>
+                        <button class="header-btn" style="width: 28px; height: 28px;">×</button>
+                    </div>
+                    <div class="chat-messages" style="padding: 1rem;">
+                        <div class="message-group">
+                            <div class="message-content">
+                                <div class="message-bubble" style="padding: 0.625rem 0.875rem;">
+                                    <p class="message-text" style="font-size: 0.8125rem;">How can I help you today?</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="message-group outgoing">
+                            <div class="message-content">
+                                <div class="message-bubble" style="padding: 0.625rem 0.875rem;">
+                                    <p class="message-text" style="font-size: 0.8125rem;">Check agent status</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="message-group">
+                            <div class="message-content">
+                                <div class="message-bubble" style="padding: 0.625rem 0.875rem;">
+                                    <p class="message-text" style="font-size: 0.8125rem;">All 47 agents are running. 3 have pending tasks.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-input-container" style="padding: 0.75rem;">
+                        <div class="chat-input-wrapper" style="padding: 0.5rem;">
+                            <textarea class="chat-input" placeholder="Type a message..." rows="1" style="font-size: 0.8125rem;"></textarea>
+                            <button class="send-btn" style="width: 28px; height: 28px; font-size: 0.75rem;">↑</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
