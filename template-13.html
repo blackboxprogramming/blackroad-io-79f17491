@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackRoad OS — Template 13</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #000;
+            --gray-950: #080808;
+            --gray-900: #0e0e0e;
+            --gray-850: #141414;
+            --gray-800: #1a1a1a;
+            --gray-750: #202020;
+            --gray-700: #282828;
+            --gray-600: #3c3c3c;
+            --gray-500: #585858;
+            --gray-400: #787878;
+            --gray-300: #989898;
+            --gray-200: #b8b8b8;
+            --gray-100: #d8d8d8;
+            --white: #f0f0f0;
+
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 15px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--black);
+            color: var(--gray-400);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        ::selection {
+            background: var(--gray-700);
+            color: var(--white);
+        }
+
+        a {
+            color: var(--gray-300);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        a:hover {
+            color: var(--white);
+        }
+
+        /* Layout */
+        .layout {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--gray-950);
+            border-right: 1px solid var(--gray-900);
+            padding: 1.5rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .logo-mark {
+            width: 24px;
+            height: 24px;
+            background: var(--white);
+            display: grid;
+            place-items: center;
+        }
+
+        .logo-mark-inner {
+            width: 8px;
+            height: 8px;
+            background: var(--black);
+        }
+
+        .logo-text {
+            font-family: var(--font-display);
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .nav-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-section-title {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.5rem 0.75rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            transition: all 0.15s;
+        }
+
+        .nav-item:hover {
+            color: var(--gray-300);
+            background: var(--gray-900);
+        }
+
+        .nav-item.active {
+            color: var(--white);
+            background: var(--gray-900);
+        }
+
+        .nav-item-icon {
+            font-size: 0.875rem;
+            width: 18px;
+            text-align: center;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--gray-900);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            background: var(--gray-800);
+            border-radius: 6px;
+            display: grid;
+            place-items: center;
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-400);
+        }
+
+        .user-details {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .user-name {
+            font-size: 0.8125rem;
+            color: var(--gray-200);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .user-email {
+            font-size: 0.6875rem;
+            color: var(--gray-600);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Main Content */
+        .main {
+            padding: 2rem 3rem;
+            max-width: 720px;
+        }
+
+        .page-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .page-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-description {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+        }
+
+        /* Settings Sections */
+        .settings-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-header {
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .section-description {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+            margin-top: 0.25rem;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.8125rem;
+            color: var(--gray-300);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-hint {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+            margin-top: 0.375rem;
+        }
+
+        .form-input {
+            width: 100%;
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            color: var(--gray-200);
+            background: var(--gray-950);
+            border: 1px solid var(--gray-850);
+            padding: 0.625rem 0.875rem;
+            border-radius: 6px;
+            outline: none;
+            transition: border-color 0.15s;
+        }
+
+        .form-input::placeholder {
+            color: var(--gray-600);
+        }
+
+        .form-input:focus {
+            border-color: var(--gray-700);
+        }
+
+        .form-input:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .form-input-mono {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23585858' d='M6 8L2 4h8z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            padding-right: 2rem;
+        }
+
+        /* Toggle Switch */
+        .toggle-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .toggle-group:last-child {
+            border-bottom: none;
+        }
+
+        .toggle-info {
+            flex: 1;
+        }
+
+        .toggle-label {
+            font-size: 0.875rem;
+            color: var(--gray-200);
+        }
+
+        .toggle-description {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            margin-top: 0.125rem;
+        }
+
+        .toggle {
+            position: relative;
+            width: 40px;
+            height: 22px;
+            background: var(--gray-800);
+            border-radius: 11px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .toggle.active {
+            background: var(--gray-600);
+        }
+
+        .toggle-dot {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 16px;
+            height: 16px;
+            background: var(--gray-500);
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+
+        .toggle.active .toggle-dot {
+            left: 21px;
+            background: var(--white);
+        }
+
+        /* API Keys */
+        .api-key-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .api-key {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .api-key-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .api-key-name {
+            font-size: 0.875rem;
+            color: var(--gray-200);
+            margin-bottom: 0.25rem;
+        }
+
+        .api-key-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.6875rem;
+            color: var(--gray-500);
+        }
+
+        .api-key-value {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            background: var(--gray-900);
+            padding: 0.375rem 0.625rem;
+            border-radius: 4px;
+        }
+
+        .api-key-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-icon {
+            width: 32px;
+            height: 32px;
+            display: grid;
+            place-items: center;
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            background: var(--gray-900);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .btn-icon:hover {
+            color: var(--gray-200);
+            background: var(--gray-800);
+        }
+
+        .btn-icon.danger:hover {
+            color: var(--gray-100);
+            background: var(--gray-700);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.15s;
+            border: none;
+        }
+
+        .btn-primary {
+            color: var(--black);
+            background: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--gray-200);
+        }
+
+        .btn-secondary {
+            color: var(--gray-300);
+            background: var(--gray-900);
+            border: 1px solid var(--gray-850);
+        }
+
+        .btn-secondary:hover {
+            color: var(--white);
+            border-color: var(--gray-700);
+        }
+
+        .btn-danger {
+            color: var(--gray-200);
+            background: var(--gray-800);
+        }
+
+        .btn-danger:hover {
+            color: var(--white);
+            background: var(--gray-700);
+        }
+
+        /* Danger Zone */
+        .danger-zone {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-850);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .danger-zone-header {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .danger-zone-title {
+            font-family: var(--font-display);
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--gray-300);
+        }
+
+        .danger-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .danger-item:last-child {
+            border-bottom: none;
+        }
+
+        .danger-item-info {
+            flex: 1;
+        }
+
+        .danger-item-title {
+            font-size: 0.875rem;
+            color: var(--gray-200);
+        }
+
+        .danger-item-description {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            margin-top: 0.125rem;
+        }
+
+        /* Usage Card */
+        .usage-card {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 10px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .usage-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .usage-title {
+            font-size: 0.875rem;
+            color: var(--gray-200);
+        }
+
+        .usage-value {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        .usage-bar {
+            height: 6px;
+            background: var(--gray-850);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .usage-bar-fill {
+            height: 100%;
+            background: var(--gray-600);
+            border-radius: 3px;
+            transition: width 0.3s;
+        }
+
+        .usage-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.75rem;
+            font-size: 0.6875rem;
+            color: var(--gray-600);
+        }
+
+        /* Save Bar */
+        .save-bar {
+            position: fixed;
+            bottom: 0;
+            left: 220px;
+            right: 0;
+            background: var(--gray-950);
+            border-top: 1px solid var(--gray-900);
+            padding: 1rem 3rem;
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+            transform: translateY(100%);
+            transition: transform 0.2s;
+        }
+
+        .save-bar.visible {
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                padding: 1.5rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .save-bar {
+                left: 0;
+                padding: 1rem 1.5rem;
+            }
+
+            .api-key {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+
+            .api-key-value {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <a href="#" class="sidebar-logo">
+                <div class="logo-mark">
+                    <div class="logo-mark-inner"></div>
+                </div>
+                <span class="logo-text">BlackRoad</span>
+            </a>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Workspace</div>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon">◫</span>
+                        Dashboard
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon">◎</span>
+                        Agents
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon">◇</span>
+                        Events
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon">▤</span>
+                        Logs
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Account</div>
+                    <a href="#" class="nav-item active">
+                        <span class="nav-item-icon">◈</span>
+                        Settings
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon">◐</span>
+                        Billing
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-item-icon">▣</span>
+                        Team
+                    </a>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar">CA</div>
+                    <div class="user-details">
+                        <div class="user-name">Cecilia</div>
+                        <div class="user-email">cecilia@blackroad.io</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main">
+            <header class="page-header">
+                <h1 class="page-title">Settings</h1>
+                <p class="page-description">Manage your account preferences and configuration.</p>
+            </header>
+
+            <section class="settings-section">
+                <div class="section-header">
+                    <h2 class="section-title">Profile</h2>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Display Name</label>
+                        <input type="text" class="form-input" value="Cecilia">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-input" value="cecilia@blackroad.io">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Organization</label>
+                    <input type="text" class="form-input" value="BlackRoad OS, Inc." disabled>
+                    <p class="form-hint">Contact support to change your organization.</p>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Timezone</label>
+                        <select class="form-input form-select">
+                            <option>America/Chicago (UTC-6)</option>
+                            <option>America/New_York (UTC-5)</option>
+                            <option>America/Los_Angeles (UTC-8)</option>
+                            <option>Europe/London (UTC+0)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Language</label>
+                        <select class="form-input form-select">
+                            <option>English (US)</option>
+                            <option>English (UK)</option>
+                            <option>Spanish</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <section class="settings-section">
+                <div class="section-header">
+                    <h2 class="section-title">Notifications</h2>
+                    <p class="section-description">Choose what you want to be notified about.</p>
+                </div>
+
+                <div class="toggle-group">
+                    <div class="toggle-info">
+                        <div class="toggle-label">Agent Alerts</div>
+                        <div class="toggle-description">Get notified when agents encounter errors or require attention</div>
+                    </div>
+                    <div class="toggle active" onclick="this.classList.toggle('active')">
+                        <div class="toggle-dot"></div>
+                    </div>
+                </div>
+
+                <div class="toggle-group">
+                    <div class="toggle-info">
+                        <div class="toggle-label">Event Bus Notifications</div>
+                        <div class="toggle-description">Receive alerts for high-priority events in your workspace</div>
+                    </div>
+                    <div class="toggle active" onclick="this.classList.toggle('active')">
+                        <div class="toggle-dot"></div>
+                    </div>
+                </div>
+
+                <div class="toggle-group">
+                    <div class="toggle-info">
+                        <div class="toggle-label">Weekly Digest</div>
+                        <div class="toggle-description">Summary of agent activity and system health</div>
+                    </div>
+                    <div class="toggle" onclick="this.classList.toggle('active')">
+                        <div class="toggle-dot"></div>
+                    </div>
+                </div>
+
+                <div class="toggle-group">
+                    <div class="toggle-info">
+                        <div class="toggle-label">Marketing Updates</div>
+                        <div class="toggle-description">Product news, tips, and feature announcements</div>
+                    </div>
+                    <div class="toggle" onclick="this.classList.toggle('active')">
+                        <div class="toggle-dot"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="settings-section">
+                <div class="section-header">
+                    <h2 class="section-title">API Keys</h2>
+                    <p class="section-description">Manage keys for programmatic access to BlackRoad.</p>
+                </div>
+
+                <div class="usage-card">
+                    <div class="usage-header">
+                        <span class="usage-title">API Requests This Month</span>
+                        <span class="usage-value">12,847 / 50,000</span>
+                    </div>
+                    <div class="usage-bar">
+                        <div class="usage-bar-fill" style="width: 25.7%"></div>
+                    </div>
+                    <div class="usage-footer">
+                        <span>Resets Jan 31</span>
+                        <span>25.7% used</span>
+                    </div>
+                </div>
+
+                <div class="api-key-list">
+                    <div class="api-key">
+                        <div class="api-key-info">
+                            <div class="api-key-name">Production</div>
+                            <div class="api-key-meta">
+                                <span>Created Dec 15, 2024</span>
+                                <span>Last used 2 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="api-key-value">br_live_••••••••••••k7Qx</div>
+                        <div class="api-key-actions">
+                            <button class="btn-icon" title="Copy">◫</button>
+                            <button class="btn-icon" title="Regenerate">↻</button>
+                            <button class="btn-icon danger" title="Delete">×</button>
+                        </div>
+                    </div>
+                    <div class="api-key">
+                        <div class="api-key-info">
+                            <div class="api-key-name">Development</div>
+                            <div class="api-key-meta">
+                                <span>Created Jan 3, 2025</span>
+                                <span>Last used 5 minutes ago</span>
+                            </div>
+                        </div>
+                        <div class="api-key-value">br_test_••••••••••••mN2p</div>
+                        <div class="api-key-actions">
+                            <button class="btn-icon" title="Copy">◫</button>
+                            <button class="btn-icon" title="Regenerate">↻</button>
+                            <button class="btn-icon danger" title="Delete">×</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 1rem;">
+                    <button class="btn btn-secondary">+ Create New Key</button>
+                </div>
+            </section>
+
+            <section class="settings-section">
+                <div class="section-header">
+                    <h2 class="section-title">Preferences</h2>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Default Agent Runtime</label>
+                    <select class="form-input form-select">
+                        <option>vLLM (Recommended)</option>
+                        <option>llama.cpp</option>
+                        <option>Ollama (Local)</option>
+                    </select>
+                    <p class="form-hint">Runtime used when creating new agents.</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Memory Persistence</label>
+                    <select class="form-input form-select">
+                        <option>PS-SHA∞ Hash Chain</option>
+                        <option>Standard Journal</option>
+                        <option>Ephemeral (No Persistence)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Webhook URL</label>
+                    <input type="url" class="form-input form-input-mono" placeholder="https://your-server.com/webhook">
+                    <p class="form-hint">Receive event notifications via HTTP POST.</p>
+                </div>
+            </section>
+
+            <section class="settings-section">
+                <div class="danger-zone">
+                    <div class="danger-zone-header">
+                        <h2 class="danger-zone-title">Danger Zone</h2>
+                    </div>
+                    <div class="danger-item">
+                        <div class="danger-item-info">
+                            <div class="danger-item-title">Export Account Data</div>
+                            <div class="danger-item-description">Download all your data including agents, memories, and logs.</div>
+                        </div>
+                        <button class="btn btn-secondary">Export</button>
+                    </div>
+                    <div class="danger-item">
+                        <div class="danger-item-info">
+                            <div class="danger-item-title">Reset All Agents</div>
+                            <div class="danger-item-description">Clear all agent memories and state. This cannot be undone.</div>
+                        </div>
+                        <button class="btn btn-danger">Reset</button>
+                    </div>
+                    <div class="danger-item">
+                        <div class="danger-item-info">
+                            <div class="danger-item-title">Delete Account</div>
+                            <div class="danger-item-description">Permanently delete your account and all associated data.</div>
+                        </div>
+                        <button class="btn btn-danger">Delete</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div class="save-bar" id="saveBar">
+        <button class="btn btn-secondary">Discard</button>
+        <button class="btn btn-primary">Save Changes</button>
+    </div>
+
+    <script>
+        // Show save bar when form inputs change
+        document.querySelectorAll('.form-input').forEach(input => {
+            input.addEventListener('input', () => {
+                document.getElementById('saveBar').classList.add('visible');
+            });
+        });
+
+        document.querySelectorAll('.btn-secondary').forEach(btn => {
+            if (btn.textContent === 'Discard') {
+                btn.addEventListener('click', () => {
+                    document.getElementById('saveBar').classList.remove('visible');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
