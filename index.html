@@ -1,12 +1,1155 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>BlackRoad</title>
-  </head>
-  <body style="font-family: system-ui; padding: 40px;">
-    <h1>BlackRoad</h1>
-    <p>Building sovereign, local-first AI systems.</p>
-    <p>Status: Online.</p>
-  </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackRoad OS — Template 20</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #000;
+            --gray-950: #080808;
+            --gray-900: #0f0f0f;
+            --gray-850: #151515;
+            --gray-800: #1c1c1c;
+            --gray-750: #232323;
+            --gray-700: #2c2c2c;
+            --gray-600: #404040;
+            --gray-500: #5c5c5c;
+            --gray-400: #7c7c7c;
+            --gray-300: #9c9c9c;
+            --gray-200: #bcbcbc;
+            --gray-100: #dcdcdc;
+            --white: #f0f0f0;
+
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 15px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--black);
+            color: var(--gray-400);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        ::selection {
+            background: var(--gray-700);
+            color: var(--white);
+        }
+
+        /* Layout */
+        .page {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        /* File Browser Container */
+        .file-browser {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            min-height: 500px;
+        }
+
+        /* Sidebar */
+        .browser-sidebar {
+            width: 220px;
+            border-right: 1px solid var(--gray-900);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 1rem;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .sidebar-title {
+            font-family: var(--font-display);
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 0.75rem;
+            overflow-y: auto;
+        }
+
+        .nav-section {
+            margin-bottom: 1.25rem;
+        }
+
+        .nav-section-title {
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.5rem 0.5rem 0.375rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .nav-item:hover {
+            background: var(--gray-900);
+        }
+
+        .nav-item.active {
+            background: var(--gray-900);
+        }
+
+        .nav-item.active .nav-item-text {
+            color: var(--white);
+        }
+
+        .nav-item-icon {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            width: 18px;
+            text-align: center;
+        }
+
+        .nav-item-text {
+            font-size: 0.75rem;
+            color: var(--gray-400);
+        }
+
+        .nav-item-count {
+            margin-left: auto;
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+        }
+
+        /* Folder Tree */
+        .folder-tree {
+            padding-left: 0.5rem;
+        }
+
+        .tree-item {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.375rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            color: var(--gray-400);
+            transition: all 0.15s;
+        }
+
+        .tree-item:hover {
+            background: var(--gray-900);
+            color: var(--gray-200);
+        }
+
+        .tree-item.active {
+            background: var(--gray-900);
+            color: var(--white);
+        }
+
+        .tree-toggle {
+            font-size: 0.5rem;
+            color: var(--gray-600);
+            width: 12px;
+        }
+
+        .tree-icon {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        .tree-children {
+            padding-left: 1.25rem;
+            border-left: 1px solid var(--gray-900);
+            margin-left: 0.375rem;
+        }
+
+        /* Storage Stats */
+        .storage-stats {
+            padding: 1rem;
+            border-top: 1px solid var(--gray-900);
+        }
+
+        .storage-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.5rem;
+        }
+
+        .storage-label {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+        }
+
+        .storage-value {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-400);
+        }
+
+        .storage-bar {
+            height: 4px;
+            background: var(--gray-800);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .storage-fill {
+            height: 100%;
+            background: var(--gray-500);
+            border-radius: 2px;
+        }
+
+        /* Main Content */
+        .browser-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Toolbar */
+        .browser-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--gray-900);
+            gap: 1rem;
+        }
+
+        .toolbar-left {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .toolbar-right {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-btn {
+            width: 28px;
+            height: 28px;
+            display: grid;
+            place-items: center;
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            background: transparent;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .nav-btn:hover {
+            color: var(--white);
+            background: var(--gray-900);
+        }
+
+        .nav-btn:disabled {
+            color: var(--gray-700);
+            cursor: not-allowed;
+        }
+
+        /* Breadcrumbs */
+        .breadcrumbs {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .breadcrumb {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            cursor: pointer;
+            padding: 0.25rem 0.375rem;
+            border-radius: 4px;
+            transition: all 0.15s;
+            white-space: nowrap;
+        }
+
+        .breadcrumb:hover {
+            color: var(--white);
+            background: var(--gray-900);
+        }
+
+        .breadcrumb.current {
+            color: var(--gray-200);
+        }
+
+        .breadcrumb-sep {
+            font-size: 0.625rem;
+            color: var(--gray-700);
+        }
+
+        .search-input {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            color: var(--gray-200);
+            background: var(--gray-900);
+            border: 1px solid var(--gray-850);
+            padding: 0.375rem 0.625rem 0.375rem 1.75rem;
+            border-radius: 5px;
+            width: 180px;
+            outline: none;
+            transition: border-color 0.15s;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235c5c5c' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: 0.5rem center;
+        }
+
+        .search-input:focus {
+            border-color: var(--gray-700);
+        }
+
+        .view-toggle {
+            display: flex;
+            background: var(--gray-900);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .view-btn {
+            width: 28px;
+            height: 28px;
+            display: grid;
+            place-items: center;
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .view-btn:hover {
+            color: var(--white);
+        }
+
+        .view-btn.active {
+            color: var(--white);
+            background: var(--gray-800);
+        }
+
+        .btn-primary {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--black);
+            background: var(--white);
+            border: none;
+            padding: 0.5rem 0.75rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .btn-primary:hover {
+            background: var(--gray-200);
+        }
+
+        /* File Grid */
+        .file-content {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .file-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .file-item {
+            background: var(--gray-900);
+            border: 1px solid transparent;
+            border-radius: 8px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.15s;
+            text-align: center;
+        }
+
+        .file-item:hover {
+            border-color: var(--gray-800);
+            background: var(--gray-850);
+        }
+
+        .file-item.selected {
+            border-color: var(--gray-600);
+            background: var(--gray-850);
+        }
+
+        .file-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 0.75rem;
+            background: var(--gray-800);
+            border-radius: 8px;
+            display: grid;
+            place-items: center;
+            font-size: 1.25rem;
+            color: var(--gray-500);
+        }
+
+        .file-icon.folder {
+            color: var(--gray-400);
+        }
+
+        .file-name {
+            font-size: 0.75rem;
+            color: var(--gray-300);
+            margin-bottom: 0.25rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .file-meta {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+        }
+
+        /* File List */
+        .file-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .file-list-header {
+            display: grid;
+            grid-template-columns: 1fr 100px 120px 80px;
+            gap: 1rem;
+            padding: 0.5rem 0.75rem;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .list-header-cell {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .file-list-item {
+            display: grid;
+            grid-template-columns: 1fr 100px 120px 80px;
+            gap: 1rem;
+            padding: 0.625rem 0.75rem;
+            border-bottom: 1px solid var(--gray-900);
+            cursor: pointer;
+            transition: background 0.15s;
+            align-items: center;
+        }
+
+        .file-list-item:hover {
+            background: var(--gray-900);
+        }
+
+        .file-list-item.selected {
+            background: var(--gray-900);
+        }
+
+        .file-list-item:last-child {
+            border-bottom: none;
+        }
+
+        .list-file-info {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            min-width: 0;
+        }
+
+        .list-file-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--gray-800);
+            border-radius: 5px;
+            display: grid;
+            place-items: center;
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            flex-shrink: 0;
+        }
+
+        .list-file-name {
+            font-size: 0.8125rem;
+            color: var(--gray-300);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .list-file-meta {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-500);
+        }
+
+        /* Upload Zone */
+        .upload-zone {
+            border: 2px dashed var(--gray-800);
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .upload-zone:hover {
+            border-color: var(--gray-600);
+            background: var(--gray-950);
+        }
+
+        .upload-zone.dragover {
+            border-color: var(--gray-500);
+            background: var(--gray-900);
+        }
+
+        .upload-icon {
+            font-size: 2.5rem;
+            color: var(--gray-600);
+            margin-bottom: 1rem;
+        }
+
+        .upload-title {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--gray-300);
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-subtitle {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+            margin-bottom: 1rem;
+        }
+
+        .upload-btn {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-300);
+            background: var(--gray-800);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .upload-btn:hover {
+            color: var(--white);
+            background: var(--gray-700);
+        }
+
+        .upload-formats {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+            margin-top: 1rem;
+        }
+
+        /* File Preview */
+        .file-preview {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .preview-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .preview-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .preview-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--gray-800);
+            border-radius: 6px;
+            display: grid;
+            place-items: center;
+            font-size: 1rem;
+            color: var(--gray-500);
+        }
+
+        .preview-name {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--gray-200);
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 0.375rem;
+        }
+
+        .preview-btn {
+            width: 32px;
+            height: 32px;
+            display: grid;
+            place-items: center;
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            background: var(--gray-900);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .preview-btn:hover {
+            color: var(--white);
+            background: var(--gray-800);
+        }
+
+        .preview-body {
+            padding: 1.5rem;
+        }
+
+        .preview-code {
+            background: var(--gray-900);
+            border-radius: 8px;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+
+        .preview-code pre {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--gray-300);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .preview-meta {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            border-top: 1px solid var(--gray-900);
+            background: var(--gray-900);
+        }
+
+        .meta-item {
+            text-align: center;
+        }
+
+        .meta-value {
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            color: var(--gray-300);
+            margin-bottom: 0.125rem;
+        }
+
+        .meta-label {
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+        }
+
+        /* Upload Progress */
+        .upload-progress {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+        }
+
+        .upload-item {
+            display: flex;
+            align-items: center;
+            gap: 0.875rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .upload-item:last-child {
+            border-bottom: none;
+        }
+
+        .upload-item-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--gray-900);
+            border-radius: 6px;
+            display: grid;
+            place-items: center;
+            font-size: 1rem;
+            color: var(--gray-500);
+        }
+
+        .upload-item-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .upload-item-name {
+            font-size: 0.8125rem;
+            color: var(--gray-300);
+            margin-bottom: 0.375rem;
+        }
+
+        .upload-item-progress {
+            height: 4px;
+            background: var(--gray-800);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .upload-item-fill {
+            height: 100%;
+            background: var(--gray-500);
+            border-radius: 2px;
+            transition: width 0.3s;
+        }
+
+        .upload-item-status {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-500);
+            flex-shrink: 0;
+        }
+
+        .upload-item-status.complete {
+            color: var(--gray-400);
+        }
+
+        /* Responsive */
+        @media (max-width: 800px) {
+            .file-browser {
+                flex-direction: column;
+            }
+
+            .browser-sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--gray-900);
+            }
+
+            .sidebar-nav {
+                display: flex;
+                overflow-x: auto;
+                gap: 0.5rem;
+            }
+
+            .nav-section {
+                display: flex;
+                gap: 0.5rem;
+                margin-bottom: 0;
+            }
+
+            .nav-section-title {
+                display: none;
+            }
+
+            .file-list-header,
+            .file-list-item {
+                grid-template-columns: 1fr 80px;
+            }
+
+            .file-list-header .list-header-cell:nth-child(3),
+            .file-list-header .list-header-cell:nth-child(4),
+            .file-list-item > *:nth-child(3),
+            .file-list-item > *:nth-child(4) {
+                display: none;
+            }
+
+            .preview-meta {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- Full File Browser -->
+        <section class="section">
+            <div class="section-label">File Browser · Grid View</div>
+            <div class="file-browser">
+                <aside class="browser-sidebar">
+                    <div class="sidebar-header">
+                        <h2 class="sidebar-title">BlackRoad Files</h2>
+                    </div>
+                    <nav class="sidebar-nav">
+                        <div class="nav-section">
+                            <div class="nav-section-title">Quick Access</div>
+                            <div class="nav-item active">
+                                <span class="nav-item-icon">◎</span>
+                                <span class="nav-item-text">All Files</span>
+                            </div>
+                            <div class="nav-item">
+                                <span class="nav-item-icon">★</span>
+                                <span class="nav-item-text">Starred</span>
+                                <span class="nav-item-count">12</span>
+                            </div>
+                            <div class="nav-item">
+                                <span class="nav-item-icon">◷</span>
+                                <span class="nav-item-text">Recent</span>
+                            </div>
+                            <div class="nav-item">
+                                <span class="nav-item-icon">▤</span>
+                                <span class="nav-item-text">Shared</span>
+                                <span class="nav-item-count">8</span>
+                            </div>
+                        </div>
+                        <div class="nav-section">
+                            <div class="nav-section-title">Folders</div>
+                            <div class="folder-tree">
+                                <div class="tree-item active">
+                                    <span class="tree-toggle">▾</span>
+                                    <span class="tree-icon">▤</span>
+                                    agents
+                                </div>
+                                <div class="tree-children">
+                                    <div class="tree-item">
+                                        <span class="tree-toggle"></span>
+                                        <span class="tree-icon">▤</span>
+                                        lucidia
+                                    </div>
+                                    <div class="tree-item">
+                                        <span class="tree-toggle"></span>
+                                        <span class="tree-icon">▤</span>
+                                        synthesis
+                                    </div>
+                                </div>
+                                <div class="tree-item">
+                                    <span class="tree-toggle">▸</span>
+                                    <span class="tree-icon">▤</span>
+                                    configs
+                                </div>
+                                <div class="tree-item">
+                                    <span class="tree-toggle">▸</span>
+                                    <span class="tree-icon">▤</span>
+                                    memory
+                                </div>
+                                <div class="tree-item">
+                                    <span class="tree-toggle">▸</span>
+                                    <span class="tree-icon">▤</span>
+                                    deployments
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                    <div class="storage-stats">
+                        <div class="storage-header">
+                            <span class="storage-label">Storage</span>
+                            <span class="storage-value">12.4 GB / 50 GB</span>
+                        </div>
+                        <div class="storage-bar">
+                            <div class="storage-fill" style="width: 25%;"></div>
+                        </div>
+                    </div>
+                </aside>
+
+                <main class="browser-main">
+                    <div class="browser-toolbar">
+                        <div class="toolbar-left">
+                            <button class="nav-btn" disabled>←</button>
+                            <button class="nav-btn">→</button>
+                            <div class="breadcrumbs">
+                                <span class="breadcrumb">BlackRoad</span>
+                                <span class="breadcrumb-sep">/</span>
+                                <span class="breadcrumb">agents</span>
+                                <span class="breadcrumb-sep">/</span>
+                                <span class="breadcrumb current">lucidia</span>
+                            </div>
+                        </div>
+                        <div class="toolbar-right">
+                            <input type="text" class="search-input" placeholder="Search files...">
+                            <div class="view-toggle">
+                                <button class="view-btn active">▤</button>
+                                <button class="view-btn">☰</button>
+                            </div>
+                            <button class="btn-primary">+ Upload</button>
+                        </div>
+                    </div>
+
+                    <div class="file-content">
+                        <div class="file-grid">
+                            <div class="file-item">
+                                <div class="file-icon folder">▤</div>
+                                <div class="file-name">core</div>
+                                <div class="file-meta">4 items</div>
+                            </div>
+                            <div class="file-item">
+                                <div class="file-icon folder">▤</div>
+                                <div class="file-name">memory</div>
+                                <div class="file-meta">12 items</div>
+                            </div>
+                            <div class="file-item">
+                                <div class="file-icon folder">▤</div>
+                                <div class="file-name">prompts</div>
+                                <div class="file-meta">8 items</div>
+                            </div>
+                            <div class="file-item selected">
+                                <div class="file-icon">◇</div>
+                                <div class="file-name">agent.py</div>
+                                <div class="file-meta">24 KB</div>
+                            </div>
+                            <div class="file-item">
+                                <div class="file-icon">◇</div>
+                                <div class="file-name">config.yaml</div>
+                                <div class="file-meta">1.2 KB</div>
+                            </div>
+                            <div class="file-item">
+                                <div class="file-icon">◇</div>
+                                <div class="file-name">trinary_logic.py</div>
+                                <div class="file-meta">18 KB</div>
+                            </div>
+                            <div class="file-item">
+                                <div class="file-icon">▤</div>
+                                <div class="file-name">ps_sha_hash.py</div>
+                                <div class="file-meta">8.4 KB</div>
+                            </div>
+                            <div class="file-item">
+                                <div class="file-icon">◎</div>
+                                <div class="file-name">README.md</div>
+                                <div class="file-meta">3.1 KB</div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </section>
+
+        <!-- List View -->
+        <section class="section">
+            <div class="section-label">File List · Detailed View</div>
+            <div style="background: var(--gray-950); border: 1px solid var(--gray-900); border-radius: 12px; overflow: hidden;">
+                <div class="file-list">
+                    <div class="file-list-header">
+                        <span class="list-header-cell">Name</span>
+                        <span class="list-header-cell">Size</span>
+                        <span class="list-header-cell">Modified</span>
+                        <span class="list-header-cell">Type</span>
+                    </div>
+                    <div class="file-list-item">
+                        <div class="list-file-info">
+                            <div class="list-file-icon">▤</div>
+                            <span class="list-file-name">agents</span>
+                        </div>
+                        <span class="list-file-meta">—</span>
+                        <span class="list-file-meta">Jan 24, 2026</span>
+                        <span class="list-file-meta">Folder</span>
+                    </div>
+                    <div class="file-list-item">
+                        <div class="list-file-info">
+                            <div class="list-file-icon">▤</div>
+                            <span class="list-file-name">configs</span>
+                        </div>
+                        <span class="list-file-meta">—</span>
+                        <span class="list-file-meta">Jan 23, 2026</span>
+                        <span class="list-file-meta">Folder</span>
+                    </div>
+                    <div class="file-list-item selected">
+                        <div class="list-file-info">
+                            <div class="list-file-icon">◇</div>
+                            <span class="list-file-name">nats_client.py</span>
+                        </div>
+                        <span class="list-file-meta">12.4 KB</span>
+                        <span class="list-file-meta">Jan 25, 2026</span>
+                        <span class="list-file-meta">Python</span>
+                    </div>
+                    <div class="file-list-item">
+                        <div class="list-file-info">
+                            <div class="list-file-icon">◇</div>
+                            <span class="list-file-name">milvus_connector.py</span>
+                        </div>
+                        <span class="list-file-meta">8.7 KB</span>
+                        <span class="list-file-meta">Jan 24, 2026</span>
+                        <span class="list-file-meta">Python</span>
+                    </div>
+                    <div class="file-list-item">
+                        <div class="list-file-info">
+                            <div class="list-file-icon">◎</div>
+                            <span class="list-file-name">docker-compose.yml</span>
+                        </div>
+                        <span class="list-file-meta">2.1 KB</span>
+                        <span class="list-file-meta">Jan 22, 2026</span>
+                        <span class="list-file-meta">YAML</span>
+                    </div>
+                    <div class="file-list-item">
+                        <div class="list-file-info">
+                            <div class="list-file-icon">▤</div>
+                            <span class="list-file-name">event_bus_report.pdf</span>
+                        </div>
+                        <span class="list-file-meta">2.4 MB</span>
+                        <span class="list-file-meta">Jan 25, 2026</span>
+                        <span class="list-file-meta">PDF</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upload Zone -->
+        <section class="section">
+            <div class="section-label">Upload Zone · Drag & Drop</div>
+            <div class="upload-zone">
+                <div class="upload-icon">↑</div>
+                <h3 class="upload-title">Drop files here to upload</h3>
+                <p class="upload-subtitle">or click to browse your files</p>
+                <button class="upload-btn">Select Files</button>
+                <p class="upload-formats">Supported: .py, .yaml, .json, .md, .pdf — Max 100MB</p>
+            </div>
+        </section>
+
+        <!-- File Preview -->
+        <section class="section">
+            <div class="section-label">File Preview · Code View</div>
+            <div class="file-preview" style="max-width: 600px;">
+                <div class="preview-header">
+                    <div class="preview-title">
+                        <div class="preview-icon">◇</div>
+                        <span class="preview-name">trinary_logic.py</span>
+                    </div>
+                    <div class="preview-actions">
+                        <button class="preview-btn">↓</button>
+                        <button class="preview-btn">◇</button>
+                        <button class="preview-btn">⋮</button>
+                    </div>
+                </div>
+                <div class="preview-body">
+                    <div class="preview-code">
+                        <pre>class TrinaryState:
+    """Lucidia trinary logic: 1, 0, -1 states"""
+
+    TRUE = 1
+    FALSE = 0
+    UNKNOWN = -1
+
+    @classmethod
+    def evaluate(cls, condition):
+        if condition is None:
+            return cls.UNKNOWN
+        return cls.TRUE if condition else cls.FALSE
+
+    @classmethod
+    def combine(cls, *states):
+        """Combine multiple trinary states"""
+        if cls.UNKNOWN in states:
+            return cls.UNKNOWN
+        return cls.TRUE if all(s == cls.TRUE for s in states) else cls.FALSE</pre>
+                    </div>
+                </div>
+                <div class="preview-meta">
+                    <div class="meta-item">
+                        <div class="meta-value">18 KB</div>
+                        <div class="meta-label">Size</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-value">Jan 25, 2026</div>
+                        <div class="meta-label">Modified</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-value">Python</div>
+                        <div class="meta-label">Type</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upload Progress -->
+        <section class="section">
+            <div class="section-label">Upload Progress · Transfer Status</div>
+            <div class="upload-progress" style="max-width: 500px;">
+                <div class="upload-item">
+                    <div class="upload-item-icon">◇</div>
+                    <div class="upload-item-info">
+                        <div class="upload-item-name">memory_journal.py</div>
+                        <div class="upload-item-progress">
+                            <div class="upload-item-fill" style="width: 100%;"></div>
+                        </div>
+                    </div>
+                    <span class="upload-item-status complete">✓ Complete</span>
+                </div>
+                <div class="upload-item">
+                    <div class="upload-item-icon">▤</div>
+                    <div class="upload-item-info">
+                        <div class="upload-item-name">vector_embeddings.bin</div>
+                        <div class="upload-item-progress">
+                            <div class="upload-item-fill" style="width: 67%;"></div>
+                        </div>
+                    </div>
+                    <span class="upload-item-status">67% · 2.1 MB/s</span>
+                </div>
+                <div class="upload-item">
+                    <div class="upload-item-icon">◎</div>
+                    <div class="upload-item-info">
+                        <div class="upload-item-name">agent_config.yaml</div>
+                        <div class="upload-item-progress">
+                            <div class="upload-item-fill" style="width: 23%;"></div>
+                        </div>
+                    </div>
+                    <span class="upload-item-status">23% · 1.8 MB/s</span>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
 </html>
