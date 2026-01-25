@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pixel Projections: Iso · Di · Tri</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: #0a0a0a;
+      color: #fff;
+      min-height: 100vh;
+      padding: 30px 20px;
+    }
+
+    h1 {
+      font-size: 20px;
+      margin-bottom: 8px;
+      letter-spacing: 2px;
+      text-align: center;
+    }
+
+    .subtitle {
+      color: #555;
+      margin-bottom: 25px;
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .top-controls {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    button {
+      background: #181818;
+      color: #888;
+      border: 1px solid #282828;
+      padding: 6px 14px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 11px;
+      transition: all 0.15s;
+    }
+
+    button:hover {
+      background: #222;
+      color: #ccc;
+      border-color: #383838;
+    }
+
+    button.active {
+      background: #fff;
+      color: #000;
+      border-color: #fff;
+    }
+
+    .main-layout {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+
+    .editor-panel {
+      text-align: center;
+    }
+
+    .section-label {
+      font-size: 9px;
+      color: #444;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .pixel-grid {
+      display: grid;
+      gap: 1px;
+      background: #1a1a1a;
+      padding: 1px;
+      cursor: crosshair;
+    }
+
+    .pixel {
+      background: #252525;
+      transition: background 0.08s;
+    }
+
+    .pixel:hover {
+      background: #353535;
+    }
+
+    .pixel.on {
+      background: #fff;
+    }
+
+    .projections-panel {
+      display: flex;
+      gap: 25px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .projection {
+      text-align: center;
+    }
+
+    .projection canvas {
+      background: #0a0a0a;
+      border: 1px solid #1a1a1a;
+    }
+
+    .projection-info {
+      margin-top: 8px;
+      font-size: 9px;
+      color: #444;
+    }
+
+    .templates {
+      margin-top: 25px;
+      text-align: center;
+    }
+
+    .template-buttons {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .slider-row label {
+      font-size: 9px;
+      color: #444;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    input[type="range"] {
+      width: 100px;
+      accent-color: #666;
+    }
+
+    .slider-value {
+      font-size: 11px;
+      color: #666;
+      min-width: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>PROJECTION COMPARE</h1>
+  <p class="subtitle">isometric · dimetric · trimetric</p>
+
+  <div class="top-controls">
+    <button onclick="setGridSize(8)" class="active" data-size="8">8×8</button>
+    <button onclick="setGridSize(12)" data-size="12">12×12</button>
+    <button onclick="setGridSize(16)" data-size="16">16×16</button>
+    <button onclick="setGridSize(32)" data-size="32">32×32</button>
+    <button onclick="setGridSize(64)" data-size="64">64×64</button>
+    <button onclick="clearGrid()">Clear</button>
+    <button onclick="invertGrid()">Invert</button>
+  </div>
+
+  <div class="main-layout">
+    <div class="editor-panel">
+      <div class="section-label">Draw</div>
+      <div class="pixel-grid" id="grid"></div>
+    </div>
+
+    <div class="projections-panel">
+      <div class="projection">
+        <div class="section-label">Isometric</div>
+        <canvas id="isoCanvas"></canvas>
+        <div class="projection-info">30° / 30°</div>
+      </div>
+
+      <div class="projection">
+        <div class="section-label">Dimetric</div>
+        <canvas id="diCanvas"></canvas>
+        <div class="projection-info">7° / 42°</div>
+      </div>
+
+      <div class="projection">
+        <div class="section-label">Trimetric</div>
+        <canvas id="triCanvas"></canvas>
+        <div class="projection-info">12° / 54°</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slider-row">
+    <label>Depth</label>
+    <input type="range" id="depthSlider" min="1" max="8" value="3" oninput="updateDepth(this.value)">
+    <span class="slider-value" id="depthValue">3</span>
+  </div>
+
+  <div class="templates">
+    <div class="section-label" style="margin-bottom: 12px;">Templates</div>
+    <div class="template-buttons">
+      <button onclick="loadTemplate('face')">Face</button>
+      <button onclick="loadTemplate('ghost')">Ghost</button>
+      <button onclick="loadTemplate('skull')">Skull</button>
+      <button onclick="loadTemplate('alien')">Alien</button>
+      <button onclick="loadTemplate('robot')">Robot</button>
+      <button onclick="loadTemplate('wizard')">Wizard</button>
+      <button onclick="loadTemplate('knight')">Knight</button>
+      <button onclick="loadTemplate('cat')">Cat</button>
+      <button onclick="loadTemplate('dog')">Dog</button>
+      <button onclick="loadTemplate('bird')">Bird</button>
+      <button onclick="loadTemplate('fish')">Fish</button>
+      <button onclick="loadTemplate('bat')">Bat</button>
+      <button onclick="loadTemplate('spider')">Spider</button>
+      <button onclick="loadTemplate('heart')">Heart</button>
+      <button onclick="loadTemplate('star')">Star</button>
+      <button onclick="loadTemplate('diamond')">Diamond</button>
+      <button onclick="loadTemplate('crown')">Crown</button>
+      <button onclick="loadTemplate('mushroom')">Mushroom</button>
+      <button onclick="loadTemplate('tree')">Tree</button>
+      <button onclick="loadTemplate('pumpkin')">Pumpkin</button>
+      <button onclick="loadTemplate('sword')">Sword</button>
+      <button onclick="loadTemplate('shield')">Shield</button>
+      <button onclick="loadTemplate('axe')">Axe</button>
+      <button onclick="loadTemplate('bow')">Bow</button>
+      <button onclick="loadTemplate('potion')">Potion</button>
+      <button onclick="loadTemplate('key')">Key</button>
+      <button onclick="loadTemplate('coin')">Coin</button>
+      <button onclick="loadTemplate('chest')">Chest</button>
+      <button onclick="loadTemplate('bomb')">Bomb</button>
+      <button onclick="loadTemplate('house')">House</button>
+      <button onclick="loadTemplate('ship')">Ship</button>
+      <button onclick="loadTemplate('music')">Music</button>
+    </div>
+  </div>
+
+  <script>
+    let gridSize = 8;
+    let pixelSize = 18;
+    let pixels = [];
+    let isDrawing = false;
+    let drawMode = 1;
+    let blockDepth = 3;
+
+    const templates = {
+      face: [
+        0,0,1,1,1,1,0,0,
+        0,1,1,1,1,1,1,0,
+        1,1,1,1,1,1,1,1,
+        1,1,0,1,1,0,1,1,
+        1,1,1,1,1,1,1,1,
+        1,0,1,1,1,1,0,1,
+        0,1,1,0,0,1,1,0,
+        0,0,1,1,1,1,0,0
+      ],
+      ghost: [
+        0,0,1,1,1,1,0,0,
+        0,1,1,1,1,1,1,0,
+        1,1,0,1,1,0,1,1,
+        1,1,1,1,1,1,1,1,
+        1,1,1,1,1,1,1,1,
+        1,1,1,1,1,1,1,1,
+        1,1,1,1,1,1,1,1,
+        1,0,1,0,0,1,0,1
+      ],
+      heart: [
+        0,1,1,0,0,1,1,0,
+        1,1,1,1,1,1,1,1,
+        1,1,1,1,1,1,1,1,
+        1,1,1,1,1,1,1,1,
+        0,1,1,1,1,1,1,0,
+        0,0,1,1,1,1,0,0,
+        0,0,0,1,1,0,0,0,
+        0,0,0,0,0,0,0,0
+      ],
+      skull: [
+        0,1,1,1,1,1,1,0,
+        1,1,1,1,1,1,1,1,
+        1,1,0,1,1,0,1,1,
+        1,1,0,1,1,0,1,1,
+        1,1,1,1,1,1,1,1,
+        0,1,1,0,0,1,1,0,
+        0,1,0,1,1,0,1,0,
+        0,0,1,1,1,1,0,0
+      ],
+      robot: [
+        1,1,1,1,1,1,1,1,
+        1,0,0,1,1,0,0,1,
+        1,0,0,1,1,0,0,1,
+        1,1,1,1,1,1,1,1,
+        0,1,1,1,1,1,1,0,
+        0,1,0,1,1,0,1,0,
+        0,1,1,1,1,1,1,0,
+        0,1,1,0,0,1,1,0
+      ],
+      mushroom: [
+        0,0,1,1,1,1,0,0,
+        0,1,1,0,0,1,1,0,
+        1,1,0,1,1,0,1,1,
+        1,1,1,1,1,1,1,1,
+        0,1,1,1,1,1,1,0,
+        0,0,0,1,1,0,0,0,
+        0,0,1,1,1,1,0,0,
+        0,0,1,1,1,1,0,0
+      ],
+      sword: [
+        0,0,0,0,0,0,1,1,
+        0,0,0,0,0,1,1,0,
+        0,0,0,0,1,1,0,0,
+        0,0,0,1,1,0,0,0,
+        0,1,0,1,0,0,0,0,
+        0,0,1,0,0,0,0,0,
+        0,1,1,1,0,0,0,0,
+        0,0,1,0,0,0,0,0
+      ],
+      potion: [
+        0,0,1,1,1,1,0,0,
+        0,0,0,1,1,0,0,0,
+        0,0,1,1,1,1,0,0,
+        0,1,1,1,1,1,1,0,
+        1,1,1,1,1,1,1,1,
+        1,1,1,1,1,1,1,1,
+        1,1,1,1,1,1,1,1,
+        0,1,1,1,1,1,1,0
+      ],
+      cat: [
+        0,1,0,0,0,0,1,0,
+        1,1,1,0,0,1,1,1,
+        1,1,1,1,1,1,1,1,
+        1,0,1,1,1,1,0,1,
+        1,1,1,0,0,1,1,1,
+        0,1,1,1,1,1,1,0,
+        0,0,1,1,1,1,0,0,
+        0,0,1,0,0,1,0,0
+      ],
+      dog: [
+        0,1,1,0,0,1,1,0,
+        0,1,1,0,0,1,1,0,
+        0,1,1,1,1,1,1,0,
+        0,1,0,1,1,0,1,0,
+        0,1,1,1,1,1,1,0,
+        0,0,1,1,1,1,0,0,
+        0,0,1,0,0,1,0,0,
+        0,0,1,0,0,1,0,0
+      ],
+      alien: [
+        0,0,1,1,1,1,0,0,
+        0,1,1,1,1,1,1,0,
+        1,1,0,1,1,0,1,1,
+        1,1,1,1,1,1,1,1,
+        0,1,0,1,1,0,1,0,
+        0,0,1,0,0,1,0,0,
+        0,1,0,0,0,0,1,0,
+        1,0,0,0,0,0,0,1
+      ],
+      star: [
+        0,0,0,1,1,0,0,0,
+        0,0,0,1,1,0,0,0,
+        1,1,1,1,1,1,1,1,
+        0,1,1,1,1,1,1,0,
+        0,0,1,1,1,1,0,0,
+        0,1,1,0,0,1,1,0,
+        0,1,0,0,0,0,1,0,
+        1,0,0,0,0,0,0,1
+      ],
+      crown: [
+        0,1,0,1,1,0,1,0,
+        0,1,0,1,1,0,1,0,
+        0,1,1,1,1,1,1,0,
+        0,1,1,1,1,1,1,0,
+        0,1,1,1,1,1,1,0,
+        0,1,1,1,1,1,1,0,
+        0,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0
+      ],
+      key: [
+        0,0,1,1,1,0,0,0,
+        0,1,0,0,0,1,0,0,
+        0,1,0,0,0,1,0,0,
+        0,0,1,1,1,0,0,0,
+        0,0,0,1,0,0,0,0,
+        0,0,0,1,1,0,0,0,
+        0,0,0,1,0,0,0,0,
+        0,0,0,1,1,0,0,0
+      ],
+      coin: [
+        0,0,1,1,1,1,0,0,
+        0,1,1,1,1,1,1,0,
+        1,1,1,0,0,1,1,1,
+        1,1,0,1,1,0,1,1,
+        1,1,0,1,1,0,1,1,
+        1,1,1,0,0,1,1,1,
+        0,1,1,1,1,1,1,0,
+        0,0,1,1,1,1,0,0
+      ],
+      tree: [
+        0,0,0,1,1,0,0,0,
+        0,0,1,1,1,1,0,0,
+        0,1,1,1,1,1,1,0,
+        1,1,1,1,1,1,1,1,
+        0,0,0,1,1,0,0,0,
+        0,0,0,1,1,0,0,0,
+        0,0,0,1,1,0,0,0,
+        0,0,1,1,1,1,0,0
+      ],
+      house: [
+        0,0,0,1,1,0,0,0,
+        0,0,1,1,1,1,0,0,
+        0,1,1,1,1,1,1,0,
+        1,1,1,1,1,1,1,1,
+        1,1,1,1,1,1,1,1,
+        1,1,0,0,0,0,1,1,
+        1,1,0,0,0,0,1,1,
+        1,1,0,0,0,0,1,1
+      ],
+      ship: [
+        0,0,0,1,0,0,0,0,
+        0,0,0,1,0,0,0,0,
+        0,0,0,1,1,1,1,0,
+        0,0,0,1,0,0,0,0,
+        0,1,1,1,1,1,1,0,
+        1,1,1,1,1,1,1,1,
+        0,1,1,1,1,1,1,0,
+        0,0,1,1,1,1,0,0
+      ],
+      fish: [
+        0,0,0,1,1,0,0,0,
+        0,0,1,1,1,1,0,0,
+        1,1,1,0,1,1,1,1,
+        1,1,1,1,1,1,1,1,
+        1,1,1,1,1,1,1,1,
+        1,1,1,0,1,1,1,1,
+        0,0,1,1,1,1,0,0,
+        0,0,0,1,1,0,0,0
+      ],
+      bird: [
+        0,0,0,0,1,1,0,0,
+        0,0,0,1,1,1,0,0,
+        0,0,1,1,1,0,1,0,
+        1,1,1,1,1,1,1,1,
+        0,1,1,1,1,1,1,0,
+        0,0,1,1,1,0,0,0,
+        0,0,1,0,1,0,0,0,
+        0,0,0,0,0,0,0,0
+      ],
+      bomb: [
+        0,0,0,0,1,0,0,0,
+        0,0,0,1,0,0,0,0,
+        0,0,1,1,1,1,0,0,
+        0,1,1,0,1,1,1,0,
+        1,1,0,1,1,1,1,1,
+        1,1,1,1,1,1,1,1,
+        0,1,1,1,1,1,1,0,
+        0,0,1,1,1,1,0,0
+      ],
+      chest: [
+        0,0,0,0,0,0,0,0,
+        0,1,1,1,1,1,1,0,
+        1,1,1,1,1,1,1,1,
+        1,1,1,0,0,1,1,1,
+        1,1,1,0,0,1,1,1,
+        1,1,1,1,1,1,1,1,
+        1,1,1,1,1,1,1,1,
+        0,1,1,1,1,1,1,0
+      ],
+      bat: [
+        0,0,0,0,0,0,0,0,
+        1,0,0,0,0,0,0,1,
+        1,1,0,1,1,0,1,1,
+        1,1,1,1,1,1,1,1,
+        1,1,1,0,0,1,1,1,
+        0,1,1,1,1,1,1,0,
+        0,0,0,1,1,0,0,0,
+        0,0,0,0,0,0,0,0
+      ],
+      spider: [
+        1,0,0,0,0,0,0,1,
+        0,1,0,0,0,0,1,0,
+        1,0,1,1,1,1,0,1,
+        0,1,1,0,0,1,1,0,
+        0,1,1,0,0,1,1,0,
+        1,0,1,1,1,1,0,1,
+        0,1,0,0,0,0,1,0,
+        1,0,0,0,0,0,0,1
+      ],
+      pumpkin: [
+        0,0,0,1,1,0,0,0,
+        0,1,1,1,1,1,1,0,
+        1,1,0,1,1,0,1,1,
+        1,1,0,1,1,0,1,1,
+        1,1,1,1,1,1,1,1,
+        1,1,0,1,1,0,1,1,
+        0,1,1,0,0,1,1,0,
+        0,0,1,1,1,1,0,0
+      ],
+      wizard: [
+        0,0,0,1,0,0,0,0,
+        0,0,1,1,1,0,0,0,
+        0,1,1,1,1,1,0,0,
+        0,0,1,1,1,0,0,0,
+        0,1,0,1,0,1,0,0,
+        0,0,1,1,1,0,0,0,
+        0,0,1,1,1,0,0,0,
+        0,1,1,1,1,1,0,0
+      ],
+      knight: [
+        0,0,1,1,1,1,0,0,
+        0,1,1,1,1,1,1,0,
+        0,1,0,0,0,0,1,0,
+        0,1,1,1,1,1,1,0,
+        0,0,1,1,1,1,0,0,
+        0,0,1,1,1,1,0,0,
+        0,1,1,0,0,1,1,0,
+        0,1,1,0,0,1,1,0
+      ],
+      shield: [
+        0,1,1,1,1,1,1,0,
+        1,1,1,1,1,1,1,1,
+        1,1,0,1,1,0,1,1,
+        1,1,1,0,0,1,1,1,
+        1,1,1,0,0,1,1,1,
+        0,1,1,1,1,1,1,0,
+        0,0,1,1,1,1,0,0,
+        0,0,0,1,1,0,0,0
+      ],
+      axe: [
+        0,0,0,0,0,1,1,1,
+        0,0,0,0,1,1,1,1,
+        0,0,0,1,1,1,1,0,
+        0,0,1,1,1,0,0,0,
+        0,1,1,0,0,0,0,0,
+        1,1,0,0,0,0,0,0,
+        1,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0
+      ],
+      bow: [
+        0,0,0,0,0,0,1,0,
+        0,0,0,0,1,1,1,0,
+        0,0,1,1,0,0,1,0,
+        1,1,0,0,0,0,1,0,
+        1,1,0,0,0,0,1,0,
+        0,0,1,1,0,0,1,0,
+        0,0,0,0,1,1,1,0,
+        0,0,0,0,0,0,1,0
+      ],
+      music: [
+        0,0,0,0,1,1,1,0,
+        0,0,0,0,1,0,0,0,
+        0,0,0,0,1,0,0,0,
+        0,0,0,0,1,0,0,0,
+        0,0,0,0,1,0,0,0,
+        0,1,1,0,1,0,0,0,
+        1,1,1,1,1,0,0,0,
+        0,1,1,0,0,0,0,0
+      ],
+      diamond: [
+        0,0,0,1,1,0,0,0,
+        0,0,1,1,1,1,0,0,
+        0,1,1,1,1,1,1,0,
+        1,1,1,1,1,1,1,1,
+        0,1,1,1,1,1,1,0,
+        0,0,1,1,1,1,0,0,
+        0,0,0,1,1,0,0,0,
+        0,0,0,0,0,0,0,0
+      ]
+    };
+
+    const isoCanvas = document.getElementById('isoCanvas');
+    const diCanvas = document.getElementById('diCanvas');
+    const triCanvas = document.getElementById('triCanvas');
+
+    const isoCtx = isoCanvas.getContext('2d');
+    const diCtx = diCanvas.getContext('2d');
+    const triCtx = triCanvas.getContext('2d');
+
+    // Projection configurations
+    // Isometric: equal angles (30°/30°)
+    // Dimetric: two equal angles, one different (7°/42° is common)
+    // Trimetric: all different angles (12°/54° variation)
+
+    const projections = {
+      iso: {
+        ctx: isoCtx,
+        canvas: isoCanvas,
+        // True isometric: 30° angles
+        xAngle: Math.PI / 6,  // 30°
+        yAngle: Math.PI / 6,  // 30°
+        xScale: 1,
+        yScale: 1
+      },
+      di: {
+        ctx: diCtx,
+        canvas: diCanvas,
+        // Dimetric: 7° and 42° (pixel-friendly)
+        xAngle: 7 * Math.PI / 180,
+        yAngle: 42 * Math.PI / 180,
+        xScale: 1,
+        yScale: 0.5
+      },
+      tri: {
+        ctx: triCtx,
+        canvas: triCanvas,
+        // Trimetric: 12° and 54°
+        xAngle: 12 * Math.PI / 180,
+        yAngle: 54 * Math.PI / 180,
+        xScale: 0.9,
+        yScale: 0.7
+      }
+    };
+
+    function initGrid() {
+      const grid = document.getElementById('grid');
+      grid.innerHTML = '';
+
+      grid.style.gridTemplateColumns = `repeat(${gridSize}, ${pixelSize}px)`;
+
+      pixels = new Array(gridSize * gridSize).fill(0);
+
+      for (let i = 0; i < gridSize * gridSize; i++) {
+        const pixel = document.createElement('div');
+        pixel.className = 'pixel';
+        pixel.style.width = pixelSize + 'px';
+        pixel.style.height = pixelSize + 'px';
+        pixel.dataset.index = i;
+
+        pixel.addEventListener('mousedown', (e) => {
+          e.preventDefault();
+          isDrawing = true;
+          drawMode = e.button === 2 ? 0 : 1;
+          togglePixel(i, drawMode);
+        });
+
+        pixel.addEventListener('mouseenter', () => {
+          if (isDrawing) togglePixel(i, drawMode);
+        });
+
+        pixel.addEventListener('contextmenu', (e) => e.preventDefault());
+
+        grid.appendChild(pixel);
+      }
+
+      document.addEventListener('mouseup', () => isDrawing = false);
+
+      resizeCanvases();
+      renderAll();
+    }
+
+    function resizeCanvases() {
+      const baseWidth = gridSize <= 8 ? 400 : gridSize <= 16 ? 450 : gridSize <= 32 ? 500 : 550;
+      const baseHeight = gridSize <= 8 ? 450 : gridSize <= 16 ? 500 : gridSize <= 32 ? 550 : 600;
+
+      [isoCanvas, diCanvas, triCanvas].forEach(c => {
+        c.width = baseWidth;
+        c.height = baseHeight;
+      });
+    }
+
+    function togglePixel(index, value) {
+      pixels[index] = value;
+      const gridPixels = document.querySelectorAll('#grid .pixel');
+
+      if (value) {
+        gridPixels[index].classList.add('on');
+      } else {
+        gridPixels[index].classList.remove('on');
+      }
+
+      renderAll();
+    }
+
+    function clearGrid() {
+      pixels.fill(0);
+      document.querySelectorAll('#grid .pixel').forEach(p => p.classList.remove('on'));
+      renderAll();
+    }
+
+    function invertGrid() {
+      pixels = pixels.map(p => p ? 0 : 1);
+      const gridPixels = document.querySelectorAll('#grid .pixel');
+      pixels.forEach((p, i) => gridPixels[i].classList.toggle('on', p));
+      renderAll();
+    }
+
+    function setGridSize(size) {
+      gridSize = size;
+      if (size === 8) pixelSize = 18;
+      else if (size === 12) pixelSize = 14;
+      else if (size === 16) pixelSize = 11;
+      else if (size === 32) pixelSize = 6;
+      else if (size === 64) pixelSize = 4;
+
+      document.querySelectorAll('.top-controls button[data-size]').forEach(b => {
+        b.classList.toggle('active', b.dataset.size === String(size));
+      });
+
+      initGrid();
+    }
+
+    function loadTemplate(name) {
+      if (gridSize !== 8) setGridSize(8);
+
+      const template = templates[name];
+      if (!template) return;
+
+      pixels = [...template];
+      const gridPixels = document.querySelectorAll('#grid .pixel');
+      pixels.forEach((p, i) => gridPixels[i].classList.toggle('on', p));
+
+      renderAll();
+    }
+
+    function updateDepth(value) {
+      blockDepth = parseInt(value);
+      document.getElementById('depthValue').textContent = value;
+      renderAll();
+    }
+
+    function renderAll() {
+      renderProjection('iso');
+      renderProjection('di');
+      renderProjection('tri');
+    }
+
+    function renderProjection(type) {
+      const proj = projections[type];
+      const ctx = proj.ctx;
+      const canvas = proj.canvas;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const blockSize = gridSize === 8 ? 18 : gridSize === 12 ? 12 : gridSize === 16 ? 9 : gridSize === 32 ? 5 : 3;
+      const depth = blockDepth * (gridSize <= 16 ? 5 : 3);
+
+      // Calculate projection vectors based on angles
+      const cosX = Math.cos(proj.xAngle);
+      const sinX = Math.sin(proj.xAngle);
+      const cosY = Math.cos(proj.yAngle);
+      const sinY = Math.sin(proj.yAngle);
+
+      const xStep = {
+        x: blockSize * cosX * proj.xScale,
+        y: blockSize * sinX * proj.xScale
+      };
+      const yStep = {
+        x: -blockSize * cosY * proj.yScale,
+        y: blockSize * sinY * proj.yScale
+      };
+      const zStep = { x: 0, y: -depth };
+
+      // Center the drawing
+      const totalHeight = gridSize * (xStep.y + yStep.y) + depth;
+      const startX = canvas.width / 2;
+      const startY = canvas.height / 2 + totalHeight / 2;
+
+      // Colors - high contrast
+      const topColor = '#ffffff';
+      const leftColor = '#555555';
+      const rightColor = '#999999';
+      const outline = '#000000';
+
+      // Draw back to front
+      for (let row = 0; row < gridSize; row++) {
+        for (let col = 0; col < gridSize; col++) {
+          const index = row * gridSize + col;
+
+          if (!pixels[index]) continue;
+
+          const baseX = startX + col * xStep.x + row * yStep.x;
+          const baseY = startY + col * xStep.y + row * yStep.y;
+
+          // Top face
+          ctx.fillStyle = topColor;
+          ctx.beginPath();
+          ctx.moveTo(baseX, baseY + zStep.y);
+          ctx.lineTo(baseX + xStep.x, baseY + xStep.y + zStep.y);
+          ctx.lineTo(baseX + xStep.x + yStep.x, baseY + xStep.y + yStep.y + zStep.y);
+          ctx.lineTo(baseX + yStep.x, baseY + yStep.y + zStep.y);
+          ctx.closePath();
+          ctx.fill();
+          ctx.strokeStyle = outline;
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+
+          // Left face
+          ctx.fillStyle = leftColor;
+          ctx.beginPath();
+          ctx.moveTo(baseX, baseY + zStep.y);
+          ctx.lineTo(baseX + yStep.x, baseY + yStep.y + zStep.y);
+          ctx.lineTo(baseX + yStep.x, baseY + yStep.y);
+          ctx.lineTo(baseX, baseY);
+          ctx.closePath();
+          ctx.fill();
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+
+          // Right face
+          ctx.fillStyle = rightColor;
+          ctx.beginPath();
+          ctx.moveTo(baseX + xStep.x + yStep.x, baseY + xStep.y + yStep.y + zStep.y);
+          ctx.lineTo(baseX + xStep.x, baseY + xStep.y + zStep.y);
+          ctx.lineTo(baseX + xStep.x, baseY + xStep.y);
+          ctx.lineTo(baseX + xStep.x + yStep.x, baseY + xStep.y + yStep.y);
+          ctx.closePath();
+          ctx.fill();
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+        }
+      }
+    }
+
+    initGrid();
+    loadTemplate('ghost');
+  </script>
+</body>
+</html>
