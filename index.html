@@ -1,12 +1,1417 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>BlackRoad</title>
-  </head>
-  <body style="font-family: system-ui; padding: 40px;">
-    <h1>BlackRoad</h1>
-    <p>Building sovereign, local-first AI systems.</p>
-    <p>Status: Online.</p>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlackRoad Animation Extravaganza</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gray-950: #0a0a0a;
+      --gray-900: #171717;
+      --gray-800: #262626;
+      --gray-700: #404040;
+      --gray-600: #525252;
+      --gray-500: #737373;
+      --gray-400: #a3a3a3;
+      --gray-100: #f5f5f5;
+      --white: #ffffff;
+
+      --accent-orange: #ff8700;
+      --accent-dark-orange: #ff5f00;
+      --accent-pink: #ff0087;
+      --accent-orchid: #af5fd7;
+      --accent-magenta: #ff00ff;
+      --accent-blue: #1e90ff;
+
+      --font-headline: 'Space Grotesk', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--gray-950);
+      color: var(--gray-100);
+      font-family: var(--font-mono);
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 40px;
+    }
+
+    h1 {
+      font-family: var(--font-headline);
+      font-size: 72px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, var(--accent-orange), var(--accent-pink), var(--accent-magenta), var(--accent-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradient-text 4s ease infinite;
+      background-size: 300% 100%;
+    }
+
+    @keyframes gradient-text {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    h2 {
+      font-family: var(--font-headline);
+      font-size: 28px;
+      margin: 60px 0 30px;
+      color: var(--gray-400);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--gray-900);
+      border: 1px solid var(--gray-800);
+      border-radius: 16px;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 280px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+
+    .card:hover { border-color: var(--gray-700); }
+
+    .card-label {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      font-size: 10px;
+      color: var(--gray-600);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ==================== HERO ANIMATION ==================== */
+    .hero {
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin-bottom: 40px;
+    }
+
+    .hero-rings {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+    }
+
+    .hero-ring {
+      position: absolute;
+      border: 2px solid;
+      border-radius: 50%;
+      animation: hero-spin 20s linear infinite;
+    }
+
+    .hero-ring:nth-child(1) { inset: 0; border-color: var(--accent-blue); animation-duration: 20s; }
+    .hero-ring:nth-child(2) { inset: 20px; border-color: var(--accent-magenta); animation-duration: 15s; animation-direction: reverse; }
+    .hero-ring:nth-child(3) { inset: 40px; border-color: var(--accent-pink); animation-duration: 10s; }
+    .hero-ring:nth-child(4) { inset: 60px; border-color: var(--accent-orchid); animation-duration: 8s; animation-direction: reverse; }
+    .hero-ring:nth-child(5) { inset: 80px; border-color: var(--accent-orange); animation-duration: 5s; }
+
+    .hero-ring::after {
+      content: '';
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: inherit;
+      border-radius: 50%;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .hero-ring:nth-child(1)::after { background: var(--accent-blue); }
+    .hero-ring:nth-child(2)::after { background: var(--accent-magenta); }
+    .hero-ring:nth-child(3)::after { background: var(--accent-pink); }
+    .hero-ring:nth-child(4)::after { background: var(--accent-orchid); }
+    .hero-ring:nth-child(5)::after { background: var(--accent-orange); }
+
+    @keyframes hero-spin { to { transform: rotate(360deg); } }
+
+    .hero-center {
+      width: 60px;
+      height: 60px;
+      background: var(--gray-100);
+      border-radius: 50%;
+      z-index: 10;
+      animation: hero-pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes hero-pulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,0.4); }
+      50% { transform: scale(1.1); box-shadow: 0 0 40px 20px rgba(255,255,255,0); }
+    }
+
+    /* ==================== CUBE 3D ==================== */
+    .cube-container {
+      perspective: 400px;
+      width: 80px;
+      height: 80px;
+    }
+
+    .cube {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: cube-rotate 8s linear infinite;
+    }
+
+    .cube-face {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      border: 2px solid;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 24px;
+      background: rgba(10,10,10,0.8);
+    }
+
+    .cube-face.front { transform: translateZ(40px); border-color: var(--accent-orange); color: var(--accent-orange); }
+    .cube-face.back { transform: rotateY(180deg) translateZ(40px); border-color: var(--accent-blue); color: var(--accent-blue); }
+    .cube-face.right { transform: rotateY(90deg) translateZ(40px); border-color: var(--accent-pink); color: var(--accent-pink); }
+    .cube-face.left { transform: rotateY(-90deg) translateZ(40px); border-color: var(--accent-magenta); color: var(--accent-magenta); }
+    .cube-face.top { transform: rotateX(90deg) translateZ(40px); border-color: var(--accent-orchid); color: var(--accent-orchid); }
+    .cube-face.bottom { transform: rotateX(-90deg) translateZ(40px); border-color: var(--accent-dark-orange); color: var(--accent-dark-orange); }
+
+    @keyframes cube-rotate {
+      0% { transform: rotateX(0) rotateY(0); }
+      100% { transform: rotateX(360deg) rotateY(360deg); }
+    }
+
+    /* ==================== TYPING TEXT ==================== */
+    .typing-container {
+      font-family: var(--font-mono);
+      font-size: 18px;
+      color: var(--accent-magenta);
+    }
+
+    .typing-text {
+      overflow: hidden;
+      border-right: 2px solid var(--accent-magenta);
+      white-space: nowrap;
+      animation: typing 3s steps(20) infinite, blink 0.5s step-end infinite alternate;
+    }
+
+    @keyframes typing {
+      0%, 90%, 100% { width: 0; }
+      30%, 60% { width: 12ch; }
+    }
+
+    @keyframes blink { 50% { border-color: transparent; } }
+
+    /* ==================== RADAR SWEEP ==================== */
+    .radar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 2px solid var(--accent-blue);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .radar::before {
+      content: '';
+      position: absolute;
+      width: 50%;
+      height: 50%;
+      top: 0;
+      left: 50%;
+      transform-origin: bottom left;
+      background: linear-gradient(90deg, transparent, var(--accent-blue));
+      animation: radar-sweep 2s linear infinite;
+    }
+
+    .radar::after {
+      content: '';
+      position: absolute;
+      inset: 20%;
+      border: 1px solid var(--gray-700);
+      border-radius: 50%;
+    }
+
+    .radar-dot {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: var(--accent-pink);
+      border-radius: 50%;
+      top: 30%;
+      left: 60%;
+      animation: radar-blink 2s ease-in-out infinite;
+    }
+
+    @keyframes radar-sweep { to { transform: rotate(360deg); } }
+    @keyframes radar-blink { 0%, 50%, 100% { opacity: 0; } 25% { opacity: 1; } }
+
+    /* ==================== HEARTBEAT ==================== */
+    .heartbeat {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .heartbeat-line {
+      width: 200px;
+      height: 60px;
+      position: relative;
+    }
+
+    .heartbeat-line svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .heartbeat-path {
+      fill: none;
+      stroke: var(--accent-pink);
+      stroke-width: 2;
+      stroke-dasharray: 400;
+      stroke-dashoffset: 400;
+      animation: heartbeat-draw 2s linear infinite;
+    }
+
+    @keyframes heartbeat-draw {
+      to { stroke-dashoffset: 0; }
+    }
+
+    /* ==================== MATRIX RAIN ==================== */
+    .matrix {
+      width: 160px;
+      height: 120px;
+      position: relative;
+      overflow: hidden;
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+
+    .matrix-col {
+      position: absolute;
+      top: -100%;
+      animation: matrix-fall linear infinite;
+      color: var(--accent-blue);
+      text-shadow: 0 0 10px var(--accent-blue);
+      writing-mode: vertical-rl;
+    }
+
+    .matrix-col:nth-child(1) { left: 5%; animation-duration: 2s; }
+    .matrix-col:nth-child(2) { left: 15%; animation-duration: 2.5s; animation-delay: 0.5s; color: var(--accent-magenta); text-shadow: 0 0 10px var(--accent-magenta); }
+    .matrix-col:nth-child(3) { left: 25%; animation-duration: 1.8s; animation-delay: 0.2s; }
+    .matrix-col:nth-child(4) { left: 35%; animation-duration: 2.2s; animation-delay: 0.8s; color: var(--accent-pink); text-shadow: 0 0 10px var(--accent-pink); }
+    .matrix-col:nth-child(5) { left: 45%; animation-duration: 2.1s; animation-delay: 0.3s; }
+    .matrix-col:nth-child(6) { left: 55%; animation-duration: 1.9s; animation-delay: 0.6s; color: var(--accent-orange); text-shadow: 0 0 10px var(--accent-orange); }
+    .matrix-col:nth-child(7) { left: 65%; animation-duration: 2.3s; animation-delay: 0.1s; }
+    .matrix-col:nth-child(8) { left: 75%; animation-duration: 2s; animation-delay: 0.4s; color: var(--accent-orchid); text-shadow: 0 0 10px var(--accent-orchid); }
+    .matrix-col:nth-child(9) { left: 85%; animation-duration: 2.4s; animation-delay: 0.7s; }
+
+    @keyframes matrix-fall {
+      to { top: 100%; }
+    }
+
+    /* ==================== BOUNCING BALLS ==================== */
+    .bounce-container {
+      width: 150px;
+      height: 80px;
+      position: relative;
+    }
+
+    .bounce-ball {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      bottom: 0;
+      animation: bounce 0.6s ease-in-out infinite alternate;
+    }
+
+    .bounce-ball:nth-child(1) { left: 10px; background: var(--accent-orange); animation-delay: 0s; }
+    .bounce-ball:nth-child(2) { left: 40px; background: var(--accent-pink); animation-delay: 0.1s; }
+    .bounce-ball:nth-child(3) { left: 70px; background: var(--accent-magenta); animation-delay: 0.2s; }
+    .bounce-ball:nth-child(4) { left: 100px; background: var(--accent-blue); animation-delay: 0.3s; }
+
+    .bounce-shadow {
+      position: absolute;
+      width: 20px;
+      height: 6px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      bottom: -3px;
+      animation: bounce-shadow 0.6s ease-in-out infinite alternate;
+    }
+
+    .bounce-shadow:nth-child(5) { left: 10px; animation-delay: 0s; }
+    .bounce-shadow:nth-child(6) { left: 40px; animation-delay: 0.1s; }
+    .bounce-shadow:nth-child(7) { left: 70px; animation-delay: 0.2s; }
+    .bounce-shadow:nth-child(8) { left: 100px; animation-delay: 0.3s; }
+
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to { transform: translateY(-50px); }
+    }
+
+    @keyframes bounce-shadow {
+      from { transform: scale(1); opacity: 0.3; }
+      to { transform: scale(0.5); opacity: 0.1; }
+    }
+
+    /* ==================== LIQUID LOADER ==================== */
+    .liquid {
+      width: 80px;
+      height: 80px;
+      position: relative;
+    }
+
+    .liquid-drop {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      animation: liquid-morph 2s ease-in-out infinite;
+    }
+
+    .liquid-drop:nth-child(1) { background: var(--accent-magenta); }
+    .liquid-drop:nth-child(2) { background: var(--accent-blue); animation-delay: -1s; }
+
+    @keyframes liquid-morph {
+      0%, 100% { border-radius: 50% 50% 50% 50%; transform: rotate(0deg) scale(1); }
+      25% { border-radius: 60% 40% 60% 40%; transform: rotate(90deg) scale(1.1); }
+      50% { border-radius: 50% 50% 50% 50%; transform: rotate(180deg) scale(1); }
+      75% { border-radius: 40% 60% 40% 60%; transform: rotate(270deg) scale(0.9); }
+    }
+
+    /* ==================== PENDULUM ==================== */
+    .pendulum-container {
+      width: 120px;
+      height: 100px;
+      position: relative;
+    }
+
+    .pendulum-arm {
+      position: absolute;
+      width: 2px;
+      height: 60px;
+      background: var(--gray-600);
+      top: 0;
+      left: 50%;
+      transform-origin: top center;
+      animation: pendulum-swing 1.5s ease-in-out infinite;
+    }
+
+    .pendulum-ball {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      bottom: -12px;
+      left: -11px;
+    }
+
+    .pendulum-arm:nth-child(1) .pendulum-ball { background: var(--accent-orange); }
+    .pendulum-arm:nth-child(2) { animation-delay: -0.75s; }
+    .pendulum-arm:nth-child(2) .pendulum-ball { background: var(--accent-blue); }
+
+    @keyframes pendulum-swing {
+      0%, 100% { transform: rotate(-30deg); }
+      50% { transform: rotate(30deg); }
+    }
+
+    /* ==================== FLIP CARD ==================== */
+    .flip-container {
+      perspective: 400px;
+      width: 100px;
+      height: 60px;
+    }
+
+    .flip-card {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: flip 3s ease-in-out infinite;
+    }
+
+    .flip-front, .flip-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 18px;
+      border-radius: 8px;
+    }
+
+    .flip-front { background: var(--accent-orange); color: var(--gray-950); }
+    .flip-back { background: var(--accent-blue); color: var(--white); transform: rotateY(180deg); }
+
+    @keyframes flip {
+      0%, 45% { transform: rotateY(0); }
+      50%, 95% { transform: rotateY(180deg); }
+    }
+
+    /* ==================== RIPPLE ==================== */
+    .ripple-container {
+      width: 120px;
+      height: 120px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ripple {
+      position: absolute;
+      border: 2px solid var(--accent-pink);
+      border-radius: 50%;
+      animation: ripple-expand 2s ease-out infinite;
+    }
+
+    .ripple:nth-child(1) { animation-delay: 0s; }
+    .ripple:nth-child(2) { animation-delay: 0.5s; }
+    .ripple:nth-child(3) { animation-delay: 1s; }
+    .ripple:nth-child(4) { animation-delay: 1.5s; }
+
+    .ripple-center {
+      width: 20px;
+      height: 20px;
+      background: var(--accent-pink);
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    @keyframes ripple-expand {
+      0% { width: 20px; height: 20px; opacity: 1; }
+      100% { width: 120px; height: 120px; opacity: 0; }
+    }
+
+    /* ==================== SNAKE LOADER ==================== */
+    .snake {
+      display: flex;
+      gap: 8px;
+    }
+
+    .snake-segment {
+      width: 16px;
+      height: 16px;
+      background: var(--accent-magenta);
+      border-radius: 4px;
+      animation: snake-move 1.5s ease-in-out infinite;
+    }
+
+    .snake-segment:nth-child(1) { animation-delay: 0s; background: var(--accent-orange); }
+    .snake-segment:nth-child(2) { animation-delay: 0.1s; background: var(--accent-dark-orange); }
+    .snake-segment:nth-child(3) { animation-delay: 0.2s; background: var(--accent-pink); }
+    .snake-segment:nth-child(4) { animation-delay: 0.3s; background: var(--accent-orchid); }
+    .snake-segment:nth-child(5) { animation-delay: 0.4s; background: var(--accent-magenta); }
+    .snake-segment:nth-child(6) { animation-delay: 0.5s; background: var(--accent-blue); }
+
+    @keyframes snake-move {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-20px) scale(1.2); }
+    }
+
+    /* ==================== CLOCK ==================== */
+    .clock {
+      width: 100px;
+      height: 100px;
+      border: 3px solid var(--gray-100);
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .clock-hand {
+      position: absolute;
+      bottom: 50%;
+      left: 50%;
+      transform-origin: bottom center;
+      background: var(--gray-100);
+    }
+
+    .clock-hour {
+      width: 4px;
+      height: 25px;
+      margin-left: -2px;
+      animation: clock-hour 43200s linear infinite;
+    }
+
+    .clock-minute {
+      width: 3px;
+      height: 35px;
+      margin-left: -1.5px;
+      background: var(--accent-pink);
+      animation: clock-minute 3600s linear infinite;
+    }
+
+    .clock-second {
+      width: 2px;
+      height: 40px;
+      margin-left: -1px;
+      background: var(--accent-orange);
+      animation: clock-second 10s linear infinite;
+    }
+
+    .clock-center {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: var(--accent-orange);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    @keyframes clock-hour { to { transform: rotate(360deg); } }
+    @keyframes clock-minute { to { transform: rotate(360deg); } }
+    @keyframes clock-second { to { transform: rotate(360deg); } }
+
+    /* ==================== FIREWORKS ==================== */
+    .fireworks {
+      width: 150px;
+      height: 120px;
+      position: relative;
+    }
+
+    .firework {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .firework-burst {
+      position: absolute;
+      animation: firework-explode 2s ease-out infinite;
+    }
+
+    .firework-burst:nth-child(1) { top: 20%; left: 30%; }
+    .firework-burst:nth-child(2) { top: 40%; left: 70%; animation-delay: 0.7s; }
+    .firework-burst:nth-child(3) { top: 60%; left: 40%; animation-delay: 1.4s; }
+
+    .firework-particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      animation: particle-fly 2s ease-out infinite;
+    }
+
+    .firework-burst:nth-child(1) .firework-particle { background: var(--accent-orange); }
+    .firework-burst:nth-child(2) .firework-particle { background: var(--accent-pink); }
+    .firework-burst:nth-child(3) .firework-particle { background: var(--accent-blue); }
+
+    .firework-particle:nth-child(1) { animation-delay: 0s; --angle: 0deg; }
+    .firework-particle:nth-child(2) { animation-delay: 0s; --angle: 45deg; }
+    .firework-particle:nth-child(3) { animation-delay: 0s; --angle: 90deg; }
+    .firework-particle:nth-child(4) { animation-delay: 0s; --angle: 135deg; }
+    .firework-particle:nth-child(5) { animation-delay: 0s; --angle: 180deg; }
+    .firework-particle:nth-child(6) { animation-delay: 0s; --angle: 225deg; }
+    .firework-particle:nth-child(7) { animation-delay: 0s; --angle: 270deg; }
+    .firework-particle:nth-child(8) { animation-delay: 0s; --angle: 315deg; }
+
+    @keyframes particle-fly {
+      0% { transform: rotate(var(--angle)) translateY(0) scale(1); opacity: 1; }
+      100% { transform: rotate(var(--angle)) translateY(-40px) scale(0); opacity: 0; }
+    }
+
+    @keyframes firework-explode {
+      0%, 100% { opacity: 0; }
+      10%, 60% { opacity: 1; }
+    }
+
+    /* ==================== GEAR SYSTEM ==================== */
+    .gears {
+      width: 140px;
+      height: 100px;
+      position: relative;
+    }
+
+    .gear {
+      position: absolute;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gear::before {
+      content: '';
+      position: absolute;
+      width: 40%;
+      height: 40%;
+      background: var(--gray-900);
+      border-radius: 50%;
+    }
+
+    .gear-1 {
+      width: 60px;
+      height: 60px;
+      left: 10px;
+      top: 20px;
+      background: conic-gradient(
+        var(--accent-orange) 0deg 30deg,
+        var(--gray-900) 30deg 60deg,
+        var(--accent-orange) 60deg 90deg,
+        var(--gray-900) 90deg 120deg,
+        var(--accent-orange) 120deg 150deg,
+        var(--gray-900) 150deg 180deg,
+        var(--accent-orange) 180deg 210deg,
+        var(--gray-900) 210deg 240deg,
+        var(--accent-orange) 240deg 270deg,
+        var(--gray-900) 270deg 300deg,
+        var(--accent-orange) 300deg 330deg,
+        var(--gray-900) 330deg 360deg
+      );
+      animation: gear-spin 4s linear infinite;
+    }
+
+    .gear-2 {
+      width: 45px;
+      height: 45px;
+      right: 20px;
+      top: 28px;
+      background: conic-gradient(
+        var(--accent-blue) 0deg 40deg,
+        var(--gray-900) 40deg 80deg,
+        var(--accent-blue) 80deg 120deg,
+        var(--gray-900) 120deg 160deg,
+        var(--accent-blue) 160deg 200deg,
+        var(--gray-900) 200deg 240deg,
+        var(--accent-blue) 240deg 280deg,
+        var(--gray-900) 280deg 320deg,
+        var(--accent-blue) 320deg 360deg
+      );
+      animation: gear-spin 3s linear infinite reverse;
+    }
+
+    @keyframes gear-spin { to { transform: rotate(360deg); } }
+
+    /* ==================== INFINITY LOOP ==================== */
+    .infinity {
+      width: 120px;
+      height: 60px;
+      position: relative;
+    }
+
+    .infinity-path {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border: 4px solid transparent;
+      border-radius: 50%;
+    }
+
+    .infinity-path:nth-child(1) {
+      left: 5px;
+      top: 5px;
+      border-top-color: var(--accent-magenta);
+      border-right-color: var(--accent-magenta);
+      animation: infinity-spin-right 2s linear infinite;
+    }
+
+    .infinity-path:nth-child(2) {
+      right: 5px;
+      top: 5px;
+      border-bottom-color: var(--accent-blue);
+      border-left-color: var(--accent-blue);
+      animation: infinity-spin-left 2s linear infinite;
+    }
+
+    .infinity-dot {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: var(--accent-pink);
+      border-radius: 50%;
+      animation: infinity-move 4s ease-in-out infinite;
+    }
+
+    @keyframes infinity-spin-right { to { transform: rotate(360deg); } }
+    @keyframes infinity-spin-left { to { transform: rotate(-360deg); } }
+
+    @keyframes infinity-move {
+      0%, 100% { top: 24px; left: 5px; }
+      25% { top: 5px; left: 30px; }
+      50% { top: 24px; left: 55px; }
+      75% { top: 44px; left: 30px; }
+    }
+
+    /* ==================== ATOM ==================== */
+    .atom {
+      width: 100px;
+      height: 100px;
+      position: relative;
+    }
+
+    .atom-nucleus {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: var(--accent-orange);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: atom-pulse 1s ease-in-out infinite;
+    }
+
+    .atom-orbit {
+      position: absolute;
+      inset: 0;
+      border: 2px solid var(--gray-600);
+      border-radius: 50%;
+    }
+
+    .atom-orbit:nth-child(2) { transform: rotateX(60deg); }
+    .atom-orbit:nth-child(3) { transform: rotateX(-60deg); }
+
+    .atom-electron {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      top: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .atom-orbit:nth-child(1) { animation: atom-spin 3s linear infinite; }
+    .atom-orbit:nth-child(1) .atom-electron { background: var(--accent-blue); }
+
+    .atom-orbit:nth-child(2) { animation: atom-spin 2s linear infinite reverse; }
+    .atom-orbit:nth-child(2) .atom-electron { background: var(--accent-pink); }
+
+    .atom-orbit:nth-child(3) { animation: atom-spin 2.5s linear infinite; }
+    .atom-orbit:nth-child(3) .atom-electron { background: var(--accent-magenta); }
+
+    @keyframes atom-spin { to { transform: rotateZ(360deg) rotateX(60deg); } }
+    @keyframes atom-pulse { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.2); } }
+
+    /* ==================== WAVE TEXT ==================== */
+    .wave-text {
+      font-family: var(--font-headline);
+      font-size: 32px;
+      font-weight: 700;
+      display: flex;
+    }
+
+    .wave-text span {
+      animation: wave-letter 1s ease-in-out infinite;
+    }
+
+    .wave-text span:nth-child(1) { animation-delay: 0s; color: var(--accent-orange); }
+    .wave-text span:nth-child(2) { animation-delay: 0.1s; color: var(--accent-dark-orange); }
+    .wave-text span:nth-child(3) { animation-delay: 0.2s; color: var(--accent-pink); }
+    .wave-text span:nth-child(4) { animation-delay: 0.3s; color: var(--accent-orchid); }
+    .wave-text span:nth-child(5) { animation-delay: 0.4s; color: var(--accent-magenta); }
+    .wave-text span:nth-child(6) { animation-delay: 0.5s; color: var(--accent-blue); }
+    .wave-text span:nth-child(7) { animation-delay: 0.6s; color: var(--accent-blue); }
+    .wave-text span:nth-child(8) { animation-delay: 0.7s; color: var(--accent-magenta); }
+
+    @keyframes wave-letter {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    /* ==================== SIGNAL BARS ==================== */
+    .signal {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      height: 50px;
+    }
+
+    .signal-bar {
+      width: 12px;
+      background: var(--gray-700);
+      border-radius: 3px;
+      animation: signal-pulse 1.5s ease-in-out infinite;
+    }
+
+    .signal-bar:nth-child(1) { height: 15px; animation-delay: 0s; }
+    .signal-bar:nth-child(2) { height: 25px; animation-delay: 0.2s; }
+    .signal-bar:nth-child(3) { height: 35px; animation-delay: 0.4s; }
+    .signal-bar:nth-child(4) { height: 50px; animation-delay: 0.6s; }
+
+    @keyframes signal-pulse {
+      0%, 100% { background: var(--gray-700); }
+      50% { background: var(--accent-blue); box-shadow: 0 0 10px var(--accent-blue); }
+    }
+
+    /* ==================== HOURGLASS ==================== */
+    .hourglass {
+      width: 50px;
+      height: 80px;
+      position: relative;
+      animation: hourglass-flip 4s ease-in-out infinite;
+    }
+
+    .hourglass::before, .hourglass::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 25px solid transparent;
+      border-right: 25px solid transparent;
+    }
+
+    .hourglass::before {
+      top: 0;
+      border-top: 40px solid var(--accent-orange);
+    }
+
+    .hourglass::after {
+      bottom: 0;
+      border-bottom: 40px solid var(--accent-blue);
+    }
+
+    @keyframes hourglass-flip {
+      0%, 45% { transform: rotate(0deg); }
+      50%, 95% { transform: rotate(180deg); }
+    }
+
+    /* ==================== LOADING TEXT ==================== */
+    .loading-text {
+      font-family: var(--font-mono);
+      font-size: 16px;
+      display: flex;
+      gap: 4px;
+    }
+
+    .loading-text span {
+      animation: loading-fade 1.5s ease-in-out infinite;
+    }
+
+    .loading-text span:nth-child(1) { animation-delay: 0s; }
+    .loading-text span:nth-child(2) { animation-delay: 0.1s; }
+    .loading-text span:nth-child(3) { animation-delay: 0.2s; }
+    .loading-text span:nth-child(4) { animation-delay: 0.3s; }
+    .loading-text span:nth-child(5) { animation-delay: 0.4s; }
+    .loading-text span:nth-child(6) { animation-delay: 0.5s; }
+    .loading-text span:nth-child(7) { animation-delay: 0.6s; }
+    .loading-text span:nth-child(8) { animation-delay: 0.7s; }
+    .loading-text span:nth-child(9) { animation-delay: 0.8s; }
+    .loading-text span:nth-child(10) { animation-delay: 0.9s; }
+
+    @keyframes loading-fade {
+      0%, 100% { color: var(--gray-600); }
+      50% { color: var(--accent-magenta); }
+    }
+
+    /* ==================== CHECKBOX ==================== */
+    .checkbox-anim {
+      width: 50px;
+      height: 50px;
+      border: 3px solid var(--accent-blue);
+      border-radius: 8px;
+      position: relative;
+      animation: checkbox-pop 2s ease-in-out infinite;
+    }
+
+    .checkbox-check {
+      position: absolute;
+      width: 30px;
+      height: 15px;
+      border-left: 4px solid var(--accent-blue);
+      border-bottom: 4px solid var(--accent-blue);
+      top: 12px;
+      left: 8px;
+      transform: rotate(-45deg) scale(0);
+      animation: check-draw 2s ease-in-out infinite;
+    }
+
+    @keyframes checkbox-pop {
+      0%, 40%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    @keyframes check-draw {
+      0%, 40% { transform: rotate(-45deg) scale(0); }
+      60%, 100% { transform: rotate(-45deg) scale(1); }
+    }
+
+    /* ==================== NOTIFICATION BELL ==================== */
+    .bell {
+      font-size: 48px;
+      animation: bell-ring 2s ease-in-out infinite;
+      transform-origin: top center;
+      position: relative;
+    }
+
+    .bell::after {
+      content: '';
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: var(--accent-pink);
+      border-radius: 50%;
+      top: 0;
+      right: -5px;
+      animation: bell-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes bell-ring {
+      0%, 100% { transform: rotate(0); }
+      10%, 30% { transform: rotate(15deg); }
+      20%, 40% { transform: rotate(-15deg); }
+      50%, 70%, 90% { transform: rotate(0); }
+    }
+
+    @keyframes bell-dot {
+      0%, 50%, 100% { transform: scale(1); }
+      25%, 75% { transform: scale(1.3); }
+    }
+
+    /* ==================== SOLAR SYSTEM ==================== */
+    .solar-system {
+      width: 160px;
+      height: 160px;
+      position: relative;
+    }
+
+    .sun {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: var(--accent-orange);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 30px var(--accent-orange);
+    }
+
+    .planet-orbit {
+      position: absolute;
+      border: 1px dashed var(--gray-800);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .planet {
+      position: absolute;
+      border-radius: 50%;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .orbit-1 { width: 60px; height: 60px; animation: orbit 3s linear infinite; }
+    .orbit-1 .planet { width: 10px; height: 10px; background: var(--accent-pink); }
+
+    .orbit-2 { width: 100px; height: 100px; animation: orbit 6s linear infinite; }
+    .orbit-2 .planet { width: 14px; height: 14px; background: var(--accent-blue); }
+
+    .orbit-3 { width: 140px; height: 140px; animation: orbit 10s linear infinite; }
+    .orbit-3 .planet { width: 8px; height: 8px; background: var(--accent-magenta); }
+
+    @keyframes orbit { to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+    /* ==================== EQUALIZER ==================== */
+    .equalizer {
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+      height: 60px;
+    }
+
+    .eq-bar {
+      width: 8px;
+      background: linear-gradient(to top, var(--accent-blue), var(--accent-magenta), var(--accent-orange));
+      border-radius: 2px;
+      animation: eq-bounce 0.8s ease-in-out infinite alternate;
+    }
+
+    .eq-bar:nth-child(1) { animation-delay: 0s; }
+    .eq-bar:nth-child(2) { animation-delay: 0.1s; }
+    .eq-bar:nth-child(3) { animation-delay: 0.2s; }
+    .eq-bar:nth-child(4) { animation-delay: 0.3s; }
+    .eq-bar:nth-child(5) { animation-delay: 0.4s; }
+    .eq-bar:nth-child(6) { animation-delay: 0.3s; }
+    .eq-bar:nth-child(7) { animation-delay: 0.2s; }
+    .eq-bar:nth-child(8) { animation-delay: 0.1s; }
+
+    @keyframes eq-bounce {
+      0% { height: 10px; }
+      100% { height: 60px; }
+    }
+
+    /* ==================== GRADIENT WAVE ==================== */
+    .gradient-wave {
+      width: 200px;
+      height: 60px;
+      background: linear-gradient(90deg,
+        var(--accent-orange),
+        var(--accent-pink),
+        var(--accent-magenta),
+        var(--accent-blue),
+        var(--accent-orange)
+      );
+      background-size: 200% 100%;
+      animation: gradient-flow 3s linear infinite;
+      border-radius: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gradient-wave::after {
+      content: 'FLOW';
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 20px;
+      color: var(--gray-950);
+      mix-blend-mode: overlay;
+    }
+
+    @keyframes gradient-flow {
+      to { background-position: -200% 0; }
+    }
+
+    /* ==================== FOOTER ==================== */
+    .footer {
+      text-align: center;
+      padding: 80px 40px;
+      border-top: 1px solid var(--gray-800);
+      margin-top: 80px;
+    }
+
+    .footer-logo {
+      font-family: var(--font-headline);
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .footer p {
+      color: var(--gray-600);
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="hero">
+      <div class="hero-rings">
+        <div class="hero-ring"></div>
+        <div class="hero-ring"></div>
+        <div class="hero-ring"></div>
+        <div class="hero-ring"></div>
+        <div class="hero-ring"></div>
+      </div>
+      <div class="hero-center"></div>
+    </div>
+
+    <h1>BlackRoad Motion</h1>
+    <p style="text-align: center; color: var(--gray-500); margin-bottom: 60px;">Pure CSS Animation Library</p>
+
+    <h2>3D & Perspective</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="cube-container">
+          <div class="cube">
+            <div class="cube-face front">BR</div>
+            <div class="cube-face back">OS</div>
+            <div class="cube-face right">&#9670;</div>
+            <div class="cube-face left">&#9671;</div>
+            <div class="cube-face top">&#9650;</div>
+            <div class="cube-face bottom">&#9660;</div>
+          </div>
+        </div>
+        <span class="card-label">3D Cube</span>
+      </div>
+      <div class="card">
+        <div class="flip-container">
+          <div class="flip-card">
+            <div class="flip-front">FRONT</div>
+            <div class="flip-back">BACK</div>
+          </div>
+        </div>
+        <span class="card-label">Flip Card</span>
+      </div>
+      <div class="card">
+        <div class="hourglass"></div>
+        <span class="card-label">Hourglass</span>
+      </div>
+    </div>
+
+    <h2>Text Effects</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="typing-container">
+          <div class="typing-text">BlackRoad OS</div>
+        </div>
+        <span class="card-label">Typing</span>
+      </div>
+      <div class="card">
+        <div class="wave-text">
+          <span>B</span><span>l</span><span>a</span><span>c</span><span>k</span><span>R</span><span>o</span><span>a</span><span>d</span>
+        </div>
+        <span class="card-label">Wave Text</span>
+      </div>
+      <div class="card">
+        <div class="loading-text">
+          <span>L</span><span>O</span><span>A</span><span>D</span><span>I</span><span>N</span><span>G</span><span>.</span><span>.</span><span>.</span>
+        </div>
+        <span class="card-label">Loading Text</span>
+      </div>
+      <div class="card">
+        <div class="gradient-wave"></div>
+        <span class="card-label">Gradient Flow</span>
+      </div>
+    </div>
+
+    <h2>Technical / Data</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="radar">
+          <div class="radar-dot"></div>
+        </div>
+        <span class="card-label">Radar Sweep</span>
+      </div>
+      <div class="card">
+        <div class="heartbeat-line">
+          <svg viewBox="0 0 200 60">
+            <path class="heartbeat-path" d="M0,30 L40,30 L50,10 L60,50 L70,20 L80,40 L90,30 L200,30" />
+          </svg>
+        </div>
+        <span class="card-label">Heartbeat</span>
+      </div>
+      <div class="card">
+        <div class="signal">
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+        </div>
+        <span class="card-label">Signal Bars</span>
+      </div>
+      <div class="card">
+        <div class="equalizer">
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+        </div>
+        <span class="card-label">Equalizer</span>
+      </div>
+      <div class="card">
+        <div class="clock">
+          <div class="clock-hand clock-hour"></div>
+          <div class="clock-hand clock-minute"></div>
+          <div class="clock-hand clock-second"></div>
+          <div class="clock-center"></div>
+        </div>
+        <span class="card-label">Clock</span>
+      </div>
+      <div class="card">
+        <div class="matrix">
+          <div class="matrix-col">01001</div>
+          <div class="matrix-col">11010</div>
+          <div class="matrix-col">00111</div>
+          <div class="matrix-col">10101</div>
+          <div class="matrix-col">01100</div>
+          <div class="matrix-col">11001</div>
+          <div class="matrix-col">00010</div>
+          <div class="matrix-col">10110</div>
+          <div class="matrix-col">01011</div>
+        </div>
+        <span class="card-label">Matrix Rain</span>
+      </div>
+    </div>
+
+    <h2>Physics & Motion</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="bounce-container">
+          <div class="bounce-ball"></div>
+          <div class="bounce-ball"></div>
+          <div class="bounce-ball"></div>
+          <div class="bounce-ball"></div>
+          <div class="bounce-shadow"></div>
+          <div class="bounce-shadow"></div>
+          <div class="bounce-shadow"></div>
+          <div class="bounce-shadow"></div>
+        </div>
+        <span class="card-label">Bouncing Balls</span>
+      </div>
+      <div class="card">
+        <div class="pendulum-container">
+          <div class="pendulum-arm"><div class="pendulum-ball"></div></div>
+          <div class="pendulum-arm"><div class="pendulum-ball"></div></div>
+        </div>
+        <span class="card-label">Pendulum</span>
+      </div>
+      <div class="card">
+        <div class="ripple-container">
+          <div class="ripple"></div>
+          <div class="ripple"></div>
+          <div class="ripple"></div>
+          <div class="ripple"></div>
+          <div class="ripple-center"></div>
+        </div>
+        <span class="card-label">Ripple</span>
+      </div>
+      <div class="card">
+        <div class="liquid">
+          <div class="liquid-drop"></div>
+          <div class="liquid-drop"></div>
+        </div>
+        <span class="card-label">Liquid Morph</span>
+      </div>
+      <div class="card">
+        <div class="fireworks">
+          <div class="firework-burst">
+            <div class="firework-particle"></div>
+            <div class="firework-particle"></div>
+            <div class="firework-particle"></div>
+            <div class="firework-particle"></div>
+            <div class="firework-particle"></div>
+            <div class="firework-particle"></div>
+            <div class="firework-particle"></div>
+            <div class="firework-particle"></div>
+          </div>
+          <div class="firework-burst">
+            <div class="firework-particle"></div>
+            <div class="firework-particle"></div>
+            <div class="firework-particle"></div>
+            <div class="firework-particle"></div>
+            <div class="firework-particle"></div>
+            <div class="firework-particle"></div>
+            <div class="firework-particle"></div>
+            <div class="firework-particle"></div>
+          </div>
+          <div class="firework-burst">
+            <div class="firework-particle"></div>
+            <div class="firework-particle"></div>
+            <div class="firework-particle"></div>
+            <div class="firework-particle"></div>
+            <div class="firework-particle"></div>
+            <div class="firework-particle"></div>
+            <div class="firework-particle"></div>
+            <div class="firework-particle"></div>
+          </div>
+        </div>
+        <span class="card-label">Fireworks</span>
+      </div>
+    </div>
+
+    <h2>Mechanical</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="gears">
+          <div class="gear gear-1"></div>
+          <div class="gear gear-2"></div>
+        </div>
+        <span class="card-label">Gears</span>
+      </div>
+      <div class="card">
+        <div class="infinity">
+          <div class="infinity-path"></div>
+          <div class="infinity-path"></div>
+          <div class="infinity-dot"></div>
+        </div>
+        <span class="card-label">Infinity Loop</span>
+      </div>
+      <div class="card">
+        <div class="snake">
+          <div class="snake-segment"></div>
+          <div class="snake-segment"></div>
+          <div class="snake-segment"></div>
+          <div class="snake-segment"></div>
+          <div class="snake-segment"></div>
+          <div class="snake-segment"></div>
+        </div>
+        <span class="card-label">Snake Loader</span>
+      </div>
+    </div>
+
+    <h2>Cosmic</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="atom">
+          <div class="atom-orbit"><div class="atom-electron"></div></div>
+          <div class="atom-orbit"><div class="atom-electron"></div></div>
+          <div class="atom-orbit"><div class="atom-electron"></div></div>
+          <div class="atom-nucleus"></div>
+        </div>
+        <span class="card-label">Atom</span>
+      </div>
+      <div class="card">
+        <div class="solar-system">
+          <div class="sun"></div>
+          <div class="planet-orbit orbit-1"><div class="planet"></div></div>
+          <div class="planet-orbit orbit-2"><div class="planet"></div></div>
+          <div class="planet-orbit orbit-3"><div class="planet"></div></div>
+        </div>
+        <span class="card-label">Solar System</span>
+      </div>
+    </div>
+
+    <h2>UI Elements</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="checkbox-anim">
+          <div class="checkbox-check"></div>
+        </div>
+        <span class="card-label">Checkbox</span>
+      </div>
+      <div class="card">
+        <div class="bell">&#128276;</div>
+        <span class="card-label">Notification</span>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-logo">BlackRoad</div>
+      <p>Pure CSS Animation Library - No JavaScript Required</p>
+      <p style="margin-top: 8px; color: var(--gray-700);">You are allowed to be in process.</p>
+    </div>
+  </div>
+
+</body>
 </html>
