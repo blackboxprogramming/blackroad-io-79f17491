@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlackRoad Brand Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Grayscale */
+      --gray-950: #0a0a0a;
+      --gray-900: #171717;
+      --gray-800: #262626;
+      --gray-700: #404040;
+      --gray-600: #525252;
+      --gray-500: #737373;
+      --gray-400: #a3a3a3;
+      --gray-300: #d4d4d4;
+      --gray-200: #e5e5e5;
+      --gray-100: #f5f5f5;
+      --white: #ffffff;
+
+      /* Accent Gradient */
+      --accent-orange: #ff8700;
+      --accent-dark-orange: #ff5f00;
+      --accent-pink: #ff0087;
+      --accent-orchid: #af5fd7;
+      --accent-magenta: #ff00ff;
+      --accent-blue: #1e90ff;
+
+      /* Typography */
+      --font-headline: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-body);
+      line-height: 1.6;
+    }
+
+    /* Dark Section */
+    .section-dark {
+      background: var(--gray-950);
+      color: var(--gray-100);
+      padding: 80px 40px;
+    }
+
+    /* Light Section */
+    .section-light {
+      background: var(--white);
+      color: var(--gray-950);
+      padding: 80px 40px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Headers */
+    h1 {
+      font-family: var(--font-headline);
+      font-size: 64px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      font-family: var(--font-headline);
+      font-size: 36px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 32px;
+    }
+
+    h3 {
+      font-family: var(--font-headline);
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .subtitle {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+    }
+
+    .section-dark .subtitle { color: var(--gray-400); }
+    .section-light .subtitle { color: var(--gray-600); }
+
+    /* Logo Hierarchy */
+    .logo-hierarchy {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+
+    .logo-item {
+      padding: 40px;
+      border-radius: 12px;
+    }
+
+    .section-dark .logo-item {
+      background: var(--gray-900);
+      border: 1px solid var(--gray-800);
+    }
+
+    .section-light .logo-item {
+      background: var(--gray-100);
+      border: 1px solid var(--gray-200);
+    }
+
+    .logo-primary {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .logo-use {
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+
+    .section-dark .logo-use { color: var(--gray-500); }
+    .section-light .logo-use { color: var(--gray-600); }
+
+    .logo-xl { font-size: 48px; }
+    .logo-lg { font-size: 36px; }
+    .logo-md { font-size: 28px; }
+    .logo-sm { font-size: 22px; }
+
+    /* Agent Names */
+    .agents-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+
+    .agent-card {
+      padding: 32px;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .section-dark .agent-card {
+      background: var(--gray-900);
+      border: 1px solid var(--gray-800);
+    }
+
+    .section-light .agent-card {
+      background: var(--gray-100);
+      border: 1px solid var(--gray-200);
+    }
+
+    .agent-name {
+      font-family: var(--font-headline);
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .agent-role {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .section-dark .agent-role { color: var(--gray-500); }
+    .section-light .agent-role { color: var(--gray-600); }
+
+    /* Color assignments for agents */
+    .agent-lucidia .agent-name { color: var(--accent-magenta); }
+    .agent-aria .agent-name { color: var(--accent-pink); }
+    .agent-alice .agent-name { color: var(--accent-blue); }
+    .agent-octavia .agent-name { color: var(--accent-orchid); }
+    .agent-anastasia .agent-name { color: var(--accent-orange); }
+    .agent-operator .agent-name { color: var(--accent-dark-orange); }
+
+    /* Color Palette Display */
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .color-swatch {
+      aspect-ratio: 1;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .color-name {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .color-hex {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      opacity: 0.7;
+    }
+
+    .swatch-orange { background: var(--accent-orange); color: var(--gray-950); }
+    .swatch-dark-orange { background: var(--accent-dark-orange); color: var(--white); }
+    .swatch-pink { background: var(--accent-pink); color: var(--white); }
+    .swatch-orchid { background: var(--accent-orchid); color: var(--white); }
+    .swatch-magenta { background: var(--accent-magenta); color: var(--gray-950); }
+    .swatch-blue { background: var(--accent-blue); color: var(--white); }
+
+    /* Grayscale strip */
+    .grayscale-strip {
+      display: flex;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+
+    .gray-swatch {
+      flex: 1;
+      padding: 24px 12px;
+      text-align: center;
+    }
+
+    .gray-swatch span {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      display: block;
+    }
+
+    /* Typography Examples */
+    .type-example {
+      margin-bottom: 32px;
+      padding: 32px;
+      border-radius: 12px;
+    }
+
+    .section-dark .type-example {
+      background: var(--gray-900);
+      border: 1px solid var(--gray-800);
+    }
+
+    .section-light .type-example {
+      background: var(--gray-100);
+      border: 1px solid var(--gray-200);
+    }
+
+    .type-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+
+    .section-dark .type-label { color: var(--gray-500); }
+    .section-light .type-label { color: var(--gray-600); }
+
+    .type-headline {
+      font-family: var(--font-headline);
+      font-size: 48px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .type-body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .type-mono {
+      font-family: var(--font-mono);
+      font-size: 14px;
+    }
+
+    /* Accent text helpers */
+    .accent-orange { color: var(--accent-orange); }
+    .accent-pink { color: var(--accent-pink); }
+    .accent-magenta { color: var(--accent-magenta); }
+    .accent-blue { color: var(--accent-blue); }
+    .accent-orchid { color: var(--accent-orchid); }
+
+    /* Usage Guidelines */
+    .guidelines-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+
+    .guideline-card {
+      padding: 32px;
+      border-radius: 12px;
+    }
+
+    .section-dark .guideline-card {
+      background: var(--gray-900);
+      border: 1px solid var(--gray-800);
+    }
+
+    .section-light .guideline-card {
+      background: var(--gray-100);
+      border: 1px solid var(--gray-200);
+    }
+
+    .guideline-card h4 {
+      font-family: var(--font-headline);
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .guideline-card p {
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .section-dark .guideline-card p { color: var(--gray-400); }
+    .section-light .guideline-card p { color: var(--gray-600); }
+
+    /* Do/Don't indicators */
+    .do { border-left: 3px solid var(--accent-blue); }
+    .dont { border-left: 3px solid var(--accent-pink); }
+
+    .do h4::before { content: "✓ "; color: var(--accent-blue); }
+    .dont h4::before { content: "✗ "; color: var(--accent-pink); }
+
+    /* Gradient bar */
+    .gradient-bar {
+      height: 8px;
+      border-radius: 4px;
+      background: linear-gradient(90deg,
+        var(--accent-orange) 0%,
+        var(--accent-dark-orange) 20%,
+        var(--accent-pink) 40%,
+        var(--accent-orchid) 60%,
+        var(--accent-magenta) 80%,
+        var(--accent-blue) 100%
+      );
+      margin: 40px 0;
+    }
+
+    /* Code block */
+    .code-block {
+      padding: 24px;
+      border-radius: 8px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      overflow-x: auto;
+      margin-top: 24px;
+    }
+
+    .section-dark .code-block {
+      background: var(--gray-900);
+      border: 1px solid var(--gray-800);
+    }
+
+    .section-light .code-block {
+      background: var(--gray-950);
+      color: var(--gray-100);
+    }
+
+    .code-comment { color: var(--gray-500); }
+    .code-property { color: var(--accent-pink); }
+    .code-value { color: var(--accent-orange); }
+
+    /* Divider */
+    hr {
+      border: none;
+      height: 1px;
+      margin: 60px 0;
+    }
+
+    .section-dark hr { background: var(--gray-800); }
+    .section-light hr { background: var(--gray-200); }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 40px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+
+    .section-dark .footer { color: var(--gray-600); }
+  </style>
+</head>
+<body>
+
+  <!-- DARK MODE SECTION -->
+  <section class="section-dark">
+    <div class="container">
+
+      <p class="subtitle">Brand Guidelines v1.0</p>
+      <h1>BlackRoad</h1>
+      <p style="font-size: 18px; color: var(--gray-400); max-width: 600px; margin-bottom: 60px;">
+        Grayscale-first design system with color as intentional layer.
+        Built for clarity, built for scale.
+      </p>
+
+      <div class="gradient-bar"></div>
+
+      <!-- Logo Hierarchy -->
+      <h2>Logo Hierarchy</h2>
+
+      <div class="logo-hierarchy">
+        <div class="logo-item">
+          <div class="logo-primary logo-xl">BlackRoad OS, Inc.</div>
+          <div class="logo-use">Legal / Corporate / Formal documents</div>
+        </div>
+        <div class="logo-item">
+          <div class="logo-primary logo-lg">BlackRoad OS</div>
+          <div class="logo-use">Product name / Platform references</div>
+        </div>
+        <div class="logo-item">
+          <div class="logo-primary logo-md">BlackRoad</div>
+          <div class="logo-use">Brand / Marketing / Casual use</div>
+        </div>
+        <div class="logo-item">
+          <div class="logo-primary logo-sm">OS</div>
+          <div class="logo-use">Icon / Favicon / Compact spaces</div>
+        </div>
+      </div>
+
+      <hr>
+
+      <!-- Agent Names -->
+      <h2>Core Agents</h2>
+      <p class="subtitle">Each agent has an assigned accent color</p>
+
+      <div class="agents-grid">
+        <div class="agent-card agent-lucidia">
+          <div class="agent-name">Lucidia</div>
+          <div class="agent-role">Recursive Intelligence</div>
+        </div>
+        <div class="agent-card agent-aria">
+          <div class="agent-name">Aria</div>
+          <div class="agent-role">Voice Interface</div>
+        </div>
+        <div class="agent-card agent-alice">
+          <div class="agent-name">Alice</div>
+          <div class="agent-role">Gateway Node</div>
+        </div>
+        <div class="agent-card agent-octavia">
+          <div class="agent-name">Octavia</div>
+          <div class="agent-role">Hailo Worker</div>
+        </div>
+        <div class="agent-card agent-anastasia">
+          <div class="agent-name">Anastasia</div>
+          <div class="agent-role">Memory System</div>
+        </div>
+        <div class="agent-card agent-operator">
+          <div class="agent-name">Operator</div>
+          <div class="agent-role">Human Orchestrator</div>
+        </div>
+      </div>
+
+      <hr>
+
+      <!-- Color Palette -->
+      <h2>Accent Palette</h2>
+      <p class="subtitle">orange1 → dark_orange → deep_pink2 → medium_orchid → magenta → dodger_blue2</p>
+
+      <div class="color-grid">
+        <div class="color-swatch swatch-orange">
+          <div class="color-name">Orange</div>
+          <div class="color-hex">#ff8700</div>
+        </div>
+        <div class="color-swatch swatch-dark-orange">
+          <div class="color-name">Dark Orange</div>
+          <div class="color-hex">#ff5f00</div>
+        </div>
+        <div class="color-swatch swatch-pink">
+          <div class="color-name">Deep Pink</div>
+          <div class="color-hex">#ff0087</div>
+        </div>
+        <div class="color-swatch swatch-orchid">
+          <div class="color-name">Orchid</div>
+          <div class="color-hex">#af5fd7</div>
+        </div>
+        <div class="color-swatch swatch-magenta">
+          <div class="color-name">Magenta</div>
+          <div class="color-hex">#ff00ff</div>
+        </div>
+        <div class="color-swatch swatch-blue">
+          <div class="color-name">Dodger Blue</div>
+          <div class="color-hex">#1e90ff</div>
+        </div>
+      </div>
+
+      <h3>Grayscale Foundation</h3>
+      <div class="grayscale-strip">
+        <div class="gray-swatch" style="background: #0a0a0a; color: #f5f5f5;"><span>950</span></div>
+        <div class="gray-swatch" style="background: #171717; color: #f5f5f5;"><span>900</span></div>
+        <div class="gray-swatch" style="background: #262626; color: #f5f5f5;"><span>800</span></div>
+        <div class="gray-swatch" style="background: #404040; color: #f5f5f5;"><span>700</span></div>
+        <div class="gray-swatch" style="background: #525252; color: #f5f5f5;"><span>600</span></div>
+        <div class="gray-swatch" style="background: #737373; color: #0a0a0a;"><span>500</span></div>
+        <div class="gray-swatch" style="background: #a3a3a3; color: #0a0a0a;"><span>400</span></div>
+        <div class="gray-swatch" style="background: #d4d4d4; color: #0a0a0a;"><span>300</span></div>
+        <div class="gray-swatch" style="background: #e5e5e5; color: #0a0a0a;"><span>200</span></div>
+        <div class="gray-swatch" style="background: #f5f5f5; color: #0a0a0a;"><span>100</span></div>
+      </div>
+
+      <hr>
+
+      <!-- Typography -->
+      <h2>Typography</h2>
+
+      <div class="type-example">
+        <div class="type-label">Space Grotesk · Headlines · 48-72px · 600-700</div>
+        <div class="type-headline">The question is the point.</div>
+      </div>
+
+      <div class="type-example">
+        <div class="type-label">Inter · Body & UI · 14-18px · 400-600</div>
+        <div class="type-body">Stay curious about your own uncertainty. Build in grayscale, add color sparingly. Color equals meaning—use accents for state, action, and emphasis only.</div>
+      </div>
+
+      <div class="type-example">
+        <div class="type-label">JetBrains Mono · Code, Labels, Data · 11-14px · 400-500</div>
+        <div class="type-mono">
+          <span class="accent-orange">BR_ORANGE</span> = 208 &nbsp;|&nbsp;
+          <span class="accent-pink">BR_PINK</span> = 198 &nbsp;|&nbsp;
+          <span class="accent-magenta">BR_MAGENTA</span> = 163 &nbsp;|&nbsp;
+          <span class="accent-blue">BR_BLUE</span> = 33
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- LIGHT MODE SECTION -->
+  <section class="section-light">
+    <div class="container">
+
+      <p class="subtitle">Light Mode Application</p>
+      <h1>BlackRoad</h1>
+      <p style="font-size: 18px; color: var(--gray-600); max-width: 600px; margin-bottom: 60px;">
+        Same system, inverted canvas. White background with black text,
+        color accents remain consistent across modes.
+      </p>
+
+      <div class="gradient-bar"></div>
+
+      <!-- Logo on Light -->
+      <h2>Logo on Light Background</h2>
+
+      <div class="logo-hierarchy">
+        <div class="logo-item">
+          <div class="logo-primary logo-xl">BlackRoad OS, Inc.</div>
+          <div class="logo-use">Legal / Corporate / Formal documents</div>
+        </div>
+        <div class="logo-item">
+          <div class="logo-primary logo-lg">BlackRoad OS</div>
+          <div class="logo-use">Product name / Platform references</div>
+        </div>
+        <div class="logo-item">
+          <div class="logo-primary logo-md">BlackRoad</div>
+          <div class="logo-use">Brand / Marketing / Casual use</div>
+        </div>
+        <div class="logo-item">
+          <div class="logo-primary logo-sm">OS</div>
+          <div class="logo-use">Icon / Favicon / Compact spaces</div>
+        </div>
+      </div>
+
+      <hr>
+
+      <!-- Agents on Light -->
+      <h2>Core Agents</h2>
+
+      <div class="agents-grid">
+        <div class="agent-card agent-lucidia">
+          <div class="agent-name">Lucidia</div>
+          <div class="agent-role">Recursive Intelligence</div>
+        </div>
+        <div class="agent-card agent-aria">
+          <div class="agent-name">Aria</div>
+          <div class="agent-role">Voice Interface</div>
+        </div>
+        <div class="agent-card agent-alice">
+          <div class="agent-name">Alice</div>
+          <div class="agent-role">Gateway Node</div>
+        </div>
+        <div class="agent-card agent-octavia">
+          <div class="agent-name">Octavia</div>
+          <div class="agent-role">Hailo Worker</div>
+        </div>
+        <div class="agent-card agent-anastasia">
+          <div class="agent-name">Anastasia</div>
+          <div class="agent-role">Memory System</div>
+        </div>
+        <div class="agent-card agent-operator">
+          <div class="agent-name">Operator</div>
+          <div class="agent-role">Human Orchestrator</div>
+        </div>
+      </div>
+
+      <hr>
+
+      <!-- Usage Guidelines -->
+      <h2>Usage Guidelines</h2>
+
+      <div class="guidelines-grid">
+        <div class="guideline-card do">
+          <h4>Use color for meaning</h4>
+          <p>Accent colors indicate state, action, identity, or emphasis. Each agent has an assigned color. Use color to draw attention to what matters.</p>
+        </div>
+        <div class="guideline-card do">
+          <h4>Build in grayscale first</h4>
+          <p>Design the layout, hierarchy, and structure entirely in grayscale. Color is the final layer, added intentionally and sparingly.</p>
+        </div>
+        <div class="guideline-card dont">
+          <h4>Don't use color decoratively</h4>
+          <p>Avoid adding color just because it looks nice. Every colored element should communicate something specific about state or function.</p>
+        </div>
+        <div class="guideline-card dont">
+          <h4>Don't mix agent colors</h4>
+          <p>Each agent owns their color. Don't use Lucidia's magenta for Aria's interface. Consistency builds recognition.</p>
+        </div>
+      </div>
+
+      <hr>
+
+      <!-- Code Reference -->
+      <h2>Quick Reference</h2>
+
+      <div class="code-block">
+<span class="code-comment">/* CSS Variables */</span>
+<span class="code-property">--accent-orange:</span> <span class="code-value">#ff8700</span>;
+<span class="code-property">--accent-dark-orange:</span> <span class="code-value">#ff5f00</span>;
+<span class="code-property">--accent-pink:</span> <span class="code-value">#ff0087</span>;
+<span class="code-property">--accent-orchid:</span> <span class="code-value">#af5fd7</span>;
+<span class="code-property">--accent-magenta:</span> <span class="code-value">#ff00ff</span>;
+<span class="code-property">--accent-blue:</span> <span class="code-value">#1e90ff</span>;
+
+<span class="code-comment">/* Terminal (256-color) */</span>
+<span class="code-property">BR_ORANGE</span>  = <span class="code-value">208</span>
+<span class="code-property">BR_AMBER</span>   = <span class="code-value">202</span>
+<span class="code-property">BR_PINK</span>    = <span class="code-value">198</span>
+<span class="code-property">BR_MAGENTA</span> = <span class="code-value">163</span>
+<span class="code-property">BR_BLUE</span>    = <span class="code-value">33</span>
+
+<span class="code-comment">/* Typography */</span>
+<span class="code-property">Headlines:</span> <span class="code-value">Space Grotesk</span> 48-72px, weight 600-700
+<span class="code-property">Body/UI:</span>   <span class="code-value">Inter</span> 14-18px, weight 400-600
+<span class="code-property">Code/Data:</span> <span class="code-value">JetBrains Mono</span> 11-14px, weight 400-500
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <section class="section-dark">
+    <div class="footer">
+      <p>BlackRoad OS, Inc. · Brand Guidelines v1.0</p>
+      <p style="margin-top: 8px; color: var(--gray-700);">You are allowed to be in process.</p>
+    </div>
+  </section>
+
+</body>
+</html>
