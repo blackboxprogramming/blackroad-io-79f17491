@@ -20,7 +20,7 @@ jobs:
             const workflowName = context.payload.workflow_run.name;
             const runUrl = context.payload.workflow_run.html_url;
             const titlePrefix = "CI failed: " + workflowName;
-            
+
             // Check for existing open issues with the same title prefix
             const existingIssues = await github.rest.issues.listForRepo({
               ...context.repo,
@@ -28,13 +28,13 @@ jobs:
               labels: 'ci-failure',
               per_page: 10
             });
-            
-            const duplicateIssue = existingIssues.data.find(issue => 
+
+            const duplicateIssue = existingIssues.data.find(issue =>
               issue.title.startsWith(titlePrefix)
             );
-            
+
             if (duplicateIssue) {
-              // Add a comment to existing issue instead of creating duplicate
+              // Add comment to existing issue instead of creating duplicate
               await github.rest.issues.createComment({
                 ...context.repo,
                 issue_number: duplicateIssue.number,
@@ -43,11 +43,20 @@ jobs:
               console.log(`Updated existing issue #${duplicateIssue.number}`);
             } else {
               // Create new issue with better formatting
+              const body = [
+                '## CI Failure Report',
+                '',
+                `**Workflow:** ${workflowName}`,
+                `**Run URL:** ${runUrl}`,
+                '',
+                'Please investigate and fix the failing tests.'
+              ].join('\n');
+
               await github.rest.issues.create({
                 ...context.repo,
                 title: titlePrefix,
                 labels: ['ci-failure', 'bug'],
-                body: `## CI Failure Report\n\n**Workflow:** ${workflowName}\n**Run URL:** ${runUrl}\n\nPlease investigate and fix the failing tests.`
+                body: body
               });
               console.log('Created new failure issue');
             }

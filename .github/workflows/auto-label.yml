@@ -17,16 +17,16 @@ jobs:
           script: |
             const repo = context.repo.repo.toLowerCase();
             const labels = [];
-            
+
             if (repo.includes("blackroad")) labels.push("core");
             if (repo.includes("lab")) labels.push("labs");
-            
+
             // Early exit if no labels to add
             if (labels.length === 0) {
               console.log("No labels to add based on repository name");
               return;
             }
-            
+
             await github.rest.issues.addLabels({
               ...context.repo,
               issue_number: context.issue.number,
