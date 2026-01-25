@@ -34,6 +34,8 @@ class AgentMemory {
     const agent = {
       sessionId: cleanSessionId,
       name: name || `Agent ${cleanSessionId.substring(0, 12)}...`,
+      memory: existingIndex >= 0 ? this.agents[existingIndex].memory : [],
+      notes: existingIndex >= 0 ? this.agents[existingIndex].notes : '',
       createdAt: existingIndex >= 0 ? this.agents[existingIndex].createdAt : new Date().toISOString(),
       updatedAt: new Date().toISOString(),
       ...metadata
@@ -92,6 +94,56 @@ class AgentMemory {
     const index = this.agents.findIndex(a => a.sessionId === cleanSessionId);
     if (index >= 0) {
       this.agents.splice(index, 1);
+      this.saveToStorage();
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Add a memory entry to an agent
+   */
+  addMemory(sessionId, entry) {
+    const agent = this.getAgent(sessionId);
+    if (agent) {
+      if (!agent.memory) {
+        agent.memory = [];
+      }
+      agent.memory.push({
+        id: Date.now(),
+        content: entry,
+        timestamp: new Date().toISOString()
+      });
+      agent.updatedAt = new Date().toISOString();
+      this.saveToStorage();
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Update agent notes
+   */
+  updateNotes(sessionId, notes) {
+    const cleanSessionId = this.extractSessionId(sessionId) || sessionId;
+    const index = this.agents.findIndex(a => a.sessionId === cleanSessionId);
+    if (index >= 0) {
+      this.agents[index].notes = notes;
+      this.agents[index].updatedAt = new Date().toISOString();
+      this.saveToStorage();
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Delete a memory entry
+   */
+  deleteMemory(sessionId, memoryId) {
+    const agent = this.getAgent(sessionId);
+    if (agent && agent.memory) {
+      agent.memory = agent.memory.filter(m => m.id !== memoryId);
+      agent.updatedAt = new Date().toISOString();
       this.saveToStorage();
       return true;
     }

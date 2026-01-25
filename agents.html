@@ -140,6 +140,123 @@
         font-size: 12px;
         word-break: break-all;
         color: #444;
+        margin-bottom: 12px;
+      }
+      
+      .agent-memory-section {
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid #e0e0e0;
+      }
+      
+      .memory-header {
+        font-weight: 600;
+        font-size: 13px;
+        color: #555;
+        margin-bottom: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .memory-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+      
+      .memory-item {
+        background: white;
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #e0e0e0;
+        font-size: 13px;
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        gap: 8px;
+      }
+      
+      .memory-content {
+        flex: 1;
+        color: #333;
+      }
+      
+      .memory-time {
+        font-size: 11px;
+        color: #999;
+        white-space: nowrap;
+      }
+      
+      .memory-delete {
+        color: #dc3545;
+        cursor: pointer;
+        font-size: 16px;
+        padding: 0 4px;
+      }
+      
+      .memory-delete:hover {
+        color: #c82333;
+      }
+      
+      .memory-input {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 8px;
+      }
+      
+      .memory-input input {
+        flex: 1;
+        padding: 6px 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 13px;
+      }
+      
+      .memory-input button {
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+      
+      .notes-section {
+        margin-top: 12px;
+      }
+      
+      .notes-textarea {
+        width: 100%;
+        min-height: 60px;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 13px;
+        font-family: system-ui, -apple-system, sans-serif;
+        resize: vertical;
+      }
+      
+      .notes-actions {
+        margin-top: 6px;
+        display: flex;
+        justify-content: flex-end;
+      }
+      
+      .toggle-memory {
+        cursor: pointer;
+        color: #0066cc;
+        font-size: 12px;
+        text-decoration: none;
+      }
+      
+      .toggle-memory:hover {
+        text-decoration: underline;
+      }
+      
+      .memory-expanded {
+        display: block;
+      }
+      
+      .memory-collapsed {
+        display: none;
       }
       
       .stats {
@@ -283,6 +400,42 @@
         }
       }
       
+      function saveNotes(sessionId) {
+        const textarea = document.querySelector(`.agent-notes[data-session-id="${sessionId}"]`);
+        if (textarea) {
+          memory.updateNotes(sessionId, textarea.value);
+          renderAgents();
+        }
+      }
+      
+      function addMemoryEntry(sessionId) {
+        const input = document.querySelector(`.memory-entry-input[data-session-id="${sessionId}"]`);
+        if (input && input.value.trim()) {
+          memory.addMemory(sessionId, input.value.trim());
+          renderAgents();
+        }
+      }
+      
+      function deleteMemoryEntry(sessionId, memoryId) {
+        if (confirm('Delete this memory entry?')) {
+          memory.deleteMemory(sessionId, memoryId);
+          renderAgents();
+        }
+      }
+      
+      function toggleMemorySection(sessionId) {
+        const section = document.querySelector(`.memory-content-section[data-session-id="${sessionId}"]`);
+        if (section) {
+          if (section.classList.contains('memory-collapsed')) {
+            section.classList.remove('memory-collapsed');
+            section.classList.add('memory-expanded');
+          } else {
+            section.classList.remove('memory-expanded');
+            section.classList.add('memory-collapsed');
+          }
+        }
+      }
+      
       function exportAgents() {
         const data = memory.exportData();
         const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -363,6 +516,50 @@
                 Updated: ${formatDate(agent.updatedAt)}
               </div>
               <div class="agent-id">${escapeHtml(agent.sessionId)}</div>
+              
+              <div class="agent-memory-section">
+                <div class="memory-header">
+                  <span>📝 Notes</span>
+                </div>
+                <textarea 
+                  class="notes-textarea agent-notes" 
+                  data-session-id="${escapeHtml(agent.sessionId)}"
+                  placeholder="Add notes about this agent's work, context, or tasks..."
+                >${escapeHtml(agent.notes || '')}</textarea>
+                <div class="notes-actions">
+                  <button class="secondary agent-save-notes" data-session-id="${escapeHtml(agent.sessionId)}">Save Notes</button>
+                </div>
+              </div>
+              
+              <div class="agent-memory-section">
+                <div class="memory-header">
+                  <span>💭 Memory Entries (${(agent.memory || []).length})</span>
+                  <a href="#" class="toggle-memory" data-session-id="${escapeHtml(agent.sessionId)}">
+                    ${(agent.memory || []).length > 0 ? 'Show' : 'Add'}
+                  </a>
+                </div>
+                <div class="memory-content-section memory-collapsed" data-session-id="${escapeHtml(agent.sessionId)}">
+                  <div class="memory-input">
+                    <input 
+                      type="text" 
+                      class="memory-entry-input"
+                      data-session-id="${escapeHtml(agent.sessionId)}"
+                      placeholder="Add a memory entry..."
+                    />
+                    <button class="agent-add-memory" data-session-id="${escapeHtml(agent.sessionId)}">Add</button>
+                  </div>
+                  <div class="memory-list">
+                    ${(agent.memory || []).map(mem => `
+                      <div class="memory-item">
+                        <div class="memory-content">${escapeHtml(mem.content)}</div>
+                        <div class="memory-time">${formatDate(mem.timestamp)}</div>
+                        <span class="memory-delete" data-session-id="${escapeHtml(agent.sessionId)}" data-memory-id="${mem.id}">×</span>
+                      </div>
+                    `).join('')}
+                    ${(agent.memory || []).length === 0 ? '<div style="color: #999; font-size: 12px; text-align: center; padding: 8px;">No memory entries yet</div>' : ''}
+                  </div>
+                </div>
+              </div>
             </div>
           `).join('');
           
@@ -373,6 +570,32 @@
           
           listElement.querySelectorAll('.agent-delete-btn').forEach(btn => {
             btn.addEventListener('click', () => deleteAgent(btn.dataset.sessionId));
+          });
+          
+          // Attach memory event listeners
+          listElement.querySelectorAll('.agent-save-notes').forEach(btn => {
+            btn.addEventListener('click', () => saveNotes(btn.dataset.sessionId));
+          });
+          
+          listElement.querySelectorAll('.agent-add-memory').forEach(btn => {
+            btn.addEventListener('click', () => addMemoryEntry(btn.dataset.sessionId));
+          });
+          
+          listElement.querySelectorAll('.memory-entry-input').forEach(input => {
+            input.addEventListener('keypress', (e) => {
+              if (e.key === 'Enter') addMemoryEntry(input.dataset.sessionId);
+            });
+          });
+          
+          listElement.querySelectorAll('.memory-delete').forEach(span => {
+            span.addEventListener('click', () => deleteMemoryEntry(span.dataset.sessionId, parseInt(span.dataset.memoryId)));
+          });
+          
+          listElement.querySelectorAll('.toggle-memory').forEach(link => {
+            link.addEventListener('click', (e) => {
+              e.preventDefault();
+              toggleMemorySection(link.dataset.sessionId);
+            });
           });
         } else {
           lastUpdatedElement.textContent = 'Never';
