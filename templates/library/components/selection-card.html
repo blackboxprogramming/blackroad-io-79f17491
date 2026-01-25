@@ -1,0 +1,27 @@
+<!-- Selection Card Component -->
+<!--
+  Variables:
+    - title: Card title
+    - description: Card description
+    - icon: Icon HTML (optional)
+    - selected: boolean
+    - name: Input name for form submission
+    - value: Input value
+-->
+<label class="selection-card {{#if selected}}selected{{/if}} {{class}}">
+  <input type="checkbox" name="{{name}}" value="{{value}}" {{#if selected}}checked{{/if}} class="selection-input">
+  <span class="selection-check">
+    {{#if selected}}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" width="12" height="12">
+      <polyline points="20 6 9 17 4 12"/>
+    </svg>
+    {{/if}}
+  </span>
+  {{#if icon}}
+  <div class="selection-icon">{{{icon}}}</div>
+  {{else}}
+  <div class="selection-icon"></div>
+  {{/if}}
+  <div class="selection-title">{{title}}</div>
+  <div class="selection-desc">{{description}}</div>
+</label>

@@ -1,0 +1,10 @@
+<!-- Live Indicator Badge Component -->
+<!--
+  Variables:
+    - text: Badge text (default: "Live")
+    - active: boolean - show pulsing dot
+-->
+<span class="live-badge {{class}}">
+  <span class="live-dot {{#if active}}active{{/if}}"></span>
+  {{#if text}}{{text}}{{else}}Live{{/if}}
+</span>

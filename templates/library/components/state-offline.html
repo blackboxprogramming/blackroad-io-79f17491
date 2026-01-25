@@ -1,0 +1,22 @@
+<!-- Offline State Component -->
+<!--
+  Variables:
+    - title: Offline title (default: "You're offline")
+    - description: Offline description
+    - retry_btn: Retry button label (default: "Retry")
+    - retry_action: Retry action
+    - class: Additional CSS classes (optional)
+-->
+<div class="state-card offline {{class}}">
+  <div class="offline-icon">
+    <div class="offline-cloud"></div>
+    <div class="offline-slash"></div>
+  </div>
+
+  <h1 class="state-title">{{title}}</h1>
+  <p class="state-desc">{{description}}</p>
+
+  <div class="state-actions">
+    <button class="state-btn state-btn-primary" data-action="{{retry_action}}">{{retry_btn}}</button>
+  </div>
+</div>

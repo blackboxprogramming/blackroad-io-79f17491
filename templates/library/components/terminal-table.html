@@ -1,0 +1,32 @@
+<!-- Terminal Output Table Component -->
+<!--
+  Variables:
+    - columns: [{ key, label }]
+    - rows: [{ id, name, role, status, uptime, ... }]
+-->
+<div class="output-block {{class}}">
+  <table class="output-table">
+    <thead>
+      <tr>
+        {{#each columns}}
+        <th>{{label}}</th>
+        {{/each}}
+      </tr>
+    </thead>
+    <tbody>
+      {{#each rows}}
+      <tr>
+        {{#each ../columns}}
+        <td>
+          {{#if (eq key "status")}}
+          <span class="status-badge {{#if (eq (lookup .. key) 'running')}}active{{/if}}">{{lookup .. key}}</span>
+          {{else}}
+          {{lookup .. key}}
+          {{/if}}
+        </td>
+        {{/each}}
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

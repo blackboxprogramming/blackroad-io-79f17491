@@ -1,0 +1,54 @@
+<!-- Form Field Component -->
+<!--
+  Variables:
+    - name: Field name
+    - label: Field label
+    - type: 'text', 'email', 'password', 'textarea', 'select'
+    - placeholder: Placeholder text
+    - value: Default value
+    - hint: Help text below field
+    - options: Array of options for select type with {value, label}
+    - required: Boolean
+    - row_start: Boolean to start a new row (for grid layout)
+    - row_end: Boolean to end a row
+    - class: Additional CSS classes (optional)
+-->
+{{#if row_start}}<div class="form-row">{{/if}}
+
+<div class="form-group {{class}}">
+  {{#if label}}
+  <label class="form-label" for="{{name}}">{{label}}</label>
+  {{/if}}
+
+  {{#if (eq type 'textarea')}}
+  <textarea
+    id="{{name}}"
+    name="{{name}}"
+    class="form-input form-textarea"
+    placeholder="{{placeholder}}"
+    {{#if required}}required{{/if}}
+  >{{value}}</textarea>
+  {{else if (eq type 'select')}}
+  <select id="{{name}}" name="{{name}}" class="form-select" {{#if required}}required{{/if}}>
+    {{#each options}}
+    <option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>
+    {{/each}}
+  </select>
+  {{else}}
+  <input
+    type="{{type}}"
+    id="{{name}}"
+    name="{{name}}"
+    class="form-input"
+    placeholder="{{placeholder}}"
+    value="{{value}}"
+    {{#if required}}required{{/if}}
+  >
+  {{/if}}
+
+  {{#if hint}}
+  <div class="form-hint">{{hint}}</div>
+  {{/if}}
+</div>
+
+{{#if row_end}}</div>{{/if}}

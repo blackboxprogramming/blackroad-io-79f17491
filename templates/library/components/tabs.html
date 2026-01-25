@@ -1,0 +1,14 @@
+<!-- Tabs Component -->
+<!--
+  Variables:
+    - tabs: Array of { id, text, active: boolean, href (optional) }
+-->
+<nav class="tabs {{class}}">
+  {{#each tabs}}
+  {{#if href}}
+  <a href="{{href}}" class="tab {{#if active}}active{{/if}}" data-tab="{{id}}">{{text}}</a>
+  {{else}}
+  <button class="tab {{#if active}}active{{/if}}" data-tab="{{id}}">{{text}}</button>
+  {{/if}}
+  {{/each}}
+</nav>

@@ -1,0 +1,24 @@
+<!-- Activity List Component -->
+<!--
+  Variables:
+    - title: Card title
+    - items: Array of { text, time, type: "default" | "success" | "warning" | "error" }
+-->
+<div class="activity-card {{class}}">
+  <div class="activity-header">
+    <div class="activity-title">{{#if title}}{{title}}{{else}}Activity{{/if}}</div>
+  </div>
+  <div class="activity-list">
+    {{#each items}}
+    <div class="activity-item">
+      <div class="activity-dot {{#if type}}{{type}}{{/if}}"></div>
+      <div class="activity-content">
+        <div class="activity-text">{{text}}</div>
+        {{#if time}}
+        <div class="activity-time">{{time}}</div>
+        {{/if}}
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</div>

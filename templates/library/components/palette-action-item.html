@@ -1,0 +1,31 @@
+<!-- Palette Action Item Component -->
+<!--
+  Variables:
+    - id: Action ID
+    - icon: Icon HTML (optional)
+    - title: Action title
+    - shortcut: Array of keyboard keys (optional)
+    - selected: Boolean for selected state
+    - class: Additional CSS classes (optional)
+-->
+<div class="action-item {{#if selected}}selected{{/if}} {{class}}" data-action="{{id}}">
+  <div class="action-icon">
+    {{#if icon}}
+    {{{icon}}}
+    {{else}}
+    <span class="action-icon-inner"></span>
+    {{/if}}
+  </div>
+
+  <div class="action-content">
+    <div class="action-title">{{title}}</div>
+  </div>
+
+  {{#if shortcut}}
+  <div class="action-shortcut">
+    {{#each shortcut}}
+    <kbd>{{this}}</kbd>
+    {{/each}}
+  </div>
+  {{/if}}
+</div>

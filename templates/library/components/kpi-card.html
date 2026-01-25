@@ -1,0 +1,36 @@
+<!-- KPI Card Component -->
+<!--
+  Variables:
+    - label: Metric label
+    - value: Metric value (formatted)
+    - icon: Icon HTML (optional)
+    - change: { value, type: "positive" | "negative", text }
+-->
+<div class="kpi-card {{class}}">
+  <div class="kpi-header">
+    <span class="kpi-label">{{label}}</span>
+    {{#if icon}}
+    <span class="kpi-icon">{{{icon}}}</span>
+    {{else}}
+    <span class="kpi-icon"></span>
+    {{/if}}
+  </div>
+  <div class="kpi-value">{{value}}</div>
+  {{#if change}}
+  <div class="kpi-change">
+    <span class="change-indicator {{#if (eq change.type 'positive')}}positive{{else}}negative{{/if}}">
+      {{#if (eq change.type 'positive')}}
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
+        <polyline points="18 15 12 9 6 15"/>
+      </svg>
+      {{else}}
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+      {{/if}}
+    </span>
+    <span class="change-{{change.type}}">{{change.value}}</span>
+    <span class="change-text">{{change.text}}</span>
+  </div>
+  {{/if}}
+</div>

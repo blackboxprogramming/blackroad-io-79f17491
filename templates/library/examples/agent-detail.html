@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lucidia — Agent Detail — BlackRoad</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/variables.css">
+  <link rel="stylesheet" href="../styles/base.css">
+  <link rel="stylesheet" href="../styles/typography.css">
+  <link rel="stylesheet" href="../styles/components.css">
+  <link rel="stylesheet" href="../styles/detail.css">
+</head>
+<body>
+
+  <div class="page">
+
+    <!-- BREADCRUMB -->
+    <nav class="breadcrumb">
+      <a href="#">Dashboard</a>
+      <span class="breadcrumb-sep">/</span>
+      <a href="#">Agents</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">Lucidia</span>
+    </nav>
+
+    <!-- AGENT HERO -->
+    <header class="agent-hero">
+      <div class="agent-avatar-lg">L</div>
+      <div class="agent-info">
+        <div class="agent-name-row">
+          <h1 class="agent-name">Lucidia</h1>
+          <span class="badge badge-success">Active</span>
+        </div>
+        <p class="agent-role">Core Intelligence Agent</p>
+        <div class="agent-meta">
+          <div class="meta-item">
+            <span class="meta-value">1,247</span>
+            <span class="meta-label">Tasks</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-value">0.98</span>
+            <span class="meta-label">Coherence</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-value">14d 7h</span>
+            <span class="meta-label">Uptime</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-value">2024-01-15</span>
+            <span class="meta-label">Created</span>
+          </div>
+        </div>
+      </div>
+      <div class="agent-actions">
+        <button class="btn btn-ghost">Edit</button>
+        <button class="btn btn-primary">Run Task</button>
+        <button class="btn btn-danger">Stop</button>
+      </div>
+    </header>
+
+    <!-- TABS -->
+    <nav class="tabs">
+      <button class="tab active" data-tab="overview">Overview</button>
+      <button class="tab" data-tab="memory">Memory</button>
+      <button class="tab" data-tab="tasks">Tasks</button>
+      <button class="tab" data-tab="config">Config</button>
+      <button class="tab" data-tab="logs">Logs</button>
+    </nav>
+
+    <!-- CONTENT -->
+    <div class="content-grid">
+
+      <!-- MAIN COLUMN -->
+      <div class="main-col">
+
+        <!-- MEMORY LOG -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Memory Journal</span>
+            <a href="#" class="card-action">View all</a>
+          </div>
+          <div class="card-body memory-log">
+            <div class="memory-entry">
+              <div class="memory-header">
+                <span class="memory-hash">ps-sha∞://7f3a8c...</span>
+                <span class="memory-time">2 minutes ago</span>
+              </div>
+              <div class="memory-content">Processed inference request for domain analysis. Updated coherence state with new truth values from paraconsistent reasoning.</div>
+            </div>
+            <div class="memory-entry">
+              <div class="memory-header">
+                <span class="memory-hash">ps-sha∞://4d2e9b...</span>
+                <span class="memory-time">8 minutes ago</span>
+              </div>
+              <div class="memory-content">Synchronized memory state with Alice gateway. Established new connection protocol for distributed task handling.</div>
+            </div>
+            <div class="memory-entry">
+              <div class="memory-header">
+                <span class="memory-hash">ps-sha∞://1a6f7d...</span>
+                <span class="memory-time">15 minutes ago</span>
+              </div>
+              <div class="memory-content">Completed batch inference task. Resolved 12 contradictions using trinary logic evaluation.</div>
+            </div>
+            <div class="memory-entry">
+              <div class="memory-header">
+                <span class="memory-hash">ps-sha∞://9c4b2a...</span>
+                <span class="memory-time">23 minutes ago</span>
+              </div>
+              <div class="memory-content">Initialized new reasoning chain for multi-agent coordination task.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RECENT TASKS -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Recent Tasks</span>
+            <a href="#" class="card-action">View all</a>
+          </div>
+          <div class="card-body">
+            <div class="task-list">
+              <div class="task-item">
+                <div class="task-status status-complete"></div>
+                <div class="task-content">
+                  <div class="task-title">Domain coherence analysis</div>
+                  <div class="task-meta">TSK-4721 &bull; 1.2s</div>
+                </div>
+                <span class="task-badge">Inference</span>
+              </div>
+              <div class="task-item">
+                <div class="task-status status-complete"></div>
+                <div class="task-content">
+                  <div class="task-title">Memory sync with gateway</div>
+                  <div class="task-meta">TSK-4720 &bull; 0.8s</div>
+                </div>
+                <span class="task-badge">Sync</span>
+              </div>
+              <div class="task-item">
+                <div class="task-status status-running"></div>
+                <div class="task-content">
+                  <div class="task-title">Batch contradiction resolution</div>
+                  <div class="task-meta">TSK-4719 &bull; 3.4s</div>
+                </div>
+                <span class="task-badge">Processing</span>
+              </div>
+              <div class="task-item">
+                <div class="task-status status-complete"></div>
+                <div class="task-content">
+                  <div class="task-title">Truth state verification</div>
+                  <div class="task-meta">TSK-4718 &bull; 0.3s</div>
+                </div>
+                <span class="task-badge">Verify</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CONFIG SNIPPET -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Configuration</span>
+            <a href="#" class="card-action">Edit</a>
+          </div>
+          <div class="card-body">
+            <pre class="code-block"><span class="dim">// agent.config.json</span>
+{
+  "name": "Lucidia",
+  "role": "Core Intelligence Agent",
+  "memory": {
+    "type": "PS-SHA∞",
+    "persistence": "append-only"
+  },
+  "logic": {
+    "mode": "trinary",
+    "coherence_threshold": 0.95
+  }
+}</pre>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SIDEBAR -->
+      <aside>
+
+        <!-- STATS -->
+        <div class="sidebar-card">
+          <div class="sidebar-header">
+            <span class="sidebar-title">Performance</span>
+          </div>
+          <div class="sidebar-body">
+            <div class="stats-mini">
+              <div class="stat-mini">
+                <div class="stat-mini-value">142</div>
+                <div class="stat-mini-label">Tasks/hr</div>
+              </div>
+              <div class="stat-mini">
+                <div class="stat-mini-value">847</div>
+                <div class="stat-mini-label">Avg ms</div>
+              </div>
+              <div class="stat-mini">
+                <div class="stat-mini-value">99.2%</div>
+                <div class="stat-mini-label">Success</div>
+              </div>
+              <div class="stat-mini">
+                <div class="stat-mini-value">3</div>
+                <div class="stat-mini-label">Errors</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SYSTEM -->
+        <div class="sidebar-card">
+          <div class="sidebar-header">
+            <span class="sidebar-title">System</span>
+          </div>
+          <div class="sidebar-body">
+            <div class="config-row">
+              <span class="config-label">Memory</span>
+              <span class="config-value">PS-SHA∞</span>
+            </div>
+            <div class="config-row">
+              <span class="config-label">Logic Mode</span>
+              <span class="config-value">Trinary</span>
+            </div>
+            <div class="config-row">
+              <span class="config-label">Runtime</span>
+              <span class="config-value">K3s Pod</span>
+            </div>
+            <div class="config-row">
+              <span class="config-label">Host</span>
+              <span class="config-value">alice-pi400</span>
+            </div>
+            <div class="config-row">
+              <span class="config-label">Version</span>
+              <span class="config-value">0.4.2-alpha</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CONNECTIONS -->
+        <div class="sidebar-card">
+          <div class="sidebar-header">
+            <span class="sidebar-title">Connected Agents</span>
+          </div>
+          <div class="sidebar-body">
+            <div class="connection-list">
+              <a href="#" class="connection-item">
+                <div class="connection-avatar">A</div>
+                <span class="connection-name">Alice</span>
+                <span class="connection-type">Gateway</span>
+              </a>
+              <a href="#" class="connection-item">
+                <div class="connection-avatar">O</div>
+                <span class="connection-name">Octavia</span>
+                <span class="connection-type">Worker</span>
+              </a>
+              <a href="#" class="connection-item">
+                <div class="connection-avatar">C</div>
+                <span class="connection-name">Cipher</span>
+                <span class="connection-type">Crypto</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </aside>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!-- Palette Agent Item Component -->
+<!--
+  Variables:
+    - id: Agent ID
+    - avatar_url: Avatar image URL (optional)
+    - name: Agent name
+    - role: Agent role/description
+    - status: 'running', 'idle', or 'offline'
+    - selected: Boolean for selected state
+    - class: Additional CSS classes (optional)
+-->
+<div class="agent-item {{#if selected}}selected{{/if}} {{class}}" data-agent="{{id}}">
+  <div class="agent-avatar" {{#if avatar_url}}style="background-image: url('{{avatar_url}}')"{{/if}}></div>
+
+  <div class="agent-info">
+    <div class="agent-name">{{name}}</div>
+    <div class="agent-role">{{role}}</div>
+  </div>
+
+  <div class="agent-status">
+    <span class="status-dot {{#if (eq status 'running')}}active{{/if}}"></span>
+    <span class="status-text">
+      {{#if (eq status 'running')}}Running{{/if}}
+      {{#if (eq status 'idle')}}Idle{{/if}}
+      {{#if (eq status 'offline')}}Offline{{/if}}
+    </span>
+  </div>
+</div>

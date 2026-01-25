@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terminal — Lucidia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/variables.css">
+  <link rel="stylesheet" href="../styles/base.css">
+  <link rel="stylesheet" href="../styles/typography.css">
+  <link rel="stylesheet" href="../styles/components.css">
+  <link rel="stylesheet" href="../styles/terminal.css">
+</head>
+<body>
+  <div class="terminal-layout">
+    <!-- Sidebar -->
+    <aside class="terminal-sidebar">
+      <div class="sidebar-header">
+        <span class="terminal-logo">Lucidia</span>
+        <span class="version-badge">v0.1.0</span>
+      </div>
+
+      <div class="sessions-list">
+        <div class="session-label">Sessions</div>
+        <div class="session-item active">
+          <span class="session-icon"></span>
+          <span class="session-name">main</span>
+          <span class="session-status running"></span>
+        </div>
+        <div class="session-item">
+          <span class="session-icon"></span>
+          <span class="session-name">agents</span>
+          <span class="session-status running"></span>
+        </div>
+        <div class="session-item">
+          <span class="session-icon"></span>
+          <span class="session-name">logs</span>
+          <span class="session-status"></span>
+        </div>
+        <div class="session-item">
+          <span class="session-icon"></span>
+          <span class="session-name">debug</span>
+          <span class="session-status"></span>
+        </div>
+      </div>
+
+      <button class="new-session-btn">+ New Session</button>
+    </aside>
+
+    <!-- Main Terminal -->
+    <main class="terminal-main">
+      <!-- Tab Bar -->
+      <div class="terminal-tab-bar">
+        <div class="terminal-tab active">
+          <span class="tab-icon"></span>
+          <span class="tab-name">main</span>
+          <span class="tab-close">&times;</span>
+        </div>
+        <div class="terminal-tab">
+          <span class="tab-icon"></span>
+          <span class="tab-name">agents</span>
+          <span class="tab-close">&times;</span>
+        </div>
+        <div class="tab-add">+</div>
+        <div class="tab-spacer"></div>
+        <div class="tab-actions">
+          <button class="tab-action"><span class="tab-action-icon"></span></button>
+          <button class="tab-action"><span class="tab-action-icon"></span></button>
+        </div>
+      </div>
+
+      <!-- Terminal Content -->
+      <div class="terminal-content">
+        <div class="terminal-line">
+          <span class="line-output">Lucidia CLI v0.1.0</span>
+        </div>
+        <div class="terminal-line">
+          <span class="line-output">Type 'help' for available commands</span>
+        </div>
+
+        <div class="line-break"></div>
+
+        <div class="terminal-line">
+          <span class="line-prompt">lucidia $</span>
+          <span class="line-command">agents list</span>
+        </div>
+
+        <div class="output-block">
+          <table class="output-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Uptime</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>agt_001</td>
+                <td>Atlas</td>
+                <td>Orchestrator</td>
+                <td><span class="status-badge active">running</span></td>
+                <td>4h 23m</td>
+              </tr>
+              <tr>
+                <td>agt_002</td>
+                <td>Nova</td>
+                <td>Code Generator</td>
+                <td><span class="status-badge active">running</span></td>
+                <td>4h 21m</td>
+              </tr>
+              <tr>
+                <td>agt_003</td>
+                <td>Echo</td>
+                <td>Memory Keeper</td>
+                <td><span class="status-badge">idle</span></td>
+                <td>4h 20m</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="terminal-line">
+          <span class="line-success">&#10003; 3 agents found</span>
+        </div>
+
+        <div class="line-break"></div>
+
+        <div class="terminal-line">
+          <span class="line-prompt">lucidia $</span>
+          <span class="line-command">memory status</span>
+        </div>
+
+        <div class="terminal-line">
+          <span class="line-output">Memory System: Active</span>
+        </div>
+        <div class="terminal-line">
+          <span class="line-output">Mode: append-only</span>
+        </div>
+        <div class="terminal-line">
+          <span class="line-output">Entries: 1,247</span>
+        </div>
+        <div class="terminal-line">
+          <span class="line-output">Last hash: 0x7f3a...d921</span>
+        </div>
+
+        <div class="line-break"></div>
+
+        <div class="terminal-line">
+          <span class="line-prompt">lucidia $</span>
+          <span class="line-command">agent spawn --name "Sentinel" --role "Security Monitor"</span>
+        </div>
+
+        <div class="terminal-line">
+          <span class="line-info">&#8635; Initializing agent...</span>
+        </div>
+        <div class="terminal-line">
+          <span class="line-info">&#8635; Allocating memory journal...</span>
+        </div>
+        <div class="terminal-line">
+          <span class="line-info">&#8635; Registering capabilities...</span>
+        </div>
+        <div class="terminal-line">
+          <span class="line-success">&#10003; Agent spawned: agt_004</span>
+        </div>
+
+        <div class="line-break"></div>
+
+        <div class="terminal-line">
+          <span class="line-prompt">lucidia $</span>
+          <span class="line-command">config get api.endpoint</span>
+        </div>
+
+        <div class="terminal-line">
+          <span class="line-output">https://api.lucidia.io/v1</span>
+        </div>
+
+        <div class="line-break"></div>
+
+        <div class="terminal-line">
+          <span class="line-prompt">lucidia $</span>
+          <span class="line-command">invalid-command</span>
+        </div>
+
+        <div class="terminal-line">
+          <span class="line-error">&#10007; Command not found: invalid-command</span>
+        </div>
+        <div class="terminal-line">
+          <span class="line-info">  Run 'help' to see available commands</span>
+        </div>
+
+        <div class="line-break"></div>
+      </div>
+
+      <!-- Input -->
+      <div class="terminal-input-area">
+        <div class="input-line">
+          <span class="input-prompt">lucidia $</span>
+          <input type="text" class="terminal-input" placeholder="" autofocus>
+          <span class="input-cursor"></span>
+        </div>
+        <div class="input-hint">
+          <kbd>&uarr;</kbd> <kbd>&darr;</kbd> history &middot; <kbd>Tab</kbd> autocomplete &middot; <kbd>Ctrl+C</kbd> cancel
+        </div>
+      </div>
+    </main>
+
+    <!-- Info Panel -->
+    <aside class="terminal-info-panel">
+      <div class="info-header">
+        <div class="info-title">Session: main</div>
+        <div class="info-subtitle">PID 42391</div>
+      </div>
+
+      <div class="info-content">
+        <div class="info-section">
+          <div class="info-label">Connection</div>
+          <div class="connection-status">
+            <span class="connection-dot connected"></span>
+            <span class="connection-text">Connected to cluster</span>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <div class="info-label">System</div>
+          <div class="stat-row">
+            <span class="stat-name">CPU</span>
+            <span class="stat-value">12%</span>
+          </div>
+          <div class="stat-row">
+            <span class="stat-name">Memory</span>
+            <span class="stat-value">2.4 GB</span>
+          </div>
+          <div class="stat-row">
+            <span class="stat-name">Agents</span>
+            <span class="stat-value">4 active</span>
+          </div>
+          <div class="stat-row">
+            <span class="stat-name">Uptime</span>
+            <span class="stat-value">4h 23m</span>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <div class="info-label">Environment</div>
+          <div class="env-item">
+            <span class="env-key">NODE_ENV</span>
+            <span class="env-value">production</span>
+          </div>
+          <div class="env-item">
+            <span class="env-key">CLUSTER</span>
+            <span class="env-value">us-east-1</span>
+          </div>
+          <div class="env-item">
+            <span class="env-key">LOG_LEVEL</span>
+            <span class="env-value">info</span>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <div class="info-label">Quick Commands</div>
+          <div class="quick-cmd">agents list</div>
+          <div class="quick-cmd">memory status</div>
+          <div class="quick-cmd">logs tail -f</div>
+          <div class="quick-cmd">config show</div>
+          <div class="quick-cmd">cluster health</div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!-- Toggle Switch Component -->
+<!--
+  Variables:
+    - name: Input name
+    - label: Toggle label
+    - description: Toggle description (optional)
+    - checked: boolean
+    - disabled: boolean
+-->
+<div class="toggle-group {{class}}">
+  <div class="toggle-info">
+    <div class="toggle-label">{{label}}</div>
+    {{#if description}}
+    <div class="toggle-desc">{{description}}</div>
+    {{/if}}
+  </div>
+  <label class="toggle-switch">
+    <input
+      type="checkbox"
+      name="{{name}}"
+      class="toggle-input"
+      {{#if checked}}checked{{/if}}
+      {{#if disabled}}disabled{{/if}}
+    >
+    <span class="toggle-slider"></span>
+  </label>
+</div>

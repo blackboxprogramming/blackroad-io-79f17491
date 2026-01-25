@@ -1,0 +1,25 @@
+<!-- Code Block Component -->
+<!--
+  Variables:
+    - code: The code content (pre-formatted)
+    - language: Programming language (for potential syntax highlighting)
+-->
+<div class="code-block {{class}}">
+  <pre>{{code}}</pre>
+</div>
+
+<!--
+  For syntax highlighting, use span classes within code:
+  - .dim     - Comments, less important
+  - .bright  - Keywords, important tokens
+  - .string  - String literals
+  - .keyword - Language keywords
+  - .function - Function names
+  - .comment - Comments
+
+  Example:
+  <pre><span class="comment">// Initialize agent</span>
+<span class="keyword">const</span> agent = <span class="keyword">new</span> Agent({
+  name: <span class="string">'Lucidia'</span>
+});</pre>
+-->

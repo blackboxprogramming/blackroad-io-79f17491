@@ -1,0 +1,13 @@
+<!-- Key-Value List Component -->
+<!--
+  Variables:
+    - items: Array of { key, value }
+-->
+<div class="kv-list {{class}}">
+  {{#each items}}
+  <div class="kv-row">
+    <div class="kv-key">{{key}}</div>
+    <div class="kv-value">{{value}}</div>
+  </div>
+  {{/each}}
+</div>

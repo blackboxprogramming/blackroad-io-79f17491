@@ -1,0 +1,19 @@
+<!-- Task Item Component -->
+<!--
+  Variables:
+    - title: Task title
+    - id: Task ID
+    - duration: Task duration
+    - type: Task type badge
+    - status: "pending" | "running" | "complete" | "error"
+-->
+<div class="task-item {{class}}">
+  <div class="task-status {{#if status}}status-{{status}}{{/if}}"></div>
+  <div class="task-content">
+    <div class="task-title">{{title}}</div>
+    <div class="task-meta">{{id}}{{#if duration}} &bull; {{duration}}{{/if}}</div>
+  </div>
+  {{#if type}}
+  <span class="task-badge">{{type}}</span>
+  {{/if}}
+</div>

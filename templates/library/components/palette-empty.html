@@ -1,0 +1,23 @@
+<!-- Palette Empty State Component -->
+<!--
+  Variables:
+    - icon: Icon HTML (optional)
+    - title: Empty state title
+    - description: Empty state description
+    - class: Additional CSS classes (optional)
+-->
+<div class="empty-results {{class}}">
+  <div class="empty-icon">
+    {{#if icon}}
+    {{{icon}}}
+    {{else}}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+      <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    {{/if}}
+  </div>
+  <div class="empty-title">{{title}}</div>
+  {{#if description}}
+  <div class="empty-desc">{{description}}</div>
+  {{/if}}
+</div>

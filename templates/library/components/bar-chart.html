@@ -1,0 +1,22 @@
+<!-- Horizontal Bar Chart Component -->
+<!--
+  Variables:
+    - title: Chart title
+    - bars: [{ label, value, percent, color }]
+-->
+<div class="chart-card bar-chart-card {{class}}">
+  <div class="chart-header">
+    <span class="chart-title">{{title}}</span>
+  </div>
+  <div class="bar-chart">
+    {{#each bars}}
+    <div class="bar-row">
+      <span class="bar-label">{{label}}</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: {{percent}}%{{#if color}}; background: {{color}}{{/if}}"></div>
+      </div>
+      <span class="bar-value">{{value}}</span>
+    </div>
+    {{/each}}
+  </div>
+</div>

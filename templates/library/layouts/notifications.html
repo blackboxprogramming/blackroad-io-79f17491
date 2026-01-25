@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}} — {{app_name}}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{base_url}}/templates/styles/variables.css">
+  <link rel="stylesheet" href="{{base_url}}/templates/styles/base.css">
+  <link rel="stylesheet" href="{{base_url}}/templates/styles/typography.css">
+  <link rel="stylesheet" href="{{base_url}}/templates/styles/components.css">
+  <link rel="stylesheet" href="{{base_url}}/templates/styles/notifications.css">
+</head>
+<body>
+  <div class="notifications-page">
+    <div class="page-header">
+      <h1 class="page-title">{{page_title}}</h1>
+      {{#if actions}}
+      <div class="page-actions">
+        {{#each actions}}
+        <button class="page-btn" data-action="{{action}}">{{label}}</button>
+        {{/each}}
+      </div>
+      {{/if}}
+    </div>
+
+    {{#if filters}}
+    {{> notification-filters filters=filters show_search=show_search search_placeholder=search_placeholder}}
+    {{/if}}
+
+    {{#if groups}}
+    {{#each groups}}
+    {{> notification-group}}
+    {{/each}}
+    {{else}}
+    {{> empty-notifications title=empty_title description=empty_description}}
+    {{/if}}
+  </div>
+
+  {{#if toasts}}
+  {{> toast-stack toasts=toasts position="bottom-right"}}
+  {{/if}}
+</body>
+</html>

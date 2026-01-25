@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sprint 24 — BlackRoad</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/variables.css">
+  <link rel="stylesheet" href="../styles/base.css">
+  <link rel="stylesheet" href="../styles/typography.css">
+  <link rel="stylesheet" href="../styles/components.css">
+  <link rel="stylesheet" href="../styles/kanban.css">
+</head>
+<body>
+  <div class="kanban-layout">
+    <!-- Header -->
+    <header class="kanban-header">
+      <div class="header-left">
+        <button class="back-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+        </button>
+        <div class="board-info">
+          <div class="board-icon"></div>
+          <div>
+            <div class="board-title">Sprint 24</div>
+            <div class="board-meta">18 tasks · Updated 2 hours ago</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-center">
+        <div class="view-toggle">
+          <button class="view-btn active">Board</button>
+          <button class="view-btn">List</button>
+          <button class="view-btn">Timeline</button>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <button class="filter-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+          </svg>
+          Filter
+        </button>
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input type="text" class="search-input" placeholder="Search tasks...">
+        </div>
+        <div class="members-group">
+          <div class="member-avatar"></div>
+          <div class="member-avatar"></div>
+          <div class="member-avatar"></div>
+          <div class="member-more">+3</div>
+        </div>
+        <button class="btn btn-primary">+ Add Task</button>
+      </div>
+    </header>
+
+    <!-- Board -->
+    <div class="board-container">
+      <div class="board">
+        <!-- Backlog Column -->
+        <div class="kanban-column">
+          <div class="column-header">
+            <div class="column-title-group">
+              <span class="column-dot"></span>
+              <span class="column-title">Backlog</span>
+              <span class="column-count">4</span>
+            </div>
+            <button class="column-menu">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+              </svg>
+            </button>
+          </div>
+          <div class="column-body">
+            <div class="kanban-card">
+              <div class="card-labels">
+                <span class="card-label">Feature</span>
+              </div>
+              <div class="card-title">Implement user onboarding flow</div>
+              <div class="card-desc">Create a guided tour for new users with tooltips and progress tracking.</div>
+              <div class="card-meta">
+                <div class="card-info">
+                  <span class="card-id">TSK-042</span>
+                </div>
+                <div class="card-assignees">
+                  <div class="card-assignee"></div>
+                </div>
+              </div>
+            </div>
+            <div class="kanban-card">
+              <div class="card-labels">
+                <span class="card-label">Bug</span>
+                <span class="card-label">Critical</span>
+              </div>
+              <div class="card-title">Fix memory leak in WebSocket handler</div>
+              <div class="card-meta">
+                <div class="card-info">
+                  <span class="card-id">TSK-041</span>
+                  <span class="due-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="10" height="10">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                    Jan 25
+                  </span>
+                </div>
+                <div class="card-assignees">
+                  <div class="card-assignee"></div>
+                  <div class="card-assignee"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="column-footer">
+            <button class="add-card-btn">+ Add task</button>
+          </div>
+        </div>
+
+        <!-- To Do Column -->
+        <div class="kanban-column">
+          <div class="column-header">
+            <div class="column-title-group">
+              <span class="column-dot" style="background: var(--gray-500)"></span>
+              <span class="column-title">To Do</span>
+              <span class="column-count">5</span>
+            </div>
+            <button class="column-menu">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+              </svg>
+            </button>
+          </div>
+          <div class="column-body">
+            <div class="kanban-card">
+              <div class="card-image"></div>
+              <div class="card-title">Design system documentation</div>
+              <div class="card-meta">
+                <div class="card-info">
+                  <span class="card-id">TSK-040</span>
+                  <span class="card-stat">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
+                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                    3
+                  </span>
+                </div>
+                <div class="card-assignees">
+                  <div class="card-assignee"></div>
+                </div>
+              </div>
+            </div>
+            <div class="kanban-card">
+              <div class="card-labels">
+                <span class="card-label">Enhancement</span>
+              </div>
+              <div class="card-title">Add dark mode toggle to settings</div>
+              <div class="card-progress">
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 60%"></div>
+                </div>
+                <div class="progress-text">3/5 subtasks</div>
+              </div>
+              <div class="card-meta">
+                <div class="card-info">
+                  <span class="card-id">TSK-039</span>
+                </div>
+                <div class="card-assignees">
+                  <div class="card-assignee"></div>
+                  <div class="card-assignee"></div>
+                  <div class="card-assignee"></div>
+                </div>
+              </div>
+            </div>
+            <div class="kanban-card">
+              <div class="card-title">Update API rate limiting</div>
+              <div class="card-desc">Implement token bucket algorithm for better rate control.</div>
+              <div class="card-meta">
+                <div class="card-info">
+                  <span class="card-id">TSK-038</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="column-footer">
+            <button class="add-card-btn">+ Add task</button>
+          </div>
+        </div>
+
+        <!-- In Progress Column -->
+        <div class="kanban-column">
+          <div class="column-header">
+            <div class="column-title-group">
+              <span class="column-dot" style="background: var(--gray-400)"></span>
+              <span class="column-title">In Progress</span>
+              <span class="column-count">3</span>
+            </div>
+            <button class="column-menu">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+              </svg>
+            </button>
+          </div>
+          <div class="column-body">
+            <div class="kanban-card">
+              <div class="card-labels">
+                <span class="card-label">Backend</span>
+              </div>
+              <div class="card-title">Implement OAuth2 integration</div>
+              <div class="card-desc">Add support for GitHub and Google SSO providers.</div>
+              <div class="card-meta">
+                <div class="card-info">
+                  <span class="card-id">TSK-037</span>
+                  <span class="card-stat">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
+                      <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
+                    </svg>
+                    2
+                  </span>
+                </div>
+                <div class="card-assignees">
+                  <div class="card-assignee"></div>
+                </div>
+              </div>
+            </div>
+            <div class="kanban-card">
+              <div class="card-labels">
+                <span class="card-label">Frontend</span>
+                <span class="card-label">UI</span>
+              </div>
+              <div class="card-title">Build notification center component</div>
+              <div class="card-progress">
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 80%"></div>
+                </div>
+                <div class="progress-text">4/5 subtasks</div>
+              </div>
+              <div class="card-meta">
+                <div class="card-info">
+                  <span class="card-id">TSK-036</span>
+                  <span class="due-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="10" height="10">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                    Jan 24
+                  </span>
+                </div>
+                <div class="card-assignees">
+                  <div class="card-assignee"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="column-footer">
+            <button class="add-card-btn">+ Add task</button>
+          </div>
+        </div>
+
+        <!-- Review Column -->
+        <div class="kanban-column">
+          <div class="column-header">
+            <div class="column-title-group">
+              <span class="column-dot" style="background: var(--gray-300)"></span>
+              <span class="column-title">Review</span>
+              <span class="column-count">2</span>
+            </div>
+            <button class="column-menu">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+              </svg>
+            </button>
+          </div>
+          <div class="column-body">
+            <div class="kanban-card">
+              <div class="card-title">Refactor database connection pooling</div>
+              <div class="card-meta">
+                <div class="card-info">
+                  <span class="card-id">TSK-035</span>
+                  <span class="card-stat">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
+                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                    5
+                  </span>
+                </div>
+                <div class="card-assignees">
+                  <div class="card-assignee"></div>
+                  <div class="card-assignee"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="column-footer">
+            <button class="add-card-btn">+ Add task</button>
+          </div>
+        </div>
+
+        <!-- Done Column -->
+        <div class="kanban-column">
+          <div class="column-header">
+            <div class="column-title-group">
+              <span class="column-dot" style="background: var(--gray-200)"></span>
+              <span class="column-title">Done</span>
+              <span class="column-count">4</span>
+            </div>
+            <button class="column-menu">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+              </svg>
+            </button>
+          </div>
+          <div class="column-body">
+            <div class="kanban-card">
+              <div class="card-labels">
+                <span class="card-label">DevOps</span>
+              </div>
+              <div class="card-title">Set up CI/CD pipeline</div>
+              <div class="card-meta">
+                <div class="card-info">
+                  <span class="card-id">TSK-034</span>
+                </div>
+                <div class="card-assignees">
+                  <div class="card-assignee"></div>
+                </div>
+              </div>
+            </div>
+            <div class="kanban-card">
+              <div class="card-title">Configure staging environment</div>
+              <div class="card-meta">
+                <div class="card-info">
+                  <span class="card-id">TSK-033</span>
+                </div>
+                <div class="card-assignees">
+                  <div class="card-assignee"></div>
+                </div>
+              </div>
+            </div>
+            <div class="kanban-card">
+              <div class="card-labels">
+                <span class="card-label">Testing</span>
+              </div>
+              <div class="card-title">Write unit tests for auth module</div>
+              <div class="card-desc">Cover all edge cases for login, logout, and token refresh flows.</div>
+              <div class="card-meta">
+                <div class="card-info">
+                  <span class="card-id">TSK-032</span>
+                </div>
+                <div class="card-assignees">
+                  <div class="card-assignee"></div>
+                  <div class="card-assignee"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="column-footer">
+            <button class="add-card-btn">+ Add task</button>
+          </div>
+        </div>
+
+        <!-- Add Column -->
+        <div class="add-column">
+          <button class="add-column-btn">+ Add Column</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

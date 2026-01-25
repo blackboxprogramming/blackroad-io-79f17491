@@ -1,0 +1,14 @@
+<!-- Notification Group Component -->
+<!--
+  Variables:
+    - label: Group label (e.g., "Today", "Yesterday")
+    - notifications: Array of notification items
+    - class: Additional CSS classes (optional)
+-->
+<div class="notification-group {{class}}">
+  <div class="notification-group-label">{{label}}</div>
+
+  {{#each notifications}}
+  {{> notification-list-item}}
+  {{/each}}
+</div>

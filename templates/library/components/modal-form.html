@@ -1,0 +1,45 @@
+<!-- Form Modal Component -->
+<!--
+  Variables:
+    - id: Modal ID
+    - icon: Icon HTML (optional)
+    - title: Form title
+    - description: Form description
+    - fields: Array of field objects (see form-field component)
+    - submit_btn: Submit button label
+    - submit_action: Submit action
+    - cancel_btn: Cancel button label (default: Cancel)
+    - class: Additional CSS classes (optional)
+-->
+<div class="modal-backdrop" data-modal="{{id}}">
+  <div class="modal {{class}}">
+    <div class="modal-header">
+      <div>
+        {{#if icon}}
+        <div class="modal-icon">
+          {{{icon}}}
+        </div>
+        {{/if}}
+      </div>
+      <button class="modal-close" data-action="close">&times;</button>
+    </div>
+
+    <div class="modal-body">
+      <h2 class="modal-title">{{title}}</h2>
+      {{#if description}}
+      <p class="modal-desc">{{description}}</p>
+      {{/if}}
+
+      <form class="modal-form" data-form="{{id}}">
+        {{#each fields}}
+        {{> form-field}}
+        {{/each}}
+      </form>
+    </div>
+
+    <div class="modal-footer right">
+      <button class="modal-btn modal-btn-secondary" data-action="close">{{cancel_btn}}</button>
+      <button class="modal-btn modal-btn-primary" data-action="{{submit_action}}">{{submit_btn}}</button>
+    </div>
+  </div>
+</div>

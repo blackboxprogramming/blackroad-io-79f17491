@@ -1,0 +1,41 @@
+<!-- Onboarding Success Component -->
+<!--
+  Variables:
+    - title: Success title
+    - description: Success description
+    - icon: Icon HTML (optional)
+    - stats: [{ value, label }]
+    - primary_action: { text, href }
+    - secondary_action: { text, href } (optional)
+-->
+<div class="success-content {{class}}">
+  <div class="success-icon">
+    {{#if icon}}
+    {{{icon}}}
+    {{else}}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="40" height="40">
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+    </svg>
+    {{/if}}
+  </div>
+  <h1 class="success-title">{{title}}</h1>
+  <p class="success-desc">{{description}}</p>
+
+  {{#if stats}}
+  <div class="success-stats">
+    {{#each stats}}
+    <div class="success-stat">
+      <div class="success-stat-value">{{value}}</div>
+      <div class="success-stat-label">{{label}}</div>
+    </div>
+    {{/each}}
+  </div>
+  {{/if}}
+
+  <div class="success-actions">
+    <a href="{{primary_action.href}}" class="btn btn-primary btn-lg">{{primary_action.text}}</a>
+    {{#if secondary_action}}
+    <a href="{{secondary_action.href}}" class="btn btn-secondary btn-lg">{{secondary_action.text}}</a>
+    {{/if}}
+  </div>
+</div>

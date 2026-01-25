@@ -1,0 +1,15 @@
+<!-- Breadcrumb Component -->
+<!--
+  Variables:
+    - items: Array of { href, text, current: boolean }
+-->
+<nav class="breadcrumb {{class}}">
+  {{#each items}}
+  {{#if current}}
+  <span class="breadcrumb-current">{{text}}</span>
+  {{else}}
+  <a href="{{href}}">{{text}}</a>
+  {{#unless @last}}<span class="breadcrumb-sep">/</span>{{/unless}}
+  {{/if}}
+  {{/each}}
+</nav>

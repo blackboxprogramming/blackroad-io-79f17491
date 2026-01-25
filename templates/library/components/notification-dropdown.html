@@ -1,0 +1,48 @@
+<!-- Notification Dropdown Component -->
+<!--
+  Variables:
+    - count: Unread notification count
+    - tabs: Array of tab objects with {label, active}
+    - notifications: Array of notification items
+    - footer_link: Link to full notifications page
+    - class: Additional CSS classes (optional)
+-->
+<div class="notification-dropdown {{class}}">
+  <div class="dropdown-header">
+    <div>
+      <span class="dropdown-title">Notifications</span>
+      {{#if count}}
+      <span class="dropdown-badge">{{count}}</span>
+      {{/if}}
+    </div>
+    <div class="dropdown-actions">
+      <button class="dropdown-action" data-action="mark-all-read">Mark all read</button>
+    </div>
+  </div>
+
+  {{#if tabs}}
+  <div class="dropdown-tabs">
+    {{#each tabs}}
+    <button class="dropdown-tab {{#if active}}active{{/if}}" data-tab="{{id}}">{{label}}</button>
+    {{/each}}
+  </div>
+  {{/if}}
+
+  <div class="dropdown-body">
+    {{#each notifications}}
+    {{> notification-item}}
+    {{/each}}
+
+    {{#unless notifications}}
+    <div class="dropdown-empty">
+      <div class="dropdown-empty-text">No notifications</div>
+    </div>
+    {{/unless}}
+  </div>
+
+  {{#if footer_link}}
+  <div class="dropdown-footer">
+    <a href="{{footer_link}}" class="dropdown-footer-link">View all notifications</a>
+  </div>
+  {{/if}}
+</div>

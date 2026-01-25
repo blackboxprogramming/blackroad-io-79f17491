@@ -1,0 +1,93 @@
+<!-- Data Table Component -->
+<!--
+  Variables:
+    - columns: Array of {
+        key: string,
+        label: string,
+        sortable: boolean,
+        sorted: "asc" | "desc" | null,
+        type: "text" | "mono" | "number" | "status" | "avatar" | "name" | "checkbox" | "actions",
+        width: string (optional, e.g., "120px")
+      }
+    - rows: Array of row objects with keys matching column.key
+    - selectable: boolean - show checkboxes
+    - actions: Array of { id, icon, label } - row actions
+    - empty_state: { icon, title, text } - shown when no rows
+-->
+
+{{#if rows.length}}
+<div class="table-container {{class}}">
+  <table>
+    <thead>
+      <tr>
+        {{#if selectable}}
+        <th class="cell-checkbox">
+          <input type="checkbox" class="checkbox checkbox-header" data-select-all>
+        </th>
+        {{/if}}
+        {{#each columns}}
+        <th
+          class="{{#if sortable}}sortable{{/if}} {{#if sorted}}sorted-{{sorted}}{{/if}}"
+          {{#if width}}style="width: {{width}}"{{/if}}
+          {{#if sortable}}data-sort="{{key}}"{{/if}}
+        >
+          {{label}}
+        </th>
+        {{/each}}
+        {{#if ../actions}}
+        <th class="cell-actions"></th>
+        {{/if}}
+      </tr>
+    </thead>
+    <tbody>
+      {{#each rows}}
+      <tr data-row-id="{{id}}">
+        {{#if ../selectable}}
+        <td class="cell-checkbox">
+          <input type="checkbox" class="checkbox" data-row-select value="{{id}}">
+        </td>
+        {{/if}}
+        {{#each ../columns}}
+        <td class="cell-{{type}}">
+          {{#if (eq type "avatar")}}
+          <div class="avatar-sm">{{lookup ../this key}}</div>
+          {{else if (eq type "name")}}
+          <div class="name-primary">{{lookup ../this (concat key '.primary')}}</div>
+          <div class="name-secondary">{{lookup ../this (concat key '.secondary')}}</div>
+          {{else if (eq type "status")}}
+          <span class="badge badge-{{lookup ../this (concat key '.variant')}}">{{lookup ../this (concat key '.text')}}</span>
+          {{else if (eq type "number")}}
+          {{lookup ../this key}}
+          {{else if (eq type "mono")}}
+          {{lookup ../this key}}
+          {{else}}
+          {{lookup ../this key}}
+          {{/if}}
+        </td>
+        {{/each}}
+        {{#if ../../actions}}
+        <td class="cell-actions">
+          {{#each ../../actions}}
+          <button class="action-btn" data-action="{{id}}" title="{{label}}">
+            {{icon}}
+          </button>
+          {{/each}}
+        </td>
+        {{/if}}
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+{{else}}
+<!-- Empty State -->
+<div class="table-container">
+  <div class="empty-state">
+    {{#if empty_state.icon}}
+    <div class="empty-icon">{{empty_state.icon}}</div>
+    {{/if}}
+    <div class="empty-title">{{#if empty_state.title}}{{empty_state.title}}{{else}}No data found{{/if}}</div>
+    <div class="empty-text">{{#if empty_state.text}}{{empty_state.text}}{{else}}There are no items to display.{{/if}}</div>
+  </div>
+</div>
+{{/if}}

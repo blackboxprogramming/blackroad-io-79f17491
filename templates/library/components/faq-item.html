@@ -1,0 +1,20 @@
+<!-- FAQ Item Component -->
+<!--
+  Variables:
+    - id: FAQ item ID
+    - question: Question text
+    - answer: Answer text (supports HTML)
+    - open: Boolean for open/expanded state
+    - class: Additional CSS classes (optional)
+-->
+<div class="faq-item {{#if open}}open{{/if}} {{class}}" data-faq="{{id}}">
+  <div class="faq-header" data-toggle="faq">
+    <span class="faq-question">{{question}}</span>
+    <span class="faq-toggle">
+      <span class="faq-toggle-icon"></span>
+    </span>
+  </div>
+  <div class="faq-answer">
+    {{{answer}}}
+  </div>
+</div>

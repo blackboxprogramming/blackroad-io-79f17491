@@ -1,0 +1,54 @@
+<!-- Command Palette Component -->
+<!--
+  Variables:
+    - placeholder: Input placeholder text
+    - query: Current search query
+    - close_key: Keyboard shortcut to close (default: ESC)
+    - groups: Array of result groups
+    - footer_hints: Array of hint objects with {keys, label}
+    - brand: Brand name to display in footer
+    - variant: 'search', 'actions', or 'agents' (default: search)
+    - class: Additional CSS classes (optional)
+-->
+<div class="backdrop">
+  <div class="palette {{variant}} {{class}}">
+    <!-- Search Input -->
+    <div class="palette-input-wrapper">
+      <svg class="palette-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input type="text" class="palette-input" placeholder="{{placeholder}}" value="{{query}}" autofocus>
+      <span class="palette-kbd">{{close_key}}</span>
+    </div>
+
+    <!-- Results -->
+    <div class="palette-results">
+      {{#if groups}}
+      {{#each groups}}
+      {{> palette-result-group}}
+      {{/each}}
+      {{else}}
+      {{> palette-empty title=empty_title description=empty_description}}
+      {{/if}}
+    </div>
+
+    <!-- Footer -->
+    {{#if footer_hints}}
+    <div class="palette-footer">
+      <div class="footer-hints">
+        {{#each footer_hints}}
+        <span class="footer-hint">
+          {{#each keys}}
+          <kbd>{{this}}</kbd>
+          {{/each}}
+          {{label}}
+        </span>
+        {{/each}}
+      </div>
+      {{#if brand}}
+      <span class="footer-brand">{{brand}}</span>
+      {{/if}}
+    </div>
+    {{/if}}
+  </div>
+</div>

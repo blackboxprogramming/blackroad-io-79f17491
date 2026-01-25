@@ -1,0 +1,25 @@
+<!-- Maintenance State Component -->
+<!--
+  Variables:
+    - title: Maintenance title (default: "Scheduled maintenance")
+    - description: Maintenance description
+    - resume_time: Expected resume time
+    - status_btn: Status page button label (optional)
+    - status_url: Status page URL
+    - class: Additional CSS classes (optional)
+-->
+<div class="state-card maintenance {{class}}">
+  <div class="maintenance-icon">
+    <div class="gear"></div>
+    <div class="gear-small"></div>
+  </div>
+
+  <h1 class="state-title">{{title}}</h1>
+  <p class="state-desc">{{description}}</p>
+
+  {{#if status_btn}}
+  <div class="state-actions">
+    <a href="{{status_url}}" class="state-btn state-btn-secondary">{{status_btn}}</a>
+  </div>
+  {{/if}}
+</div>

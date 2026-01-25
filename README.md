@@ -2,62 +2,79 @@
 
 A comprehensive collection of UI templates, components, and documentation pages for building sovereign, local-first AI systems.
 
-## 🎨 What's Inside
+## What's Inside
 
-This repository combines **29 open pull requests** into a unified template gallery featuring:
+This repository consolidates **44 open pull requests** into a unified template gallery featuring:
 
-- **25 Templates** - Full-page designs and UI components
-- **4 Components** - Reusable component building blocks  
-- **4 Documentation Pages** - Admin and developer interfaces
+- **32 Templates** - Full-page designs, animations, and UI components
+- **4 Standalone Components** - Reusable component building blocks
+- **5 Documentation Pages** - Admin, developer interfaces, and brand guide
+- **100+ Library Components** - Modular component system with layouts, examples, and styles
 - **1 Gallery Hub** - Central index.html for easy navigation
 
-## 📁 Structure
+## Structure
 
 ```
 blackroad-io/
-├── index.html              # Main gallery hub (start here!)
-├── templates/              # 25 template files
-│   ├── Landing pages (7)   # Various landing page designs
-│   ├── UI components (8)   # Feature-specific templates
-│   └── Page templates (10) # Common application views
-├── components/             # 4 component files
+├── index.html                    # Main gallery hub (start here!)
+├── CLAUDE.md                     # AI assistant guidelines
+├── README.md                     # This file
+├── templates/                    # 32 template files
+│   ├── landing-*.html           # 7 landing page designs
+│   ├── template-*.html          # Page templates and components
+│   ├── animation-universe.html  # CSS animation showcase
+│   ├── animations-emblems.html  # Animations library
+│   └── library/                 # Modular component system
+│       ├── components/          # 100+ individual component files
+│       ├── layouts/             # 15 layout templates
+│       ├── examples/            # 19 complete example pages
+│       ├── styles/              # 21 CSS style modules
+│       └── sections/            # Section templates
+├── components/                   # 4 standalone component files
 │   ├── navigation.html
 │   ├── form-elements.html
 │   ├── feedback.html
 │   └── tabs-controls.html
-└── docs/                   # 4 documentation pages
+└── docs/                         # 5 documentation pages
     ├── activity.html
     ├── admin-agents.html
     ├── agent-runtime.html
-    └── settings.html
+    ├── settings.html
+    └── brand-guide.html
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
 1. Open `index.html` in your browser to see the full template gallery
 2. Browse by category: Landing Pages, UI Components, Page Templates, etc.
 3. Click any card to view the template
 4. Use the templates as starting points for your own projects
 
-## 📋 Template Categories
+## Template Categories
 
 ### Landing Pages (7 designs)
 - Modern UI - Comprehensive contemporary design
 - Feedback Components - Component design system showcase
-- Grayscale Design - Minimalist grayscale aesthetic  
+- Grayscale Design - Minimalist grayscale aesthetic
 - Documentation Style - Docs-focused landing page
 - Terminal Theme - Retro computing aesthetic
 - Template 04 & 03 - BlackRoad OS branded designs
 
-### UI Component Templates (8 templates)
+### UI Component Templates (10 templates)
 - Search & Command Palette
 - Calendar Scheduler
+- Calendar Views (month/week/day)
 - File Browser
 - Avatars & Identity
 - Overlays Library (modals, dialogs, tooltips)
 - Dark UI Components
 - Data Tables
 - Chat Interface
+- Kanban Board
+
+### Animation Showcases (2 templates)
+- Animation Universe - 25+ pure CSS animations (portals, tesseracts, DNA helix, neural networks)
+- Animations & Emblems - Comprehensive animation library
 
 ### Page Templates (10 pages)
 - Brutalist Design System
@@ -71,55 +88,45 @@ blackroad-io/
 - Changelog
 - Status Page
 
-### Component Library (4 components)
+### Standalone Components (4)
 - Navigation
 - Form Elements
 - Feedback Components
 - Tabs & Controls
 
-### Documentation (4 pages)
+### Documentation (5 pages)
 - Activity Monitor
 - Admin Agents
 - Agent Runtime
 - Settings
+- Brand Guide
 
-## 🔨 Combined Pull Requests
+### Modular Component Library
+Located in `templates/library/`:
+- **100+ Components** - Buttons, cards, modals, forms, charts, and more
+- **15 Layouts** - Dashboard, chat, terminal, docs, kanban, etc.
+- **19 Examples** - Complete page examples
+- **21 Style Modules** - CSS variables, typography, component styles
 
-This repository is the result of merging 29 open pull requests (#8-#36):
+## Combined Pull Requests
 
-| PR # | Description |
-|------|-------------|
-| #8 | Redesign landing page with modern UI |
-| #9 | Add admin agents management interface |
-| #10 | Add navigation component library |
-| #11 | Add form elements component library |
-| #12 | Add feedback components design system |
-| #13 | Add search and command palette |
-| #14 | Add calendar scheduler component |
-| #15 | Add file browser component |
-| #16 | Add tabs and controls library |
-| #17 | Add avatars and identity template |
-| #18 | Redesign landing page (grayscale) |
-| #19 | Add Template 02 - Brutalist design |
-| #20 | Add Template 06 - Dashboard |
-| #21 | Add changelog page |
-| #22 | Add status page template |
-| #23 | Add careers page template |
-| #24 | Add template 08 showcase page |
-| #25 | Add documentation template |
-| #26 | Terminal-styled landing page |
-| #27 | Landing page with Template 04 |
-| #28 | Landing page with Template 03 |
-| #29 | Add pricing page template |
-| #30 | Add Template 13 - Settings page |
-| #31 | Add Template 14 - Onboarding wizard |
-| #32 | Add Template 15 - Error states |
-| #33 | Add Template 16 - Dark UI library |
-| #34 | Add Template 18 - Chat interface |
-| #35 | Add Template 17 - Data tables |
-| #36 | Add Template 16 - Overlays |
+This repository consolidates 44 open pull requests:
 
-## 💡 Usage
+| PR Range | Description |
+|----------|-------------|
+| #1 | Comprehensive UI component library (100+ components) |
+| #2-#5 | CLAUDE.md AI assistant guidelines |
+| #6-#7 | Landing page redesigns |
+| #8-#36 | Templates, components, and documentation |
+| #37 | Consolidation PR (combined #8-#36) |
+| #38 | Kanban board template |
+| #39 | File browser UI |
+| #40 | Brand guide documentation |
+| #41 | Animations & emblems library |
+| #42 | Calendar views template |
+| #43-#44 | Animation universe showcase |
+
+## Usage
 
 All templates are standalone HTML files with embedded CSS. No build process required!
 
@@ -128,7 +135,15 @@ Simply:
 2. Customize the HTML/CSS to your needs
 3. Deploy anywhere - these are static files
 
-## 🎯 About BlackRoad OS
+## Technology Stack
+
+- **HTML5** - Semantic document structure
+- **CSS3** - Design system using CSS custom properties
+- **Google Fonts** - Space Grotesk, Inter, JetBrains Mono
+- **No JavaScript** - Purely static/CSS-driven interactions
+- **No build tools** - Direct file deployment
+
+## About BlackRoad OS
 
 BlackRoad OS is a browser-native operating system designed for AI agent orchestration. These templates showcase various UI patterns for building:
 
@@ -138,14 +153,14 @@ BlackRoad OS is a browser-native operating system designed for AI agent orchestr
 - User onboarding flows
 - Component libraries
 
-## 📄 License
+## License
 
-© 2025 BlackRoad OS, Inc.
+(c) 2026 BlackRoad OS, Inc.
 
-## 🤝 Contributing
+## Contributing
 
-This repository represents a consolidation of 29 open PRs. For new contributions, please open a new PR with your template additions!
+For new contributions, please open a new PR with your template additions!
 
 ---
 
-**Building sovereign, local-first AI systems** 🚀
+**Building sovereign, local-first AI systems**

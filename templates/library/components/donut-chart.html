@@ -1,0 +1,36 @@
+<!-- Donut Chart Component -->
+<!--
+  Variables:
+    - title: Chart title
+    - center_value: Value to display in center
+    - center_label: Label below center value
+    - legend: [{ label, value, color }]
+    - data: Chart data for JS rendering (optional)
+-->
+<div class="chart-card donut-chart-card {{class}}">
+  <div class="chart-header">
+    <span class="chart-title">{{title}}</span>
+  </div>
+  <div class="donut-chart" {{#if data}}data-chart="{{data}}"{{/if}}>
+    <div class="donut-ring">
+      <div class="donut-segment"></div>
+      <div class="donut-center">
+        <span class="donut-value">{{center_value}}</span>
+        <span class="donut-label">{{center_label}}</span>
+      </div>
+    </div>
+  </div>
+  {{#if legend}}
+  <div class="chart-legend">
+    {{#each legend}}
+    <div class="legend-item">
+      <span class="legend-label">
+        <span class="legend-dot" {{#if color}}style="background: {{color}}"{{/if}}></span>
+        {{label}}
+      </span>
+      <span class="legend-value">{{value}}</span>
+    </div>
+    {{/each}}
+  </div>
+  {{/if}}
+</div>

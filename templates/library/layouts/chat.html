@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}} — BlackRoad</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{base_url}}/templates/styles/variables.css">
+  <link rel="stylesheet" href="{{base_url}}/templates/styles/base.css">
+  <link rel="stylesheet" href="{{base_url}}/templates/styles/typography.css">
+  <link rel="stylesheet" href="{{base_url}}/templates/styles/components.css">
+  <link rel="stylesheet" href="{{base_url}}/templates/styles/chat.css">
+</head>
+<body class="chat-layout">
+  <!-- Chat Sidebar -->
+  {{> chat-sidebar}}
+
+  <!-- Main Chat Area -->
+  <main class="chat-main">
+    <!-- Chat Header -->
+    <header class="chat-header">
+      <div class="chat-header-info">
+        <h1 class="chat-title">{{chat_title}}</h1>
+        {{#if chat_subtitle}}
+        <span class="chat-subtitle">{{chat_subtitle}}</span>
+        {{/if}}
+      </div>
+      <div class="chat-header-actions">
+        {{#each header_actions}}
+        <button class="btn-icon" title="{{title}}">
+          {{{icon}}}
+        </button>
+        {{/each}}
+      </div>
+    </header>
+
+    <!-- Messages Container -->
+    <div class="chat-messages">
+      {{#each messages}}
+      {{> chat-message}}
+      {{/each}}
+
+      {{#if typing}}
+      <div class="typing-indicator">
+        <div class="typing-avatar">{{typing.avatar}}</div>
+        <div class="typing-dots">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+      {{/if}}
+    </div>
+
+    <!-- Chat Input -->
+    {{> chat-input}}
+  </main>
+
+  <!-- Context Panel (optional) -->
+  {{#if show_context}}
+  <aside class="chat-context">
+    <div class="context-header">
+      <h3 class="context-title">{{context_title}}</h3>
+      <button class="btn-icon btn-close" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="context-content">
+      {{{context_content}}}
+    </div>
+  </aside>
+  {{/if}}
+</body>
+</html>

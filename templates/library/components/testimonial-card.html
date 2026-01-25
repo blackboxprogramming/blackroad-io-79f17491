@@ -1,0 +1,20 @@
+<!-- Testimonial Card Component -->
+<!--
+  Variables:
+    - text: Testimonial quote
+    - author: {
+        name: Author name,
+        role: Author role/title,
+        avatar: Avatar letter or image HTML
+      }
+-->
+<div class="testimonial-card {{class}}">
+  <p class="testimonial-text">"{{text}}"</p>
+  <div class="testimonial-author">
+    <div class="author-avatar">{{author.avatar}}</div>
+    <div>
+      <div class="author-name">{{author.name}}</div>
+      <div class="author-role">{{author.role}}</div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configure Agents — BlackRoad</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/variables.css">
+  <link rel="stylesheet" href="../styles/base.css">
+  <link rel="stylesheet" href="../styles/typography.css">
+  <link rel="stylesheet" href="../styles/components.css">
+  <link rel="stylesheet" href="../styles/onboarding.css">
+</head>
+<body>
+  <div class="onboarding-layout">
+    <!-- Header -->
+    <header class="onboarding-header">
+      <span class="sidebar-logo">BlackRoad</span>
+      <button class="skip-btn">Skip setup</button>
+    </header>
+
+    <!-- Progress -->
+    <div class="progress-container">
+      <div class="progress-steps">
+        <div class="progress-line">
+          <div class="progress-line-fill" style="width: 50%"></div>
+        </div>
+        <div class="step completed">
+          <div class="step-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" width="14" height="14">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+          <span class="step-label">Account</span>
+        </div>
+        <div class="step completed">
+          <div class="step-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" width="14" height="14">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+          <span class="step-label">Workspace</span>
+        </div>
+        <div class="step active">
+          <div class="step-circle">3</div>
+          <span class="step-label">Agents</span>
+        </div>
+        <div class="step">
+          <div class="step-circle">4</div>
+          <span class="step-label">Invite</span>
+        </div>
+        <div class="step">
+          <div class="step-circle">5</div>
+          <span class="step-label">Done</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <main class="onboarding-content">
+      <div class="step-content">
+        <div class="step-header">
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <h1 class="step-title">Configure your agents</h1>
+          <p class="step-desc">Select the agent types you'd like to start with. You can always add more later.</p>
+        </div>
+
+        <!-- Selection Cards -->
+        <form id="onboarding-form">
+          <div class="selection-grid">
+            <label class="selection-card selected">
+              <input type="checkbox" name="agents[]" value="code-assistant" checked class="selection-input">
+              <span class="selection-check">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" width="12" height="12">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </span>
+              <div class="selection-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                  <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+                </svg>
+              </div>
+              <div class="selection-title">Code Assistant</div>
+              <div class="selection-desc">Generate, review, and refactor code across languages</div>
+            </label>
+
+            <label class="selection-card selected">
+              <input type="checkbox" name="agents[]" value="data-analyst" checked class="selection-input">
+              <span class="selection-check">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" width="12" height="12">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </span>
+              <div class="selection-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                  <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+                </svg>
+              </div>
+              <div class="selection-title">Data Analyst</div>
+              <div class="selection-desc">Query databases, analyze data, and generate insights</div>
+            </label>
+
+            <label class="selection-card">
+              <input type="checkbox" name="agents[]" value="docs-writer" class="selection-input">
+              <span class="selection-check"></span>
+              <div class="selection-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+                </svg>
+              </div>
+              <div class="selection-title">Documentation Writer</div>
+              <div class="selection-desc">Create and maintain technical documentation</div>
+            </label>
+
+            <label class="selection-card">
+              <input type="checkbox" name="agents[]" value="test-engineer" class="selection-input">
+              <span class="selection-check"></span>
+              <div class="selection-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+              </div>
+              <div class="selection-title">Test Engineer</div>
+              <div class="selection-desc">Write and maintain test suites for your code</div>
+            </label>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="onboarding-footer">
+      <div class="footer-content">
+        <button class="btn btn-secondary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+          Back
+        </button>
+        <span class="footer-hint">Step 3 of 5</span>
+        <button class="btn btn-primary">
+          Continue
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </button>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Toggle selection card state
+    document.querySelectorAll('.selection-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const input = card.querySelector('.selection-input');
+        input.checked = !input.checked;
+        card.classList.toggle('selected', input.checked);
+      });
+    });
+
+    // Toggle checklist item state
+    document.querySelectorAll('.checklist-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const input = item.querySelector('.checklist-input');
+        if (input) {
+          input.checked = !input.checked;
+          item.classList.toggle('checked', input.checked);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

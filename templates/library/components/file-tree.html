@@ -1,0 +1,17 @@
+<!-- File Tree Component -->
+<!--
+  Variables:
+    - sections: [{ label, items: [{ name, icon, count, active, selected, expanded, children }] }]
+-->
+<div class="file-tree {{class}}">
+  {{#each sections}}
+  <div class="tree-section">
+    {{#if label}}
+    <div class="tree-label">{{label}}</div>
+    {{/if}}
+    {{#each items}}
+    {{> file-tree-item}}
+    {{/each}}
+  </div>
+  {{/each}}
+</div>

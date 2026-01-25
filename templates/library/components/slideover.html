@@ -1,0 +1,37 @@
+<!-- Slide Over (Side Panel) Component -->
+<!--
+  Variables:
+    - id: Slideover ID
+    - title: Panel title
+    - position: 'right' or 'left' (default: right)
+    - width: Panel width (default: 400px)
+    - show_footer: Boolean to show footer
+    - primary_btn: Primary button label
+    - primary_action: Primary action
+    - secondary_btn: Secondary button label
+    - secondary_action: Secondary action
+    - class: Additional CSS classes (optional)
+-->
+<div class="slideover-backdrop" data-slideover="{{id}}">
+  <div class="slideover {{position}} {{class}}" style="width: {{width}}">
+    <div class="slideover-header">
+      <span class="slideover-title">{{title}}</span>
+      <button class="slideover-close" data-action="close">&times;</button>
+    </div>
+
+    <div class="slideover-body">
+      {{{content}}}
+    </div>
+
+    {{#if show_footer}}
+    <div class="slideover-footer">
+      {{#if secondary_btn}}
+      <button class="modal-btn modal-btn-secondary" data-action="{{secondary_action}}">{{secondary_btn}}</button>
+      {{/if}}
+      {{#if primary_btn}}
+      <button class="modal-btn modal-btn-primary" data-action="{{primary_action}}">{{primary_btn}}</button>
+      {{/if}}
+    </div>
+    {{/if}}
+  </div>
+</div>

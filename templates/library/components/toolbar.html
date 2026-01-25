@@ -1,0 +1,58 @@
+<!-- Toolbar Component -->
+<!--
+  Variables:
+    - search_placeholder: Search input placeholder text
+    - filters: Array of { id, label, icon (optional) }
+    - results_count: Results count text
+    - show_view_toggle: boolean
+    - active_view: "table" | "grid"
+-->
+<div class="toolbar {{class}}">
+  <div class="search-box">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="8"/>
+      <path d="m21 21-4.35-4.35"/>
+    </svg>
+    <input type="text" class="search-input" placeholder="{{#if search_placeholder}}{{search_placeholder}}{{else}}Search...{{/if}}">
+  </div>
+
+  {{#if filters}}
+  <div class="filter-group">
+    {{#each filters}}
+    <button class="filter-btn" data-filter="{{id}}">
+      {{#if icon}}
+      <span class="filter-icon">{{icon}}</span>
+      {{/if}}
+      {{label}}
+      <svg class="filter-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
+        <path d="m6 9 6 6 6-6"/>
+      </svg>
+    </button>
+    {{/each}}
+  </div>
+  {{/if}}
+
+  <div class="toolbar-right">
+    {{#if results_count}}
+    <span class="results-count">{{results_count}}</span>
+    {{/if}}
+
+    {{#if show_view_toggle}}
+    <div class="view-toggle">
+      <button class="view-btn {{#if (eq active_view 'table')}}active{{/if}}" data-view="table" title="Table view">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+          <path d="M3 6h18M3 12h18M3 18h18"/>
+        </svg>
+      </button>
+      <button class="view-btn {{#if (eq active_view 'grid')}}active{{/if}}" data-view="grid" title="Grid view">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+          <rect x="3" y="3" width="7" height="7"/>
+          <rect x="14" y="3" width="7" height="7"/>
+          <rect x="14" y="14" width="7" height="7"/>
+          <rect x="3" y="14" width="7" height="7"/>
+        </svg>
+      </button>
+    </div>
+    {{/if}}
+  </div>
+</div>

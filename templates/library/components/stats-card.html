@@ -1,0 +1,15 @@
+<!-- Stats Card Component -->
+<!--
+  Variables:
+    - label: Stat label/description
+    - value: Main stat value
+    - change: Change indicator text (optional)
+    - change_type: "positive" | "negative" | null (optional)
+-->
+<div class="stats-card {{class}}">
+  <div class="stats-label">{{label}}</div>
+  <div class="stats-value">{{value}}</div>
+  {{#if change}}
+  <div class="stats-change {{#if change_type}}{{change_type}}{{/if}}">{{change}}</div>
+  {{/if}}
+</div>

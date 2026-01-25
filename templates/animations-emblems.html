@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlackRoad Animations & Emblems</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gray-950: #0a0a0a;
+      --gray-900: #171717;
+      --gray-800: #262626;
+      --gray-700: #404040;
+      --gray-600: #525252;
+      --gray-500: #737373;
+      --gray-400: #a3a3a3;
+      --gray-300: #d4d4d4;
+      --gray-100: #f5f5f5;
+      --white: #ffffff;
+
+      --accent-orange: #ff8700;
+      --accent-dark-orange: #ff5f00;
+      --accent-pink: #ff0087;
+      --accent-orchid: #af5fd7;
+      --accent-magenta: #ff00ff;
+      --accent-blue: #1e90ff;
+
+      --font-headline: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--gray-950);
+      color: var(--gray-100);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 60px 40px;
+    }
+
+    h1 {
+      font-family: var(--font-headline);
+      font-size: 56px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      font-family: var(--font-headline);
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 32px;
+      margin-top: 80px;
+    }
+
+    .subtitle {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--gray-500);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .grid-6 {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--gray-900);
+      border: 1px solid var(--gray-800);
+      border-radius: 16px;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 300px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-label {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gray-600);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ==================== LOADING ANIMATIONS ==================== */
+
+    /* Pulse Ring */
+    .pulse-ring {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 3px solid var(--accent-magenta);
+      animation: pulse-ring 1.5s ease-out infinite;
+    }
+
+    @keyframes pulse-ring {
+      0% { transform: scale(0.5); opacity: 1; }
+      100% { transform: scale(1.5); opacity: 0; }
+    }
+
+    /* Gradient Spinner */
+    .gradient-spinner {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: conic-gradient(
+        var(--accent-orange),
+        var(--accent-pink),
+        var(--accent-magenta),
+        var(--accent-blue),
+        var(--accent-orange)
+      );
+      animation: spin 1s linear infinite;
+      position: relative;
+    }
+
+    .gradient-spinner::after {
+      content: '';
+      position: absolute;
+      inset: 6px;
+      background: var(--gray-900);
+      border-radius: 50%;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Dot Wave */
+    .dot-wave {
+      display: flex;
+      gap: 8px;
+    }
+
+    .dot-wave span {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      animation: dot-bounce 1.4s ease-in-out infinite;
+    }
+
+    .dot-wave span:nth-child(1) { background: var(--accent-orange); animation-delay: 0s; }
+    .dot-wave span:nth-child(2) { background: var(--accent-pink); animation-delay: 0.2s; }
+    .dot-wave span:nth-child(3) { background: var(--accent-magenta); animation-delay: 0.4s; }
+    .dot-wave span:nth-child(4) { background: var(--accent-blue); animation-delay: 0.6s; }
+
+    @keyframes dot-bounce {
+      0%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-20px); }
+    }
+
+    /* Bar Loading */
+    .bar-loader {
+      display: flex;
+      gap: 4px;
+      align-items: flex-end;
+      height: 40px;
+    }
+
+    .bar-loader span {
+      width: 8px;
+      background: var(--accent-blue);
+      animation: bar-grow 1s ease-in-out infinite;
+    }
+
+    .bar-loader span:nth-child(1) { animation-delay: 0s; }
+    .bar-loader span:nth-child(2) { animation-delay: 0.1s; background: var(--accent-orchid); }
+    .bar-loader span:nth-child(3) { animation-delay: 0.2s; background: var(--accent-magenta); }
+    .bar-loader span:nth-child(4) { animation-delay: 0.3s; background: var(--accent-pink); }
+    .bar-loader span:nth-child(5) { animation-delay: 0.4s; background: var(--accent-orange); }
+
+    @keyframes bar-grow {
+      0%, 100% { height: 10px; }
+      50% { height: 40px; }
+    }
+
+    /* Orbit */
+    .orbit-container {
+      width: 100px;
+      height: 100px;
+      position: relative;
+    }
+
+    .orbit-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 16px;
+      height: 16px;
+      background: var(--gray-100);
+      border-radius: 50%;
+    }
+
+    .orbit-ring {
+      position: absolute;
+      inset: 0;
+      border: 1px solid var(--gray-700);
+      border-radius: 50%;
+      animation: spin 3s linear infinite;
+    }
+
+    .orbit-dot {
+      position: absolute;
+      top: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 10px;
+      height: 10px;
+      background: var(--accent-pink);
+      border-radius: 50%;
+    }
+
+    .orbit-ring:nth-child(2) {
+      inset: 15px;
+      animation-duration: 2s;
+      animation-direction: reverse;
+    }
+
+    .orbit-ring:nth-child(2) .orbit-dot {
+      background: var(--accent-blue);
+    }
+
+    /* DNA Helix */
+    .dna-helix {
+      display: flex;
+      gap: 6px;
+      height: 60px;
+      align-items: center;
+    }
+
+    .dna-strand {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      animation: dna-wave 1.5s ease-in-out infinite;
+    }
+
+    .dna-strand:nth-child(odd) { background: var(--accent-magenta); }
+    .dna-strand:nth-child(even) { background: var(--accent-blue); }
+
+    .dna-strand:nth-child(1) { animation-delay: 0s; }
+    .dna-strand:nth-child(2) { animation-delay: 0.1s; }
+    .dna-strand:nth-child(3) { animation-delay: 0.2s; }
+    .dna-strand:nth-child(4) { animation-delay: 0.3s; }
+    .dna-strand:nth-child(5) { animation-delay: 0.4s; }
+    .dna-strand:nth-child(6) { animation-delay: 0.5s; }
+    .dna-strand:nth-child(7) { animation-delay: 0.6s; }
+    .dna-strand:nth-child(8) { animation-delay: 0.7s; }
+
+    @keyframes dna-wave {
+      0%, 100% { transform: translateY(-15px) scale(0.8); opacity: 0.5; }
+      50% { transform: translateY(15px) scale(1); opacity: 1; }
+    }
+
+    /* ==================== EMBLEMS ==================== */
+
+    .emblem {
+      width: 120px;
+      height: 120px;
+      position: relative;
+    }
+
+    /* Target Emblem */
+    .emblem-target {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: conic-gradient(
+        from 0deg,
+        var(--accent-blue) 0deg 90deg,
+        var(--gray-100) 90deg 180deg,
+        var(--accent-blue) 180deg 270deg,
+        var(--gray-100) 270deg 360deg
+      );
+      position: relative;
+      animation: slow-spin 20s linear infinite;
+    }
+
+    .emblem-target::before {
+      content: '';
+      position: absolute;
+      inset: 20px;
+      border-radius: 50%;
+      background: conic-gradient(
+        from 0deg,
+        var(--gray-100) 0deg 90deg,
+        var(--accent-pink) 90deg 180deg,
+        var(--gray-100) 180deg 270deg,
+        var(--accent-pink) 270deg 360deg
+      );
+    }
+
+    .emblem-target::after {
+      content: '';
+      position: absolute;
+      inset: 40px;
+      border-radius: 50%;
+      background: conic-gradient(
+        from 0deg,
+        var(--accent-orange) 0deg 90deg,
+        var(--gray-100) 90deg 180deg,
+        var(--accent-orange) 180deg 270deg,
+        var(--gray-100) 270deg 360deg
+      );
+    }
+
+    @keyframes slow-spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Hexagon */
+    .emblem-hex {
+      width: 100px;
+      height: 115px;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-pink));
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: hex-pulse 3s ease-in-out infinite;
+    }
+
+    .emblem-hex::after {
+      content: 'OS';
+      font-family: var(--font-headline);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--gray-950);
+    }
+
+    @keyframes hex-pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    /* Diamond */
+    .emblem-diamond {
+      width: 90px;
+      height: 90px;
+      background: linear-gradient(135deg, var(--accent-magenta), var(--accent-blue));
+      transform: rotate(45deg);
+      animation: diamond-float 4s ease-in-out infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .emblem-diamond::after {
+      content: 'BR';
+      font-family: var(--font-headline);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      transform: rotate(-45deg);
+    }
+
+    @keyframes diamond-float {
+      0%, 100% { transform: rotate(45deg) translateY(0); }
+      50% { transform: rotate(45deg) translateY(-10px); }
+    }
+
+    /* Circle Badge */
+    .emblem-circle {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 3px solid var(--gray-100);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .emblem-circle::before {
+      content: '';
+      position: absolute;
+      inset: -50%;
+      background: conic-gradient(
+        var(--accent-orange),
+        var(--accent-pink),
+        var(--accent-magenta),
+        var(--accent-blue),
+        var(--accent-orange)
+      );
+      animation: spin 4s linear infinite;
+      opacity: 0.3;
+    }
+
+    .emblem-circle span {
+      font-family: var(--font-headline);
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--gray-100);
+      z-index: 1;
+    }
+
+    /* Triangle */
+    .emblem-triangle {
+      width: 0;
+      height: 0;
+      border-left: 55px solid transparent;
+      border-right: 55px solid transparent;
+      border-bottom: 95px solid var(--accent-orchid);
+      position: relative;
+      animation: triangle-glow 2s ease-in-out infinite;
+    }
+
+    @keyframes triangle-glow {
+      0%, 100% { filter: drop-shadow(0 0 10px var(--accent-orchid)); }
+      50% { filter: drop-shadow(0 0 30px var(--accent-orchid)); }
+    }
+
+    /* Stacked Squares */
+    .emblem-squares {
+      width: 100px;
+      height: 100px;
+      position: relative;
+    }
+
+    .emblem-squares div {
+      position: absolute;
+      border: 2px solid;
+      animation: square-rotate 6s linear infinite;
+    }
+
+    .emblem-squares div:nth-child(1) {
+      inset: 0;
+      border-color: var(--accent-blue);
+    }
+
+    .emblem-squares div:nth-child(2) {
+      inset: 15px;
+      border-color: var(--accent-magenta);
+      animation-delay: -1s;
+      animation-direction: reverse;
+    }
+
+    .emblem-squares div:nth-child(3) {
+      inset: 30px;
+      border-color: var(--accent-orange);
+      animation-delay: -2s;
+    }
+
+    @keyframes square-rotate {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ==================== AGENT AVATARS ==================== */
+
+    .avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-headline);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--gray-950);
+      position: relative;
+    }
+
+    .avatar::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 2px solid;
+      animation: avatar-ring 2s ease-in-out infinite;
+      opacity: 0.5;
+    }
+
+    @keyframes avatar-ring {
+      0%, 100% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.1); opacity: 0; }
+    }
+
+    .avatar-lucidia { background: var(--accent-magenta); }
+    .avatar-lucidia::after { border-color: var(--accent-magenta); }
+
+    .avatar-aria { background: var(--accent-pink); }
+    .avatar-aria::after { border-color: var(--accent-pink); }
+
+    .avatar-alice { background: var(--accent-blue); }
+    .avatar-alice::after { border-color: var(--accent-blue); }
+
+    .avatar-octavia { background: var(--accent-orchid); }
+    .avatar-octavia::after { border-color: var(--accent-orchid); }
+
+    .avatar-anastasia { background: var(--accent-orange); }
+    .avatar-anastasia::after { border-color: var(--accent-orange); }
+
+    .avatar-operator { background: var(--gray-100); color: var(--gray-950); }
+    .avatar-operator::after { border-color: var(--gray-100); }
+
+    .avatar-name {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gray-500);
+      margin-top: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ==================== PROGRESS INDICATORS ==================== */
+
+    .progress-bar {
+      width: 200px;
+      height: 6px;
+      background: var(--gray-800);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-orange), var(--accent-pink), var(--accent-magenta));
+      animation: progress-slide 2s ease-in-out infinite;
+      border-radius: 3px;
+    }
+
+    @keyframes progress-slide {
+      0% { width: 0%; margin-left: 0; }
+      50% { width: 60%; margin-left: 20%; }
+      100% { width: 0%; margin-left: 100%; }
+    }
+
+    /* Circular Progress */
+    .circular-progress {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: conic-gradient(
+        var(--accent-blue) 0deg,
+        var(--accent-blue) var(--progress, 0deg),
+        var(--gray-800) var(--progress, 0deg)
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: circular-fill 3s ease-in-out infinite;
+    }
+
+    .circular-progress::after {
+      content: '';
+      width: 60px;
+      height: 60px;
+      background: var(--gray-900);
+      border-radius: 50%;
+    }
+
+    @keyframes circular-fill {
+      0% { background: conic-gradient(var(--accent-blue) 0deg, var(--gray-800) 0deg); }
+      50% { background: conic-gradient(var(--accent-blue) 270deg, var(--gray-800) 270deg); }
+      100% { background: conic-gradient(var(--accent-blue) 360deg, var(--gray-800) 360deg); }
+    }
+
+    /* ==================== GEOMETRIC PATTERNS ==================== */
+
+    .pattern-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 20px);
+      gap: 8px;
+    }
+
+    .pattern-grid span {
+      width: 20px;
+      height: 20px;
+      background: var(--accent-blue);
+      animation: grid-blink 2s ease-in-out infinite;
+    }
+
+    .pattern-grid span:nth-child(odd) { background: var(--accent-pink); }
+    .pattern-grid span:nth-child(3n) { background: var(--accent-orange); animation-delay: 0.5s; }
+    .pattern-grid span:nth-child(5n) { background: var(--accent-magenta); animation-delay: 1s; }
+
+    @keyframes grid-blink {
+      0%, 100% { opacity: 0.3; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+
+    /* Wave Pattern */
+    .wave-pattern {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .wave-pattern span {
+      width: 4px;
+      height: 40px;
+      background: var(--accent-blue);
+      border-radius: 2px;
+      animation: wave 1.2s ease-in-out infinite;
+    }
+
+    .wave-pattern span:nth-child(1) { animation-delay: 0s; background: var(--accent-orange); }
+    .wave-pattern span:nth-child(2) { animation-delay: 0.1s; background: var(--accent-dark-orange); }
+    .wave-pattern span:nth-child(3) { animation-delay: 0.2s; background: var(--accent-pink); }
+    .wave-pattern span:nth-child(4) { animation-delay: 0.3s; background: var(--accent-orchid); }
+    .wave-pattern span:nth-child(5) { animation-delay: 0.4s; background: var(--accent-magenta); }
+    .wave-pattern span:nth-child(6) { animation-delay: 0.5s; background: var(--accent-blue); }
+    .wave-pattern span:nth-child(7) { animation-delay: 0.4s; background: var(--accent-magenta); }
+    .wave-pattern span:nth-child(8) { animation-delay: 0.3s; background: var(--accent-orchid); }
+    .wave-pattern span:nth-child(9) { animation-delay: 0.2s; background: var(--accent-pink); }
+    .wave-pattern span:nth-child(10) { animation-delay: 0.1s; background: var(--accent-dark-orange); }
+    .wave-pattern span:nth-child(11) { animation-delay: 0s; background: var(--accent-orange); }
+
+    @keyframes wave {
+      0%, 100% { height: 10px; }
+      50% { height: 50px; }
+    }
+
+    /* ==================== SPECIAL EFFECTS ==================== */
+
+    /* Glitch Text */
+    .glitch {
+      font-family: var(--font-headline);
+      font-size: 48px;
+      font-weight: 700;
+      position: relative;
+      animation: glitch-skew 1s infinite linear alternate-reverse;
+    }
+
+    .glitch::before,
+    .glitch::after {
+      content: 'BlackRoad';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .glitch::before {
+      color: var(--accent-pink);
+      animation: glitch-anim 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+      clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+    }
+
+    .glitch::after {
+      color: var(--accent-blue);
+      animation: glitch-anim2 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both infinite;
+      clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+    }
+
+    @keyframes glitch-anim {
+      0% { transform: translate(0); }
+      20% { transform: translate(-3px, 3px); }
+      40% { transform: translate(-3px, -3px); }
+      60% { transform: translate(3px, 3px); }
+      80% { transform: translate(3px, -3px); }
+      100% { transform: translate(0); }
+    }
+
+    @keyframes glitch-anim2 {
+      0% { transform: translate(0); }
+      20% { transform: translate(3px, -3px); }
+      40% { transform: translate(3px, 3px); }
+      60% { transform: translate(-3px, -3px); }
+      80% { transform: translate(-3px, 3px); }
+      100% { transform: translate(0); }
+    }
+
+    @keyframes glitch-skew {
+      0% { transform: skew(0deg); }
+      20% { transform: skew(0deg); }
+      21% { transform: skew(1deg); }
+      22% { transform: skew(0deg); }
+      100% { transform: skew(0deg); }
+    }
+
+    /* Neon Glow Box */
+    .neon-box {
+      width: 150px;
+      height: 80px;
+      border: 2px solid var(--accent-magenta);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-headline);
+      font-size: 24px;
+      font-weight: 600;
+      animation: neon-flicker 1.5s infinite alternate;
+    }
+
+    @keyframes neon-flicker {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        box-shadow:
+          0 0 10px var(--accent-magenta),
+          0 0 20px var(--accent-magenta),
+          0 0 40px var(--accent-magenta),
+          inset 0 0 10px rgba(255, 0, 255, 0.1);
+        text-shadow: 0 0 10px var(--accent-magenta);
+      }
+      20%, 24%, 55% {
+        box-shadow: none;
+        text-shadow: none;
+      }
+    }
+
+    /* Gradient Border */
+    .gradient-border {
+      width: 150px;
+      height: 80px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-headline);
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .gradient-border::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      padding: 3px;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-pink), var(--accent-magenta), var(--accent-blue));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      animation: gradient-shift 3s linear infinite;
+      background-size: 300% 300%;
+    }
+
+    @keyframes gradient-shift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Particle Field */
+    .particle-field {
+      width: 200px;
+      height: 100px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      animation: float-up 3s ease-in infinite;
+    }
+
+    .particle:nth-child(1) { left: 10%; background: var(--accent-orange); animation-delay: 0s; }
+    .particle:nth-child(2) { left: 25%; background: var(--accent-pink); animation-delay: 0.5s; }
+    .particle:nth-child(3) { left: 40%; background: var(--accent-magenta); animation-delay: 1s; }
+    .particle:nth-child(4) { left: 55%; background: var(--accent-orchid); animation-delay: 1.5s; }
+    .particle:nth-child(5) { left: 70%; background: var(--accent-blue); animation-delay: 2s; }
+    .particle:nth-child(6) { left: 85%; background: var(--accent-orange); animation-delay: 2.5s; }
+
+    @keyframes float-up {
+      0% { bottom: -10px; opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { bottom: 110px; opacity: 0; }
+    }
+
+    /* Morphing Shape */
+    .morph-shape {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, var(--accent-pink), var(--accent-blue));
+      animation: morph 8s ease-in-out infinite;
+    }
+
+    @keyframes morph {
+      0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+      25% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+      50% { border-radius: 50% 60% 30% 60% / 30% 60% 70% 40%; }
+      75% { border-radius: 60% 40% 60% 30% / 70% 30% 50% 60%; }
+    }
+
+    /* ==================== FOOTER ==================== */
+
+    .footer {
+      text-align: center;
+      padding: 60px 40px;
+      border-top: 1px solid var(--gray-800);
+      margin-top: 80px;
+    }
+
+    .footer p {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--gray-600);
+    }
+
+    .gradient-bar {
+      height: 4px;
+      background: linear-gradient(90deg,
+        var(--accent-orange),
+        var(--accent-dark-orange),
+        var(--accent-pink),
+        var(--accent-orchid),
+        var(--accent-magenta),
+        var(--accent-blue)
+      );
+      margin: 40px 0;
+    }
+
+    hr {
+      border: none;
+      height: 1px;
+      background: var(--gray-800);
+      margin: 60px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <p class="subtitle">Animation & Emblem Library</p>
+    <h1>BlackRoad Motion</h1>
+    <p style="color: var(--gray-400); max-width: 600px; margin-bottom: 20px;">
+      A collection of loading states, emblems, avatars, and animated elements
+      for the BlackRoad design system.
+    </p>
+    <div class="gradient-bar"></div>
+
+    <!-- Loading Animations -->
+    <h2>Loading Animations</h2>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="pulse-ring"></div>
+        <span class="card-label">Pulse Ring</span>
+      </div>
+      <div class="card">
+        <div class="gradient-spinner"></div>
+        <span class="card-label">Gradient Spinner</span>
+      </div>
+      <div class="card">
+        <div class="dot-wave">
+          <span></span><span></span><span></span><span></span>
+        </div>
+        <span class="card-label">Dot Wave</span>
+      </div>
+      <div class="card">
+        <div class="bar-loader">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <span class="card-label">Bar Loader</span>
+      </div>
+      <div class="card">
+        <div class="orbit-container">
+          <div class="orbit-ring"><div class="orbit-dot"></div></div>
+          <div class="orbit-ring"><div class="orbit-dot"></div></div>
+          <div class="orbit-center"></div>
+        </div>
+        <span class="card-label">Orbit</span>
+      </div>
+      <div class="card">
+        <div class="dna-helix">
+          <span class="dna-strand"></span>
+          <span class="dna-strand"></span>
+          <span class="dna-strand"></span>
+          <span class="dna-strand"></span>
+          <span class="dna-strand"></span>
+          <span class="dna-strand"></span>
+          <span class="dna-strand"></span>
+          <span class="dna-strand"></span>
+        </div>
+        <span class="card-label">DNA Helix</span>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- Emblems -->
+    <h2>Emblems & Badges</h2>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="emblem-target"></div>
+        <span class="card-label">Target</span>
+      </div>
+      <div class="card">
+        <div class="emblem-hex"></div>
+        <span class="card-label">Hexagon</span>
+      </div>
+      <div class="card">
+        <div class="emblem-diamond"></div>
+        <span class="card-label">Diamond</span>
+      </div>
+      <div class="card">
+        <div class="emblem-circle"><span>BR</span></div>
+        <span class="card-label">Circle Badge</span>
+      </div>
+      <div class="card">
+        <div class="emblem-triangle"></div>
+        <span class="card-label">Triangle</span>
+      </div>
+      <div class="card">
+        <div class="emblem-squares">
+          <div></div><div></div><div></div>
+        </div>
+        <span class="card-label">Stacked Squares</span>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- Agent Avatars -->
+    <h2>Agent Avatars</h2>
+
+    <div class="grid-6">
+      <div class="card" style="min-height: 200px;">
+        <div class="avatar avatar-lucidia">L</div>
+        <div class="avatar-name">Lucidia</div>
+      </div>
+      <div class="card" style="min-height: 200px;">
+        <div class="avatar avatar-aria">A</div>
+        <div class="avatar-name">Aria</div>
+      </div>
+      <div class="card" style="min-height: 200px;">
+        <div class="avatar avatar-alice">A</div>
+        <div class="avatar-name">Alice</div>
+      </div>
+      <div class="card" style="min-height: 200px;">
+        <div class="avatar avatar-octavia">O</div>
+        <div class="avatar-name">Octavia</div>
+      </div>
+      <div class="card" style="min-height: 200px;">
+        <div class="avatar avatar-anastasia">A</div>
+        <div class="avatar-name">Anastasia</div>
+      </div>
+      <div class="card" style="min-height: 200px;">
+        <div class="avatar avatar-operator">C</div>
+        <div class="avatar-name">Operator</div>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- Progress Indicators -->
+    <h2>Progress Indicators</h2>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="progress-bar">
+          <div class="progress-bar-fill"></div>
+        </div>
+        <span class="card-label">Linear Progress</span>
+      </div>
+      <div class="card">
+        <div class="circular-progress"></div>
+        <span class="card-label">Circular Progress</span>
+      </div>
+      <div class="card">
+        <div class="wave-pattern">
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <span class="card-label">Audio Wave</span>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- Geometric Patterns -->
+    <h2>Patterns & Grids</h2>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="pattern-grid">
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <span class="card-label">Dot Grid</span>
+      </div>
+      <div class="card">
+        <div class="morph-shape"></div>
+        <span class="card-label">Morphing Shape</span>
+      </div>
+      <div class="card">
+        <div class="particle-field">
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+        </div>
+        <span class="card-label">Particle Field</span>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- Special Effects -->
+    <h2>Special Effects</h2>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="glitch">BlackRoad</div>
+        <span class="card-label">Glitch Text</span>
+      </div>
+      <div class="card">
+        <div class="neon-box">OS</div>
+        <span class="card-label">Neon Glow</span>
+      </div>
+      <div class="card">
+        <div class="gradient-border">BlackRoad</div>
+        <span class="card-label">Gradient Border</span>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>BlackRoad OS, Inc. · Animation Library v1.0</p>
+      <p style="margin-top: 8px; color: var(--gray-700);">You are allowed to be in process.</p>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!-- CTA Section Component -->
+<!--
+  Variables:
+    - title: CTA title
+    - description: CTA description
+    - primary_cta: { text, href }
+    - secondary_cta: { text, href } (optional)
+    - boxed: boolean - wrap in a box
+-->
+<section class="cta-section {{class}}">
+  {{#if boxed}}
+  <div class="cta-box">
+  {{/if}}
+    <h2 class="cta-title">{{title}}</h2>
+    {{#if description}}
+    <p class="cta-desc">{{description}}</p>
+    {{/if}}
+    <div class="cta-actions">
+      <a href="{{primary_cta.href}}" class="btn btn-primary btn-lg">{{primary_cta.text}}</a>
+      {{#if secondary_cta}}
+      <a href="{{secondary_cta.href}}" class="btn btn-outline btn-lg">{{secondary_cta.text}}</a>
+      {{/if}}
+    </div>
+  {{#if boxed}}
+  </div>
+  {{/if}}
+</section>

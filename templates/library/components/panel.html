@@ -1,0 +1,19 @@
+<!-- Panel Component -->
+<!--
+  Variables:
+    - title: Panel title
+    - rows: Array of { label, value }
+-->
+<div class="panel {{class}}">
+  <div class="panel-header">
+    <div class="panel-title">{{title}}</div>
+  </div>
+  <div class="panel-body">
+    {{#each rows}}
+    <div class="panel-row">
+      <span class="panel-label">{{label}}</span>
+      <span class="panel-value">{{value}}</span>
+    </div>
+    {{/each}}
+  </div>
+</div>
