@@ -37,15 +37,28 @@
       --font-mono: 'JetBrains Mono', monospace;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html {
+      box-sizing: border-box;
+    }
+
+    *, *::before, *::after {
+      box-sizing: inherit;
+    }
 
     body {
+      margin: 0;
       background: var(--gray-950);
       color: var(--gray-100);
       font-family: var(--font-mono);
       overflow-x: hidden;
     }
 
+    a:focus-visible,
+    button:focus-visible,
+    [role="button"]:focus-visible {
+      outline: 2px solid var(--accent-orange);
+      outline-offset: 3px;
+    }
     .container {
       max-width: 1800px;
       margin: 0 auto;
