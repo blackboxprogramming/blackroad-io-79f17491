@@ -10,23 +10,23 @@
     - icon: Icon HTML (optional, prepended to text)
 -->
 
-<!-- As button -->
-<button
-  type="{{#if type}}{{type}}{{else}}button{{/if}}"
-  class="btn btn-{{#if variant}}{{variant}}{{else}}primary{{/if}} {{#if size}}btn-{{size}}{{/if}} {{class}}"
-  {{#if disabled}}disabled{{/if}}
->
-  {{#if icon}}{{icon}}{{/if}}
-  {{text}}
-</button>
-
-<!-- As link (alternative) -->
-<!--
-<a
-  href="{{href}}"
-  class="btn btn-{{#if variant}}{{variant}}{{else}}primary{{/if}} {{#if size}}btn-{{size}}{{/if}} {{class}}"
->
-  {{#if icon}}{{icon}}{{/if}}
-  {{text}}
-</a>
--->
+{{#if href}}
+  <!-- Render as link when href is provided -->
+  <a
+    href="{{href}}"
+    class="btn btn-{{#if variant}}{{variant}}{{else}}primary{{/if}} {{#if size}}btn-{{size}}{{/if}} {{class}}"
+  >
+    {{#if icon}}{{icon}}{{/if}}
+    {{text}}
+  </a>
+{{else}}
+  <!-- Render as button when no href is provided -->
+  <button
+    type="{{#if type}}{{type}}{{else}}button{{/if}}"
+    class="btn btn-{{#if variant}}{{variant}}{{else}}primary{{/if}} {{#if size}}btn-{{size}}{{/if}} {{class}}"
+    {{#if disabled}}disabled{{/if}}
+  >
+    {{#if icon}}{{icon}}{{/if}}
+    {{text}}
+  </button>
+{{/if}}
