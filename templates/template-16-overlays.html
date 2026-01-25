@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackRoad OS — Template 16</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #000;
+            --gray-950: #080808;
+            --gray-900: #0f0f0f;
+            --gray-850: #151515;
+            --gray-800: #1b1b1b;
+            --gray-750: #222;
+            --gray-700: #2a2a2a;
+            --gray-600: #3e3e3e;
+            --gray-500: #5a5a5a;
+            --gray-400: #7a7a7a;
+            --gray-300: #9a9a9a;
+            --gray-200: #bababa;
+            --gray-100: #dadada;
+            --white: #f0f0f0;
+
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 15px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--black);
+            color: var(--gray-400);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        ::selection {
+            background: var(--gray-700);
+            color: var(--white);
+        }
+
+        /* Layout */
+        .page {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .demo-row {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* Command Palette */
+        .command-palette {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-850);
+            border-radius: 12px;
+            width: 100%;
+            max-width: 560px;
+            overflow: hidden;
+            box-shadow: 0 24px 48px rgba(0,0,0,0.5);
+        }
+
+        .command-input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .command-input-icon {
+            color: var(--gray-500);
+            font-size: 1rem;
+        }
+
+        .command-input {
+            flex: 1;
+            font-family: var(--font-body);
+            font-size: 0.9375rem;
+            color: var(--white);
+            background: transparent;
+            border: none;
+            outline: none;
+        }
+
+        .command-input::placeholder {
+            color: var(--gray-600);
+        }
+
+        .command-shortcut {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+            background: var(--gray-900);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .command-group {
+            padding: 0.5rem;
+        }
+
+        .command-group-label {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.5rem 0.75rem;
+        }
+
+        .command-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.625rem 0.75rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.1s;
+        }
+
+        .command-item:hover,
+        .command-item.active {
+            background: var(--gray-900);
+        }
+
+        .command-item-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--gray-850);
+            border-radius: 6px;
+            display: grid;
+            place-items: center;
+            font-size: 0.875rem;
+            color: var(--gray-500);
+        }
+
+        .command-item.active .command-item-icon {
+            background: var(--gray-800);
+            color: var(--gray-300);
+        }
+
+        .command-item-content {
+            flex: 1;
+        }
+
+        .command-item-title {
+            font-size: 0.8125rem;
+            color: var(--gray-300);
+        }
+
+        .command-item.active .command-item-title {
+            color: var(--white);
+        }
+
+        .command-item-description {
+            font-size: 0.6875rem;
+            color: var(--gray-600);
+        }
+
+        .command-item-shortcut {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+        }
+
+        .command-item-shortcut kbd {
+            background: var(--gray-850);
+            padding: 0.125rem 0.375rem;
+            border-radius: 3px;
+            margin-left: 0.125rem;
+        }
+
+        .command-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1.25rem;
+            border-top: 1px solid var(--gray-900);
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+        }
+
+        .command-footer-keys {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .command-footer-key {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+
+        .command-footer-key kbd {
+            background: var(--gray-900);
+            padding: 0.125rem 0.375rem;
+            border-radius: 3px;
+        }
+
+        /* Modal Dialog */
+        .modal-backdrop {
+            background: rgba(0,0,0,0.7);
+            border-radius: 12px;
+            padding: 3rem;
+            display: grid;
+            place-items: center;
+        }
+
+        .modal {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            width: 100%;
+            max-width: 420px;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .modal-title {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--white);
+        }
+
+        .modal-close {
+            width: 28px;
+            height: 28px;
+            display: grid;
+            place-items: center;
+            font-size: 1rem;
+            color: var(--gray-500);
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .modal-close:hover {
+            color: var(--white);
+            background: var(--gray-900);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-text {
+            font-size: 0.875rem;
+            color: var(--gray-400);
+            margin-bottom: 1rem;
+        }
+
+        .modal-input {
+            width: 100%;
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            color: var(--gray-200);
+            background: var(--gray-900);
+            border: 1px solid var(--gray-850);
+            padding: 0.625rem 0.875rem;
+            border-radius: 6px;
+            outline: none;
+            transition: border-color 0.15s;
+        }
+
+        .modal-input:focus {
+            border-color: var(--gray-700);
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.625rem;
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--gray-900);
+            background: var(--gray-900);
+        }
+
+        .btn {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.15s;
+            border: none;
+        }
+
+        .btn-primary {
+            color: var(--black);
+            background: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--gray-200);
+        }
+
+        .btn-secondary {
+            color: var(--gray-300);
+            background: var(--gray-800);
+        }
+
+        .btn-secondary:hover {
+            color: var(--white);
+            background: var(--gray-750);
+        }
+
+        .btn-danger {
+            color: var(--white);
+            background: var(--gray-700);
+        }
+
+        .btn-danger:hover {
+            background: var(--gray-600);
+        }
+
+        /* Dropdown Menu */
+        .dropdown-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-trigger {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-300);
+            background: var(--gray-900);
+            border: 1px solid var(--gray-850);
+            padding: 0.5rem 0.875rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .dropdown-trigger:hover {
+            border-color: var(--gray-700);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 0.5rem);
+            left: 0;
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 8px;
+            min-width: 180px;
+            padding: 0.375rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            z-index: 100;
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            font-size: 0.8125rem;
+            color: var(--gray-400);
+            padding: 0.5rem 0.625rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.1s;
+        }
+
+        .dropdown-item:hover {
+            color: var(--white);
+            background: var(--gray-900);
+        }
+
+        .dropdown-item-icon {
+            font-size: 0.875rem;
+            width: 16px;
+            text-align: center;
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: var(--gray-900);
+            margin: 0.375rem 0;
+        }
+
+        .dropdown-item.danger:hover {
+            color: var(--gray-100);
+            background: var(--gray-800);
+        }
+
+        /* Context Menu */
+        .context-area {
+            background: var(--gray-950);
+            border: 1px dashed var(--gray-850);
+            border-radius: 10px;
+            padding: 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .context-label {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+        }
+
+        .context-menu {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 8px;
+            min-width: 200px;
+            padding: 0.375rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+
+        .context-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.8125rem;
+            color: var(--gray-400);
+            padding: 0.5rem 0.625rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.1s;
+        }
+
+        .context-item:hover {
+            color: var(--white);
+            background: var(--gray-900);
+        }
+
+        .context-item-left {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+        }
+
+        .context-item-shortcut {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+        }
+
+        /* Tooltip */
+        .tooltip-demo {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .tooltip-trigger {
+            position: relative;
+            width: 36px;
+            height: 36px;
+            background: var(--gray-900);
+            border-radius: 6px;
+            display: grid;
+            place-items: center;
+            font-size: 1rem;
+            color: var(--gray-400);
+            cursor: pointer;
+        }
+
+        .tooltip {
+            position: absolute;
+            bottom: calc(100% + 0.5rem);
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gray-800);
+            border-radius: 5px;
+            padding: 0.375rem 0.625rem;
+            white-space: nowrap;
+            font-size: 0.6875rem;
+            color: var(--gray-200);
+        }
+
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 4px solid transparent;
+            border-top-color: var(--gray-800);
+        }
+
+        .tooltip-shortcut {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-500);
+            margin-left: 0.5rem;
+        }
+
+        /* Keyboard Shortcuts Panel */
+        .shortcuts-panel {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            overflow: hidden;
+            max-width: 480px;
+        }
+
+        .shortcuts-header {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .shortcuts-title {
+            font-family: var(--font-display);
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--white);
+        }
+
+        .shortcuts-group {
+            padding: 0.75rem 1.25rem;
+        }
+
+        .shortcuts-group-label {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+        }
+
+        .shortcut-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+        }
+
+        .shortcut-label {
+            font-size: 0.8125rem;
+            color: var(--gray-400);
+        }
+
+        .shortcut-keys {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .shortcut-keys kbd {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-400);
+            background: var(--gray-900);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            min-width: 24px;
+            text-align: center;
+        }
+
+        /* Select Menu */
+        .select-wrapper {
+            position: relative;
+            width: 220px;
+        }
+
+        .select-trigger {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            font-family: var(--font-body);
+            font-size: 0.8125rem;
+            color: var(--gray-300);
+            background: var(--gray-950);
+            border: 1px solid var(--gray-850);
+            padding: 0.625rem 0.875rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: border-color 0.15s;
+        }
+
+        .select-trigger:hover {
+            border-color: var(--gray-700);
+        }
+
+        .select-trigger-icon {
+            color: var(--gray-600);
+            font-size: 0.75rem;
+        }
+
+        .select-menu {
+            position: absolute;
+            top: calc(100% + 0.375rem);
+            left: 0;
+            right: 0;
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 8px;
+            padding: 0.375rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+
+        .select-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.8125rem;
+            color: var(--gray-400);
+            padding: 0.5rem 0.625rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.1s;
+        }
+
+        .select-option:hover {
+            color: var(--white);
+            background: var(--gray-900);
+        }
+
+        .select-option.selected {
+            color: var(--white);
+        }
+
+        .select-check {
+            color: var(--gray-500);
+            font-size: 0.75rem;
+        }
+
+        /* Popover */
+        .popover-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .popover {
+            position: absolute;
+            bottom: calc(100% + 0.75rem);
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 10px;
+            padding: 1rem;
+            width: 260px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+
+        .popover::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: var(--gray-900);
+        }
+
+        .popover-title {
+            font-family: var(--font-display);
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--white);
+            margin-bottom: 0.375rem;
+        }
+
+        .popover-description {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            margin-bottom: 0.75rem;
+        }
+
+        .popover-link {
+            font-size: 0.6875rem;
+            color: var(--gray-400);
+            text-decoration: underline;
+        }
+
+        .popover-link:hover {
+            color: var(--white);
+        }
+
+        /* Responsive */
+        @media (max-width: 700px) {
+            .demo-row {
+                flex-direction: column;
+            }
+
+            .command-palette {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- Command Palette -->
+        <section class="section">
+            <div class="section-label">Command Palette · Spotlight Search</div>
+            <div class="command-palette">
+                <div class="command-input-wrapper">
+                    <span class="command-input-icon">⌘</span>
+                    <input type="text" class="command-input" placeholder="Search commands, agents, docs...">
+                    <span class="command-shortcut">ESC</span>
+                </div>
+                <div class="command-group">
+                    <div class="command-group-label">Recent</div>
+                    <div class="command-item active">
+                        <div class="command-item-icon">◎</div>
+                        <div class="command-item-content">
+                            <div class="command-item-title">Lucidia Research Agent</div>
+                            <div class="command-item-description">Last active 2 minutes ago</div>
+                        </div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-item-icon">◇</div>
+                        <div class="command-item-content">
+                            <div class="command-item-title">Event Bus Monitor</div>
+                            <div class="command-item-description">Dashboard view</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="command-group">
+                    <div class="command-group-label">Actions</div>
+                    <div class="command-item">
+                        <div class="command-item-icon">+</div>
+                        <div class="command-item-content">
+                            <div class="command-item-title">Create new agent</div>
+                        </div>
+                        <div class="command-item-shortcut"><kbd>⌘</kbd><kbd>N</kbd></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-item-icon">▤</div>
+                        <div class="command-item-content">
+                            <div class="command-item-title">View logs</div>
+                        </div>
+                        <div class="command-item-shortcut"><kbd>⌘</kbd><kbd>L</kbd></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-item-icon">◈</div>
+                        <div class="command-item-content">
+                            <div class="command-item-title">Open settings</div>
+                        </div>
+                        <div class="command-item-shortcut"><kbd>⌘</kbd><kbd>,</kbd></div>
+                    </div>
+                </div>
+                <div class="command-footer">
+                    <div class="command-footer-keys">
+                        <span class="command-footer-key"><kbd>↑</kbd><kbd>↓</kbd> Navigate</span>
+                        <span class="command-footer-key"><kbd>↵</kbd> Select</span>
+                        <span class="command-footer-key"><kbd>ESC</kbd> Close</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modal Dialogs -->
+        <section class="section">
+            <div class="section-label">Modal Dialogs · Confirmation & Input</div>
+            <div class="demo-row">
+                <div class="modal-backdrop" style="flex: 1;">
+                    <div class="modal">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Delete agent?</h3>
+                            <button class="modal-close">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="modal-text">This will permanently delete <strong style="color: var(--gray-200);">Lucidia Research Agent</strong> and all associated memories. This action cannot be undone.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary">Cancel</button>
+                            <button class="btn btn-danger">Delete</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-backdrop" style="flex: 1;">
+                    <div class="modal">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Rename workspace</h3>
+                            <button class="modal-close">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="modal-text">Enter a new name for your workspace.</p>
+                            <input type="text" class="modal-input" value="BlackRoad Production">
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary">Cancel</button>
+                            <button class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dropdown & Context Menus -->
+        <section class="section">
+            <div class="section-label">Menus · Dropdown & Context</div>
+            <div class="demo-row">
+                <div class="dropdown-container">
+                    <button class="dropdown-trigger">
+                        Actions
+                        <span>▾</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-item">
+                            <span class="dropdown-item-icon">◫</span>
+                            Duplicate
+                        </div>
+                        <div class="dropdown-item">
+                            <span class="dropdown-item-icon">↗</span>
+                            Export
+                        </div>
+                        <div class="dropdown-item">
+                            <span class="dropdown-item-icon">◇</span>
+                            Share
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <div class="dropdown-item danger">
+                            <span class="dropdown-item-icon">×</span>
+                            Delete
+                        </div>
+                    </div>
+                </div>
+
+                <div class="context-area" style="flex: 1;">
+                    <span class="context-label">Right-click context menu</span>
+                    <div class="context-menu">
+                        <div class="context-item">
+                            <span class="context-item-left">
+                                <span>◫</span>
+                                Copy
+                            </span>
+                            <span class="context-item-shortcut">⌘C</span>
+                        </div>
+                        <div class="context-item">
+                            <span class="context-item-left">
+                                <span>◇</span>
+                                Paste
+                            </span>
+                            <span class="context-item-shortcut">⌘V</span>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <div class="context-item">
+                            <span class="context-item-left">
+                                <span>◎</span>
+                                Inspect
+                            </span>
+                            <span class="context-item-shortcut">⌘I</span>
+                        </div>
+                        <div class="context-item">
+                            <span class="context-item-left">
+                                <span>▤</span>
+                                View source
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tooltips & Popovers -->
+        <section class="section">
+            <div class="section-label">Overlays · Tooltips & Popovers</div>
+            <div class="demo-row" style="align-items: flex-start;">
+                <div class="tooltip-demo" style="flex: 1; background: var(--gray-950); border-radius: 10px;">
+                    <div class="tooltip-trigger">
+                        ◎
+                        <div class="tooltip">
+                            Agents
+                            <span class="tooltip-shortcut">⌘1</span>
+                        </div>
+                    </div>
+                    <div class="tooltip-trigger">
+                        ◇
+                        <div class="tooltip">Events</div>
+                    </div>
+                    <div class="tooltip-trigger">
+                        ▤
+                        <div class="tooltip">Logs</div>
+                    </div>
+                    <div class="tooltip-trigger">
+                        ◈
+                        <div class="tooltip">
+                            Settings
+                            <span class="tooltip-shortcut">⌘,</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="flex: 1; display: flex; justify-content: center; padding-top: 5rem;">
+                    <div class="popover-wrapper">
+                        <button class="btn btn-secondary">Learn more</button>
+                        <div class="popover">
+                            <h4 class="popover-title">PS-SHA∞ Memory</h4>
+                            <p class="popover-description">Persistent memory using cryptographic hash chains ensures agent memories are tamper-proof and verifiable.</p>
+                            <a href="#" class="popover-link">Read documentation →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Select Menu -->
+        <section class="section">
+            <div class="section-label">Form Controls · Select & Combobox</div>
+            <div class="demo-row">
+                <div class="select-wrapper">
+                    <div class="select-trigger">
+                        <span>vLLM Runtime</span>
+                        <span class="select-trigger-icon">▾</span>
+                    </div>
+                    <div class="select-menu">
+                        <div class="select-option selected">
+                            <span>vLLM Runtime</span>
+                            <span class="select-check">✓</span>
+                        </div>
+                        <div class="select-option">
+                            <span>llama.cpp</span>
+                        </div>
+                        <div class="select-option">
+                            <span>Ollama (Local)</span>
+                        </div>
+                        <div class="select-option">
+                            <span>OpenAI API</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="select-wrapper">
+                    <div class="select-trigger">
+                        <span>All Agents</span>
+                        <span class="select-trigger-icon">▾</span>
+                    </div>
+                    <div class="select-menu">
+                        <div class="select-option selected">
+                            <span>All Agents</span>
+                            <span class="select-check">✓</span>
+                        </div>
+                        <div class="select-option">
+                            <span>Active Only</span>
+                        </div>
+                        <div class="select-option">
+                            <span>Paused</span>
+                        </div>
+                        <div class="select-option">
+                            <span>Archived</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Keyboard Shortcuts -->
+        <section class="section">
+            <div class="section-label">Reference · Keyboard Shortcuts</div>
+            <div class="shortcuts-panel">
+                <div class="shortcuts-header">
+                    <h3 class="shortcuts-title">Keyboard Shortcuts</h3>
+                </div>
+                <div class="shortcuts-group">
+                    <div class="shortcuts-group-label">Navigation</div>
+                    <div class="shortcut-row">
+                        <span class="shortcut-label">Command palette</span>
+                        <div class="shortcut-keys"><kbd>⌘</kbd><kbd>K</kbd></div>
+                    </div>
+                    <div class="shortcut-row">
+                        <span class="shortcut-label">Search</span>
+                        <div class="shortcut-keys"><kbd>⌘</kbd><kbd>/</kbd></div>
+                    </div>
+                    <div class="shortcut-row">
+                        <span class="shortcut-label">Go to agents</span>
+                        <div class="shortcut-keys"><kbd>G</kbd><kbd>A</kbd></div>
+                    </div>
+                    <div class="shortcut-row">
+                        <span class="shortcut-label">Go to events</span>
+                        <div class="shortcut-keys"><kbd>G</kbd><kbd>E</kbd></div>
+                    </div>
+                </div>
+                <div class="shortcuts-group" style="border-top: 1px solid var(--gray-900);">
+                    <div class="shortcuts-group-label">Actions</div>
+                    <div class="shortcut-row">
+                        <span class="shortcut-label">Create agent</span>
+                        <div class="shortcut-keys"><kbd>⌘</kbd><kbd>N</kbd></div>
+                    </div>
+                    <div class="shortcut-row">
+                        <span class="shortcut-label">Save changes</span>
+                        <div class="shortcut-keys"><kbd>⌘</kbd><kbd>S</kbd></div>
+                    </div>
+                    <div class="shortcut-row">
+                        <span class="shortcut-label">Delete selected</span>
+                        <div class="shortcut-keys"><kbd>⌘</kbd><kbd>⌫</kbd></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
