@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feedback Components - BlackRoad OS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/feedback.css">
+</head>
+<body>
+  <div class="demo-page">
+    <header class="page-header">
+      <h1 class="page-title">Feedback Components</h1>
+      <p class="page-desc">Alerts, notifications, progress, loading, and state indicators</p>
+    </header>
+
+    <!-- Alert Banners -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Alert Banners</h2>
+      </div>
+      <div class="component-row">
+        <div class="alert info">
+          <svg class="alert-icon" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <div class="alert-content">
+            <div class="alert-title">System Update Available</div>
+            <div class="alert-message">A new version of BlackRoad OS is available. Please schedule a maintenance window to apply updates.</div>
+          </div>
+          <button class="alert-close" aria-label="Dismiss">
+            <svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+
+        <div class="alert success">
+          <svg class="alert-icon" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <div class="alert-content">
+            <div class="alert-title">Deployment Complete</div>
+            <div class="alert-message">Lucidia-7 has been successfully deployed to the Alice gateway cluster.</div>
+          </div>
+          <button class="alert-close" aria-label="Dismiss">
+            <svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+
+        <div class="alert warning">
+          <svg class="alert-icon" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+          <div class="alert-content">
+            <div class="alert-title">Memory Threshold Warning</div>
+            <div class="alert-message">Agent memory usage at 85%. Consider increasing allocation or optimizing state commits.</div>
+            <div class="alert-actions">
+              <button class="alert-btn alert-btn-primary">Increase Memory</button>
+              <button class="alert-btn alert-btn-secondary">Dismiss</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="alert error">
+          <svg class="alert-icon" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <div class="alert-content">
+            <div class="alert-title">Contradiction Detected</div>
+            <div class="alert-message">Paraconsistent quarantine activated. Two conflicting claims require human review before resolution.</div>
+          </div>
+          <button class="alert-close" aria-label="Dismiss">
+            <svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Toast Notifications -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Toast Notifications</h2>
+      </div>
+      <div class="toast-demo">
+        <div class="toast">
+          <svg class="toast-icon" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <div class="toast-content">
+            <div class="toast-title">Changes saved</div>
+            <div class="toast-message">Agent configuration updated successfully</div>
+          </div>
+          <button class="toast-close" aria-label="Dismiss">
+            <svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+
+        <div class="toast" style="position: relative;">
+          <svg class="toast-icon" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+          <div class="toast-content">
+            <div class="toast-title">Uploading memory snapshot...</div>
+            <div class="toast-message">lucidia-state-2026-01-24.json</div>
+          </div>
+          <span class="toast-progress" style="width: 65%;"></span>
+        </div>
+
+        <div class="toast">
+          <svg class="toast-icon" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <div class="toast-content">
+            <div class="toast-title">New agent registered</div>
+            <div class="toast-message">Octavia-Worker joined the cluster</div>
+            <div class="toast-action">
+              <button class="toast-action-btn">View Details</button>
+            </div>
+          </div>
+          <button class="toast-close" aria-label="Dismiss">
+            <svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Badges & Tags -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Badges &amp; Tags</h2>
+      </div>
+      <div class="badge-row">
+        <span class="badge">Default</span>
+        <span class="badge outline">Outline</span>
+        <span class="badge sm">Small</span>
+        <span class="badge lg">Large</span>
+        <span class="badge">
+          <svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          With Icon
+        </span>
+      </div>
+      <div class="badge-row">
+        <span class="badge dot online">Online</span>
+        <span class="badge dot busy">Busy</span>
+        <span class="badge dot offline">Offline</span>
+      </div>
+      <div class="badge-row">
+        <span class="status-badge active"><span class="dot"></span>RUNNING</span>
+        <span class="status-badge pending"><span class="dot"></span>PENDING</span>
+        <span class="status-badge"><span class="dot"></span>STOPPED</span>
+      </div>
+    </section>
+
+    <!-- Progress Indicators -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Progress Indicators</h2>
+      </div>
+      <div class="progress-section">
+        <div class="progress-item">
+          <div class="progress-header">
+            <span class="progress-label">Memory sync</span>
+            <span class="progress-value">72%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 72%;"></div>
+          </div>
+        </div>
+
+        <div class="progress-item">
+          <div class="progress-header">
+            <span class="progress-label">Task completion</span>
+            <span class="progress-value">1,247 / 1,500</span>
+          </div>
+          <div class="progress-bar lg">
+            <div class="progress-fill" style="width: 83%;"></div>
+          </div>
+        </div>
+
+        <div class="progress-item">
+          <div class="progress-header">
+            <span class="progress-label">Deployment steps</span>
+            <span class="progress-value">3 / 5</span>
+          </div>
+          <div class="progress-segments">
+            <div class="progress-segment filled"></div>
+            <div class="progress-segment filled"></div>
+            <div class="progress-segment active"></div>
+            <div class="progress-segment"></div>
+            <div class="progress-segment"></div>
+          </div>
+        </div>
+
+        <div class="progress-circular-row">
+          <div>
+            <div class="progress-circular">
+              <svg width="80" height="80" viewBox="0 0 80 80">
+                <circle class="progress-circular-bg" cx="40" cy="40" r="36"/>
+                <circle class="progress-circular-fill" cx="40" cy="40" r="36" style="stroke-dashoffset: 56;"/>
+              </svg>
+              <span class="progress-circular-value">75%</span>
+            </div>
+            <div class="progress-circular-label">CPU Usage</div>
+          </div>
+          <div>
+            <div class="progress-circular">
+              <svg width="80" height="80" viewBox="0 0 80 80">
+                <circle class="progress-circular-bg" cx="40" cy="40" r="36"/>
+                <circle class="progress-circular-fill" cx="40" cy="40" r="36" style="stroke-dashoffset: 135;"/>
+              </svg>
+              <span class="progress-circular-value">40%</span>
+            </div>
+            <div class="progress-circular-label">Memory</div>
+          </div>
+          <div>
+            <div class="progress-circular">
+              <svg width="80" height="80" viewBox="0 0 80 80">
+                <circle class="progress-circular-bg" cx="40" cy="40" r="36"/>
+                <circle class="progress-circular-fill" cx="40" cy="40" r="36" style="stroke-dashoffset: 181;"/>
+              </svg>
+              <span class="progress-circular-value">20%</span>
+            </div>
+            <div class="progress-circular-label">Storage</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Loading States -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Loading States</h2>
+      </div>
+      <div class="loading-row">
+        <div class="loading-item">
+          <div class="spinner"></div>
+          <span class="loading-label">Spinner</span>
+        </div>
+        <div class="loading-item">
+          <div class="spinner sm"></div>
+          <span class="loading-label">Small</span>
+        </div>
+        <div class="loading-item">
+          <div class="spinner lg"></div>
+          <span class="loading-label">Large</span>
+        </div>
+        <div class="loading-item">
+          <div class="loading-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <span class="loading-label">Dots</span>
+        </div>
+        <div class="loading-item">
+          <div class="loading-pulse"></div>
+          <span class="loading-label">Pulse</span>
+        </div>
+        <div class="loading-item">
+          <div class="loading-bars">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <span class="loading-label">Bars</span>
+        </div>
+      </div>
+
+      <div class="skeleton-demo" style="margin-top: 24px;">
+        <div class="skeleton-header">
+          <div class="skeleton skeleton-avatar"></div>
+          <div class="skeleton-text">
+            <div class="skeleton skeleton-line short"></div>
+            <div class="skeleton skeleton-line" style="width: 40%;"></div>
+          </div>
+        </div>
+        <div class="skeleton-body">
+          <div class="skeleton skeleton-paragraph"></div>
+          <div class="skeleton skeleton-paragraph"></div>
+          <div class="skeleton skeleton-paragraph"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Empty States -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Empty States</h2>
+      </div>
+      <div class="empty-state">
+        <div class="empty-state-icon">
+          <svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </div>
+        <h3 class="empty-state-title">No agents deployed</h3>
+        <p class="empty-state-message">Get started by creating your first AI agent. They'll appear here once deployed to the cluster.</p>
+        <button class="empty-state-action">
+          <svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          Create Agent
+        </button>
+      </div>
+
+      <div class="empty-state compact" style="margin-top: 24px;">
+        <div class="empty-state-icon">
+          <svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </div>
+        <h3 class="empty-state-title">No results found</h3>
+        <p class="empty-state-message">Try adjusting your search or filter criteria.</p>
+      </div>
+    </section>
+
+    <!-- Error States -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Error States</h2>
+      </div>
+      <div class="error-state">
+        <div class="error-state-icon">
+          <svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+        </div>
+        <div class="error-state-code">503</div>
+        <h3 class="error-state-title">Service Unavailable</h3>
+        <p class="error-state-message">The Alice gateway is temporarily unavailable. This might be due to maintenance or high load. Please try again in a few minutes.</p>
+        <div class="error-state-actions">
+          <button class="error-state-btn primary">Try Again</button>
+          <button class="error-state-btn secondary">View Status</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Inline Messages -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Inline Messages</h2>
+      </div>
+      <div class="inline-row">
+        <div class="inline-message">
+          <svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          This agent uses trinary logic mode. <a href="#">Learn more</a>
+        </div>
+        <div class="inline-message">
+          <svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+          API key is hidden for security. Click to reveal temporarily.
+        </div>
+        <div class="inline-message">
+          <svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          Last synced 2 minutes ago
+        </div>
+      </div>
+    </section>
+
+    <!-- Tooltips -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Tooltips</h2>
+      </div>
+      <div class="tooltip-demo">
+        <div class="tooltip-trigger">
+          Hover (Top)
+          <span class="tooltip top">Tooltip on top</span>
+        </div>
+        <div class="tooltip-trigger">
+          Hover (Bottom)
+          <span class="tooltip bottom">Tooltip on bottom</span>
+        </div>
+        <div class="tooltip-trigger">
+          Hover (Left)
+          <span class="tooltip left">Tooltip on left</span>
+        </div>
+        <div class="tooltip-trigger">
+          Hover (Right)
+          <span class="tooltip right">Tooltip on right</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Timer / Countdown -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Timer / Countdown</h2>
+      </div>
+      <div class="timer-demo">
+        <div class="timer">
+          <div class="timer-segment">
+            <span class="timer-value">02</span>
+            <span class="timer-label">Hours</span>
+          </div>
+          <span class="timer-sep">:</span>
+          <div class="timer-segment">
+            <span class="timer-value">47</span>
+            <span class="timer-label">Minutes</span>
+          </div>
+          <span class="timer-sep">:</span>
+          <div class="timer-segment">
+            <span class="timer-value">33</span>
+            <span class="timer-label">Seconds</span>
+          </div>
+        </div>
+
+        <div class="timer-compact">
+          <svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          02:47:33
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

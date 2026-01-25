@@ -1,0 +1,122 @@
+/**
+ * BlackRoad OS - Base Design Tokens
+ * Core variables and reset styles for the design system
+ */
+
+:root {
+  /* Grayscale palette */
+  --gray-0: #000000;
+  --gray-1: #09090b;
+  --gray-2: #0f0f12;
+  --gray-3: #18181d;
+  --gray-4: #222229;
+  --gray-5: #2d2d36;
+  --gray-6: #3c3c47;
+  --gray-7: #505062;
+  --gray-8: #6b6b7d;
+  --gray-9: #8b8b9e;
+  --gray-10: #ababba;
+  --gray-11: #d1d1db;
+  --gray-12: #ffffff;
+
+  /* Typography */
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Border radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Base styles */
+body {
+  font-family: var(--font-body);
+  background: var(--gray-1);
+  color: var(--gray-10);
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Links */
+a {
+  color: var(--gray-11);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.15s;
+}
+
+a:hover {
+  color: var(--gray-12);
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid var(--gray-7);
+  outline-offset: 2px;
+}
+
+/* Demo page layout */
+.demo-page {
+  padding: 48px 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.page-header {
+  margin-bottom: 48px;
+}
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--gray-12);
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+}
+
+.page-desc {
+  font-size: 16px;
+  color: var(--gray-8);
+}
+
+.section {
+  margin-bottom: 56px;
+}
+
+.section-header {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--gray-4);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--gray-11);
+  letter-spacing: -0.3px;
+}
+
+.component-row {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

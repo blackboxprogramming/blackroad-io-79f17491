@@ -1,12 +1,130 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>BlackRoad</title>
-  </head>
-  <body style="font-family: system-ui; padding: 40px;">
-    <h1>BlackRoad</h1>
-    <p>Building sovereign, local-first AI systems.</p>
-    <p>Status: Online.</p>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlackRoad OS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <style>
+    .landing {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px;
+      text-align: center;
+    }
+
+    .landing-title {
+      font-family: var(--font-display);
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--gray-12);
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+
+    .landing-subtitle {
+      font-size: 18px;
+      color: var(--gray-8);
+      margin-bottom: 8px;
+    }
+
+    .landing-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: var(--gray-3);
+      border: 1px solid var(--gray-4);
+      border-radius: 20px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--gray-10);
+      margin-bottom: 48px;
+    }
+
+    .landing-status::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--gray-10);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--gray-9);
+    }
+
+    .landing-section {
+      margin-bottom: 32px;
+    }
+
+    .landing-section-title {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-7);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
+    .landing-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .landing-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      background: var(--gray-3);
+      border: 1px solid var(--gray-4);
+      border-radius: var(--radius-md);
+      color: var(--gray-11);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.15s;
+    }
+
+    .landing-link:hover {
+      background: var(--gray-4);
+      border-color: var(--gray-5);
+      color: var(--gray-12);
+    }
+
+    .landing-link svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--gray-8);
+    }
+
+    .landing-link:hover svg {
+      stroke: var(--gray-10);
+    }
+  </style>
+</head>
+<body>
+  <div class="landing">
+    <h1 class="landing-title">BlackRoad</h1>
+    <p class="landing-subtitle">Building sovereign, local-first AI systems.</p>
+    <span class="landing-status">Online</span>
+
+    <div class="landing-section">
+      <h2 class="landing-section-title">Design System</h2>
+      <div class="landing-links">
+        <a href="components/feedback.html" class="landing-link">
+          <svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+          Feedback Components
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
 </html>
