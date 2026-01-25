@@ -669,12 +669,18 @@
             color: var(--gray-500);
             text-decoration: none;
             transition: color 0.2s;
+            outline: none;
         }
 
-        .footer-link:hover {
+        .footer-link:hover,
+        .footer-link:focus-visible {
             color: var(--white);
         }
 
+        .footer-link:focus-visible {
+            outline: 2px solid var(--white);
+            outline-offset: 2px;
+        }
         .footer-bottom {
             display: flex;
             justify-content: space-between;
