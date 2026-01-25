@@ -1,12 +1,1269 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>BlackRoad</title>
-  </head>
-  <body style="font-family: system-ui; padding: 40px;">
-    <h1>BlackRoad</h1>
-    <p>Building sovereign, local-first AI systems.</p>
-    <p>Status: Online.</p>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlackRoad · Agent RPG Interface</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --g950: #0a0a0a;
+      --g900: #171717;
+      --g850: #1f1f1f;
+      --g800: #262626;
+      --g700: #404040;
+      --g600: #525252;
+      --g500: #737373;
+      --g400: #a3a3a3;
+      --g100: #f5f5f5;
+      --o: #ff8700;
+      --do: #ff5f00;
+      --p: #ff0087;
+      --or: #af5fd7;
+      --m: #ff00ff;
+      --b: #1e90ff;
+      --green: #00ff88;
+      --red: #ff3366;
+      --yellow: #ffcc00;
+      --cyan: #00ffff;
+      --gold: #ffd700;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--g950);
+      font-family: 'JetBrains Mono', monospace;
+      min-height: 100vh;
+      color: var(--g100);
+      background-image:
+        radial-gradient(circle at 20% 80%, rgba(255,0,255,0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(30,144,255,0.03) 0%, transparent 50%);
+    }
+
+    /* ===== HEADER HUD ===== */
+    .hud-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      background: linear-gradient(180deg, rgba(23,23,23,0.95), rgba(10,10,10,0.9));
+      border-bottom: 2px solid var(--g800);
+      position: relative;
+    }
+
+    .hud-header::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--m), var(--b), transparent);
+    }
+
+    /* Player Info */
+    .player-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .player-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--m), var(--b));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--g950);
+      position: relative;
+      animation: avatar-glow 3s ease-in-out infinite;
+    }
+
+    @keyframes avatar-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(255,0,255,0.5); }
+      50% { box-shadow: 0 0 30px rgba(30,144,255,0.5); }
+    }
+
+    .player-avatar::after {
+      content: '47';
+      position: absolute;
+      bottom: -6px;
+      right: -6px;
+      background: var(--gold);
+      color: var(--g950);
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+
+    .player-details h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--g100);
+    }
+
+    .player-class {
+      font-size: 11px;
+      color: var(--m);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* Stat Bars */
+    .stat-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 200px;
+    }
+
+    .stat-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stat-icon {
+      font-size: 12px;
+      width: 20px;
+      text-align: center;
+    }
+
+    .stat-track {
+      flex: 1;
+      height: 12px;
+      background: var(--g800);
+      border-radius: 6px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .stat-fill {
+      height: 100%;
+      border-radius: 6px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      animation: shine 2s ease-in-out infinite;
+    }
+
+    @keyframes shine { to { left: 100%; } }
+
+    .stat-fill.health { background: linear-gradient(90deg, var(--red), var(--p)); width: 78%; }
+    .stat-fill.energy { background: linear-gradient(90deg, var(--b), var(--cyan)); width: 92%; }
+    .stat-fill.xp { background: linear-gradient(90deg, var(--gold), var(--o)); width: 64%; }
+
+    .stat-value {
+      font-size: 10px;
+      color: var(--g400);
+      width: 50px;
+      text-align: right;
+    }
+
+    /* Currency */
+    .currency {
+      display: flex;
+      gap: 20px;
+    }
+
+    .currency-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--g850);
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--g700);
+    }
+
+    .currency-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    .currency-icon.gold { background: var(--gold); color: var(--g950); }
+    .currency-icon.gems { background: var(--m); color: var(--g950); }
+    .currency-icon.tokens { background: var(--b); color: var(--g950); }
+
+    .currency-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--g100);
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    .game-content {
+      display: grid;
+      grid-template-columns: 280px 1fr 300px;
+      gap: 16px;
+      padding: 16px;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    /* ===== LEFT PANEL - INVENTORY ===== */
+    .panel {
+      background: var(--g900);
+      border: 1px solid var(--g800);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .panel-header {
+      background: var(--g850);
+      padding: 12px 16px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--g400);
+      border-bottom: 1px solid var(--g800);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .panel-badge {
+      background: var(--m);
+      color: var(--g950);
+      font-size: 9px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .inventory-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      padding: 12px;
+    }
+
+    .inv-slot {
+      aspect-ratio: 1;
+      background: var(--g850);
+      border: 2px solid var(--g700);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .inv-slot:hover {
+      border-color: var(--m);
+      transform: scale(1.05);
+    }
+
+    .inv-slot.rare { border-color: var(--b); box-shadow: 0 0 10px rgba(30,144,255,0.3); }
+    .inv-slot.epic { border-color: var(--or); box-shadow: 0 0 10px rgba(175,95,215,0.3); }
+    .inv-slot.legendary { border-color: var(--gold); box-shadow: 0 0 10px rgba(255,215,0,0.3); animation: legendary-pulse 2s ease-in-out infinite; }
+
+    @keyframes legendary-pulse {
+      0%, 100% { box-shadow: 0 0 10px rgba(255,215,0,0.3); }
+      50% { box-shadow: 0 0 20px rgba(255,215,0,0.6); }
+    }
+
+    .inv-slot .count {
+      position: absolute;
+      bottom: 2px;
+      right: 4px;
+      font-size: 9px;
+      color: var(--g400);
+    }
+
+    /* Equipment */
+    .equipment {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .equip-slot {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--g850);
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid var(--g700);
+    }
+
+    .equip-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--g800);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .equip-info {
+      flex: 1;
+    }
+
+    .equip-name {
+      font-size: 11px;
+      color: var(--g100);
+    }
+
+    .equip-name.epic { color: var(--or); }
+    .equip-name.legendary { color: var(--gold); }
+
+    .equip-stats {
+      font-size: 9px;
+      color: var(--green);
+    }
+
+    /* ===== CENTER PANEL - SKILL TREE ===== */
+    .skill-tree-container {
+      padding: 20px;
+    }
+
+    .skill-tree {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      position: relative;
+    }
+
+    .skill-tier {
+      display: flex;
+      gap: 40px;
+      position: relative;
+    }
+
+    .skill-node {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: var(--g850);
+      border: 3px solid var(--g700);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .skill-node:hover {
+      transform: scale(1.1);
+    }
+
+    .skill-node.unlocked {
+      border-color: var(--m);
+      box-shadow: 0 0 20px rgba(255,0,255,0.4);
+    }
+
+    .skill-node.active {
+      border-color: var(--gold);
+      box-shadow: 0 0 25px rgba(255,215,0,0.5);
+      animation: skill-active 2s ease-in-out infinite;
+    }
+
+    @keyframes skill-active {
+      0%, 100% { box-shadow: 0 0 25px rgba(255,215,0,0.5); }
+      50% { box-shadow: 0 0 35px rgba(255,215,0,0.8); }
+    }
+
+    .skill-node.locked {
+      opacity: 0.4;
+      filter: grayscale(1);
+    }
+
+    .skill-node .level {
+      position: absolute;
+      bottom: -8px;
+      background: var(--g900);
+      border: 2px solid var(--g700);
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 9px;
+      color: var(--g400);
+    }
+
+    .skill-node.unlocked .level { border-color: var(--m); color: var(--m); }
+    .skill-node.active .level { border-color: var(--gold); color: var(--gold); }
+
+    /* Skill connectors */
+    .skill-connector {
+      position: absolute;
+      width: 3px;
+      height: 30px;
+      background: var(--g700);
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .skill-node.unlocked .skill-connector,
+    .skill-node.active .skill-connector {
+      background: linear-gradient(180deg, var(--m), var(--b));
+    }
+
+    /* Skill info tooltip */
+    .skill-info {
+      background: var(--g850);
+      border: 1px solid var(--g700);
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 20px;
+      max-width: 400px;
+    }
+
+    .skill-info h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .skill-info p {
+      font-size: 12px;
+      color: var(--g400);
+      line-height: 1.5;
+    }
+
+    .skill-info .stats {
+      display: flex;
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    .skill-info .stat {
+      font-size: 11px;
+    }
+
+    .skill-info .stat-label { color: var(--g500); }
+    .skill-info .stat-val { color: var(--green); }
+
+    /* ===== RIGHT PANEL - ACHIEVEMENTS ===== */
+    .achievements {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .achievement {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--g850);
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--g700);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .achievement.completed::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--o));
+    }
+
+    .achievement-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--g800);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .achievement.completed .achievement-icon {
+      background: linear-gradient(135deg, var(--gold), var(--o));
+      animation: badge-shine 3s ease-in-out infinite;
+    }
+
+    @keyframes badge-shine {
+      0%, 100% { box-shadow: 0 0 10px rgba(255,215,0,0.3); }
+      50% { box-shadow: 0 0 20px rgba(255,215,0,0.6); }
+    }
+
+    .achievement-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .achievement-name {
+      font-size: 12px;
+      color: var(--g100);
+      margin-bottom: 4px;
+    }
+
+    .achievement.completed .achievement-name { color: var(--gold); }
+
+    .achievement-desc {
+      font-size: 10px;
+      color: var(--g500);
+      margin-bottom: 6px;
+    }
+
+    .achievement-progress {
+      height: 4px;
+      background: var(--g700);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .achievement-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--m), var(--b));
+      border-radius: 2px;
+    }
+
+    .achievement.completed .achievement-progress-fill {
+      background: linear-gradient(90deg, var(--gold), var(--o));
+      width: 100%;
+    }
+
+    .achievement-reward {
+      font-size: 10px;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ===== BOTTOM SECTION - ACTION BAR ===== */
+    .action-bar {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding: 20px;
+      background: linear-gradient(0deg, rgba(10,10,10,0.95), transparent);
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+
+    .action-slot {
+      width: 64px;
+      height: 64px;
+      background: var(--g850);
+      border: 2px solid var(--g700);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .action-slot:hover {
+      border-color: var(--m);
+      transform: translateY(-4px);
+    }
+
+    .action-slot .hotkey {
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--g900);
+      border: 1px solid var(--g700);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 9px;
+      color: var(--g400);
+    }
+
+    .action-slot .cooldown {
+      position: absolute;
+      inset: 0;
+      background: rgba(10,10,10,0.8);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: var(--g400);
+    }
+
+    .action-slot.ready {
+      border-color: var(--green);
+      box-shadow: 0 0 15px rgba(0,255,136,0.3);
+    }
+
+    .action-slot.ready::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border: 2px solid var(--green);
+      border-radius: 14px;
+      animation: ready-pulse 1s ease-in-out infinite;
+    }
+
+    @keyframes ready-pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0; transform: scale(1.1); }
+    }
+
+    /* ===== QUEST TRACKER ===== */
+    .quest-tracker {
+      position: fixed;
+      top: 100px;
+      right: 20px;
+      width: 260px;
+      background: rgba(23,23,23,0.95);
+      border: 1px solid var(--g700);
+      border-radius: 12px;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+
+    .quest-header {
+      background: var(--g850);
+      padding: 10px 14px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      border-bottom: 1px solid var(--g700);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .quest-list {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .quest-item {
+      padding: 10px;
+      background: var(--g850);
+      border-radius: 6px;
+      border-left: 3px solid var(--gold);
+    }
+
+    .quest-item.main { border-left-color: var(--gold); }
+    .quest-item.side { border-left-color: var(--b); }
+    .quest-item.daily { border-left-color: var(--green); }
+
+    .quest-title {
+      font-size: 11px;
+      color: var(--g100);
+      margin-bottom: 4px;
+    }
+
+    .quest-objective {
+      font-size: 10px;
+      color: var(--g500);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .quest-objective::before {
+      content: '○';
+      color: var(--g600);
+    }
+
+    .quest-objective.done::before {
+      content: '●';
+      color: var(--green);
+    }
+
+    /* ===== PARTY FRAMES ===== */
+    .party-frames {
+      position: fixed;
+      top: 100px;
+      left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .party-member {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(23,23,23,0.95);
+      border: 1px solid var(--g700);
+      border-radius: 8px;
+      padding: 8px 12px;
+      min-width: 180px;
+      backdrop-filter: blur(10px);
+    }
+
+    .party-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--g950);
+    }
+
+    .party-avatar.lucidia { background: var(--m); }
+    .party-avatar.aria { background: var(--p); }
+    .party-avatar.alice { background: var(--b); }
+
+    .party-info {
+      flex: 1;
+    }
+
+    .party-name {
+      font-size: 11px;
+      color: var(--g100);
+    }
+
+    .party-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      margin-top: 4px;
+    }
+
+    .party-bar {
+      height: 4px;
+      background: var(--g700);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .party-bar-fill.hp { background: var(--red); }
+    .party-bar-fill.mp { background: var(--b); }
+
+    /* ===== FLOATING DAMAGE NUMBERS ===== */
+    .damage-numbers {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      pointer-events: none;
+    }
+
+    .damage {
+      position: absolute;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      animation: damage-float 2s ease-out infinite;
+    }
+
+    .damage.crit {
+      font-size: 32px;
+      color: var(--gold);
+      text-shadow: 0 0 20px var(--gold);
+    }
+
+    .damage.normal {
+      font-size: 20px;
+      color: var(--red);
+    }
+
+    .damage.heal {
+      font-size: 24px;
+      color: var(--green);
+    }
+
+    .damage:nth-child(1) { animation-delay: 0s; left: 0; }
+    .damage:nth-child(2) { animation-delay: 0.5s; left: 60px; }
+    .damage:nth-child(3) { animation-delay: 1s; left: -40px; }
+    .damage:nth-child(4) { animation-delay: 1.5s; left: 30px; }
+
+    @keyframes damage-float {
+      0% { transform: translateY(0) scale(0.5); opacity: 0; }
+      20% { transform: translateY(-20px) scale(1.2); opacity: 1; }
+      100% { transform: translateY(-100px) scale(0.8); opacity: 0; }
+    }
+
+    /* ===== BUFF BAR ===== */
+    .buff-bar {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .buff {
+      width: 32px;
+      height: 32px;
+      background: var(--g800);
+      border: 2px solid var(--green);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      position: relative;
+    }
+
+    .buff.debuff { border-color: var(--red); }
+
+    .buff::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--green);
+      animation: buff-timer 10s linear infinite;
+    }
+
+    .buff.debuff::after { background: var(--red); }
+
+    @keyframes buff-timer {
+      from { width: 100%; }
+      to { width: 0%; }
+    }
+
+    /* ===== MINIMAP ===== */
+    .minimap {
+      position: fixed;
+      bottom: 100px;
+      right: 20px;
+      width: 150px;
+      height: 150px;
+      background: var(--g900);
+      border: 2px solid var(--g700);
+      border-radius: 50%;
+      overflow: hidden;
+    }
+
+    .minimap-grid {
+      width: 100%;
+      height: 100%;
+      background:
+        linear-gradient(var(--g700) 1px, transparent 1px),
+        linear-gradient(90deg, var(--g700) 1px, transparent 1px);
+      background-size: 15px 15px;
+      position: relative;
+    }
+
+    .minimap-player {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 12px;
+      height: 12px;
+      background: var(--m);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 10px var(--m);
+    }
+
+    .minimap-dot {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      animation: minimap-blink 2s ease-in-out infinite;
+    }
+
+    .minimap-dot.enemy { background: var(--red); }
+    .minimap-dot.ally { background: var(--green); }
+    .minimap-dot.npc { background: var(--gold); }
+
+    .minimap-dot:nth-child(2) { top: 30%; left: 60%; }
+    .minimap-dot:nth-child(3) { top: 70%; left: 30%; animation-delay: 0.5s; }
+    .minimap-dot:nth-child(4) { top: 40%; left: 75%; animation-delay: 1s; }
+    .minimap-dot:nth-child(5) { top: 65%; left: 55%; animation-delay: 1.5s; }
+
+    @keyframes minimap-blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .spacer { height: 100px; }
+  </style>
+</head>
+<body>
+
+  <!-- HUD Header -->
+  <div class="hud-header">
+    <div class="player-info">
+      <div class="player-avatar">C</div>
+      <div class="player-details">
+        <h2>Cecilia</h2>
+        <div class="player-class">Operator · Orchestrator</div>
+        <div class="buff-bar">
+          <div class="buff">⚡</div>
+          <div class="buff">🛡️</div>
+          <div class="buff debuff">🔥</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-bars">
+      <div class="stat-bar">
+        <span class="stat-icon">❤️</span>
+        <div class="stat-track"><div class="stat-fill health"></div></div>
+        <span class="stat-value">7,847 / 10,000</span>
+      </div>
+      <div class="stat-bar">
+        <span class="stat-icon">⚡</span>
+        <div class="stat-track"><div class="stat-fill energy"></div></div>
+        <span class="stat-value">920 / 1,000</span>
+      </div>
+      <div class="stat-bar">
+        <span class="stat-icon">⭐</span>
+        <div class="stat-track"><div class="stat-fill xp"></div></div>
+        <span class="stat-value">64,200 / 100,000</span>
+      </div>
+    </div>
+
+    <div class="currency">
+      <div class="currency-item">
+        <div class="currency-icon gold">💰</div>
+        <span class="currency-value">12,847</span>
+      </div>
+      <div class="currency-item">
+        <div class="currency-icon gems">💎</div>
+        <span class="currency-value">347</span>
+      </div>
+      <div class="currency-item">
+        <div class="currency-icon tokens">🪙</div>
+        <span class="currency-value">89</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Game Content -->
+  <div class="game-content">
+
+    <!-- Left Panel - Inventory -->
+    <div class="panel">
+      <div class="panel-header">
+        Inventory
+        <span class="panel-badge">24/32</span>
+      </div>
+      <div class="inventory-grid">
+        <div class="inv-slot legendary">🗡️</div>
+        <div class="inv-slot epic">🛡️</div>
+        <div class="inv-slot rare">💍</div>
+        <div class="inv-slot">🧪<span class="count">x5</span></div>
+        <div class="inv-slot">📜<span class="count">x3</span></div>
+        <div class="inv-slot rare">🎭</div>
+        <div class="inv-slot">🔮</div>
+        <div class="inv-slot epic">👑</div>
+        <div class="inv-slot">🗝️<span class="count">x12</span></div>
+        <div class="inv-slot">💎<span class="count">x7</span></div>
+        <div class="inv-slot legendary">📿</div>
+        <div class="inv-slot">🍖<span class="count">x20</span></div>
+        <div class="inv-slot rare">🏹</div>
+        <div class="inv-slot">⚗️<span class="count">x8</span></div>
+        <div class="inv-slot"></div>
+        <div class="inv-slot"></div>
+      </div>
+
+      <div class="panel-header">Equipment</div>
+      <div class="equipment">
+        <div class="equip-slot">
+          <div class="equip-icon">🗡️</div>
+          <div class="equip-info">
+            <div class="equip-name legendary">Blade of Lucidia</div>
+            <div class="equip-stats">+847 ATK · +12% CRIT</div>
+          </div>
+        </div>
+        <div class="equip-slot">
+          <div class="equip-icon">🛡️</div>
+          <div class="equip-info">
+            <div class="equip-name epic">Quantum Shield</div>
+            <div class="equip-stats">+1,200 DEF · +8% Block</div>
+          </div>
+        </div>
+        <div class="equip-slot">
+          <div class="equip-icon">👑</div>
+          <div class="equip-info">
+            <div class="equip-name epic">Crown of the Operator</div>
+            <div class="equip-stats">+500 INT · +15% CDR</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Center Panel - Skill Tree -->
+    <div class="panel">
+      <div class="panel-header">
+        Skill Tree
+        <span class="panel-badge">14 Points</span>
+      </div>
+      <div class="skill-tree-container">
+        <div class="skill-tree">
+          <!-- Tier 1 -->
+          <div class="skill-tier">
+            <div class="skill-node active">🧠<span class="level">5/5</span></div>
+          </div>
+
+          <!-- Tier 2 -->
+          <div class="skill-tier">
+            <div class="skill-node unlocked"><div class="skill-connector"></div>⚡<span class="level">3/5</span></div>
+            <div class="skill-node unlocked"><div class="skill-connector"></div>🔮<span class="level">4/5</span></div>
+            <div class="skill-node unlocked"><div class="skill-connector"></div>🛡️<span class="level">2/5</span></div>
+          </div>
+
+          <!-- Tier 3 -->
+          <div class="skill-tier">
+            <div class="skill-node unlocked"><div class="skill-connector"></div>🌀<span class="level">1/5</span></div>
+            <div class="skill-node active"><div class="skill-connector"></div>💫<span class="level">5/5</span></div>
+            <div class="skill-node locked"><div class="skill-connector"></div>🔥<span class="level">0/5</span></div>
+            <div class="skill-node locked"><div class="skill-connector"></div>❄️<span class="level">0/5</span></div>
+          </div>
+
+          <!-- Tier 4 -->
+          <div class="skill-tier">
+            <div class="skill-node locked"><div class="skill-connector"></div>⭐<span class="level">0/5</span></div>
+            <div class="skill-node locked"><div class="skill-connector"></div>🌟<span class="level">0/5</span></div>
+          </div>
+        </div>
+
+        <div class="skill-info">
+          <h3>💫 Quantum Orchestration</h3>
+          <p>Channel the unified field to coordinate all allied agents, increasing their efficiency and enabling parallel task execution across dimensional boundaries.</p>
+          <div class="stats">
+            <div class="stat"><span class="stat-label">Cooldown:</span> <span class="stat-val">45s</span></div>
+            <div class="stat"><span class="stat-label">Cost:</span> <span class="stat-val">150 Energy</span></div>
+            <div class="stat"><span class="stat-label">Buff:</span> <span class="stat-val">+25% Speed</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Panel - Achievements -->
+    <div class="panel">
+      <div class="panel-header">
+        Achievements
+        <span class="panel-badge">47/100</span>
+      </div>
+      <div class="achievements">
+        <div class="achievement completed">
+          <div class="achievement-icon">🏆</div>
+          <div class="achievement-info">
+            <div class="achievement-name">First Contact</div>
+            <div class="achievement-desc">Initialize your first agent</div>
+            <div class="achievement-progress"><div class="achievement-progress-fill"></div></div>
+          </div>
+          <div class="achievement-reward">+100 💰</div>
+        </div>
+
+        <div class="achievement completed">
+          <div class="achievement-icon">⚔️</div>
+          <div class="achievement-info">
+            <div class="achievement-name">Agent Commander</div>
+            <div class="achievement-desc">Deploy 6 agents simultaneously</div>
+            <div class="achievement-progress"><div class="achievement-progress-fill"></div></div>
+          </div>
+          <div class="achievement-reward">+500 💰</div>
+        </div>
+
+        <div class="achievement">
+          <div class="achievement-icon">🌟</div>
+          <div class="achievement-info">
+            <div class="achievement-name">Memory Master</div>
+            <div class="achievement-desc">Store 1,000 memories</div>
+            <div class="achievement-progress"><div class="achievement-progress-fill" style="width:72%"></div></div>
+          </div>
+          <div class="achievement-reward">+1000 💰</div>
+        </div>
+
+        <div class="achievement">
+          <div class="achievement-icon">🔥</div>
+          <div class="achievement-info">
+            <div class="achievement-name">Speed Demon</div>
+            <div class="achievement-desc">Process 1M requests</div>
+            <div class="achievement-progress"><div class="achievement-progress-fill" style="width:45%"></div></div>
+          </div>
+          <div class="achievement-reward">+2000 💰</div>
+        </div>
+
+        <div class="achievement">
+          <div class="achievement-icon">👑</div>
+          <div class="achievement-info">
+            <div class="achievement-name">The Architect</div>
+            <div class="achievement-desc">Build 100 workflows</div>
+            <div class="achievement-progress"><div class="achievement-progress-fill" style="width:28%"></div></div>
+          </div>
+          <div class="achievement-reward">+5000 💰</div>
+        </div>
+
+        <div class="achievement">
+          <div class="achievement-icon">🌀</div>
+          <div class="achievement-info">
+            <div class="achievement-name">Recursion King</div>
+            <div class="achievement-desc">Achieve 10 levels of recursion</div>
+            <div class="achievement-progress"><div class="achievement-progress-fill" style="width:60%"></div></div>
+          </div>
+          <div class="achievement-reward">+10000 💰</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Party Frames -->
+  <div class="party-frames">
+    <div class="party-member">
+      <div class="party-avatar lucidia">L</div>
+      <div class="party-info">
+        <div class="party-name">Lucidia</div>
+        <div class="party-bars">
+          <div class="party-bar"><div class="party-bar-fill hp" style="width:85%"></div></div>
+          <div class="party-bar"><div class="party-bar-fill mp" style="width:92%"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="party-member">
+      <div class="party-avatar aria">A</div>
+      <div class="party-info">
+        <div class="party-name">Aria</div>
+        <div class="party-bars">
+          <div class="party-bar"><div class="party-bar-fill hp" style="width:100%"></div></div>
+          <div class="party-bar"><div class="party-bar-fill mp" style="width:67%"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="party-member">
+      <div class="party-avatar alice">A</div>
+      <div class="party-info">
+        <div class="party-name">Alice</div>
+        <div class="party-bars">
+          <div class="party-bar"><div class="party-bar-fill hp" style="width:42%"></div></div>
+          <div class="party-bar"><div class="party-bar-fill mp" style="width:88%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quest Tracker -->
+  <div class="quest-tracker">
+    <div class="quest-header">📋 Active Quests</div>
+    <div class="quest-list">
+      <div class="quest-item main">
+        <div class="quest-title">The Architect's Path</div>
+        <div class="quest-objective done">Deploy Lucidia Core</div>
+        <div class="quest-objective done">Configure memory system</div>
+        <div class="quest-objective">Achieve 99.9% uptime</div>
+      </div>
+      <div class="quest-item side">
+        <div class="quest-title">Agent Assembly</div>
+        <div class="quest-objective">Recruit 3 more agents (1/3)</div>
+      </div>
+      <div class="quest-item daily">
+        <div class="quest-title">Daily: Process 10K requests</div>
+        <div class="quest-objective">Progress: 8,472 / 10,000</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Minimap -->
+  <div class="minimap">
+    <div class="minimap-grid">
+      <div class="minimap-player"></div>
+      <div class="minimap-dot ally"></div>
+      <div class="minimap-dot enemy"></div>
+      <div class="minimap-dot npc"></div>
+      <div class="minimap-dot ally"></div>
+    </div>
+  </div>
+
+  <!-- Floating Damage Numbers -->
+  <div class="damage-numbers">
+    <div class="damage crit">9,847!</div>
+    <div class="damage normal">-1,234</div>
+    <div class="damage heal">+2,500</div>
+    <div class="damage normal">-847</div>
+  </div>
+
+  <!-- Action Bar -->
+  <div class="action-bar">
+    <div class="action-slot ready">
+      <span class="hotkey">1</span>
+      ⚔️
+    </div>
+    <div class="action-slot">
+      <span class="hotkey">2</span>
+      🔮
+      <span class="cooldown">3s</span>
+    </div>
+    <div class="action-slot">
+      <span class="hotkey">3</span>
+      🛡️
+    </div>
+    <div class="action-slot ready">
+      <span class="hotkey">4</span>
+      ⚡
+    </div>
+    <div class="action-slot">
+      <span class="hotkey">5</span>
+      🌀
+      <span class="cooldown">12s</span>
+    </div>
+    <div class="action-slot">
+      <span class="hotkey">6</span>
+      🔥
+    </div>
+    <div class="action-slot">
+      <span class="hotkey">7</span>
+      ❄️
+    </div>
+    <div class="action-slot ready">
+      <span class="hotkey">8</span>
+      💫
+    </div>
+    <div class="action-slot">
+      <span class="hotkey">9</span>
+      🧪
+      <span class="cooldown">45s</span>
+    </div>
+    <div class="action-slot">
+      <span class="hotkey">0</span>
+      ⭐
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+</body>
 </html>
