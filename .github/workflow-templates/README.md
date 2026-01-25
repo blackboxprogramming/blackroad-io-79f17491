@@ -39,10 +39,14 @@ Adds PRs to the organization's project board.
 Creates issues when CI fails.
 - **Requires customization**: Update the workflow name on line 4 to match your CI workflow
 
-## One-Line Setup Script
+## Quick Setup Script
 
 ```bash
-mkdir -p .github/workflows && cd .github/workflows && curl -O https://raw.githubusercontent.com/blackboxprogramming/blackroad-io/main/.github/workflow-templates/{auto-label,project-sync,failure-tracker}.yml
+# One-line setup (copy all workflows)
+mkdir -p .github/workflows && cd .github/workflows && \
+  curl -O https://raw.githubusercontent.com/blackboxprogramming/blackroad-io/main/.github/workflow-templates/auto-label.yml && \
+  curl -O https://raw.githubusercontent.com/blackboxprogramming/blackroad-io/main/.github/workflow-templates/project-sync.yml && \
+  curl -O https://raw.githubusercontent.com/blackboxprogramming/blackroad-io/main/.github/workflow-templates/failure-tracker.yml
 ```
 
 ## Customization
