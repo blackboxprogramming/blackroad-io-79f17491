@@ -109,8 +109,13 @@ class AgentMemory {
       if (!agent.memory) {
         agent.memory = [];
       }
+      // Use crypto.randomUUID if available, fallback to timestamp + random
+      const id = typeof crypto !== 'undefined' && crypto.randomUUID 
+        ? crypto.randomUUID() 
+        : `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+      
       agent.memory.push({
-        id: Date.now(),
+        id: id,
         content: entry,
         timestamp: new Date().toISOString()
       });

@@ -535,7 +535,7 @@
                 <div class="memory-header">
                   <span>💭 Memory Entries (${(agent.memory || []).length})</span>
                   <a href="#" class="toggle-memory" data-session-id="${escapeHtml(agent.sessionId)}">
-                    ${(agent.memory || []).length > 0 ? 'Show' : 'Add'}
+                    Toggle
                   </a>
                 </div>
                 <div class="memory-content-section memory-collapsed" data-session-id="${escapeHtml(agent.sessionId)}">
@@ -588,7 +588,7 @@
           });
           
           listElement.querySelectorAll('.memory-delete').forEach(span => {
-            span.addEventListener('click', () => deleteMemoryEntry(span.dataset.sessionId, parseInt(span.dataset.memoryId)));
+            span.addEventListener('click', () => deleteMemoryEntry(span.dataset.sessionId, span.dataset.memoryId));
           });
           
           listElement.querySelectorAll('.toggle-memory').forEach(link => {
