@@ -1,12 +1,1181 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>BlackRoad</title>
-  </head>
-  <body style="font-family: system-ui; padding: 40px;">
-    <h1>BlackRoad</h1>
-    <p>Building sovereign, local-first AI systems.</p>
-    <p>Status: Online.</p>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlackRoad · Command Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --g950: #0a0a0a;
+      --g900: #171717;
+      --g850: #1f1f1f;
+      --g800: #262626;
+      --g700: #404040;
+      --g600: #525252;
+      --g500: #737373;
+      --g400: #a3a3a3;
+      --g100: #f5f5f5;
+      --o: #ff8700;
+      --do: #ff5f00;
+      --p: #ff0087;
+      --or: #af5fd7;
+      --m: #ff00ff;
+      --b: #1e90ff;
+      --green: #00ff88;
+      --red: #ff3366;
+      --yellow: #ffcc00;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--g950);
+      font-family: 'JetBrains Mono', monospace;
+      min-height: 100vh;
+      color: var(--g100);
+      overflow-x: hidden;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 30px;
+      border-bottom: 1px solid var(--g800);
+      background: linear-gradient(180deg, var(--g900), var(--g950));
+    }
+
+    .logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--o), var(--p), var(--m));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .status-bar {
+      display: flex;
+      gap: 20px;
+      font-size: 11px;
+      color: var(--g500);
+    }
+
+    .status-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    .status-dot.green { background: var(--green); box-shadow: 0 0 10px var(--green); }
+    .status-dot.blue { background: var(--b); box-shadow: 0 0 10px var(--b); animation-delay: 0.5s; }
+    .status-dot.magenta { background: var(--m); box-shadow: 0 0 10px var(--m); animation-delay: 1s; }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    /* ===== MAIN GRID ===== */
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: auto;
+      gap: 16px;
+      padding: 20px;
+      max-width: 1800px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--g900);
+      border: 1px solid var(--g800);
+      border-radius: 12px;
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--m), var(--b));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .card:hover::before { opacity: 1; }
+
+    .card-title {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--g500);
+      margin-bottom: 12px;
+    }
+
+    .card-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--g100);
+    }
+
+    .card-sub {
+      font-size: 11px;
+      color: var(--g600);
+      margin-top: 4px;
+    }
+
+    /* ===== LARGE CARDS ===== */
+    .card.wide { grid-column: span 2; }
+    .card.tall { grid-row: span 2; }
+    .card.hero { grid-column: span 4; }
+
+    /* ===== 1. LIVE METRICS ===== */
+    .metrics {
+      display: flex;
+      gap: 40px;
+    }
+
+    .metric {
+      flex: 1;
+      text-align: center;
+    }
+
+    .metric-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 48px;
+      font-weight: 700;
+      background: linear-gradient(180deg, var(--g100), var(--g400));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: counter 3s ease-in-out infinite;
+    }
+
+    .metric-value.accent {
+      background: linear-gradient(180deg, var(--m), var(--p));
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    @keyframes counter {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    .metric-label {
+      font-size: 11px;
+      color: var(--g500);
+      margin-top: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ===== 2. CPU GAUGE ===== */
+    .gauge-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 140px;
+    }
+
+    .gauge {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: conic-gradient(
+        var(--m) 0deg 252deg,
+        var(--g800) 252deg 360deg
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      animation: gauge-spin 10s linear infinite;
+    }
+
+    @keyframes gauge-spin {
+      0% { background: conic-gradient(var(--m) 0deg 252deg, var(--g800) 252deg 360deg); }
+      25% { background: conic-gradient(var(--b) 0deg 288deg, var(--g800) 288deg 360deg); }
+      50% { background: conic-gradient(var(--p) 0deg 234deg, var(--g800) 234deg 360deg); }
+      75% { background: conic-gradient(var(--o) 0deg 270deg, var(--g800) 270deg 360deg); }
+      100% { background: conic-gradient(var(--m) 0deg 252deg, var(--g800) 252deg 360deg); }
+    }
+
+    .gauge-inner {
+      width: 90px;
+      height: 90px;
+      background: var(--g900);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .gauge-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--g100);
+    }
+
+    .gauge-label {
+      font-size: 9px;
+      color: var(--g500);
+      text-transform: uppercase;
+    }
+
+    /* ===== 3. WAVEFORM ===== */
+    .waveform {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      height: 100px;
+    }
+
+    .waveform i {
+      width: 4px;
+      background: linear-gradient(180deg, var(--m), var(--b));
+      border-radius: 2px;
+      animation: wave 1s ease-in-out infinite;
+    }
+
+    .waveform i:nth-child(1) { animation-delay: 0s; }
+    .waveform i:nth-child(2) { animation-delay: 0.1s; }
+    .waveform i:nth-child(3) { animation-delay: 0.2s; }
+    .waveform i:nth-child(4) { animation-delay: 0.3s; }
+    .waveform i:nth-child(5) { animation-delay: 0.4s; }
+    .waveform i:nth-child(6) { animation-delay: 0.5s; }
+    .waveform i:nth-child(7) { animation-delay: 0.6s; }
+    .waveform i:nth-child(8) { animation-delay: 0.7s; }
+    .waveform i:nth-child(9) { animation-delay: 0.8s; }
+    .waveform i:nth-child(10) { animation-delay: 0.9s; }
+    .waveform i:nth-child(11) { animation-delay: 0.85s; }
+    .waveform i:nth-child(12) { animation-delay: 0.75s; }
+    .waveform i:nth-child(13) { animation-delay: 0.65s; }
+    .waveform i:nth-child(14) { animation-delay: 0.55s; }
+    .waveform i:nth-child(15) { animation-delay: 0.45s; }
+    .waveform i:nth-child(16) { animation-delay: 0.35s; }
+    .waveform i:nth-child(17) { animation-delay: 0.25s; }
+    .waveform i:nth-child(18) { animation-delay: 0.15s; }
+    .waveform i:nth-child(19) { animation-delay: 0.05s; }
+    .waveform i:nth-child(20) { animation-delay: 0s; }
+
+    @keyframes wave {
+      0%, 100% { height: 20px; }
+      50% { height: 80px; }
+    }
+
+    /* ===== 4. NETWORK GLOBE ===== */
+    .globe-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 200px;
+    }
+
+    .globe {
+      width: 150px;
+      height: 150px;
+      border: 2px solid var(--b);
+      border-radius: 50%;
+      position: relative;
+      animation: globe-rotate 20s linear infinite;
+    }
+
+    .globe::before {
+      content: '';
+      position: absolute;
+      inset: 20px;
+      border: 1px solid var(--g700);
+      border-radius: 50%;
+    }
+
+    .globe::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--g700);
+    }
+
+    .globe-line {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 1px solid var(--g700);
+      border-radius: 50%;
+      transform: rotateY(60deg);
+    }
+
+    .globe-line:nth-child(2) { transform: rotateY(-60deg); }
+
+    .globe-dot {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: var(--m);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--m);
+      animation: globe-dot 3s ease-in-out infinite;
+    }
+
+    .globe-dot:nth-child(3) { top: 20%; left: 30%; animation-delay: 0s; }
+    .globe-dot:nth-child(4) { top: 40%; left: 70%; animation-delay: 0.5s; background: var(--b); box-shadow: 0 0 10px var(--b); }
+    .globe-dot:nth-child(5) { top: 70%; left: 40%; animation-delay: 1s; background: var(--o); box-shadow: 0 0 10px var(--o); }
+    .globe-dot:nth-child(6) { top: 30%; left: 50%; animation-delay: 1.5s; background: var(--p); box-shadow: 0 0 10px var(--p); }
+
+    @keyframes globe-rotate { to { transform: rotateY(360deg); } }
+    @keyframes globe-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(1.5); } }
+
+    /* ===== 5. ACTIVITY FEED ===== */
+    .feed {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      height: 200px;
+      overflow: hidden;
+    }
+
+    .feed-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      background: var(--g850);
+      border-radius: 6px;
+      font-size: 11px;
+      animation: feed-slide 8s linear infinite;
+    }
+
+    .feed-item:nth-child(1) { animation-delay: 0s; }
+    .feed-item:nth-child(2) { animation-delay: 1s; }
+    .feed-item:nth-child(3) { animation-delay: 2s; }
+    .feed-item:nth-child(4) { animation-delay: 3s; }
+    .feed-item:nth-child(5) { animation-delay: 4s; }
+    .feed-item:nth-child(6) { animation-delay: 5s; }
+
+    @keyframes feed-slide {
+      0% { opacity: 0; transform: translateY(20px); }
+      10%, 90% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-20px); }
+    }
+
+    .feed-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    .feed-icon.green { background: rgba(0,255,136,0.2); color: var(--green); }
+    .feed-icon.blue { background: rgba(30,144,255,0.2); color: var(--b); }
+    .feed-icon.magenta { background: rgba(255,0,255,0.2); color: var(--m); }
+    .feed-icon.orange { background: rgba(255,135,0,0.2); color: var(--o); }
+
+    .feed-text { color: var(--g400); flex: 1; }
+    .feed-time { color: var(--g600); font-size: 10px; }
+
+    /* ===== 6. AGENT GRID ===== */
+    .agent-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .agent {
+      background: var(--g850);
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .agent::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+    }
+
+    .agent.lucidia::before { background: var(--m); }
+    .agent.aria::before { background: var(--p); }
+    .agent.alice::before { background: var(--b); }
+    .agent.octavia::before { background: var(--or); }
+    .agent.anastasia::before { background: var(--o); }
+    .agent.operator::before { background: var(--do); }
+
+    .agent-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin: 0 auto 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--g950);
+    }
+
+    .agent.lucidia .agent-avatar { background: var(--m); animation: pulse-agent 2s ease-in-out infinite; }
+    .agent.aria .agent-avatar { background: var(--p); animation: pulse-agent 2s ease-in-out infinite 0.3s; }
+    .agent.alice .agent-avatar { background: var(--b); animation: pulse-agent 2s ease-in-out infinite 0.6s; }
+    .agent.octavia .agent-avatar { background: var(--or); animation: pulse-agent 2s ease-in-out infinite 0.9s; }
+    .agent.anastasia .agent-avatar { background: var(--o); animation: pulse-agent 2s ease-in-out infinite 1.2s; }
+    .agent.operator .agent-avatar { background: var(--do); animation: pulse-agent 2s ease-in-out infinite 1.5s; }
+
+    @keyframes pulse-agent {
+      0%, 100% { box-shadow: 0 0 0 0 currentColor; }
+      50% { box-shadow: 0 0 0 8px transparent; }
+    }
+
+    .agent-name {
+      font-size: 10px;
+      color: var(--g400);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .agent-status {
+      font-size: 9px;
+      color: var(--green);
+      margin-top: 4px;
+    }
+
+    /* ===== 7. MEMORY BARS ===== */
+    .memory-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .memory-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .memory-label {
+      font-size: 10px;
+      color: var(--g500);
+      width: 50px;
+      text-transform: uppercase;
+    }
+
+    .memory-track {
+      flex: 1;
+      height: 8px;
+      background: var(--g800);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .memory-fill {
+      height: 100%;
+      border-radius: 4px;
+      animation: memory-pulse 3s ease-in-out infinite;
+    }
+
+    .memory-fill.ram { background: linear-gradient(90deg, var(--b), var(--m)); width: 72%; }
+    .memory-fill.gpu { background: linear-gradient(90deg, var(--p), var(--o)); width: 45%; animation-delay: 0.5s; }
+    .memory-fill.disk { background: linear-gradient(90deg, var(--green), var(--b)); width: 38%; animation-delay: 1s; }
+    .memory-fill.net { background: linear-gradient(90deg, var(--o), var(--do)); width: 89%; animation-delay: 1.5s; }
+
+    @keyframes memory-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    .memory-value {
+      font-size: 11px;
+      color: var(--g400);
+      width: 40px;
+      text-align: right;
+    }
+
+    /* ===== 8. MINI CHART ===== */
+    .mini-chart {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      height: 60px;
+      gap: 4px;
+      margin-top: 12px;
+    }
+
+    .mini-chart i {
+      flex: 1;
+      background: linear-gradient(180deg, var(--m), var(--b));
+      border-radius: 2px 2px 0 0;
+      animation: chart-bar 4s ease-in-out infinite;
+    }
+
+    .mini-chart i:nth-child(1) { animation-delay: 0s; }
+    .mini-chart i:nth-child(2) { animation-delay: 0.2s; }
+    .mini-chart i:nth-child(3) { animation-delay: 0.4s; }
+    .mini-chart i:nth-child(4) { animation-delay: 0.6s; }
+    .mini-chart i:nth-child(5) { animation-delay: 0.8s; }
+    .mini-chart i:nth-child(6) { animation-delay: 1s; }
+    .mini-chart i:nth-child(7) { animation-delay: 1.2s; }
+    .mini-chart i:nth-child(8) { animation-delay: 1.4s; }
+    .mini-chart i:nth-child(9) { animation-delay: 1.6s; }
+    .mini-chart i:nth-child(10) { animation-delay: 1.8s; }
+    .mini-chart i:nth-child(11) { animation-delay: 2s; }
+    .mini-chart i:nth-child(12) { animation-delay: 2.2s; }
+
+    @keyframes chart-bar {
+      0%, 100% { height: 20%; }
+      25% { height: 80%; }
+      50% { height: 40%; }
+      75% { height: 90%; }
+    }
+
+    /* ===== 9. RADAR ===== */
+    .radar-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 160px;
+    }
+
+    .radar {
+      width: 140px;
+      height: 140px;
+      border: 2px solid var(--g700);
+      border-radius: 50%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .radar::before {
+      content: '';
+      position: absolute;
+      inset: 30px;
+      border: 1px solid var(--g700);
+      border-radius: 50%;
+    }
+
+    .radar::after {
+      content: '';
+      position: absolute;
+      inset: 60px;
+      border: 1px solid var(--g700);
+      border-radius: 50%;
+    }
+
+    .radar-cross {
+      position: absolute;
+      inset: 0;
+    }
+
+    .radar-cross::before, .radar-cross::after {
+      content: '';
+      position: absolute;
+      background: var(--g700);
+    }
+
+    .radar-cross::before { width: 100%; height: 1px; top: 50%; }
+    .radar-cross::after { width: 1px; height: 100%; left: 50%; }
+
+    .radar-sweep {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 50%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--m), transparent);
+      transform-origin: left center;
+      animation: radar-spin 3s linear infinite;
+    }
+
+    @keyframes radar-spin { to { transform: rotate(360deg); } }
+
+    .radar-blip {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--green);
+      animation: blip 3s ease-in-out infinite;
+    }
+
+    .radar-blip:nth-child(3) { top: 25%; left: 60%; animation-delay: 0s; }
+    .radar-blip:nth-child(4) { top: 65%; left: 30%; animation-delay: 1s; }
+    .radar-blip:nth-child(5) { top: 40%; left: 75%; animation-delay: 2s; }
+
+    @keyframes blip { 0%, 100% { opacity: 0; } 10%, 30% { opacity: 1; } }
+
+    /* ===== 10. TERMINAL ===== */
+    .terminal {
+      background: var(--g950);
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 11px;
+      height: 200px;
+      overflow: hidden;
+    }
+
+    .terminal-line {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 6px;
+      animation: terminal-type 0.5s ease-out forwards;
+      opacity: 0;
+    }
+
+    .terminal-line:nth-child(1) { animation-delay: 0.5s; }
+    .terminal-line:nth-child(2) { animation-delay: 1.5s; }
+    .terminal-line:nth-child(3) { animation-delay: 2.5s; }
+    .terminal-line:nth-child(4) { animation-delay: 3.5s; }
+    .terminal-line:nth-child(5) { animation-delay: 4.5s; }
+    .terminal-line:nth-child(6) { animation-delay: 5.5s; }
+    .terminal-line:nth-child(7) { animation-delay: 6.5s; }
+    .terminal-line:nth-child(8) { animation-delay: 7.5s; }
+
+    @keyframes terminal-type {
+      to { opacity: 1; }
+    }
+
+    .terminal-prompt { color: var(--m); }
+    .terminal-cmd { color: var(--g100); }
+    .terminal-output { color: var(--g500); }
+    .terminal-success { color: var(--green); }
+    .terminal-path { color: var(--b); }
+
+    .terminal-cursor {
+      display: inline-block;
+      width: 8px;
+      height: 14px;
+      background: var(--m);
+      animation: cursor-blink 1s step-end infinite;
+      vertical-align: middle;
+      margin-left: 4px;
+    }
+
+    @keyframes cursor-blink { 50% { opacity: 0; } }
+
+    /* ===== 11. PROGRESS RINGS ===== */
+    .progress-rings {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      height: 120px;
+    }
+
+    .progress-ring {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .progress-ring::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 6px solid var(--g800);
+    }
+
+    .progress-ring::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 6px solid transparent;
+      animation: ring-fill 3s ease-in-out infinite;
+    }
+
+    .progress-ring.ring1::after { border-top-color: var(--m); border-right-color: var(--m); animation-delay: 0s; }
+    .progress-ring.ring2::after { border-top-color: var(--b); border-right-color: var(--b); border-bottom-color: var(--b); animation-delay: 0.5s; }
+    .progress-ring.ring3::after { border-top-color: var(--o); animation-delay: 1s; }
+
+    @keyframes ring-fill {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .progress-ring span {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--g100);
+    }
+
+    /* ===== 12. WORLD MAP DOTS ===== */
+    .world-map {
+      position: relative;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .map-dot {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      animation: map-ping 2s ease-out infinite;
+    }
+
+    .map-dot::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border: 1px solid;
+      border-radius: 50%;
+      animation: map-ring 2s ease-out infinite;
+    }
+
+    .map-dot:nth-child(1) { left: 15%; top: 30%; background: var(--m); }
+    .map-dot:nth-child(1)::after { border-color: var(--m); }
+    .map-dot:nth-child(2) { left: 30%; top: 50%; background: var(--b); animation-delay: 0.5s; }
+    .map-dot:nth-child(2)::after { border-color: var(--b); animation-delay: 0.5s; }
+    .map-dot:nth-child(3) { left: 50%; top: 35%; background: var(--o); animation-delay: 1s; }
+    .map-dot:nth-child(3)::after { border-color: var(--o); animation-delay: 1s; }
+    .map-dot:nth-child(4) { left: 70%; top: 45%; background: var(--p); animation-delay: 1.5s; }
+    .map-dot:nth-child(4)::after { border-color: var(--p); animation-delay: 1.5s; }
+    .map-dot:nth-child(5) { left: 85%; top: 60%; background: var(--green); animation-delay: 2s; }
+    .map-dot:nth-child(5)::after { border-color: var(--green); animation-delay: 2s; }
+
+    @keyframes map-ping { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.2); opacity: 0.7; } }
+    @keyframes map-ring { to { transform: scale(3); opacity: 0; } }
+
+    /* ===== 13. SIGNAL STRENGTH ===== */
+    .signal {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 4px;
+      height: 60px;
+    }
+
+    .signal i {
+      width: 12px;
+      background: var(--green);
+      border-radius: 2px;
+      animation: signal-pulse 1.5s ease-in-out infinite;
+    }
+
+    .signal i:nth-child(1) { height: 15px; animation-delay: 0s; }
+    .signal i:nth-child(2) { height: 25px; animation-delay: 0.1s; }
+    .signal i:nth-child(3) { height: 35px; animation-delay: 0.2s; }
+    .signal i:nth-child(4) { height: 45px; animation-delay: 0.3s; }
+    .signal i:nth-child(5) { height: 55px; animation-delay: 0.4s; }
+
+    @keyframes signal-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* ===== 14. CLOCK ===== */
+    .clock-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 140px;
+    }
+
+    .clock {
+      width: 120px;
+      height: 120px;
+      border: 3px solid var(--g700);
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .clock-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 10px;
+      height: 10px;
+      background: var(--m);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+    }
+
+    .clock-hand {
+      position: absolute;
+      bottom: 50%;
+      left: 50%;
+      transform-origin: bottom center;
+      border-radius: 2px;
+    }
+
+    .clock-hand.hour {
+      width: 4px;
+      height: 30px;
+      background: var(--g100);
+      margin-left: -2px;
+      animation: clock-hour 43200s linear infinite;
+    }
+
+    .clock-hand.minute {
+      width: 3px;
+      height: 40px;
+      background: var(--g400);
+      margin-left: -1.5px;
+      animation: clock-minute 3600s linear infinite;
+    }
+
+    .clock-hand.second {
+      width: 2px;
+      height: 50px;
+      background: var(--m);
+      margin-left: -1px;
+      animation: clock-second 60s linear infinite;
+    }
+
+    @keyframes clock-hour { to { transform: rotate(360deg); } }
+    @keyframes clock-minute { to { transform: rotate(360deg); } }
+    @keyframes clock-second { to { transform: rotate(360deg); } }
+
+    /* ===== FOOTER ===== */
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--g600);
+      font-size: 11px;
+      border-top: 1px solid var(--g800);
+      margin-top: 20px;
+    }
+
+    footer strong {
+      color: var(--g500);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">BlackRoad Command</div>
+    <div class="status-bar">
+      <div class="status-item">
+        <span class="status-dot green"></span>
+        <span>Systems Online</span>
+      </div>
+      <div class="status-item">
+        <span class="status-dot blue"></span>
+        <span>6 Agents Active</span>
+      </div>
+      <div class="status-item">
+        <span class="status-dot magenta"></span>
+        <span>Lucidia Core</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="dashboard">
+
+    <!-- Hero Metrics -->
+    <div class="card hero">
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-value">1,247</div>
+          <div class="metric-label">Active Connections</div>
+        </div>
+        <div class="metric">
+          <div class="metric-value accent">98.7%</div>
+          <div class="metric-label">Uptime</div>
+        </div>
+        <div class="metric">
+          <div class="metric-value">42ms</div>
+          <div class="metric-label">Avg Latency</div>
+        </div>
+        <div class="metric">
+          <div class="metric-value">847K</div>
+          <div class="metric-label">Requests/min</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CPU Gauge -->
+    <div class="card">
+      <div class="card-title">CPU Usage</div>
+      <div class="gauge-container">
+        <div class="gauge">
+          <div class="gauge-inner">
+            <div class="gauge-value">70%</div>
+            <div class="gauge-label">Load</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Waveform -->
+    <div class="card">
+      <div class="card-title">Audio Stream</div>
+      <div class="waveform">
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      </div>
+    </div>
+
+    <!-- Agents -->
+    <div class="card wide">
+      <div class="card-title">Agent Network</div>
+      <div class="agent-grid">
+        <div class="agent lucidia">
+          <div class="agent-avatar">L</div>
+          <div class="agent-name">Lucidia</div>
+          <div class="agent-status">● Processing</div>
+        </div>
+        <div class="agent aria">
+          <div class="agent-avatar">A</div>
+          <div class="agent-name">Aria</div>
+          <div class="agent-status">● Listening</div>
+        </div>
+        <div class="agent alice">
+          <div class="agent-avatar">A</div>
+          <div class="agent-name">Alice</div>
+          <div class="agent-status">● Gateway</div>
+        </div>
+        <div class="agent octavia">
+          <div class="agent-avatar">O</div>
+          <div class="agent-name">Octavia</div>
+          <div class="agent-status">● Inference</div>
+        </div>
+        <div class="agent anastasia">
+          <div class="agent-avatar">A</div>
+          <div class="agent-name">Anastasia</div>
+          <div class="agent-status">● Memory</div>
+        </div>
+        <div class="agent operator">
+          <div class="agent-avatar">C</div>
+          <div class="agent-name">Operator</div>
+          <div class="agent-status">● Orchestrating</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Globe -->
+    <div class="card">
+      <div class="card-title">Network</div>
+      <div class="globe-container">
+        <div class="globe">
+          <div class="globe-line"></div>
+          <div class="globe-line"></div>
+          <div class="globe-dot"></div>
+          <div class="globe-dot"></div>
+          <div class="globe-dot"></div>
+          <div class="globe-dot"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Radar -->
+    <div class="card">
+      <div class="card-title">Threat Scanner</div>
+      <div class="radar-container">
+        <div class="radar">
+          <div class="radar-cross"></div>
+          <div class="radar-sweep"></div>
+          <div class="radar-blip"></div>
+          <div class="radar-blip"></div>
+          <div class="radar-blip"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Memory -->
+    <div class="card">
+      <div class="card-title">Resources</div>
+      <div class="memory-bars">
+        <div class="memory-bar">
+          <span class="memory-label">RAM</span>
+          <div class="memory-track"><div class="memory-fill ram"></div></div>
+          <span class="memory-value">72%</span>
+        </div>
+        <div class="memory-bar">
+          <span class="memory-label">GPU</span>
+          <div class="memory-track"><div class="memory-fill gpu"></div></div>
+          <span class="memory-value">45%</span>
+        </div>
+        <div class="memory-bar">
+          <span class="memory-label">Disk</span>
+          <div class="memory-track"><div class="memory-fill disk"></div></div>
+          <span class="memory-value">38%</span>
+        </div>
+        <div class="memory-bar">
+          <span class="memory-label">Net</span>
+          <div class="memory-track"><div class="memory-fill net"></div></div>
+          <span class="memory-value">89%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Activity Feed -->
+    <div class="card tall">
+      <div class="card-title">Activity Feed</div>
+      <div class="feed">
+        <div class="feed-item">
+          <span class="feed-icon green">✓</span>
+          <span class="feed-text">Lucidia initialized memory sync</span>
+          <span class="feed-time">2s ago</span>
+        </div>
+        <div class="feed-item">
+          <span class="feed-icon blue">↑</span>
+          <span class="feed-text">Alice routed 847 requests</span>
+          <span class="feed-time">5s ago</span>
+        </div>
+        <div class="feed-item">
+          <span class="feed-icon magenta">◆</span>
+          <span class="feed-text">New agent registered: Echo</span>
+          <span class="feed-time">12s ago</span>
+        </div>
+        <div class="feed-item">
+          <span class="feed-icon orange">!</span>
+          <span class="feed-text">Octavia GPU temp: 72°C</span>
+          <span class="feed-time">18s ago</span>
+        </div>
+        <div class="feed-item">
+          <span class="feed-icon green">✓</span>
+          <span class="feed-text">Backup completed successfully</span>
+          <span class="feed-time">30s ago</span>
+        </div>
+        <div class="feed-item">
+          <span class="feed-icon blue">↓</span>
+          <span class="feed-text">Model weights loaded: phi-3</span>
+          <span class="feed-time">45s ago</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Terminal -->
+    <div class="card wide">
+      <div class="card-title">Terminal</div>
+      <div class="terminal">
+        <div class="terminal-line">
+          <span class="terminal-prompt">❯</span>
+          <span class="terminal-cmd">lucidia status --all</span>
+        </div>
+        <div class="terminal-line">
+          <span class="terminal-output">Checking 6 agents...</span>
+        </div>
+        <div class="terminal-line">
+          <span class="terminal-success">✓</span>
+          <span class="terminal-output">All systems operational</span>
+        </div>
+        <div class="terminal-line">
+          <span class="terminal-prompt">❯</span>
+          <span class="terminal-cmd">cd</span>
+          <span class="terminal-path">~/blackroad/agents</span>
+        </div>
+        <div class="terminal-line">
+          <span class="terminal-prompt">❯</span>
+          <span class="terminal-cmd">./deploy.sh --env production</span>
+        </div>
+        <div class="terminal-line">
+          <span class="terminal-output">Building containers...</span>
+        </div>
+        <div class="terminal-line">
+          <span class="terminal-success">✓</span>
+          <span class="terminal-output">Deployed to k3s cluster</span>
+        </div>
+        <div class="terminal-line">
+          <span class="terminal-prompt">❯</span>
+          <span class="terminal-cursor"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Progress Rings -->
+    <div class="card">
+      <div class="card-title">Tasks</div>
+      <div class="progress-rings">
+        <div class="progress-ring ring1"><span>68%</span></div>
+        <div class="progress-ring ring2"><span>84%</span></div>
+        <div class="progress-ring ring3"><span>42%</span></div>
+      </div>
+    </div>
+
+    <!-- World Map -->
+    <div class="card">
+      <div class="card-title">Global Nodes</div>
+      <div class="world-map">
+        <div class="map-dot"></div>
+        <div class="map-dot"></div>
+        <div class="map-dot"></div>
+        <div class="map-dot"></div>
+        <div class="map-dot"></div>
+      </div>
+    </div>
+
+    <!-- Signal -->
+    <div class="card">
+      <div class="card-title">Signal</div>
+      <div class="signal">
+        <i></i><i></i><i></i><i></i><i></i>
+      </div>
+      <div class="card-sub" style="text-align:center;margin-top:12px;">Excellent</div>
+    </div>
+
+    <!-- Mini Chart -->
+    <div class="card">
+      <div class="card-title">Throughput</div>
+      <div class="card-value">2.4M</div>
+      <div class="card-sub">requests today</div>
+      <div class="mini-chart">
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      </div>
+    </div>
+
+    <!-- Clock -->
+    <div class="card">
+      <div class="card-title">System Time</div>
+      <div class="clock-container">
+        <div class="clock">
+          <div class="clock-center"></div>
+          <div class="clock-hand hour"></div>
+          <div class="clock-hand minute"></div>
+          <div class="clock-hand second"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <strong>BlackRoad OS</strong> · Command Center · Pure CSS Dashboard<br>
+    You are allowed to be in process.
+  </footer>
+
+</body>
 </html>
