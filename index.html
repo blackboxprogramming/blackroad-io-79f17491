@@ -1,12 +1,1396 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>BlackRoad</title>
-  </head>
-  <body style="font-family: system-ui; padding: 40px;">
-    <h1>BlackRoad</h1>
-    <p>Building sovereign, local-first AI systems.</p>
-    <p>Status: Online.</p>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlackRoad Animation Universe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gray-950: #0a0a0a;
+      --gray-900: #171717;
+      --gray-800: #262626;
+      --gray-700: #404040;
+      --gray-600: #525252;
+      --gray-500: #737373;
+      --gray-400: #a3a3a3;
+      --gray-100: #f5f5f5;
+      --white: #ffffff;
+
+      --accent-orange: #ff8700;
+      --accent-dark-orange: #ff5f00;
+      --accent-pink: #ff0087;
+      --accent-orchid: #af5fd7;
+      --accent-magenta: #ff00ff;
+      --accent-blue: #1e90ff;
+
+      --font-headline: 'Space Grotesk', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--gray-950);
+      color: var(--gray-100);
+      font-family: var(--font-mono);
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1800px;
+      margin: 0 auto;
+      padding: 40px;
+    }
+
+    h1 {
+      font-family: var(--font-headline);
+      font-size: 80px;
+      font-weight: 700;
+      text-align: center;
+      margin: 40px 0;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-pink), var(--accent-magenta), var(--accent-blue), var(--accent-orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 3s linear infinite;
+      background-size: 200% 100%;
+    }
+
+    @keyframes shimmer {
+      to { background-position: 200% 0; }
+    }
+
+    h2 {
+      font-family: var(--font-headline);
+      font-size: 24px;
+      margin: 80px 0 30px;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--gray-900);
+      border: 1px solid var(--gray-800);
+      border-radius: 20px;
+      padding: 50px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 320px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      border-color: var(--gray-600);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    .card-label {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      font-size: 11px;
+      color: var(--gray-600);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ==================== MEGA HERO ==================== */
+    .mega-hero {
+      height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin-bottom: 60px;
+      overflow: hidden;
+    }
+
+    .mega-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(255,0,135,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 50%, rgba(30,144,255,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 50% 80%, rgba(255,135,0,0.1) 0%, transparent 50%);
+      animation: bg-pulse 8s ease-in-out infinite;
+    }
+
+    @keyframes bg-pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    .mega-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--gray-800) 1px, transparent 1px),
+        linear-gradient(90deg, var(--gray-800) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: grid-move 20s linear infinite;
+      opacity: 0.3;
+    }
+
+    @keyframes grid-move {
+      to { background-position: 50px 50px; }
+    }
+
+    .mega-orb {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, var(--gray-700), var(--gray-900));
+      position: relative;
+      z-index: 10;
+      animation: mega-float 6s ease-in-out infinite;
+      box-shadow:
+        0 0 60px rgba(255,0,255,0.3),
+        0 0 120px rgba(30,144,255,0.2),
+        inset 0 0 60px rgba(0,0,0,0.5);
+    }
+
+    @keyframes mega-float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
+    }
+
+    .mega-ring {
+      position: absolute;
+      border: 2px solid;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: mega-ring-spin 10s linear infinite;
+    }
+
+    .mega-ring:nth-child(1) { width: 280px; height: 280px; border-color: var(--accent-blue); opacity: 0.6; }
+    .mega-ring:nth-child(2) { width: 340px; height: 340px; border-color: var(--accent-magenta); animation-direction: reverse; animation-duration: 15s; opacity: 0.4; }
+    .mega-ring:nth-child(3) { width: 400px; height: 400px; border-color: var(--accent-pink); animation-duration: 20s; opacity: 0.2; }
+
+    @keyframes mega-ring-spin {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .mega-particles {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .mega-particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: var(--accent-magenta);
+      border-radius: 50%;
+      animation: mega-particle-float 10s linear infinite;
+    }
+
+    .mega-particle:nth-child(1) { left: 10%; animation-delay: 0s; background: var(--accent-orange); }
+    .mega-particle:nth-child(2) { left: 20%; animation-delay: 1s; background: var(--accent-pink); }
+    .mega-particle:nth-child(3) { left: 30%; animation-delay: 2s; }
+    .mega-particle:nth-child(4) { left: 40%; animation-delay: 3s; background: var(--accent-blue); }
+    .mega-particle:nth-child(5) { left: 50%; animation-delay: 4s; }
+    .mega-particle:nth-child(6) { left: 60%; animation-delay: 5s; background: var(--accent-orange); }
+    .mega-particle:nth-child(7) { left: 70%; animation-delay: 6s; background: var(--accent-pink); }
+    .mega-particle:nth-child(8) { left: 80%; animation-delay: 7s; }
+    .mega-particle:nth-child(9) { left: 90%; animation-delay: 8s; background: var(--accent-blue); }
+
+    @keyframes mega-particle-float {
+      0% { bottom: -10px; opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { bottom: 100%; opacity: 0; }
+    }
+
+    /* ==================== AURORA ==================== */
+    .aurora {
+      width: 200px;
+      height: 120px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    .aurora-wave {
+      position: absolute;
+      width: 200%;
+      height: 100%;
+      left: -50%;
+      background: linear-gradient(180deg,
+        transparent 0%,
+        var(--accent-blue) 20%,
+        var(--accent-magenta) 40%,
+        var(--accent-pink) 60%,
+        var(--accent-orange) 80%,
+        transparent 100%
+      );
+      opacity: 0.6;
+      filter: blur(20px);
+      animation: aurora-flow 8s ease-in-out infinite;
+    }
+
+    .aurora-wave:nth-child(2) {
+      animation-delay: -4s;
+      animation-duration: 10s;
+    }
+
+    @keyframes aurora-flow {
+      0%, 100% { transform: translateX(-25%) skewX(-15deg); }
+      50% { transform: translateX(25%) skewX(15deg); }
+    }
+
+    /* ==================== PORTAL ==================== */
+    .portal {
+      width: 120px;
+      height: 120px;
+      position: relative;
+      perspective: 500px;
+    }
+
+    .portal-ring {
+      position: absolute;
+      inset: 0;
+      border: 3px solid var(--accent-magenta);
+      border-radius: 50%;
+      animation: portal-spin 4s linear infinite;
+    }
+
+    .portal-ring:nth-child(1) { animation-duration: 3s; }
+    .portal-ring:nth-child(2) { inset: 15px; border-color: var(--accent-pink); animation-duration: 2.5s; animation-direction: reverse; }
+    .portal-ring:nth-child(3) { inset: 30px; border-color: var(--accent-blue); animation-duration: 2s; }
+
+    .portal-core {
+      position: absolute;
+      inset: 40px;
+      background: radial-gradient(circle, var(--white) 0%, var(--accent-magenta) 50%, transparent 70%);
+      border-radius: 50%;
+      animation: portal-pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes portal-spin {
+      to { transform: rotateX(70deg) rotateZ(360deg); }
+    }
+
+    @keyframes portal-pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.7; }
+    }
+
+    /* ==================== WAVEFORM ==================== */
+    .waveform {
+      width: 200px;
+      height: 80px;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .waveform svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .waveform-path {
+      fill: none;
+      stroke: url(#waveGradient);
+      stroke-width: 3;
+      stroke-linecap: round;
+      animation: wave-draw 2s linear infinite;
+    }
+
+    @keyframes wave-draw {
+      to { stroke-dashoffset: -100; }
+    }
+
+    /* ==================== TESSERACT ==================== */
+    .tesseract {
+      width: 100px;
+      height: 100px;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: tesseract-rotate 10s linear infinite;
+    }
+
+    .tesseract-inner, .tesseract-outer {
+      position: absolute;
+      inset: 0;
+      border: 2px solid;
+      transform-style: preserve-3d;
+    }
+
+    .tesseract-outer {
+      border-color: var(--accent-blue);
+      animation: tesseract-outer 5s linear infinite;
+    }
+
+    .tesseract-inner {
+      inset: 25px;
+      border-color: var(--accent-orange);
+      animation: tesseract-inner 5s linear infinite reverse;
+    }
+
+    .tesseract-line {
+      position: absolute;
+      width: 2px;
+      height: 25px;
+      background: var(--accent-magenta);
+    }
+
+    .tesseract-line:nth-child(3) { top: 0; left: 0; }
+    .tesseract-line:nth-child(4) { top: 0; right: 0; }
+    .tesseract-line:nth-child(5) { bottom: 0; left: 0; }
+    .tesseract-line:nth-child(6) { bottom: 0; right: 0; }
+
+    @keyframes tesseract-rotate { to { transform: rotateX(360deg) rotateY(360deg); } }
+    @keyframes tesseract-outer { to { transform: rotateZ(360deg); } }
+    @keyframes tesseract-inner { to { transform: rotateZ(360deg); } }
+
+    /* ==================== SCANNER ==================== */
+    .scanner {
+      width: 150px;
+      height: 100px;
+      border: 2px solid var(--gray-700);
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    .scanner-line {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--accent-blue), var(--accent-magenta), var(--accent-blue), transparent);
+      box-shadow: 0 0 20px var(--accent-blue), 0 0 40px var(--accent-magenta);
+      animation: scanner-move 2s ease-in-out infinite;
+    }
+
+    .scanner-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--gray-800) 1px, transparent 1px),
+        linear-gradient(90deg, var(--gray-800) 1px, transparent 1px);
+      background-size: 15px 15px;
+    }
+
+    @keyframes scanner-move {
+      0%, 100% { top: 0; }
+      50% { top: calc(100% - 3px); }
+    }
+
+    /* ==================== SPECTRUM ==================== */
+    .spectrum {
+      display: flex;
+      gap: 3px;
+      align-items: center;
+      height: 80px;
+    }
+
+    .spectrum-bar {
+      width: 6px;
+      border-radius: 3px;
+      animation: spectrum-dance 0.5s ease-in-out infinite alternate;
+    }
+
+    .spectrum-bar:nth-child(1) { background: var(--accent-orange); animation-delay: 0s; }
+    .spectrum-bar:nth-child(2) { background: var(--accent-dark-orange); animation-delay: 0.05s; }
+    .spectrum-bar:nth-child(3) { background: var(--accent-pink); animation-delay: 0.1s; }
+    .spectrum-bar:nth-child(4) { background: var(--accent-pink); animation-delay: 0.15s; }
+    .spectrum-bar:nth-child(5) { background: var(--accent-orchid); animation-delay: 0.2s; }
+    .spectrum-bar:nth-child(6) { background: var(--accent-magenta); animation-delay: 0.25s; }
+    .spectrum-bar:nth-child(7) { background: var(--accent-magenta); animation-delay: 0.3s; }
+    .spectrum-bar:nth-child(8) { background: var(--accent-blue); animation-delay: 0.35s; }
+    .spectrum-bar:nth-child(9) { background: var(--accent-blue); animation-delay: 0.4s; }
+    .spectrum-bar:nth-child(10) { background: var(--accent-magenta); animation-delay: 0.35s; }
+    .spectrum-bar:nth-child(11) { background: var(--accent-magenta); animation-delay: 0.3s; }
+    .spectrum-bar:nth-child(12) { background: var(--accent-orchid); animation-delay: 0.25s; }
+    .spectrum-bar:nth-child(13) { background: var(--accent-pink); animation-delay: 0.2s; }
+    .spectrum-bar:nth-child(14) { background: var(--accent-pink); animation-delay: 0.15s; }
+    .spectrum-bar:nth-child(15) { background: var(--accent-dark-orange); animation-delay: 0.1s; }
+    .spectrum-bar:nth-child(16) { background: var(--accent-orange); animation-delay: 0.05s; }
+
+    @keyframes spectrum-dance {
+      0% { height: 10px; }
+      100% { height: 70px; }
+    }
+
+    /* ==================== HELIX ==================== */
+    .helix {
+      width: 60px;
+      height: 150px;
+      position: relative;
+      perspective: 400px;
+    }
+
+    .helix-ball {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: helix-spin 3s linear infinite;
+    }
+
+    .helix-ball:nth-child(odd) { background: var(--accent-magenta); }
+    .helix-ball:nth-child(even) { background: var(--accent-blue); animation-direction: reverse; }
+
+    .helix-ball:nth-child(1) { top: 0%; animation-delay: 0s; }
+    .helix-ball:nth-child(2) { top: 10%; animation-delay: 0.15s; }
+    .helix-ball:nth-child(3) { top: 20%; animation-delay: 0.3s; }
+    .helix-ball:nth-child(4) { top: 30%; animation-delay: 0.45s; }
+    .helix-ball:nth-child(5) { top: 40%; animation-delay: 0.6s; }
+    .helix-ball:nth-child(6) { top: 50%; animation-delay: 0.75s; }
+    .helix-ball:nth-child(7) { top: 60%; animation-delay: 0.9s; }
+    .helix-ball:nth-child(8) { top: 70%; animation-delay: 1.05s; }
+    .helix-ball:nth-child(9) { top: 80%; animation-delay: 1.2s; }
+    .helix-ball:nth-child(10) { top: 90%; animation-delay: 1.35s; }
+
+    @keyframes helix-spin {
+      0% { transform: translateX(-50%) rotateY(0deg) translateZ(20px); }
+      100% { transform: translateX(-50%) rotateY(360deg) translateZ(20px); }
+    }
+
+    /* ==================== BLACK HOLE ==================== */
+    .blackhole {
+      width: 140px;
+      height: 140px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .blackhole-event {
+      width: 40px;
+      height: 40px;
+      background: var(--gray-950);
+      border-radius: 50%;
+      box-shadow: 0 0 30px 10px rgba(0,0,0,0.8);
+      z-index: 10;
+    }
+
+    .blackhole-accretion {
+      position: absolute;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      animation: accretion-spin linear infinite;
+    }
+
+    .blackhole-accretion:nth-child(2) {
+      width: 70px; height: 70px;
+      border-top-color: var(--accent-orange);
+      animation-duration: 2s;
+    }
+    .blackhole-accretion:nth-child(3) {
+      width: 90px; height: 90px;
+      border-right-color: var(--accent-pink);
+      animation-duration: 3s;
+      animation-direction: reverse;
+    }
+    .blackhole-accretion:nth-child(4) {
+      width: 110px; height: 110px;
+      border-bottom-color: var(--accent-magenta);
+      animation-duration: 4s;
+    }
+    .blackhole-accretion:nth-child(5) {
+      width: 130px; height: 130px;
+      border-left-color: var(--accent-blue);
+      animation-duration: 5s;
+      animation-direction: reverse;
+    }
+
+    @keyframes accretion-spin { to { transform: rotate(360deg); } }
+
+    /* ==================== LOADING CUBE ==================== */
+    .loading-cube-container {
+      width: 100px;
+      height: 100px;
+      perspective: 400px;
+    }
+
+    .loading-cube {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: loading-cube-anim 4s ease-in-out infinite;
+    }
+
+    .loading-cube-face {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border: 2px solid;
+      opacity: 0.8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-headline);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .loading-cube-face:nth-child(1) { transform: translateZ(50px); border-color: var(--accent-orange); background: rgba(255,135,0,0.1); }
+    .loading-cube-face:nth-child(2) { transform: rotateY(180deg) translateZ(50px); border-color: var(--accent-blue); background: rgba(30,144,255,0.1); }
+    .loading-cube-face:nth-child(3) { transform: rotateY(90deg) translateZ(50px); border-color: var(--accent-pink); background: rgba(255,0,135,0.1); }
+    .loading-cube-face:nth-child(4) { transform: rotateY(-90deg) translateZ(50px); border-color: var(--accent-magenta); background: rgba(255,0,255,0.1); }
+    .loading-cube-face:nth-child(5) { transform: rotateX(90deg) translateZ(50px); border-color: var(--accent-orchid); background: rgba(175,95,215,0.1); }
+    .loading-cube-face:nth-child(6) { transform: rotateX(-90deg) translateZ(50px); border-color: var(--accent-dark-orange); background: rgba(255,95,0,0.1); }
+
+    @keyframes loading-cube-anim {
+      0% { transform: rotateX(0) rotateY(0); }
+      25% { transform: rotateX(90deg) rotateY(90deg); }
+      50% { transform: rotateX(180deg) rotateY(180deg); }
+      75% { transform: rotateX(270deg) rotateY(270deg); }
+      100% { transform: rotateX(360deg) rotateY(360deg); }
+    }
+
+    /* ==================== NEURAL NETWORK ==================== */
+    .neural {
+      width: 180px;
+      height: 120px;
+      position: relative;
+    }
+
+    .neural-node {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background: var(--accent-magenta);
+      border-radius: 50%;
+      animation: neural-pulse 2s ease-in-out infinite;
+    }
+
+    .neural-node:nth-child(1) { top: 10px; left: 10px; animation-delay: 0s; background: var(--accent-orange); }
+    .neural-node:nth-child(2) { top: 50px; left: 10px; animation-delay: 0.2s; background: var(--accent-orange); }
+    .neural-node:nth-child(3) { top: 90px; left: 10px; animation-delay: 0.4s; background: var(--accent-orange); }
+
+    .neural-node:nth-child(4) { top: 20px; left: 70px; animation-delay: 0.3s; background: var(--accent-pink); }
+    .neural-node:nth-child(5) { top: 50px; left: 70px; animation-delay: 0.5s; background: var(--accent-pink); }
+    .neural-node:nth-child(6) { top: 80px; left: 70px; animation-delay: 0.7s; background: var(--accent-pink); }
+
+    .neural-node:nth-child(7) { top: 30px; left: 130px; animation-delay: 0.6s; background: var(--accent-magenta); }
+    .neural-node:nth-child(8) { top: 70px; left: 130px; animation-delay: 0.8s; background: var(--accent-magenta); }
+
+    .neural-node:nth-child(9) { top: 50px; left: 160px; animation-delay: 1s; background: var(--accent-blue); }
+
+    .neural-line {
+      position: absolute;
+      height: 1px;
+      background: var(--gray-600);
+      transform-origin: left center;
+      animation: neural-fire 2s ease-in-out infinite;
+    }
+
+    @keyframes neural-pulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 currentColor; }
+      50% { transform: scale(1.3); box-shadow: 0 0 10px 5px currentColor; }
+    }
+
+    @keyframes neural-fire {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; background: var(--accent-magenta); }
+    }
+
+    /* ==================== GYROSCOPE ==================== */
+    .gyroscope {
+      width: 120px;
+      height: 120px;
+      position: relative;
+      perspective: 600px;
+      transform-style: preserve-3d;
+    }
+
+    .gyro-ring {
+      position: absolute;
+      inset: 0;
+      border: 3px solid;
+      border-radius: 50%;
+      transform-style: preserve-3d;
+    }
+
+    .gyro-ring:nth-child(1) {
+      border-color: var(--accent-orange);
+      animation: gyro-x 3s linear infinite;
+    }
+
+    .gyro-ring:nth-child(2) {
+      inset: 15px;
+      border-color: var(--accent-pink);
+      animation: gyro-y 2s linear infinite;
+    }
+
+    .gyro-ring:nth-child(3) {
+      inset: 30px;
+      border-color: var(--accent-blue);
+      animation: gyro-z 1.5s linear infinite;
+    }
+
+    .gyro-center {
+      position: absolute;
+      inset: 45px;
+      background: var(--accent-magenta);
+      border-radius: 50%;
+      animation: gyro-pulse 1s ease-in-out infinite;
+    }
+
+    @keyframes gyro-x { to { transform: rotateX(360deg); } }
+    @keyframes gyro-y { to { transform: rotateY(360deg); } }
+    @keyframes gyro-z { to { transform: rotateZ(360deg); } }
+    @keyframes gyro-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+    /* ==================== CIRCUIT BOARD ==================== */
+    .circuit {
+      width: 160px;
+      height: 120px;
+      position: relative;
+      background: var(--gray-900);
+      border: 1px solid var(--gray-700);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .circuit-line {
+      position: absolute;
+      background: var(--gray-700);
+    }
+
+    .circuit-line.h { height: 2px; }
+    .circuit-line.v { width: 2px; }
+
+    .circuit-line:nth-child(1) { top: 20px; left: 0; width: 60px; }
+    .circuit-line:nth-child(2) { top: 20px; left: 58px; height: 40px; width: 2px; }
+    .circuit-line:nth-child(3) { top: 58px; left: 58px; width: 50px; }
+    .circuit-line:nth-child(4) { top: 58px; left: 106px; height: 42px; width: 2px; }
+    .circuit-line:nth-child(5) { top: 40px; left: 100px; width: 60px; }
+    .circuit-line:nth-child(6) { top: 80px; left: 20px; width: 40px; }
+
+    .circuit-node {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: var(--accent-blue);
+      border-radius: 50%;
+      animation: circuit-blink 1.5s ease-in-out infinite;
+    }
+
+    .circuit-node:nth-child(7) { top: 15px; left: 55px; animation-delay: 0s; }
+    .circuit-node:nth-child(8) { top: 53px; left: 55px; animation-delay: 0.3s; background: var(--accent-pink); }
+    .circuit-node:nth-child(9) { top: 53px; left: 103px; animation-delay: 0.6s; background: var(--accent-magenta); }
+    .circuit-node:nth-child(10) { top: 75px; left: 17px; animation-delay: 0.9s; background: var(--accent-orange); }
+    .circuit-node:nth-child(11) { top: 35px; left: 97px; animation-delay: 1.2s; }
+
+    .circuit-pulse {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: var(--accent-magenta);
+      border-radius: 50%;
+      animation: circuit-run 3s linear infinite;
+      box-shadow: 0 0 10px var(--accent-magenta);
+    }
+
+    @keyframes circuit-blink {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.3); }
+    }
+
+    @keyframes circuit-run {
+      0% { top: 20px; left: 0; }
+      20% { top: 20px; left: 58px; }
+      40% { top: 58px; left: 58px; }
+      60% { top: 58px; left: 106px; }
+      80% { top: 98px; left: 106px; }
+      100% { top: 98px; left: 160px; }
+    }
+
+    /* ==================== KALEIDOSCOPE ==================== */
+    .kaleidoscope {
+      width: 140px;
+      height: 140px;
+      position: relative;
+      animation: kaleidoscope-spin 20s linear infinite;
+    }
+
+    .kaleidoscope-segment {
+      position: absolute;
+      width: 0;
+      height: 0;
+      left: 50%;
+      top: 50%;
+      border-left: 35px solid transparent;
+      border-right: 35px solid transparent;
+      border-bottom: 70px solid;
+      transform-origin: center top;
+    }
+
+    .kaleidoscope-segment:nth-child(1) { transform: rotate(0deg) translateY(-35px); border-bottom-color: var(--accent-orange); opacity: 0.8; }
+    .kaleidoscope-segment:nth-child(2) { transform: rotate(60deg) translateY(-35px); border-bottom-color: var(--accent-pink); opacity: 0.8; }
+    .kaleidoscope-segment:nth-child(3) { transform: rotate(120deg) translateY(-35px); border-bottom-color: var(--accent-magenta); opacity: 0.8; }
+    .kaleidoscope-segment:nth-child(4) { transform: rotate(180deg) translateY(-35px); border-bottom-color: var(--accent-orchid); opacity: 0.8; }
+    .kaleidoscope-segment:nth-child(5) { transform: rotate(240deg) translateY(-35px); border-bottom-color: var(--accent-blue); opacity: 0.8; }
+    .kaleidoscope-segment:nth-child(6) { transform: rotate(300deg) translateY(-35px); border-bottom-color: var(--accent-dark-orange); opacity: 0.8; }
+
+    .kaleidoscope-inner {
+      position: absolute;
+      inset: 30px;
+      animation: kaleidoscope-counter 10s linear infinite reverse;
+    }
+
+    .kaleidoscope-inner .kaleidoscope-segment {
+      border-left-width: 20px;
+      border-right-width: 20px;
+      border-bottom-width: 40px;
+    }
+
+    @keyframes kaleidoscope-spin { to { transform: rotate(360deg); } }
+    @keyframes kaleidoscope-counter { to { transform: rotate(360deg); } }
+
+    /* ==================== DIGITAL RAIN ==================== */
+    .digital-rain {
+      width: 180px;
+      height: 120px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(180deg, transparent, rgba(30,144,255,0.1));
+      border-radius: 8px;
+    }
+
+    .rain-drop {
+      position: absolute;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--accent-blue);
+      text-shadow: 0 0 10px var(--accent-blue);
+      animation: rain-fall linear infinite;
+      writing-mode: vertical-rl;
+    }
+
+    .rain-drop:nth-child(1) { left: 5%; animation-duration: 2s; color: var(--accent-magenta); text-shadow: 0 0 10px var(--accent-magenta); }
+    .rain-drop:nth-child(2) { left: 15%; animation-duration: 2.5s; animation-delay: 0.5s; }
+    .rain-drop:nth-child(3) { left: 25%; animation-duration: 1.8s; animation-delay: 1s; color: var(--accent-pink); text-shadow: 0 0 10px var(--accent-pink); }
+    .rain-drop:nth-child(4) { left: 35%; animation-duration: 2.2s; animation-delay: 0.3s; }
+    .rain-drop:nth-child(5) { left: 45%; animation-duration: 1.6s; animation-delay: 0.8s; color: var(--accent-orange); text-shadow: 0 0 10px var(--accent-orange); }
+    .rain-drop:nth-child(6) { left: 55%; animation-duration: 2.4s; animation-delay: 0.2s; }
+    .rain-drop:nth-child(7) { left: 65%; animation-duration: 1.9s; animation-delay: 0.6s; color: var(--accent-orchid); text-shadow: 0 0 10px var(--accent-orchid); }
+    .rain-drop:nth-child(8) { left: 75%; animation-duration: 2.1s; animation-delay: 0.4s; }
+    .rain-drop:nth-child(9) { left: 85%; animation-duration: 1.7s; animation-delay: 0.9s; color: var(--accent-magenta); text-shadow: 0 0 10px var(--accent-magenta); }
+
+    @keyframes rain-fall {
+      0% { top: -100%; opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { top: 100%; opacity: 0; }
+    }
+
+    /* ==================== BREATHING ORB ==================== */
+    .breathing-orb {
+      width: 100px;
+      height: 100px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .breath-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 2px solid var(--accent-magenta);
+      animation: breathe 4s ease-in-out infinite;
+    }
+
+    .breath-ring:nth-child(1) { width: 100px; height: 100px; }
+    .breath-ring:nth-child(2) { width: 80px; height: 80px; animation-delay: 0.5s; border-color: var(--accent-pink); }
+    .breath-ring:nth-child(3) { width: 60px; height: 60px; animation-delay: 1s; border-color: var(--accent-orange); }
+
+    .breath-core {
+      width: 30px;
+      height: 30px;
+      background: var(--accent-magenta);
+      border-radius: 50%;
+      animation: breathe-core 4s ease-in-out infinite;
+    }
+
+    @keyframes breathe {
+      0%, 100% { transform: scale(0.8); opacity: 0.5; }
+      50% { transform: scale(1.2); opacity: 1; }
+    }
+
+    @keyframes breathe-core {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 20px var(--accent-magenta); }
+      50% { transform: scale(0.8); box-shadow: 0 0 40px var(--accent-magenta); }
+    }
+
+    /* ==================== SPINNER DOTS ==================== */
+    .spinner-dots {
+      width: 100px;
+      height: 100px;
+      position: relative;
+    }
+
+    .spinner-dot {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      animation: spinner-orbit 2s linear infinite;
+    }
+
+    .spinner-dot:nth-child(1) { background: var(--accent-orange); animation-delay: 0s; }
+    .spinner-dot:nth-child(2) { background: var(--accent-dark-orange); animation-delay: 0.25s; }
+    .spinner-dot:nth-child(3) { background: var(--accent-pink); animation-delay: 0.5s; }
+    .spinner-dot:nth-child(4) { background: var(--accent-orchid); animation-delay: 0.75s; }
+    .spinner-dot:nth-child(5) { background: var(--accent-magenta); animation-delay: 1s; }
+    .spinner-dot:nth-child(6) { background: var(--accent-blue); animation-delay: 1.25s; }
+    .spinner-dot:nth-child(7) { background: var(--accent-blue); animation-delay: 1.5s; }
+    .spinner-dot:nth-child(8) { background: var(--accent-magenta); animation-delay: 1.75s; }
+
+    @keyframes spinner-orbit {
+      0% { top: 0; left: 43px; }
+      12.5% { top: 12px; left: 76px; }
+      25% { top: 43px; left: 86px; }
+      37.5% { top: 76px; left: 76px; }
+      50% { top: 86px; left: 43px; }
+      62.5% { top: 76px; left: 12px; }
+      75% { top: 43px; left: 0; }
+      87.5% { top: 12px; left: 12px; }
+      100% { top: 0; left: 43px; }
+    }
+
+    /* ==================== PRISM ==================== */
+    .prism-container {
+      width: 160px;
+      height: 120px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .prism {
+      width: 0;
+      height: 0;
+      border-left: 40px solid transparent;
+      border-right: 40px solid transparent;
+      border-bottom: 70px solid var(--gray-700);
+      position: relative;
+    }
+
+    .prism-beam {
+      position: absolute;
+      width: 60px;
+      height: 3px;
+      background: var(--gray-100);
+      top: 25px;
+      right: 80px;
+      animation: beam-pulse 2s ease-in-out infinite;
+    }
+
+    .prism-rainbow {
+      position: absolute;
+      top: 10px;
+      left: 40px;
+      width: 80px;
+      height: 60px;
+    }
+
+    .prism-color {
+      position: absolute;
+      left: 0;
+      height: 2px;
+      animation: rainbow-spread 2s ease-in-out infinite;
+    }
+
+    .prism-color:nth-child(1) { top: 0; background: var(--accent-orange); transform-origin: left; animation-delay: 0s; }
+    .prism-color:nth-child(2) { top: 10px; background: var(--accent-dark-orange); animation-delay: 0.1s; }
+    .prism-color:nth-child(3) { top: 20px; background: var(--accent-pink); animation-delay: 0.2s; }
+    .prism-color:nth-child(4) { top: 30px; background: var(--accent-orchid); animation-delay: 0.3s; }
+    .prism-color:nth-child(5) { top: 40px; background: var(--accent-magenta); animation-delay: 0.4s; }
+    .prism-color:nth-child(6) { top: 50px; background: var(--accent-blue); animation-delay: 0.5s; }
+
+    @keyframes beam-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    @keyframes rainbow-spread {
+      0%, 100% { width: 0; opacity: 0; }
+      50% { width: 80px; opacity: 1; }
+    }
+
+    /* ==================== MORPHING LOGO ==================== */
+    .morph-logo {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-magenta));
+      animation: morph-shape 8s ease-in-out infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-headline);
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--gray-950);
+    }
+
+    @keyframes morph-shape {
+      0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+      25% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+      50% { border-radius: 50% 60% 30% 60% / 30% 60% 70% 40%; }
+      75% { border-radius: 60% 40% 60% 30% / 70% 30% 50% 60%; }
+    }
+
+    /* ==================== TUNNEL ==================== */
+    .tunnel {
+      width: 140px;
+      height: 140px;
+      position: relative;
+      perspective: 400px;
+    }
+
+    .tunnel-ring {
+      position: absolute;
+      border: 2px solid var(--accent-blue);
+      border-radius: 10px;
+      animation: tunnel-zoom 3s linear infinite;
+    }
+
+    .tunnel-ring:nth-child(1) { animation-delay: 0s; }
+    .tunnel-ring:nth-child(2) { animation-delay: 0.5s; border-color: var(--accent-magenta); }
+    .tunnel-ring:nth-child(3) { animation-delay: 1s; border-color: var(--accent-pink); }
+    .tunnel-ring:nth-child(4) { animation-delay: 1.5s; border-color: var(--accent-orange); }
+    .tunnel-ring:nth-child(5) { animation-delay: 2s; }
+    .tunnel-ring:nth-child(6) { animation-delay: 2.5s; border-color: var(--accent-magenta); }
+
+    @keyframes tunnel-zoom {
+      0% { inset: 65px; opacity: 0; transform: translateZ(-100px); }
+      50% { opacity: 1; }
+      100% { inset: -5px; opacity: 0; transform: translateZ(100px); }
+    }
+
+    /* ==================== SOUND WAVE ==================== */
+    .sound-wave {
+      width: 200px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .sound-bar {
+      width: 4px;
+      background: linear-gradient(to top, var(--accent-blue), var(--accent-magenta));
+      border-radius: 2px;
+      animation: sound-pulse 1s ease-in-out infinite;
+    }
+
+    .sound-bar:nth-child(1) { animation-delay: 0s; }
+    .sound-bar:nth-child(2) { animation-delay: 0.1s; }
+    .sound-bar:nth-child(3) { animation-delay: 0.2s; }
+    .sound-bar:nth-child(4) { animation-delay: 0.3s; }
+    .sound-bar:nth-child(5) { animation-delay: 0.4s; }
+    .sound-bar:nth-child(6) { animation-delay: 0.5s; }
+    .sound-bar:nth-child(7) { animation-delay: 0.4s; }
+    .sound-bar:nth-child(8) { animation-delay: 0.3s; }
+    .sound-bar:nth-child(9) { animation-delay: 0.2s; }
+    .sound-bar:nth-child(10) { animation-delay: 0.1s; }
+    .sound-bar:nth-child(11) { animation-delay: 0s; }
+    .sound-bar:nth-child(12) { animation-delay: 0.1s; }
+    .sound-bar:nth-child(13) { animation-delay: 0.2s; }
+    .sound-bar:nth-child(14) { animation-delay: 0.3s; }
+    .sound-bar:nth-child(15) { animation-delay: 0.4s; }
+    .sound-bar:nth-child(16) { animation-delay: 0.5s; }
+    .sound-bar:nth-child(17) { animation-delay: 0.4s; }
+    .sound-bar:nth-child(18) { animation-delay: 0.3s; }
+    .sound-bar:nth-child(19) { animation-delay: 0.2s; }
+    .sound-bar:nth-child(20) { animation-delay: 0.1s; }
+
+    @keyframes sound-pulse {
+      0%, 100% { height: 10px; }
+      50% { height: 60px; }
+    }
+
+    /* ==================== FOOTER ==================== */
+    .footer {
+      text-align: center;
+      padding: 100px 40px;
+      margin-top: 100px;
+      position: relative;
+    }
+
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gray-700), transparent);
+    }
+
+    .footer-logo {
+      font-family: var(--font-headline);
+      font-size: 64px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-magenta), var(--accent-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+    }
+
+    .footer p {
+      color: var(--gray-600);
+      font-size: 12px;
+    }
+
+    .footer-tagline {
+      margin-top: 20px;
+      font-family: var(--font-headline);
+      font-size: 18px;
+      color: var(--gray-500);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SVG Definitions -->
+  <svg width="0" height="0">
+    <defs>
+      <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color: var(--accent-orange);" />
+        <stop offset="25%" style="stop-color: var(--accent-pink);" />
+        <stop offset="50%" style="stop-color: var(--accent-magenta);" />
+        <stop offset="75%" style="stop-color: var(--accent-blue);" />
+        <stop offset="100%" style="stop-color: var(--accent-orange);" />
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <div class="container">
+
+    <!-- MEGA HERO -->
+    <div class="mega-hero">
+      <div class="mega-bg"></div>
+      <div class="mega-grid"></div>
+      <div class="mega-particles">
+        <div class="mega-particle"></div>
+        <div class="mega-particle"></div>
+        <div class="mega-particle"></div>
+        <div class="mega-particle"></div>
+        <div class="mega-particle"></div>
+        <div class="mega-particle"></div>
+        <div class="mega-particle"></div>
+        <div class="mega-particle"></div>
+        <div class="mega-particle"></div>
+      </div>
+      <div class="mega-ring"></div>
+      <div class="mega-ring"></div>
+      <div class="mega-ring"></div>
+      <div class="mega-orb"></div>
+    </div>
+
+    <h1>Animation Universe</h1>
+
+    <h2>Cosmic & Ethereal</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="aurora">
+          <div class="aurora-wave"></div>
+          <div class="aurora-wave"></div>
+        </div>
+        <span class="card-label">Aurora</span>
+      </div>
+      <div class="card">
+        <div class="portal">
+          <div class="portal-ring"></div>
+          <div class="portal-ring"></div>
+          <div class="portal-ring"></div>
+          <div class="portal-core"></div>
+        </div>
+        <span class="card-label">Portal</span>
+      </div>
+      <div class="card">
+        <div class="blackhole">
+          <div class="blackhole-event"></div>
+          <div class="blackhole-accretion"></div>
+          <div class="blackhole-accretion"></div>
+          <div class="blackhole-accretion"></div>
+          <div class="blackhole-accretion"></div>
+        </div>
+        <span class="card-label">Black Hole</span>
+      </div>
+      <div class="card">
+        <div class="breathing-orb">
+          <div class="breath-ring"></div>
+          <div class="breath-ring"></div>
+          <div class="breath-ring"></div>
+          <div class="breath-core"></div>
+        </div>
+        <span class="card-label">Breathing Orb</span>
+      </div>
+      <div class="card">
+        <div class="tunnel">
+          <div class="tunnel-ring"></div>
+          <div class="tunnel-ring"></div>
+          <div class="tunnel-ring"></div>
+          <div class="tunnel-ring"></div>
+          <div class="tunnel-ring"></div>
+          <div class="tunnel-ring"></div>
+        </div>
+        <span class="card-label">Tunnel</span>
+      </div>
+    </div>
+
+    <h2>3D & Geometric</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="tesseract">
+          <div class="tesseract-outer"></div>
+          <div class="tesseract-inner"></div>
+          <div class="tesseract-line"></div>
+          <div class="tesseract-line"></div>
+          <div class="tesseract-line"></div>
+          <div class="tesseract-line"></div>
+        </div>
+        <span class="card-label">Tesseract</span>
+      </div>
+      <div class="card">
+        <div class="loading-cube-container">
+          <div class="loading-cube">
+            <div class="loading-cube-face">LOAD</div>
+            <div class="loading-cube-face">DATA</div>
+            <div class="loading-cube-face">SYNC</div>
+            <div class="loading-cube-face">INIT</div>
+            <div class="loading-cube-face">EXEC</div>
+            <div class="loading-cube-face">DONE</div>
+          </div>
+        </div>
+        <span class="card-label">Loading Cube</span>
+      </div>
+      <div class="card">
+        <div class="gyroscope">
+          <div class="gyro-ring"></div>
+          <div class="gyro-ring"></div>
+          <div class="gyro-ring"></div>
+          <div class="gyro-center"></div>
+        </div>
+        <span class="card-label">Gyroscope</span>
+      </div>
+      <div class="card">
+        <div class="kaleidoscope">
+          <div class="kaleidoscope-segment"></div>
+          <div class="kaleidoscope-segment"></div>
+          <div class="kaleidoscope-segment"></div>
+          <div class="kaleidoscope-segment"></div>
+          <div class="kaleidoscope-segment"></div>
+          <div class="kaleidoscope-segment"></div>
+          <div class="kaleidoscope-inner">
+            <div class="kaleidoscope-segment"></div>
+            <div class="kaleidoscope-segment"></div>
+            <div class="kaleidoscope-segment"></div>
+            <div class="kaleidoscope-segment"></div>
+            <div class="kaleidoscope-segment"></div>
+            <div class="kaleidoscope-segment"></div>
+          </div>
+        </div>
+        <span class="card-label">Kaleidoscope</span>
+      </div>
+      <div class="card">
+        <div class="prism-container">
+          <div class="prism-beam"></div>
+          <div class="prism"></div>
+          <div class="prism-rainbow">
+            <div class="prism-color"></div>
+            <div class="prism-color"></div>
+            <div class="prism-color"></div>
+            <div class="prism-color"></div>
+            <div class="prism-color"></div>
+            <div class="prism-color"></div>
+          </div>
+        </div>
+        <span class="card-label">Prism</span>
+      </div>
+      <div class="card">
+        <div class="morph-logo">BR</div>
+        <span class="card-label">Morphing Logo</span>
+      </div>
+    </div>
+
+    <h2>Audio & Visual</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="waveform">
+          <svg viewBox="0 0 200 80">
+            <path class="waveform-path" d="M0,40 Q25,10 50,40 T100,40 T150,40 T200,40" stroke-dasharray="50" />
+          </svg>
+        </div>
+        <span class="card-label">Waveform</span>
+      </div>
+      <div class="card">
+        <div class="spectrum">
+          <div class="spectrum-bar"></div>
+          <div class="spectrum-bar"></div>
+          <div class="spectrum-bar"></div>
+          <div class="spectrum-bar"></div>
+          <div class="spectrum-bar"></div>
+          <div class="spectrum-bar"></div>
+          <div class="spectrum-bar"></div>
+          <div class="spectrum-bar"></div>
+          <div class="spectrum-bar"></div>
+          <div class="spectrum-bar"></div>
+          <div class="spectrum-bar"></div>
+          <div class="spectrum-bar"></div>
+          <div class="spectrum-bar"></div>
+          <div class="spectrum-bar"></div>
+          <div class="spectrum-bar"></div>
+          <div class="spectrum-bar"></div>
+        </div>
+        <span class="card-label">Spectrum</span>
+      </div>
+      <div class="card">
+        <div class="sound-wave">
+          <div class="sound-bar"></div>
+          <div class="sound-bar"></div>
+          <div class="sound-bar"></div>
+          <div class="sound-bar"></div>
+          <div class="sound-bar"></div>
+          <div class="sound-bar"></div>
+          <div class="sound-bar"></div>
+          <div class="sound-bar"></div>
+          <div class="sound-bar"></div>
+          <div class="sound-bar"></div>
+          <div class="sound-bar"></div>
+          <div class="sound-bar"></div>
+          <div class="sound-bar"></div>
+          <div class="sound-bar"></div>
+          <div class="sound-bar"></div>
+          <div class="sound-bar"></div>
+          <div class="sound-bar"></div>
+          <div class="sound-bar"></div>
+          <div class="sound-bar"></div>
+          <div class="sound-bar"></div>
+        </div>
+        <span class="card-label">Sound Wave</span>
+      </div>
+    </div>
+
+    <h2>Science & Tech</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="helix">
+          <div class="helix-ball"></div>
+          <div class="helix-ball"></div>
+          <div class="helix-ball"></div>
+          <div class="helix-ball"></div>
+          <div class="helix-ball"></div>
+          <div class="helix-ball"></div>
+          <div class="helix-ball"></div>
+          <div class="helix-ball"></div>
+          <div class="helix-ball"></div>
+          <div class="helix-ball"></div>
+        </div>
+        <span class="card-label">DNA Helix</span>
+      </div>
+      <div class="card">
+        <div class="neural">
+          <div class="neural-node"></div>
+          <div class="neural-node"></div>
+          <div class="neural-node"></div>
+          <div class="neural-node"></div>
+          <div class="neural-node"></div>
+          <div class="neural-node"></div>
+          <div class="neural-node"></div>
+          <div class="neural-node"></div>
+          <div class="neural-node"></div>
+        </div>
+        <span class="card-label">Neural Network</span>
+      </div>
+      <div class="card">
+        <div class="circuit">
+          <div class="circuit-line h"></div>
+          <div class="circuit-line v"></div>
+          <div class="circuit-line h"></div>
+          <div class="circuit-line v"></div>
+          <div class="circuit-line h"></div>
+          <div class="circuit-line h"></div>
+          <div class="circuit-node"></div>
+          <div class="circuit-node"></div>
+          <div class="circuit-node"></div>
+          <div class="circuit-node"></div>
+          <div class="circuit-node"></div>
+          <div class="circuit-pulse"></div>
+        </div>
+        <span class="card-label">Circuit Board</span>
+      </div>
+      <div class="card">
+        <div class="scanner">
+          <div class="scanner-grid"></div>
+          <div class="scanner-line"></div>
+        </div>
+        <span class="card-label">Scanner</span>
+      </div>
+    </div>
+
+    <h2>Digital & Matrix</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="digital-rain">
+          <div class="rain-drop">ブラック</div>
+          <div class="rain-drop">10110</div>
+          <div class="rain-drop">ロード</div>
+          <div class="rain-drop">01001</div>
+          <div class="rain-drop">システム</div>
+          <div class="rain-drop">11010</div>
+          <div class="rain-drop">データ</div>
+          <div class="rain-drop">00101</div>
+          <div class="rain-drop">コード</div>
+        </div>
+        <span class="card-label">Digital Rain</span>
+      </div>
+      <div class="card">
+        <div class="spinner-dots">
+          <div class="spinner-dot"></div>
+          <div class="spinner-dot"></div>
+          <div class="spinner-dot"></div>
+          <div class="spinner-dot"></div>
+          <div class="spinner-dot"></div>
+          <div class="spinner-dot"></div>
+          <div class="spinner-dot"></div>
+          <div class="spinner-dot"></div>
+        </div>
+        <span class="card-label">Spinner Dots</span>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-logo">BlackRoad</div>
+      <p>Animation Universe · Pure CSS · Zero JavaScript</p>
+      <div class="footer-tagline">You are allowed to be in process.</div>
+    </div>
+  </div>
+
+</body>
 </html>
