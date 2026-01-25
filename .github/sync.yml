@@ -1,0 +1,34 @@
+# Org Sync Configuration
+# This file controls what gets synced from blackroad-io to all other repos
+
+# Repositories to exclude from sync (blackroad-io is always excluded)
+exclude_repos:
+  - blackroad-deploy  # Has its own deployment logic
+  # - some-other-repo
+
+# Only sync to these repos (comment out to sync to ALL repos)
+# include_repos:
+#   - repo-a
+#   - repo-b
+
+# Paths to sync (files or directories)
+sync_paths:
+  - .github/workflows/core-ci.yml
+  - .github/workflows/auto-label.yml
+  - .github/workflows/failure-issue.yml
+  - .github/workflows/project-sync.yml
+  # Add more paths as needed:
+  # - .editorconfig
+  # - .prettierrc
+  # - .github/CODEOWNERS
+
+# Paths to exclude from sync (even if parent dir is in sync_paths)
+exclude_paths:
+  - .github/workflows/org-sync.yml  # Never sync the sync workflow itself
+  - .github/workflows/deploy.yml     # Each repo has its own deploy config
+
+# Commit message for sync commits
+commit_message: "chore: sync from blackroad-io"
+
+# Target branch in destination repos
+branch: main
