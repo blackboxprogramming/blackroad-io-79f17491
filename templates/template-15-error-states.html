@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackRoad OS — Template 15</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #000;
+            --gray-950: #070707;
+            --gray-900: #0e0e0e;
+            --gray-850: #141414;
+            --gray-800: #1c1c1c;
+            --gray-750: #232323;
+            --gray-700: #2c2c2c;
+            --gray-600: #404040;
+            --gray-500: #5c5c5c;
+            --gray-400: #7c7c7c;
+            --gray-300: #9c9c9c;
+            --gray-200: #bcbcbc;
+            --gray-100: #dcdcdc;
+            --white: #f0f0f0;
+
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 15px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--black);
+            color: var(--gray-400);
+            line-height: 1.6;
+        }
+
+        ::selection {
+            background: var(--gray-700);
+            color: var(--white);
+        }
+
+        a {
+            color: var(--gray-300);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        a:hover {
+            color: var(--white);
+        }
+
+        /* Layout */
+        .page {
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .section {
+            max-width: 900px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        /* Full Page 404 */
+        .error-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .error-code {
+            font-family: var(--font-mono);
+            font-size: 8rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            line-height: 1;
+            margin-bottom: 1rem;
+            letter-spacing: -0.05em;
+        }
+
+        .error-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .error-description {
+            font-size: 0.9375rem;
+            color: var(--gray-500);
+            max-width: 400px;
+            margin-bottom: 2rem;
+        }
+
+        .error-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            padding: 0.625rem 1.25rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.15s;
+            border: none;
+        }
+
+        .btn-primary {
+            color: var(--black);
+            background: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--gray-200);
+        }
+
+        .btn-secondary {
+            color: var(--gray-300);
+            background: var(--gray-900);
+            border: 1px solid var(--gray-850);
+        }
+
+        .btn-secondary:hover {
+            color: var(--white);
+            border-color: var(--gray-700);
+        }
+
+        /* Empty State Cards */
+        .empty-states-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .empty-state-card {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+        }
+
+        .empty-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gray-900);
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            font-size: 1.25rem;
+            margin: 0 auto 1.25rem;
+            color: var(--gray-600);
+        }
+
+        .empty-title {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--white);
+            margin-bottom: 0.375rem;
+        }
+
+        .empty-description {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+            margin-bottom: 1.25rem;
+            max-width: 280px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Inline Empty State */
+        .empty-inline {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--gray-950);
+            border: 1px dashed var(--gray-850);
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .empty-inline-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--gray-900);
+            border-radius: 6px;
+            display: grid;
+            place-items: center;
+            font-size: 1rem;
+            color: var(--gray-600);
+            flex-shrink: 0;
+        }
+
+        .empty-inline-content {
+            flex: 1;
+        }
+
+        .empty-inline-title {
+            font-size: 0.875rem;
+            color: var(--gray-300);
+            margin-bottom: 0.125rem;
+        }
+
+        .empty-inline-description {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+        }
+
+        /* Error Banner */
+        .error-banner {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-800);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .error-banner-icon {
+            width: 20px;
+            height: 20px;
+            background: var(--gray-800);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 0.625rem;
+            color: var(--gray-400);
+            flex-shrink: 0;
+            margin-top: 0.125rem;
+        }
+
+        .error-banner-content {
+            flex: 1;
+        }
+
+        .error-banner-title {
+            font-size: 0.875rem;
+            color: var(--gray-200);
+            margin-bottom: 0.25rem;
+        }
+
+        .error-banner-description {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        .error-banner-action {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-400);
+            background: var(--gray-900);
+            padding: 0.375rem 0.75rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .error-banner-action:hover {
+            color: var(--white);
+            background: var(--gray-800);
+        }
+
+        /* Maintenance Mode */
+        .maintenance {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .maintenance-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--gray-900);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 1.5rem;
+            margin: 0 auto 1.5rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .maintenance-title {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .maintenance-description {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            margin-bottom: 1.5rem;
+        }
+
+        .maintenance-eta {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-600);
+            background: var(--gray-900);
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        /* Skeleton Loaders */
+        .skeleton-card {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 10px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .skeleton {
+            background: linear-gradient(90deg, var(--gray-900) 25%, var(--gray-850) 50%, var(--gray-900) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 4px;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .skeleton-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .skeleton-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+        }
+
+        .skeleton-text-group {
+            flex: 1;
+        }
+
+        .skeleton-title {
+            height: 14px;
+            width: 60%;
+            margin-bottom: 0.5rem;
+        }
+
+        .skeleton-subtitle {
+            height: 10px;
+            width: 40%;
+        }
+
+        .skeleton-line {
+            height: 12px;
+            margin-bottom: 0.625rem;
+        }
+
+        .skeleton-line:last-child {
+            margin-bottom: 0;
+            width: 80%;
+        }
+
+        .skeleton-line.short {
+            width: 45%;
+        }
+
+        .skeleton-line.medium {
+            width: 70%;
+        }
+
+        /* Offline Indicator */
+        .offline-bar {
+            background: var(--gray-900);
+            padding: 0.75rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.625rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .offline-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--gray-600);
+            border-radius: 50%;
+        }
+
+        .offline-text {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        .offline-retry {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-400);
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .offline-retry:hover {
+            color: var(--white);
+        }
+
+        /* Permission Denied */
+        .permission-card {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            padding: 2rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .permission-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--gray-900);
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            font-size: 1.25rem;
+            color: var(--gray-500);
+            flex-shrink: 0;
+        }
+
+        .permission-content {
+            flex: 1;
+        }
+
+        .permission-title {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--white);
+            margin-bottom: 0.375rem;
+        }
+
+        .permission-description {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+            margin-bottom: 1rem;
+        }
+
+        /* Toast Notifications */
+        .toast-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .toast {
+            background: var(--gray-900);
+            border: 1px solid var(--gray-850);
+            border-radius: 8px;
+            padding: 0.875rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .toast-icon {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .toast-icon.error {
+            background: var(--gray-700);
+            color: var(--gray-300);
+        }
+
+        .toast-icon.warning {
+            background: var(--gray-750);
+            color: var(--gray-400);
+        }
+
+        .toast-icon.info {
+            background: var(--gray-800);
+            color: var(--gray-400);
+        }
+
+        .toast-content {
+            flex: 1;
+            font-size: 0.8125rem;
+            color: var(--gray-300);
+        }
+
+        .toast-dismiss {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            cursor: pointer;
+            padding: 0.25rem;
+        }
+
+        .toast-dismiss:hover {
+            color: var(--gray-300);
+        }
+
+        /* Form Error State */
+        .form-error-demo {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 10px;
+            padding: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.8125rem;
+            color: var(--gray-300);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input {
+            width: 100%;
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            color: var(--gray-200);
+            background: var(--gray-900);
+            border: 1px solid var(--gray-850);
+            padding: 0.625rem 0.875rem;
+            border-radius: 6px;
+            outline: none;
+            transition: all 0.15s;
+        }
+
+        .form-input.error {
+            border-color: var(--gray-600);
+        }
+
+        .form-error-text {
+            font-size: 0.6875rem;
+            color: var(--gray-500);
+            margin-top: 0.375rem;
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+
+        /* Rate Limit */
+        .rate-limit {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .rate-limit-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .rate-limit-title {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--white);
+            margin-bottom: 0.375rem;
+        }
+
+        .rate-limit-description {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+            margin-bottom: 1rem;
+        }
+
+        .rate-limit-timer {
+            font-family: var(--font-mono);
+            font-size: 1.5rem;
+            color: var(--gray-300);
+        }
+
+        .rate-limit-label {
+            font-size: 0.6875rem;
+            color: var(--gray-600);
+            margin-top: 0.25rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 700px) {
+            .empty-states-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .error-code {
+                font-size: 5rem;
+            }
+
+            .permission-card {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- Full Page 404 Demo -->
+        <section class="section">
+            <div class="section-label">Full Page · 404 Not Found</div>
+            <div style="background: var(--gray-950); border: 1px solid var(--gray-900); border-radius: 12px; padding: 4rem 2rem; text-align: center;">
+                <div class="error-code">404</div>
+                <h1 class="error-title">Page not found</h1>
+                <p class="error-description">The page you're looking for doesn't exist or has been moved.</p>
+                <div class="error-actions" style="justify-content: center;">
+                    <button class="btn btn-primary">Go Home</button>
+                    <button class="btn btn-secondary">Contact Support</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Empty State Cards -->
+        <section class="section">
+            <div class="section-label">Empty States · Content Placeholders</div>
+            <div class="empty-states-grid">
+                <div class="empty-state-card">
+                    <div class="empty-icon">◎</div>
+                    <h3 class="empty-title">No agents yet</h3>
+                    <p class="empty-description">Create your first agent to start orchestrating AI workflows.</p>
+                    <button class="btn btn-primary">Create Agent</button>
+                </div>
+                <div class="empty-state-card">
+                    <div class="empty-icon">◇</div>
+                    <h3 class="empty-title">No events found</h3>
+                    <p class="empty-description">Events will appear here once your agents start communicating.</p>
+                    <button class="btn btn-secondary">View Documentation</button>
+                </div>
+                <div class="empty-state-card">
+                    <div class="empty-icon">▤</div>
+                    <h3 class="empty-title">No results</h3>
+                    <p class="empty-description">Try adjusting your search or filter criteria.</p>
+                    <button class="btn btn-secondary">Clear Filters</button>
+                </div>
+                <div class="empty-state-card">
+                    <div class="empty-icon">◫</div>
+                    <h3 class="empty-title">Inbox zero</h3>
+                    <p class="empty-description">You're all caught up. No pending notifications.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Inline Empty States -->
+        <section class="section">
+            <div class="section-label">Inline · Contextual Empty States</div>
+            <div class="empty-inline">
+                <div class="empty-inline-icon">◈</div>
+                <div class="empty-inline-content">
+                    <div class="empty-inline-title">No memories stored</div>
+                    <div class="empty-inline-description">This agent hasn't accumulated any persistent memories yet.</div>
+                </div>
+                <button class="btn btn-secondary" style="padding: 0.5rem 0.875rem;">Initialize</button>
+            </div>
+            <div class="empty-inline">
+                <div class="empty-inline-icon">▣</div>
+                <div class="empty-inline-content">
+                    <div class="empty-inline-title">No team members</div>
+                    <div class="empty-inline-description">Invite collaborators to share access to this workspace.</div>
+                </div>
+                <button class="btn btn-secondary" style="padding: 0.5rem 0.875rem;">Invite</button>
+            </div>
+        </section>
+
+        <!-- Error Banners -->
+        <section class="section">
+            <div class="section-label">Banners · Error & Warning Messages</div>
+            <div class="error-banner">
+                <div class="error-banner-icon">!</div>
+                <div class="error-banner-content">
+                    <div class="error-banner-title">Connection to event bus failed</div>
+                    <div class="error-banner-description">Unable to reach NATS server. Agent messaging may be delayed.</div>
+                </div>
+                <button class="error-banner-action">Retry</button>
+            </div>
+            <div class="error-banner">
+                <div class="error-banner-icon">⚠</div>
+                <div class="error-banner-content">
+                    <div class="error-banner-title">API rate limit approaching</div>
+                    <div class="error-banner-description">You've used 85% of your monthly quota. Consider upgrading your plan.</div>
+                </div>
+                <button class="error-banner-action">Upgrade</button>
+            </div>
+            <div class="error-banner">
+                <div class="error-banner-icon">i</div>
+                <div class="error-banner-content">
+                    <div class="error-banner-title">Scheduled maintenance tonight</div>
+                    <div class="error-banner-description">The platform will be briefly unavailable from 2:00–2:30 AM UTC.</div>
+                </div>
+                <button class="error-banner-action">Dismiss</button>
+            </div>
+        </section>
+
+        <!-- Maintenance Mode -->
+        <section class="section">
+            <div class="section-label">Full Page · Maintenance Mode</div>
+            <div class="maintenance">
+                <div class="maintenance-icon">◐</div>
+                <h2 class="maintenance-title">We'll be right back</h2>
+                <p class="maintenance-description">BlackRoad is undergoing scheduled maintenance to improve performance and reliability.</p>
+                <div class="maintenance-eta">Estimated return: 15 minutes</div>
+            </div>
+        </section>
+
+        <!-- Skeleton Loaders -->
+        <section class="section">
+            <div class="section-label">Loading · Skeleton States</div>
+            <div class="skeleton-card">
+                <div class="skeleton-header">
+                    <div class="skeleton skeleton-avatar"></div>
+                    <div class="skeleton-text-group">
+                        <div class="skeleton skeleton-title"></div>
+                        <div class="skeleton skeleton-subtitle"></div>
+                    </div>
+                </div>
+                <div class="skeleton skeleton-line"></div>
+                <div class="skeleton skeleton-line medium"></div>
+                <div class="skeleton skeleton-line short"></div>
+            </div>
+            <div class="skeleton-card">
+                <div class="skeleton skeleton-line"></div>
+                <div class="skeleton skeleton-line"></div>
+                <div class="skeleton skeleton-line medium"></div>
+            </div>
+        </section>
+
+        <!-- Offline Indicator -->
+        <section class="section">
+            <div class="section-label">Status · Connection States</div>
+            <div class="offline-bar">
+                <div class="offline-dot"></div>
+                <span class="offline-text">You're offline. Changes will sync when reconnected.</span>
+                <span class="offline-retry">Retry now</span>
+            </div>
+            <div class="offline-bar" style="background: var(--gray-950);">
+                <div class="offline-dot" style="background: var(--gray-500);"></div>
+                <span class="offline-text">Reconnecting to server...</span>
+            </div>
+        </section>
+
+        <!-- Toast Notifications -->
+        <section class="section">
+            <div class="section-label">Toasts · Notification Messages</div>
+            <div class="toast-stack">
+                <div class="toast">
+                    <div class="toast-icon error">✕</div>
+                    <div class="toast-content">Failed to save changes. Please try again.</div>
+                    <span class="toast-dismiss">×</span>
+                </div>
+                <div class="toast">
+                    <div class="toast-icon warning">!</div>
+                    <div class="toast-content">Your session will expire in 5 minutes.</div>
+                    <span class="toast-dismiss">×</span>
+                </div>
+                <div class="toast">
+                    <div class="toast-icon info">i</div>
+                    <div class="toast-content">New agent deployment available.</div>
+                    <span class="toast-dismiss">×</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Permission Denied -->
+        <section class="section">
+            <div class="section-label">Access · Permission Denied</div>
+            <div class="permission-card">
+                <div class="permission-icon">◈</div>
+                <div class="permission-content">
+                    <h3 class="permission-title">Access restricted</h3>
+                    <p class="permission-description">You don't have permission to view this workspace. Contact your team administrator to request access.</p>
+                    <button class="btn btn-secondary">Request Access</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Form Errors -->
+        <section class="section">
+            <div class="section-label">Forms · Validation Errors</div>
+            <div class="form-error-demo">
+                <div class="form-group">
+                    <label class="form-label">API Endpoint</label>
+                    <input type="text" class="form-input error" value="invalid-url">
+                    <p class="form-error-text">
+                        <span>✕</span> Please enter a valid URL starting with https://
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Agent Name</label>
+                    <input type="text" class="form-input error" value="">
+                    <p class="form-error-text">
+                        <span>✕</span> This field is required
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rate Limit -->
+        <section class="section">
+            <div class="section-label">Limits · Rate Limited</div>
+            <div class="rate-limit">
+                <div class="rate-limit-icon">◐</div>
+                <h3 class="rate-limit-title">Too many requests</h3>
+                <p class="rate-limit-description">You've exceeded the rate limit. Please wait before trying again.</p>
+                <div class="rate-limit-timer">0:47</div>
+                <div class="rate-limit-label">seconds remaining</div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

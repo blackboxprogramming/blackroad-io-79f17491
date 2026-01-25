@@ -1,12 +1,454 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>BlackRoad</title>
-  </head>
-  <body style="font-family: system-ui; padding: 40px;">
-    <h1>BlackRoad</h1>
-    <p>Building sovereign, local-first AI systems.</p>
-    <p>Status: Online.</p>
-  </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackRoad OS - Template Gallery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gray-950: #0a0a0a;
+            --gray-900: #121212;
+            --gray-850: #1a1a1a;
+            --gray-800: #222222;
+            --gray-700: #333333;
+            --gray-600: #4a4a4a;
+            --gray-500: #6b6b6b;
+            --gray-400: #8b8b8b;
+            --gray-300: #ababab;
+            --gray-200: #d4d4d4;
+            --gray-100: #e8e8e8;
+            --white: #ffffff;
+            
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--gray-950);
+            color: var(--gray-200);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--gray-850);
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.125rem;
+            color: var(--gray-400);
+            margin-bottom: 0.5rem;
+        }
+
+        .stats {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 2rem;
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            color: var(--gray-500);
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stat-number {
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--white);
+            margin: 3rem 0 1.5rem 0;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--gray-850);
+        }
+
+        .section-description {
+            color: var(--gray-400);
+            margin-bottom: 2rem;
+            font-size: 0.9375rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: var(--gray-900);
+            border: 1px solid var(--gray-850);
+            padding: 1.5rem;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            border-color: var(--gray-700);
+            transform: translateY(-2px);
+        }
+
+        .card-title {
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-description {
+            font-size: 0.875rem;
+            color: var(--gray-400);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .card-link {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--gray-300);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--gray-700);
+            transition: all 0.2s ease;
+        }
+
+        .card-link:hover {
+            color: var(--white);
+            border-color: var(--gray-500);
+        }
+
+        .card-tag {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.25rem 0.5rem;
+            background: var(--gray-850);
+            margin-bottom: 0.75rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--gray-850);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--gray-600);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>BlackRoad OS</h1>
+            <p class="subtitle">Comprehensive Template Gallery</p>
+            <p class="subtitle">Building sovereign, local-first AI systems</p>
+            <div class="stats">
+                <div class="stat"><span class="stat-number">25</span> Templates</div>
+                <div class="stat"><span class="stat-number">4</span> Components</div>
+                <div class="stat"><span class="stat-number">4</span> Documentation Pages</div>
+                <div class="stat"><span class="stat-number">29</span> Combined PRs</div>
+            </div>
+        </header>
+
+        <section>
+            <h2 class="section-title">Landing Page Designs</h2>
+            <p class="section-description">Various landing page templates showcasing different design approaches and styles.</p>
+            <div class="grid">
+                <div class="card">
+                    <span class="card-tag">Landing</span>
+                    <h3 class="card-title">Modern UI</h3>
+                    <p class="card-description">Comprehensive modern landing page with rich sections and contemporary design elements.</p>
+                    <a href="templates/landing-01-modern-ui.html" class="card-link">View Template</a>
+                </div>
+                <div class="card">
+                    <span class="card-tag">Landing</span>
+                    <h3 class="card-title">Feedback Components</h3>
+                    <p class="card-description">Landing page featuring feedback component design system.</p>
+                    <a href="templates/landing-02-feedback.html" class="card-link">View Template</a>
+                </div>
+                <div class="card">
+                    <span class="card-tag">Landing</span>
+                    <h3 class="card-title">Grayscale Design</h3>
+                    <p class="card-description">Elegant grayscale-themed landing page with minimalist aesthetic.</p>
+                    <a href="templates/landing-03-grayscale.html" class="card-link">View Template</a>
+                </div>
+                <div class="card">
+                    <span class="card-tag">Landing</span>
+                    <h3 class="card-title">Documentation Style</h3>
+                    <p class="card-description">Documentation-focused landing page design.</p>
+                    <a href="templates/landing-04-documentation-style.html" class="card-link">View Template</a>
+                </div>
+                <div class="card">
+                    <span class="card-tag">Landing</span>
+                    <h3 class="card-title">Terminal Theme</h3>
+                    <p class="card-description">Terminal-styled landing page with retro computing aesthetic.</p>
+                    <a href="templates/landing-05-terminal.html" class="card-link">View Template</a>
+                </div>
+                <div class="card">
+                    <span class="card-tag">Landing</span>
+                    <h3 class="card-title">Template 04</h3>
+                    <p class="card-description">BlackRoad OS Template 04 landing page design.</p>
+                    <a href="templates/landing-06-template04.html" class="card-link">View Template</a>
+                </div>
+                <div class="card">
+                    <span class="card-tag">Landing</span>
+                    <h3 class="card-title">Template 03</h3>
+                    <p class="card-description">BlackRoad OS Template 03 landing page design.</p>
+                    <a href="templates/landing-07-template03.html" class="card-link">View Template</a>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">UI Component Templates</h2>
+            <p class="section-description">Comprehensive UI components and feature-specific templates.</p>
+            <div class="grid">
+                <div class="card">
+                    <span class="card-tag">Component</span>
+                    <h3 class="card-title">Search & Command Palette</h3>
+                    <p class="card-description">Advanced search interface with command palette functionality.</p>
+                    <a href="templates/template-search-command-palette.html" class="card-link">View Template</a>
+                </div>
+                <div class="card">
+                    <span class="card-tag">Component</span>
+                    <h3 class="card-title">Calendar Scheduler</h3>
+                    <p class="card-description">Full-featured calendar and scheduling component.</p>
+                    <a href="templates/template-calendar-scheduler.html" class="card-link">View Template</a>
+                </div>
+                <div class="card">
+                    <span class="card-tag">Component</span>
+                    <h3 class="card-title">File Browser</h3>
+                    <p class="card-description">File system browser with folder navigation.</p>
+                    <a href="templates/template-file-browser.html" class="card-link">View Template</a>
+                </div>
+                <div class="card">
+                    <span class="card-tag">Component</span>
+                    <h3 class="card-title">Avatars & Identity</h3>
+                    <p class="card-description">Avatar components and identity management UI.</p>
+                    <a href="templates/template-16-avatars-identity.html" class="card-link">View Template</a>
+                </div>
+                <div class="card">
+                    <span class="card-tag">Component</span>
+                    <h3 class="card-title">Overlays Library</h3>
+                    <p class="card-description">Comprehensive overlay components: modals, dialogs, tooltips.</p>
+                    <a href="templates/template-16-overlays.html" class="card-link">View Template</a>
+                </div>
+                <div class="card">
+                    <span class="card-tag">Component</span>
+                    <h3 class="card-title">Dark UI Components</h3>
+                    <p class="card-description">Dark themed UI component library with command palette.</p>
+                    <a href="templates/template-16-dark-ui.html" class="card-link">View Template</a>
+                </div>
+                <div class="card">
+                    <span class="card-tag">Component</span>
+                    <h3 class="card-title">Data Tables</h3>
+                    <p class="card-description">Comprehensive data table UI components with sorting and filtering.</p>
+                    <a href="templates/template-17-data-tables.html" class="card-link">View Template</a>
+                </div>
+                <div class="card">
+                    <span class="card-tag">Component</span>
+                    <h3 class="card-title">Chat Interface</h3>
+                    <p class="card-description">Complete chat interface component library.</p>
+                    <a href="templates/template-18-chat.html" class="card-link">View Template</a>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Page Templates</h2>
+            <p class="section-description">Full page templates for common application views.</p>
+            <div class="grid">
+                <div class="card">
+                    <span class="card-tag">Page</span>
+                    <h3 class="card-title">Brutalist Design System</h3>
+                    <p class="card-description">Template 02 - Bold brutalist design system approach.</p>
+                    <a href="templates/template-02-brutalist.html" class="card-link">View Template</a>
+                </div>
+                <div class="card">
+                    <span class="card-tag">Page</span>
+                    <h3 class="card-title">Dashboard</h3>
+                    <p class="card-description">Template 06 - Comprehensive dashboard layout.</p>
+                    <a href="templates/template-06-dashboard.html" class="card-link">View Template</a>
+                </div>
+                <div class="card">
+                    <span class="card-tag">Page</span>
+                    <h3 class="card-title">Showcase Page</h3>
+                    <p class="card-description">Template 08 - Product or feature showcase layout.</p>
+                    <a href="templates/template-08-showcase.html" class="card-link">View Template</a>
+                </div>
+                <div class="card">
+                    <span class="card-tag">Page</span>
+                    <h3 class="card-title">Pricing Page</h3>
+                    <p class="card-description">Template 09 - Pricing tiers and comparison table.</p>
+                    <a href="templates/template-09-pricing.html" class="card-link">View Template</a>
+                </div>
+                <div class="card">
+                    <span class="card-tag">Page</span>
+                    <h3 class="card-title">Careers Page</h3>
+                    <p class="card-description">Template 11 - Job listings and benefits showcase.</p>
+                    <a href="templates/template-11-careers.html" class="card-link">View Template</a>
+                </div>
+                <div class="card">
+                    <span class="card-tag">Page</span>
+                    <h3 class="card-title">Settings Page</h3>
+                    <p class="card-description">Template 13 - Settings interface with sidebar navigation.</p>
+                    <a href="templates/template-13-settings.html" class="card-link">View Template</a>
+                </div>
+                <div class="card">
+                    <span class="card-tag">Page</span>
+                    <h3 class="card-title">Onboarding Wizard</h3>
+                    <p class="card-description">Template 14 - Multi-step onboarding flow.</p>
+                    <a href="templates/template-14-onboarding.html" class="card-link">View Template</a>
+                </div>
+                <div class="card">
+                    <span class="card-tag">Page</span>
+                    <h3 class="card-title">Error States</h3>
+                    <p class="card-description">Template 15 - Error states and empty state designs.</p>
+                    <a href="templates/template-15-error-states.html" class="card-link">View Template</a>
+                </div>
+                <div class="card">
+                    <span class="card-tag">Page</span>
+                    <h3 class="card-title">Changelog</h3>
+                    <p class="card-description">Release history and changelog with filtering.</p>
+                    <a href="templates/template-changelog.html" class="card-link">View Template</a>
+                </div>
+                <div class="card">
+                    <span class="card-tag">Page</span>
+                    <h3 class="card-title">Status Page</h3>
+                    <p class="card-description">System status and service health monitoring.</p>
+                    <a href="templates/template-status-page.html" class="card-link">View Template</a>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Component Library</h2>
+            <p class="section-description">Reusable component building blocks.</p>
+            <div class="grid">
+                <div class="card">
+                    <span class="card-tag">Component</span>
+                    <h3 class="card-title">Navigation</h3>
+                    <p class="card-description">Comprehensive navigation component library.</p>
+                    <a href="components/navigation.html" class="card-link">View Component</a>
+                </div>
+                <div class="card">
+                    <span class="card-tag">Component</span>
+                    <h3 class="card-title">Form Elements</h3>
+                    <p class="card-description">Complete form elements component library.</p>
+                    <a href="components/form-elements.html" class="card-link">View Component</a>
+                </div>
+                <div class="card">
+                    <span class="card-tag">Component</span>
+                    <h3 class="card-title">Feedback Components</h3>
+                    <p class="card-description">Toast notifications, alerts, and feedback UI.</p>
+                    <a href="components/feedback.html" class="card-link">View Component</a>
+                </div>
+                <div class="card">
+                    <span class="card-tag">Component</span>
+                    <h3 class="card-title">Tabs & Controls</h3>
+                    <p class="card-description">Tabs and segmented controls component library.</p>
+                    <a href="components/tabs-controls.html" class="card-link">View Component</a>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Documentation</h2>
+            <p class="section-description">Admin and developer documentation interfaces.</p>
+            <div class="grid">
+                <div class="card">
+                    <span class="card-tag">Docs</span>
+                    <h3 class="card-title">Activity Monitor</h3>
+                    <p class="card-description">Real-time activity monitoring interface.</p>
+                    <a href="docs/activity.html" class="card-link">View Page</a>
+                </div>
+                <div class="card">
+                    <span class="card-tag">Docs</span>
+                    <h3 class="card-title">Admin Agents</h3>
+                    <p class="card-description">Agent management interface with data tables.</p>
+                    <a href="docs/admin-agents.html" class="card-link">View Page</a>
+                </div>
+                <div class="card">
+                    <span class="card-tag">Docs</span>
+                    <h3 class="card-title">Agent Runtime</h3>
+                    <p class="card-description">Agent runtime documentation and configuration.</p>
+                    <a href="docs/agent-runtime.html" class="card-link">View Page</a>
+                </div>
+                <div class="card">
+                    <span class="card-tag">Docs</span>
+                    <h3 class="card-title">Settings</h3>
+                    <p class="card-description">System settings and configuration interface.</p>
+                    <a href="docs/settings.html" class="card-link">View Page</a>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2025 BlackRoad OS • Combined from 29 open pull requests</p>
+            <p style="margin-top: 0.5rem;">Building sovereign, local-first AI systems</p>
+        </footer>
+    </div>
+</body>
 </html>

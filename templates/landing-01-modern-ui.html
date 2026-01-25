@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlackRoad — Infrastructure for Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gray-0: #000000;
+      --gray-1: #080808;
+      --gray-2: #111111;
+      --gray-3: #1a1a1a;
+      --gray-4: #242424;
+      --gray-5: #363636;
+      --gray-6: #4a4a4a;
+      --gray-7: #606060;
+      --gray-8: #7a7a7a;
+      --gray-9: #9a9a9a;
+      --gray-10: #b8b8b8;
+      --gray-11: #e0e0e0;
+      --gray-12: #ffffff;
+
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--gray-1);
+      color: var(--gray-10);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Grain overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.02;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 24px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(to bottom, var(--gray-1) 0%, transparent 100%);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--gray-12);
+      letter-spacing: -0.5px;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray-8);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--gray-12);
+    }
+
+    .nav-cta {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--gray-1) !important;
+      background: var(--gray-11);
+      padding: 10px 20px;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .nav-cta:hover {
+      background: var(--gray-12) !important;
+      color: var(--gray-0) !important;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 160px 0 120px;
+      position: relative;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--gray-7);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--gray-5);
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(56px, 10vw, 120px);
+      font-weight: 700;
+      color: var(--gray-12);
+      letter-spacing: -4px;
+      line-height: 0.95;
+      margin-bottom: 40px;
+      max-width: 900px;
+    }
+
+    .hero h1 span {
+      color: var(--gray-6);
+    }
+
+    .hero-description {
+      font-size: 20px;
+      color: var(--gray-8);
+      max-width: 520px;
+      margin-bottom: 48px;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .btn-primary {
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gray-1);
+      background: var(--gray-12);
+      padding: 16px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(255,255,255,0.1);
+    }
+
+    .btn-ghost {
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--gray-9);
+      padding: 16px 24px;
+      text-decoration: none;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-ghost:hover {
+      color: var(--gray-12);
+    }
+
+    .btn-ghost svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.2s;
+    }
+
+    .btn-ghost:hover svg {
+      transform: translateX(4px);
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 48px;
+      left: 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .scroll-indicator span {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--gray-6);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      writing-mode: vertical-rl;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, var(--gray-5), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    /* Features Section */
+    .features {
+      padding: 160px 0;
+      border-top: 1px solid var(--gray-3);
+    }
+
+    .section-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      margin-bottom: 96px;
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--gray-6);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--gray-12);
+      letter-spacing: -2px;
+      line-height: 1.1;
+    }
+
+    .section-description {
+      font-size: 18px;
+      color: var(--gray-8);
+      line-height: 1.8;
+      align-self: end;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--gray-4);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .feature-card {
+      background: var(--gray-2);
+      padding: 48px;
+      transition: background 0.3s;
+    }
+
+    .feature-card:hover {
+      background: var(--gray-3);
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--gray-4);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .feature-icon svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--gray-9);
+    }
+
+    .feature-title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--gray-11);
+      margin-bottom: 12px;
+      letter-spacing: -0.3px;
+    }
+
+    .feature-text {
+      font-size: 14px;
+      color: var(--gray-7);
+      line-height: 1.7;
+    }
+
+    /* Stats Section */
+    .stats {
+      padding: 120px 0;
+      background: var(--gray-0);
+      position: relative;
+    }
+
+    .stats::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, var(--gray-2) 0%, transparent 70%);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 48px;
+      position: relative;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-family: var(--font-display);
+      font-size: 64px;
+      font-weight: 700;
+      color: var(--gray-12);
+      letter-spacing: -3px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--gray-6);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Code Section */
+    .code-section {
+      padding: 160px 0;
+      border-top: 1px solid var(--gray-3);
+    }
+
+    .code-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .code-content h2 {
+      font-family: var(--font-display);
+      font-size: 40px;
+      font-weight: 700;
+      color: var(--gray-12);
+      letter-spacing: -1.5px;
+      margin-bottom: 24px;
+      line-height: 1.15;
+    }
+
+    .code-content p {
+      font-size: 16px;
+      color: var(--gray-8);
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+
+    .code-block {
+      background: var(--gray-0);
+      border: 1px solid var(--gray-3);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .code-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--gray-3);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .code-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--gray-5);
+    }
+
+    .code-body {
+      padding: 24px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.8;
+      color: var(--gray-9);
+      overflow-x: auto;
+    }
+
+    .code-body .comment { color: var(--gray-6); }
+    .code-body .keyword { color: var(--gray-11); }
+    .code-body .string { color: var(--gray-8); }
+    .code-body .function { color: var(--gray-10); }
+
+    /* CTA Section */
+    .cta {
+      padding: 160px 0;
+      text-align: center;
+      position: relative;
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 80px;
+      background: linear-gradient(to bottom, var(--gray-4), transparent);
+    }
+
+    .cta h2 {
+      font-family: var(--font-display);
+      font-size: 56px;
+      font-weight: 700;
+      color: var(--gray-12);
+      letter-spacing: -2px;
+      margin-bottom: 24px;
+      line-height: 1.1;
+    }
+
+    .cta p {
+      font-size: 18px;
+      color: var(--gray-7);
+      max-width: 480px;
+      margin: 0 auto 40px;
+    }
+
+    /* Footer */
+    footer {
+      padding: 48px 0;
+      border-top: 1px solid var(--gray-3);
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--gray-8);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: var(--gray-6);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--gray-10);
+    }
+
+    .footer-copy {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gray-5);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .container { padding: 0 32px; }
+      nav { padding: 24px 32px; }
+      .section-header { grid-template-columns: 1fr; gap: 32px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .code-layout { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .container { padding: 0 24px; }
+      nav { padding: 20px 24px; }
+      .nav-links { display: none; }
+      .hero h1 { letter-spacing: -2px; }
+      .stats-grid { grid-template-columns: 1fr; gap: 32px; }
+      .cta h2 { font-size: 40px; }
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero h1, .hero-description, .hero-actions {
+      animation: fadeUp 0.8s ease forwards;
+    }
+
+    .hero-description { animation-delay: 0.1s; }
+    .hero-actions { animation-delay: 0.2s; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="#" class="nav-logo">BlackRoad</a>
+    <div class="nav-links">
+      <a href="#">Platform</a>
+      <a href="#">Documentation</a>
+      <a href="#">Pricing</a>
+      <a href="#">Blog</a>
+      <a href="#" class="nav-cta">Get Started</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-eyebrow">Infrastructure for Intelligence</div>
+      <h1>Build with<br><span>30,000</span> agents</h1>
+      <p class="hero-description">The operating system for AI orchestration. Deploy, coordinate, and scale intelligent agents across your entire infrastructure.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn-primary">Start Building</a>
+        <a href="#" class="btn-ghost">
+          View Documentation
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <div class="section-label">Core Capabilities</div>
+          <h2 class="section-title">Everything agents need to think, act, remember</h2>
+        </div>
+        <p class="section-description">A complete runtime for autonomous systems. From memory persistence to contradiction handling, built for production scale.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Agent Runtime</h3>
+          <p class="feature-text">LangGraph + CrewAI orchestration with hybrid supervisor and peer-to-peer coordination models.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Memory System</h3>
+          <p class="feature-text">Append-only journals with PS-SHA∞ hashing. Truth state commits that never lose context.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Event Bus</h3>
+          <p class="feature-text">NATS-powered pub/sub messaging with capability registry and real-time coordination.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Contradiction Handler</h3>
+          <p class="feature-text">Quarantine incompatible claims, branch contexts, paraconsistent reasoning for edge cases.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Lucidia Core</h3>
+          <p class="feature-text">Recursive intelligence with trinary logic. States beyond true and false for nuanced reasoning.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Multi-Domain</h3>
+          <p class="feature-text">19 domains, 15 GitHub orgs, unified deployment across edge and cloud infrastructure.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-value">30K</div>
+          <div class="stat-label">Target Agents</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">1M+</div>
+          <div class="stat-label">Users Served</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">99.97%</div>
+          <div class="stat-label">Uptime</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">&lt;50ms</div>
+          <div class="stat-label">Latency P95</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="code-section">
+    <div class="container">
+      <div class="code-layout">
+        <div class="code-content">
+          <h2>Deploy an agent in minutes</h2>
+          <p>Simple primitives for complex behaviors. Define capabilities, connect to the event bus, and let the orchestration layer handle coordination.</p>
+          <a href="#" class="btn-primary">Read the Docs</a>
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <div class="code-dot"></div>
+            <div class="code-dot"></div>
+            <div class="code-dot"></div>
+          </div>
+          <pre class="code-body"><span class="comment"># Initialize agent with memory</span>
+<span class="keyword">from</span> blackroad <span class="keyword">import</span> Agent, Memory
+
+agent = Agent(
+    name=<span class="string">"lucidia-7"</span>,
+    memory=Memory(
+        backend=<span class="string">"ps-sha-inf"</span>,
+        journal=<span class="string">"append-only"</span>
+    )
+)
+
+<span class="comment"># Register capabilities</span>
+agent.<span class="function">register</span>(<span class="string">"reasoning"</span>, trinary=<span class="keyword">True</span>)
+agent.<span class="function">register</span>(<span class="string">"contradiction-handling"</span>)
+
+<span class="comment"># Connect to event bus</span>
+<span class="keyword">await</span> agent.<span class="function">connect</span>(bus=<span class="string">"nats://cluster"</span>)
+<span class="keyword">await</span> agent.<span class="function">start</span>()</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <h2>Ready to build?</h2>
+      <p>Join the developers building the next generation of autonomous systems.</p>
+      <a href="#" class="btn-primary">Get Started Free</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">BlackRoad OS</div>
+        <div class="footer-links">
+          <a href="#">Platform</a>
+          <a href="#">Documentation</a>
+          <a href="#">GitHub</a>
+          <a href="#">Discord</a>
+        </div>
+        <div class="footer-copy">© 2025 BlackRoad OS, Inc.</div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
