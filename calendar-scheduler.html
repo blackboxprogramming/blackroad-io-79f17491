@@ -1,0 +1,1925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlackRoad Calendar & Scheduler</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Grayscale Palette - 12 steps */
+      --gray-0: #000000;
+      --gray-1: #0a0a0a;
+      --gray-2: #141414;
+      --gray-3: #1f1f1f;
+      --gray-4: #292929;
+      --gray-5: #3d3d3d;
+      --gray-6: #525252;
+      --gray-7: #6b6b6b;
+      --gray-8: #858585;
+      --gray-9: #a3a3a3;
+      --gray-10: #d4d4d4;
+      --gray-11: #e8e8e8;
+      --gray-12: #ffffff;
+
+      /* Typography */
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      /* Spacing Scale */
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 24px;
+      --space-6: 32px;
+      --space-7: 48px;
+      --space-8: 64px;
+
+      /* Shadows */
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.5);
+      --shadow-lg: 0 8px 32px rgba(0,0,0,0.6);
+
+      /* Border */
+      --border-subtle: 1px solid var(--gray-4);
+      --border-default: 1px solid var(--gray-5);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--gray-1);
+      color: var(--gray-10);
+      min-height: 100vh;
+      font-size: 14px;
+      line-height: 1.5;
+      padding: var(--space-6);
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+    }
+
+    /* Section Titles */
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--gray-12);
+      margin-bottom: var(--space-4);
+      padding-bottom: var(--space-3);
+      border-bottom: var(--border-subtle);
+    }
+
+    .section-subtitle {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gray-7);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--space-4);
+    }
+
+    /* ============================================
+       CALENDAR HEADER & NAVIGATION
+       ============================================ */
+    .calendar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-4);
+      background: var(--gray-2);
+      border: var(--border-subtle);
+      border-radius: 8px;
+    }
+
+    .calendar-nav {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .calendar-nav-btn {
+      background: var(--gray-3);
+      border: var(--border-subtle);
+      border-radius: 6px;
+      padding: var(--space-2) var(--space-3);
+      color: var(--gray-10);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+
+    .calendar-nav-btn:hover {
+      background: var(--gray-4);
+      color: var(--gray-12);
+    }
+
+    .calendar-nav-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .calendar-title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--gray-12);
+    }
+
+    .calendar-title-sub {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gray-7);
+      margin-left: var(--space-2);
+    }
+
+    .calendar-today-btn {
+      background: var(--gray-3);
+      border: var(--border-subtle);
+      border-radius: 6px;
+      padding: var(--space-2) var(--space-4);
+      color: var(--gray-10);
+      font-family: var(--font-body);
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .calendar-today-btn:hover {
+      background: var(--gray-4);
+      color: var(--gray-12);
+    }
+
+    .calendar-view-toggle {
+      display: flex;
+      background: var(--gray-3);
+      border-radius: 6px;
+      padding: 2px;
+      gap: 2px;
+    }
+
+    .calendar-view-btn {
+      background: transparent;
+      border: none;
+      border-radius: 4px;
+      padding: var(--space-2) var(--space-3);
+      color: var(--gray-8);
+      font-family: var(--font-body);
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .calendar-view-btn:hover {
+      color: var(--gray-10);
+    }
+
+    .calendar-view-btn.active {
+      background: var(--gray-5);
+      color: var(--gray-12);
+    }
+
+    /* ============================================
+       MONTH CALENDAR GRID
+       ============================================ */
+    .month-grid {
+      background: var(--gray-2);
+      border: var(--border-subtle);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .month-header {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      background: var(--gray-3);
+      border-bottom: var(--border-subtle);
+    }
+
+    .month-header-day {
+      padding: var(--space-3);
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--gray-8);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .month-body {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+    }
+
+    .month-day {
+      min-height: 100px;
+      padding: var(--space-2);
+      border-right: var(--border-subtle);
+      border-bottom: var(--border-subtle);
+      background: var(--gray-2);
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .month-day:nth-child(7n) {
+      border-right: none;
+    }
+
+    .month-day:hover {
+      background: var(--gray-3);
+    }
+
+    .month-day.other-month {
+      background: var(--gray-1);
+    }
+
+    .month-day.other-month .day-number {
+      color: var(--gray-6);
+    }
+
+    .month-day.today {
+      background: var(--gray-3);
+    }
+
+    .month-day.today .day-number {
+      background: var(--gray-10);
+      color: var(--gray-1);
+    }
+
+    .month-day.selected {
+      background: var(--gray-4);
+    }
+
+    .day-number {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--gray-10);
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      margin-bottom: var(--space-1);
+    }
+
+    .day-events {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .day-event {
+      font-size: 11px;
+      padding: 2px 6px;
+      border-radius: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+    }
+
+    .day-event.type-scheduled {
+      background: var(--gray-5);
+      color: var(--gray-11);
+    }
+
+    .day-event.type-running {
+      background: var(--gray-6);
+      color: var(--gray-12);
+    }
+
+    .day-event.type-maintenance {
+      background: var(--gray-4);
+      color: var(--gray-9);
+      border-left: 2px solid var(--gray-7);
+    }
+
+    .day-more {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--gray-7);
+      padding: 2px 6px;
+      cursor: pointer;
+    }
+
+    .day-more:hover {
+      color: var(--gray-10);
+    }
+
+    /* ============================================
+       WEEK VIEW
+       ============================================ */
+    .week-grid {
+      background: var(--gray-2);
+      border: var(--border-subtle);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .week-header {
+      display: grid;
+      grid-template-columns: 60px repeat(7, 1fr);
+      background: var(--gray-3);
+      border-bottom: var(--border-subtle);
+    }
+
+    .week-header-time {
+      padding: var(--space-3);
+    }
+
+    .week-header-day {
+      padding: var(--space-3);
+      text-align: center;
+      border-left: var(--border-subtle);
+    }
+
+    .week-day-name {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--gray-7);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .week-day-number {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--gray-10);
+      margin-top: 2px;
+    }
+
+    .week-header-day.today .week-day-number {
+      background: var(--gray-10);
+      color: var(--gray-1);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .week-body {
+      display: grid;
+      grid-template-columns: 60px repeat(7, 1fr);
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .week-times {
+      background: var(--gray-2);
+    }
+
+    .week-time-slot {
+      height: 48px;
+      padding: var(--space-2);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--gray-7);
+      text-align: right;
+      border-bottom: var(--border-subtle);
+    }
+
+    .week-column {
+      border-left: var(--border-subtle);
+      position: relative;
+    }
+
+    .week-column.today {
+      background: rgba(255,255,255,0.02);
+    }
+
+    .week-hour {
+      height: 48px;
+      border-bottom: var(--border-subtle);
+    }
+
+    .week-event {
+      position: absolute;
+      left: 2px;
+      right: 2px;
+      background: var(--gray-5);
+      border-radius: 4px;
+      padding: var(--space-2);
+      font-size: 11px;
+      overflow: hidden;
+      cursor: pointer;
+      border-left: 3px solid var(--gray-8);
+      transition: background 0.15s ease;
+    }
+
+    .week-event:hover {
+      background: var(--gray-6);
+    }
+
+    .week-event-title {
+      font-weight: 500;
+      color: var(--gray-12);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .week-event-time {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--gray-8);
+      margin-top: 2px;
+    }
+
+    /* ============================================
+       DAY VIEW / TIMELINE
+       ============================================ */
+    .day-timeline {
+      background: var(--gray-2);
+      border: var(--border-subtle);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .day-timeline-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-4);
+      background: var(--gray-3);
+      border-bottom: var(--border-subtle);
+    }
+
+    .day-timeline-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--gray-12);
+    }
+
+    .day-timeline-date {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--gray-8);
+    }
+
+    .day-timeline-body {
+      display: flex;
+    }
+
+    .day-timeline-times {
+      width: 80px;
+      flex-shrink: 0;
+      background: var(--gray-2);
+    }
+
+    .day-timeline-time {
+      height: 60px;
+      padding: var(--space-2) var(--space-3);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gray-7);
+      text-align: right;
+      border-bottom: var(--border-subtle);
+    }
+
+    .day-timeline-content {
+      flex: 1;
+      border-left: var(--border-subtle);
+      position: relative;
+    }
+
+    .day-timeline-hour {
+      height: 60px;
+      border-bottom: var(--border-subtle);
+      position: relative;
+    }
+
+    .day-timeline-half {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      border-top: 1px dashed var(--gray-4);
+    }
+
+    .day-timeline-now {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gray-10);
+      z-index: 5;
+    }
+
+    .day-timeline-now::before {
+      content: '';
+      position: absolute;
+      left: -4px;
+      top: -3px;
+      width: 8px;
+      height: 8px;
+      background: var(--gray-10);
+      border-radius: 50%;
+    }
+
+    .day-timeline-event {
+      position: absolute;
+      left: var(--space-2);
+      right: var(--space-2);
+      background: var(--gray-4);
+      border-radius: 6px;
+      padding: var(--space-3);
+      border-left: 3px solid var(--gray-8);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .day-timeline-event:hover {
+      background: var(--gray-5);
+      transform: translateX(2px);
+    }
+
+    .day-timeline-event-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: var(--space-2);
+    }
+
+    .day-timeline-event-title {
+      font-weight: 600;
+      color: var(--gray-12);
+    }
+
+    .day-timeline-event-time {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--gray-8);
+    }
+
+    .day-timeline-event-desc {
+      font-size: 12px;
+      color: var(--gray-9);
+    }
+
+    .day-timeline-event-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-top: var(--space-2);
+    }
+
+    .day-timeline-event-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 2px 6px;
+      background: var(--gray-5);
+      border-radius: 3px;
+      color: var(--gray-9);
+    }
+
+    /* ============================================
+       MINI CALENDAR (Datepicker)
+       ============================================ */
+    .mini-calendar {
+      background: var(--gray-2);
+      border: var(--border-subtle);
+      border-radius: 8px;
+      padding: var(--space-4);
+      width: 280px;
+    }
+
+    .mini-calendar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-3);
+    }
+
+    .mini-calendar-title {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-12);
+    }
+
+    .mini-calendar-nav {
+      display: flex;
+      gap: var(--space-1);
+    }
+
+    .mini-calendar-nav button {
+      background: transparent;
+      border: none;
+      color: var(--gray-8);
+      padding: var(--space-1);
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.15s ease;
+    }
+
+    .mini-calendar-nav button:hover {
+      background: var(--gray-4);
+      color: var(--gray-12);
+    }
+
+    .mini-calendar-nav button svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .mini-calendar-weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      margin-bottom: var(--space-2);
+    }
+
+    .mini-calendar-weekday {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--gray-7);
+      text-align: center;
+      padding: var(--space-1);
+    }
+
+    .mini-calendar-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+    }
+
+    .mini-calendar-day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--gray-10);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .mini-calendar-day:hover {
+      background: var(--gray-4);
+    }
+
+    .mini-calendar-day.other {
+      color: var(--gray-6);
+    }
+
+    .mini-calendar-day.today {
+      background: var(--gray-10);
+      color: var(--gray-1);
+      font-weight: 600;
+    }
+
+    .mini-calendar-day.selected {
+      background: var(--gray-6);
+      color: var(--gray-12);
+    }
+
+    .mini-calendar-day.has-events::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      width: 4px;
+      height: 4px;
+      background: var(--gray-8);
+      border-radius: 50%;
+    }
+
+    .mini-calendar-day {
+      position: relative;
+    }
+
+    /* ============================================
+       SCHEDULE LIST VIEW
+       ============================================ */
+    .schedule-list {
+      background: var(--gray-2);
+      border: var(--border-subtle);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .schedule-list-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-4);
+      background: var(--gray-3);
+      border-bottom: var(--border-subtle);
+    }
+
+    .schedule-list-title {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--gray-12);
+    }
+
+    .schedule-list-filter {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .schedule-list-filter-btn {
+      background: transparent;
+      border: var(--border-subtle);
+      border-radius: 4px;
+      padding: var(--space-1) var(--space-3);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gray-8);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .schedule-list-filter-btn:hover {
+      border-color: var(--gray-6);
+      color: var(--gray-10);
+    }
+
+    .schedule-list-filter-btn.active {
+      background: var(--gray-5);
+      border-color: var(--gray-5);
+      color: var(--gray-12);
+    }
+
+    .schedule-group {
+      border-bottom: var(--border-subtle);
+    }
+
+    .schedule-group:last-child {
+      border-bottom: none;
+    }
+
+    .schedule-group-header {
+      padding: var(--space-3) var(--space-4);
+      background: var(--gray-3);
+      border-bottom: var(--border-subtle);
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .schedule-group-date {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-12);
+    }
+
+    .schedule-group-day {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gray-7);
+      text-transform: uppercase;
+    }
+
+    .schedule-group-count {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 2px 8px;
+      background: var(--gray-4);
+      border-radius: 10px;
+      color: var(--gray-8);
+      margin-left: auto;
+    }
+
+    .schedule-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-4);
+      padding: var(--space-4);
+      border-bottom: var(--border-subtle);
+      transition: background 0.15s ease;
+      cursor: pointer;
+    }
+
+    .schedule-item:last-child {
+      border-bottom: none;
+    }
+
+    .schedule-item:hover {
+      background: var(--gray-3);
+    }
+
+    .schedule-item-time {
+      width: 80px;
+      flex-shrink: 0;
+    }
+
+    .schedule-item-start {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-12);
+    }
+
+    .schedule-item-end {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gray-7);
+    }
+
+    .schedule-item-indicator {
+      width: 3px;
+      height: 100%;
+      min-height: 48px;
+      background: var(--gray-6);
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .schedule-item-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .schedule-item-title {
+      font-weight: 600;
+      color: var(--gray-12);
+      margin-bottom: var(--space-1);
+    }
+
+    .schedule-item-desc {
+      font-size: 13px;
+      color: var(--gray-9);
+      margin-bottom: var(--space-2);
+    }
+
+    .schedule-item-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .schedule-item-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 2px 8px;
+      background: var(--gray-4);
+      border-radius: 3px;
+      color: var(--gray-8);
+    }
+
+    .schedule-item-agents {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+
+    .schedule-item-agent {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--gray-5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--gray-10);
+      border: 2px solid var(--gray-2);
+      margin-left: -8px;
+    }
+
+    .schedule-item-agent:first-child {
+      margin-left: 0;
+    }
+
+    .schedule-item-actions {
+      display: flex;
+      gap: var(--space-2);
+      opacity: 0;
+      transition: opacity 0.15s ease;
+    }
+
+    .schedule-item:hover .schedule-item-actions {
+      opacity: 1;
+    }
+
+    .schedule-item-action {
+      background: transparent;
+      border: none;
+      color: var(--gray-7);
+      padding: var(--space-1);
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.15s ease;
+    }
+
+    .schedule-item-action:hover {
+      background: var(--gray-4);
+      color: var(--gray-12);
+    }
+
+    .schedule-item-action svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ============================================
+       EVENT CREATION / DETAIL PANEL
+       ============================================ */
+    .event-panel {
+      background: var(--gray-2);
+      border: var(--border-subtle);
+      border-radius: 8px;
+      width: 380px;
+    }
+
+    .event-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-4);
+      border-bottom: var(--border-subtle);
+    }
+
+    .event-panel-title {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--gray-12);
+    }
+
+    .event-panel-close {
+      background: transparent;
+      border: none;
+      color: var(--gray-7);
+      padding: var(--space-1);
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.15s ease;
+    }
+
+    .event-panel-close:hover {
+      background: var(--gray-4);
+      color: var(--gray-12);
+    }
+
+    .event-panel-close svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .event-panel-body {
+      padding: var(--space-4);
+    }
+
+    .event-field {
+      margin-bottom: var(--space-4);
+    }
+
+    .event-field:last-child {
+      margin-bottom: 0;
+    }
+
+    .event-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--gray-7);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: var(--space-2);
+      display: block;
+    }
+
+    .event-input {
+      width: 100%;
+      background: var(--gray-3);
+      border: var(--border-subtle);
+      border-radius: 6px;
+      padding: var(--space-3);
+      color: var(--gray-12);
+      font-family: var(--font-body);
+      font-size: 14px;
+      transition: all 0.15s ease;
+    }
+
+    .event-input:focus {
+      outline: none;
+      border-color: var(--gray-6);
+      background: var(--gray-4);
+    }
+
+    .event-input::placeholder {
+      color: var(--gray-6);
+    }
+
+    .event-textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .event-time-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-3);
+    }
+
+    .event-select {
+      width: 100%;
+      background: var(--gray-3);
+      border: var(--border-subtle);
+      border-radius: 6px;
+      padding: var(--space-3);
+      color: var(--gray-12);
+      font-family: var(--font-body);
+      font-size: 14px;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b6b6b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+    }
+
+    .event-select:focus {
+      outline: none;
+      border-color: var(--gray-6);
+    }
+
+    .event-agents-picker {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+
+    .event-agent-chip {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      background: var(--gray-4);
+      border-radius: 16px;
+      font-size: 12px;
+      color: var(--gray-10);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .event-agent-chip:hover {
+      background: var(--gray-5);
+    }
+
+    .event-agent-chip.selected {
+      background: var(--gray-6);
+      color: var(--gray-12);
+    }
+
+    .event-agent-avatar {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--gray-5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--gray-10);
+    }
+
+    .event-agent-chip.selected .event-agent-avatar {
+      background: var(--gray-8);
+    }
+
+    .event-panel-footer {
+      display: flex;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      border-top: var(--border-subtle);
+    }
+
+    .event-btn {
+      flex: 1;
+      padding: var(--space-3);
+      border-radius: 6px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .event-btn-secondary {
+      background: var(--gray-3);
+      border: var(--border-subtle);
+      color: var(--gray-10);
+    }
+
+    .event-btn-secondary:hover {
+      background: var(--gray-4);
+    }
+
+    .event-btn-primary {
+      background: var(--gray-10);
+      border: none;
+      color: var(--gray-1);
+    }
+
+    .event-btn-primary:hover {
+      background: var(--gray-12);
+    }
+
+    /* ============================================
+       RECURRING PATTERN SELECTOR
+       ============================================ */
+    .recurrence-picker {
+      background: var(--gray-3);
+      border: var(--border-subtle);
+      border-radius: 6px;
+      padding: var(--space-3);
+    }
+
+    .recurrence-options {
+      display: flex;
+      gap: var(--space-2);
+      margin-bottom: var(--space-3);
+    }
+
+    .recurrence-option {
+      flex: 1;
+      padding: var(--space-2);
+      background: transparent;
+      border: var(--border-subtle);
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gray-8);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .recurrence-option:hover {
+      border-color: var(--gray-6);
+      color: var(--gray-10);
+    }
+
+    .recurrence-option.active {
+      background: var(--gray-5);
+      border-color: var(--gray-5);
+      color: var(--gray-12);
+    }
+
+    .recurrence-days {
+      display: flex;
+      gap: var(--space-1);
+    }
+
+    .recurrence-day {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: var(--border-subtle);
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gray-8);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .recurrence-day:hover {
+      border-color: var(--gray-6);
+      color: var(--gray-10);
+    }
+
+    .recurrence-day.active {
+      background: var(--gray-5);
+      border-color: var(--gray-5);
+      color: var(--gray-12);
+    }
+
+    /* ============================================
+       LAYOUT HELPERS
+       ============================================ */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-5);
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--space-5);
+    }
+
+    .flex-row {
+      display: flex;
+      gap: var(--space-5);
+    }
+
+    .flex-1 {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- SECTION: Calendar Header & Navigation -->
+    <section>
+      <div class="section-subtitle">Calendar Header</div>
+      <div class="calendar-header">
+        <div class="calendar-nav">
+          <button class="calendar-nav-btn">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m15 19-7-7 7-7"/>
+            </svg>
+          </button>
+          <button class="calendar-nav-btn">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m9 5 7 7-7 7"/>
+            </svg>
+          </button>
+          <div>
+            <span class="calendar-title">January 2026</span>
+            <span class="calendar-title-sub">W04</span>
+          </div>
+        </div>
+        <button class="calendar-today-btn">Today</button>
+        <div class="calendar-view-toggle">
+          <button class="calendar-view-btn">Day</button>
+          <button class="calendar-view-btn active">Week</button>
+          <button class="calendar-view-btn">Month</button>
+          <button class="calendar-view-btn">List</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Month Grid Calendar -->
+    <section>
+      <div class="section-subtitle">Month View</div>
+      <div class="month-grid">
+        <div class="month-header">
+          <div class="month-header-day">Sun</div>
+          <div class="month-header-day">Mon</div>
+          <div class="month-header-day">Tue</div>
+          <div class="month-header-day">Wed</div>
+          <div class="month-header-day">Thu</div>
+          <div class="month-header-day">Fri</div>
+          <div class="month-header-day">Sat</div>
+        </div>
+        <div class="month-body">
+          <!-- Week 1 -->
+          <div class="month-day other-month"><span class="day-number">29</span></div>
+          <div class="month-day other-month"><span class="day-number">30</span></div>
+          <div class="month-day other-month"><span class="day-number">31</span></div>
+          <div class="month-day">
+            <span class="day-number">1</span>
+            <div class="day-events">
+              <div class="day-event type-maintenance">Cluster maintenance</div>
+            </div>
+          </div>
+          <div class="month-day"><span class="day-number">2</span></div>
+          <div class="month-day"><span class="day-number">3</span></div>
+          <div class="month-day"><span class="day-number">4</span></div>
+
+          <!-- Week 2 -->
+          <div class="month-day"><span class="day-number">5</span></div>
+          <div class="month-day">
+            <span class="day-number">6</span>
+            <div class="day-events">
+              <div class="day-event type-scheduled">Agent sync</div>
+            </div>
+          </div>
+          <div class="month-day"><span class="day-number">7</span></div>
+          <div class="month-day">
+            <span class="day-number">8</span>
+            <div class="day-events">
+              <div class="day-event type-running">Memory backup</div>
+              <div class="day-event type-scheduled">PS-SHA∞ audit</div>
+            </div>
+          </div>
+          <div class="month-day"><span class="day-number">9</span></div>
+          <div class="month-day"><span class="day-number">10</span></div>
+          <div class="month-day"><span class="day-number">11</span></div>
+
+          <!-- Week 3 -->
+          <div class="month-day"><span class="day-number">12</span></div>
+          <div class="month-day"><span class="day-number">13</span></div>
+          <div class="month-day"><span class="day-number">14</span></div>
+          <div class="month-day"><span class="day-number">15</span></div>
+          <div class="month-day"><span class="day-number">16</span></div>
+          <div class="month-day"><span class="day-number">17</span></div>
+          <div class="month-day"><span class="day-number">18</span></div>
+
+          <!-- Week 4 -->
+          <div class="month-day"><span class="day-number">19</span></div>
+          <div class="month-day">
+            <span class="day-number">20</span>
+            <div class="day-events">
+              <div class="day-event type-scheduled">Lucidia deploy</div>
+            </div>
+          </div>
+          <div class="month-day"><span class="day-number">21</span></div>
+          <div class="month-day"><span class="day-number">22</span></div>
+          <div class="month-day"><span class="day-number">23</span></div>
+          <div class="month-day today selected">
+            <span class="day-number">24</span>
+            <div class="day-events">
+              <div class="day-event type-running">Alice gateway check</div>
+              <div class="day-event type-scheduled">Octavia task queue</div>
+              <div class="day-more">+2 more</div>
+            </div>
+          </div>
+          <div class="month-day"><span class="day-number">25</span></div>
+
+          <!-- Week 5 -->
+          <div class="month-day"><span class="day-number">26</span></div>
+          <div class="month-day"><span class="day-number">27</span></div>
+          <div class="month-day"><span class="day-number">28</span></div>
+          <div class="month-day"><span class="day-number">29</span></div>
+          <div class="month-day"><span class="day-number">30</span></div>
+          <div class="month-day"><span class="day-number">31</span></div>
+          <div class="month-day other-month"><span class="day-number">1</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Week View -->
+    <section>
+      <div class="section-subtitle">Week View</div>
+      <div class="week-grid">
+        <div class="week-header">
+          <div class="week-header-time"></div>
+          <div class="week-header-day">
+            <div class="week-day-name">Sun</div>
+            <div class="week-day-number">19</div>
+          </div>
+          <div class="week-header-day">
+            <div class="week-day-name">Mon</div>
+            <div class="week-day-number">20</div>
+          </div>
+          <div class="week-header-day">
+            <div class="week-day-name">Tue</div>
+            <div class="week-day-number">21</div>
+          </div>
+          <div class="week-header-day">
+            <div class="week-day-name">Wed</div>
+            <div class="week-day-number">22</div>
+          </div>
+          <div class="week-header-day">
+            <div class="week-day-name">Thu</div>
+            <div class="week-day-number">23</div>
+          </div>
+          <div class="week-header-day today">
+            <div class="week-day-name">Fri</div>
+            <div class="week-day-number">24</div>
+          </div>
+          <div class="week-header-day">
+            <div class="week-day-name">Sat</div>
+            <div class="week-day-number">25</div>
+          </div>
+        </div>
+        <div class="week-body">
+          <div class="week-times">
+            <div class="week-time-slot">8 AM</div>
+            <div class="week-time-slot">9 AM</div>
+            <div class="week-time-slot">10 AM</div>
+            <div class="week-time-slot">11 AM</div>
+            <div class="week-time-slot">12 PM</div>
+            <div class="week-time-slot">1 PM</div>
+            <div class="week-time-slot">2 PM</div>
+            <div class="week-time-slot">3 PM</div>
+          </div>
+          <div class="week-column">
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+          </div>
+          <div class="week-column">
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-event" style="top: 48px; height: 72px;">
+              <div class="week-event-title">Lucidia Deploy</div>
+              <div class="week-event-time">9:00 - 10:30</div>
+            </div>
+          </div>
+          <div class="week-column">
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+          </div>
+          <div class="week-column">
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-event" style="top: 144px; height: 48px;">
+              <div class="week-event-title">Memory Backup</div>
+              <div class="week-event-time">11:00 - 12:00</div>
+            </div>
+          </div>
+          <div class="week-column">
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+          </div>
+          <div class="week-column today">
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-event" style="top: 0; height: 48px;">
+              <div class="week-event-title">Alice Gateway</div>
+              <div class="week-event-time">8:00 - 9:00</div>
+            </div>
+            <div class="week-event" style="top: 96px; height: 96px;">
+              <div class="week-event-title">Octavia Tasks</div>
+              <div class="week-event-time">10:00 - 12:00</div>
+            </div>
+            <div class="week-event" style="top: 240px; height: 48px;">
+              <div class="week-event-title">PS-SHA∞ Audit</div>
+              <div class="week-event-time">1:00 - 2:00</div>
+            </div>
+          </div>
+          <div class="week-column">
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+            <div class="week-hour"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Day Timeline & Mini Calendar -->
+    <div class="flex-row">
+      <section class="flex-1">
+        <div class="section-subtitle">Day Timeline</div>
+        <div class="day-timeline">
+          <div class="day-timeline-header">
+            <div>
+              <div class="day-timeline-title">Today's Schedule</div>
+              <div class="day-timeline-date">Friday, January 24, 2026</div>
+            </div>
+          </div>
+          <div class="day-timeline-body">
+            <div class="day-timeline-times">
+              <div class="day-timeline-time">8:00 AM</div>
+              <div class="day-timeline-time">9:00 AM</div>
+              <div class="day-timeline-time">10:00 AM</div>
+              <div class="day-timeline-time">11:00 AM</div>
+              <div class="day-timeline-time">12:00 PM</div>
+              <div class="day-timeline-time">1:00 PM</div>
+            </div>
+            <div class="day-timeline-content">
+              <div class="day-timeline-hour"><div class="day-timeline-half"></div></div>
+              <div class="day-timeline-hour"><div class="day-timeline-half"></div></div>
+              <div class="day-timeline-hour"><div class="day-timeline-half"></div></div>
+              <div class="day-timeline-hour"><div class="day-timeline-half"></div></div>
+              <div class="day-timeline-hour"><div class="day-timeline-half"></div></div>
+              <div class="day-timeline-hour"><div class="day-timeline-half"></div></div>
+
+              <div class="day-timeline-event" style="top: 8px; height: 52px;">
+                <div class="day-timeline-event-header">
+                  <div class="day-timeline-event-title">Alice Gateway Health Check</div>
+                  <div class="day-timeline-event-time">8:00 - 9:00</div>
+                </div>
+                <div class="day-timeline-event-meta">
+                  <span class="day-timeline-event-tag">Recurring</span>
+                  <span class="day-timeline-event-tag">Infrastructure</span>
+                </div>
+              </div>
+
+              <div class="day-timeline-event" style="top: 128px; height: 112px;">
+                <div class="day-timeline-event-header">
+                  <div class="day-timeline-event-title">Octavia Hailo Task Queue Review</div>
+                  <div class="day-timeline-event-time">10:00 - 12:00</div>
+                </div>
+                <div class="day-timeline-event-desc">Process pending inference jobs, clear backlog from overnight batch.</div>
+                <div class="day-timeline-event-meta">
+                  <span class="day-timeline-event-tag">High Priority</span>
+                </div>
+              </div>
+
+              <div class="day-timeline-event" style="top: 308px; height: 52px;">
+                <div class="day-timeline-event-header">
+                  <div class="day-timeline-event-title">PS-SHA∞ Memory Audit</div>
+                  <div class="day-timeline-event-time">1:00 - 2:00</div>
+                </div>
+                <div class="day-timeline-event-meta">
+                  <span class="day-timeline-event-tag">Security</span>
+                </div>
+              </div>
+
+              <div class="day-timeline-now" style="top: 180px;"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-subtitle">Mini Calendar / Datepicker</div>
+        <div class="mini-calendar">
+          <div class="mini-calendar-header">
+            <div class="mini-calendar-title">January 2026</div>
+            <div class="mini-calendar-nav">
+              <button>
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m15 19-7-7 7-7"/>
+                </svg>
+              </button>
+              <button>
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m9 5 7 7-7 7"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="mini-calendar-weekdays">
+            <div class="mini-calendar-weekday">S</div>
+            <div class="mini-calendar-weekday">M</div>
+            <div class="mini-calendar-weekday">T</div>
+            <div class="mini-calendar-weekday">W</div>
+            <div class="mini-calendar-weekday">T</div>
+            <div class="mini-calendar-weekday">F</div>
+            <div class="mini-calendar-weekday">S</div>
+          </div>
+          <div class="mini-calendar-days">
+            <div class="mini-calendar-day other">29</div>
+            <div class="mini-calendar-day other">30</div>
+            <div class="mini-calendar-day other">31</div>
+            <div class="mini-calendar-day has-events">1</div>
+            <div class="mini-calendar-day">2</div>
+            <div class="mini-calendar-day">3</div>
+            <div class="mini-calendar-day">4</div>
+            <div class="mini-calendar-day">5</div>
+            <div class="mini-calendar-day has-events">6</div>
+            <div class="mini-calendar-day">7</div>
+            <div class="mini-calendar-day has-events">8</div>
+            <div class="mini-calendar-day">9</div>
+            <div class="mini-calendar-day">10</div>
+            <div class="mini-calendar-day">11</div>
+            <div class="mini-calendar-day">12</div>
+            <div class="mini-calendar-day">13</div>
+            <div class="mini-calendar-day">14</div>
+            <div class="mini-calendar-day">15</div>
+            <div class="mini-calendar-day">16</div>
+            <div class="mini-calendar-day">17</div>
+            <div class="mini-calendar-day">18</div>
+            <div class="mini-calendar-day">19</div>
+            <div class="mini-calendar-day has-events">20</div>
+            <div class="mini-calendar-day">21</div>
+            <div class="mini-calendar-day">22</div>
+            <div class="mini-calendar-day">23</div>
+            <div class="mini-calendar-day today">24</div>
+            <div class="mini-calendar-day selected">25</div>
+            <div class="mini-calendar-day">26</div>
+            <div class="mini-calendar-day">27</div>
+            <div class="mini-calendar-day">28</div>
+            <div class="mini-calendar-day">29</div>
+            <div class="mini-calendar-day">30</div>
+            <div class="mini-calendar-day">31</div>
+            <div class="mini-calendar-day other">1</div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- SECTION: Schedule List View -->
+    <section>
+      <div class="section-subtitle">Schedule List View</div>
+      <div class="schedule-list">
+        <div class="schedule-list-header">
+          <div class="schedule-list-title">Upcoming Tasks</div>
+          <div class="schedule-list-filter">
+            <button class="schedule-list-filter-btn active">All</button>
+            <button class="schedule-list-filter-btn">Scheduled</button>
+            <button class="schedule-list-filter-btn">Recurring</button>
+            <button class="schedule-list-filter-btn">Maintenance</button>
+          </div>
+        </div>
+
+        <div class="schedule-group">
+          <div class="schedule-group-header">
+            <span class="schedule-group-date">January 24</span>
+            <span class="schedule-group-day">Today</span>
+            <span class="schedule-group-count">4 tasks</span>
+          </div>
+
+          <div class="schedule-item">
+            <div class="schedule-item-time">
+              <div class="schedule-item-start">08:00</div>
+              <div class="schedule-item-end">09:00</div>
+            </div>
+            <div class="schedule-item-indicator"></div>
+            <div class="schedule-item-content">
+              <div class="schedule-item-title">Alice Gateway Health Check</div>
+              <div class="schedule-item-desc">Verify K3s ingress, TLS certs, Redis connectivity</div>
+              <div class="schedule-item-meta">
+                <span class="schedule-item-tag">Recurring</span>
+                <span class="schedule-item-tag">Infrastructure</span>
+                <div class="schedule-item-agents">
+                  <div class="schedule-item-agent">A</div>
+                  <div class="schedule-item-agent">L</div>
+                </div>
+              </div>
+            </div>
+            <div class="schedule-item-actions">
+              <button class="schedule-item-action">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                </svg>
+              </button>
+              <button class="schedule-item-action">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="schedule-item">
+            <div class="schedule-item-time">
+              <div class="schedule-item-start">10:00</div>
+              <div class="schedule-item-end">12:00</div>
+            </div>
+            <div class="schedule-item-indicator"></div>
+            <div class="schedule-item-content">
+              <div class="schedule-item-title">Octavia Hailo Task Queue Review</div>
+              <div class="schedule-item-desc">Process pending inference jobs, clear overnight backlog</div>
+              <div class="schedule-item-meta">
+                <span class="schedule-item-tag">High Priority</span>
+                <div class="schedule-item-agents">
+                  <div class="schedule-item-agent">O</div>
+                </div>
+              </div>
+            </div>
+            <div class="schedule-item-actions">
+              <button class="schedule-item-action">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                </svg>
+              </button>
+              <button class="schedule-item-action">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="schedule-item">
+            <div class="schedule-item-time">
+              <div class="schedule-item-start">13:00</div>
+              <div class="schedule-item-end">14:00</div>
+            </div>
+            <div class="schedule-item-indicator"></div>
+            <div class="schedule-item-content">
+              <div class="schedule-item-title">PS-SHA∞ Memory Audit</div>
+              <div class="schedule-item-desc">Verify hash chain integrity across agent memory journals</div>
+              <div class="schedule-item-meta">
+                <span class="schedule-item-tag">Security</span>
+                <div class="schedule-item-agents">
+                  <div class="schedule-item-agent">L</div>
+                  <div class="schedule-item-agent">M</div>
+                  <div class="schedule-item-agent">E</div>
+                </div>
+              </div>
+            </div>
+            <div class="schedule-item-actions">
+              <button class="schedule-item-action">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                </svg>
+              </button>
+              <button class="schedule-item-action">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="schedule-group">
+          <div class="schedule-group-header">
+            <span class="schedule-group-date">January 25</span>
+            <span class="schedule-group-day">Saturday</span>
+            <span class="schedule-group-count">2 tasks</span>
+          </div>
+
+          <div class="schedule-item">
+            <div class="schedule-item-time">
+              <div class="schedule-item-start">02:00</div>
+              <div class="schedule-item-end">04:00</div>
+            </div>
+            <div class="schedule-item-indicator"></div>
+            <div class="schedule-item-content">
+              <div class="schedule-item-title">Cluster Maintenance Window</div>
+              <div class="schedule-item-desc">K3s upgrade, certificate rotation, Redis backup</div>
+              <div class="schedule-item-meta">
+                <span class="schedule-item-tag">Maintenance</span>
+                <span class="schedule-item-tag">Downtime</span>
+              </div>
+            </div>
+            <div class="schedule-item-actions">
+              <button class="schedule-item-action">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                </svg>
+              </button>
+              <button class="schedule-item-action">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Event Creation Panel -->
+    <div class="flex-row">
+      <section>
+        <div class="section-subtitle">Event Creation Panel</div>
+        <div class="event-panel">
+          <div class="event-panel-header">
+            <div class="event-panel-title">New Scheduled Task</div>
+            <button class="event-panel-close">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>
+              </svg>
+            </button>
+          </div>
+          <div class="event-panel-body">
+            <div class="event-field">
+              <label class="event-label">Task Name</label>
+              <input type="text" class="event-input" placeholder="Enter task name...">
+            </div>
+            <div class="event-field">
+              <label class="event-label">Description</label>
+              <textarea class="event-input event-textarea" placeholder="Task description..."></textarea>
+            </div>
+            <div class="event-field">
+              <label class="event-label">Date & Time</label>
+              <div class="event-time-row">
+                <input type="date" class="event-input" value="2026-01-25">
+                <input type="time" class="event-input" value="09:00">
+              </div>
+            </div>
+            <div class="event-field">
+              <label class="event-label">Duration</label>
+              <select class="event-select">
+                <option>30 minutes</option>
+                <option>1 hour</option>
+                <option selected>2 hours</option>
+                <option>4 hours</option>
+                <option>All day</option>
+              </select>
+            </div>
+            <div class="event-field">
+              <label class="event-label">Category</label>
+              <select class="event-select">
+                <option>Infrastructure</option>
+                <option>Security</option>
+                <option>Maintenance</option>
+                <option>Deployment</option>
+                <option>Backup</option>
+              </select>
+            </div>
+            <div class="event-field">
+              <label class="event-label">Assign Agents</label>
+              <div class="event-agents-picker">
+                <div class="event-agent-chip selected">
+                  <div class="event-agent-avatar">L</div>
+                  Lucidia
+                </div>
+                <div class="event-agent-chip">
+                  <div class="event-agent-avatar">A</div>
+                  Alice
+                </div>
+                <div class="event-agent-chip selected">
+                  <div class="event-agent-avatar">O</div>
+                  Octavia
+                </div>
+                <div class="event-agent-chip">
+                  <div class="event-agent-avatar">M</div>
+                  Maxwell
+                </div>
+                <div class="event-agent-chip">
+                  <div class="event-agent-avatar">E</div>
+                  Ember
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="event-panel-footer">
+            <button class="event-btn event-btn-secondary">Cancel</button>
+            <button class="event-btn event-btn-primary">Create Task</button>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-subtitle">Recurrence Picker</div>
+        <div class="event-panel" style="width: 320px;">
+          <div class="event-panel-header">
+            <div class="event-panel-title">Repeat</div>
+          </div>
+          <div class="event-panel-body">
+            <div class="event-field">
+              <label class="event-label">Frequency</label>
+              <div class="recurrence-picker">
+                <div class="recurrence-options">
+                  <button class="recurrence-option">None</button>
+                  <button class="recurrence-option active">Daily</button>
+                  <button class="recurrence-option">Weekly</button>
+                  <button class="recurrence-option">Monthly</button>
+                </div>
+              </div>
+            </div>
+            <div class="event-field">
+              <label class="event-label">Repeat On</label>
+              <div class="recurrence-days">
+                <button class="recurrence-day">S</button>
+                <button class="recurrence-day active">M</button>
+                <button class="recurrence-day active">T</button>
+                <button class="recurrence-day active">W</button>
+                <button class="recurrence-day active">T</button>
+                <button class="recurrence-day active">F</button>
+                <button class="recurrence-day">S</button>
+              </div>
+            </div>
+            <div class="event-field">
+              <label class="event-label">Ends</label>
+              <select class="event-select">
+                <option>Never</option>
+                <option>After 10 occurrences</option>
+                <option>On specific date</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </div>
+</body>
+</html>
