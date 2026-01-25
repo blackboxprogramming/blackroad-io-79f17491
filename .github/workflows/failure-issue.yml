@@ -5,6 +5,10 @@ on:
     workflows: ["CORE CI"]
     types: [completed]
 
+permissions:
+  contents: read
+  issues: write
+
 jobs:
   report:
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
