@@ -1,12 +1,574 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>BlackRoad</title>
-  </head>
-  <body style="font-family: system-ui; padding: 40px;">
-    <h1>BlackRoad</h1>
-    <p>Building sovereign, local-first AI systems.</p>
-    <p>Status: Online.</p>
-  </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earth — BlackRoad Template</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #0a0a0a;
+            --white: #f5f5f5;
+            --gray: #333;
+            --light-gray: #888;
+        }
+
+        body {
+            background: var(--black);
+            color: var(--white);
+            font-family: 'IBM Plex Mono', monospace;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Scan lines overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(255,255,255,0.012) 2px,
+                rgba(255,255,255,0.012) 4px
+            );
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .ui-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        /* Header */
+        .header {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.3em;
+            color: var(--light-gray);
+        }
+
+        .header span {
+            color: var(--white);
+        }
+
+        /* Title */
+        .title-container {
+            position: absolute;
+            bottom: 8rem;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+
+        .title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 5rem;
+            letter-spacing: 0.25em;
+            position: relative;
+            line-height: 1;
+        }
+
+        .title::after {
+            content: 'EARTH';
+            position: absolute;
+            left: 3px;
+            top: 3px;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255,255,255,0.1);
+        }
+
+        /* Coordinates */
+        .coordinates {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 300;
+            color: var(--light-gray);
+            letter-spacing: 0.15em;
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 2.5rem;
+            justify-content: center;
+        }
+
+        .coord {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .coord-label {
+            font-size: 0.55rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .coord-value {
+            color: var(--white);
+        }
+
+        /* Footer data */
+        .footer {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            right: 2rem;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.6rem;
+            color: var(--light-gray);
+            letter-spacing: 0.1em;
+        }
+
+        .footer-left {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .footer-right {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-dot {
+            width: 5px;
+            height: 5px;
+            background: var(--white);
+            border-radius: 50%;
+            animation: status-blink 1.5s ease-in-out infinite;
+        }
+
+        @keyframes status-blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Corner marks */
+        .corner {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .corner-tl {
+            top: 2rem;
+            right: 2rem;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .corner-br {
+            bottom: 6rem;
+            left: 2rem;
+            border-left: none;
+            border-top: none;
+        }
+
+        /* Vertical text */
+        .vertical-text {
+            position: absolute;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%) rotate(90deg);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.55rem;
+            letter-spacing: 0.3em;
+            color: rgba(255,255,255,0.25);
+            white-space: nowrap;
+        }
+
+        /* Rotation indicator */
+        .rotation-info {
+            position: absolute;
+            top: 2rem;
+            right: 5rem;
+            font-size: 0.6rem;
+            color: rgba(255,255,255,0.4);
+            text-align: right;
+        }
+
+        .rotation-value {
+            color: var(--white);
+            font-size: 0.75rem;
+            display: block;
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="canvas-container"></div>
+
+    <div class="ui-layer">
+        <div class="header">
+            BLACKROAD <span>/</span> TEMPLATE_003
+        </div>
+
+        <div class="corner corner-tl"></div>
+        <div class="corner corner-br"></div>
+
+        <div class="vertical-text">OBSERVATION POINT — 384,400 KM</div>
+
+        <div class="rotation-info">
+            ROTATION
+            <span class="rotation-value" id="rotation-display">0.00°</span>
+        </div>
+
+        <div class="title-container">
+            <div class="title">EARTH</div>
+            <div class="coordinates">
+                <div class="coord">
+                    <span class="coord-label">LATITUDE</span>
+                    <span class="coord-value" id="lat-value">44.7866° N</span>
+                </div>
+                <div class="coord">
+                    <span class="coord-label">LONGITUDE</span>
+                    <span class="coord-value" id="lng-value">93.2777° W</span>
+                </div>
+                <div class="coord">
+                    <span class="coord-label">ALTITUDE</span>
+                    <span class="coord-value" id="alt-value">298 M</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-left">
+                <div class="status">
+                    <span class="status-dot"></span>
+                    MONITORING ACTIVE
+                </div>
+                <span>AXIAL TILT: 23.44°</span>
+            </div>
+            <div class="footer-right">
+                <span>RADIUS: 6,371 KM</span>
+                <span>PERIOD: 23H 56M 4S</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Scene setup
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 5;
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setClearColor(0x0a0a0a, 1);
+        container.appendChild(renderer.domElement);
+
+        // Earth group (for axial tilt)
+        const earthGroup = new THREE.Group();
+        earthGroup.rotation.z = THREE.MathUtils.degToRad(23.44);
+        scene.add(earthGroup);
+
+        // Main sphere - wireframe
+        const sphereGeometry = new THREE.SphereGeometry(1.5, 48, 48);
+        const wireframeMaterial = new THREE.MeshBasicMaterial({
+            color: 0xffffff,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.15
+        });
+        const wireframeSphere = new THREE.Mesh(sphereGeometry, wireframeMaterial);
+        earthGroup.add(wireframeSphere);
+
+        // Solid dark core
+        const coreGeometry = new THREE.SphereGeometry(1.48, 48, 48);
+        const coreMaterial = new THREE.MeshBasicMaterial({
+            color: 0x0a0a0a,
+            transparent: true,
+            opacity: 0.95
+        });
+        const core = new THREE.Mesh(coreGeometry, coreMaterial);
+        earthGroup.add(core);
+
+        // Latitude lines (rings)
+        const latitudes = [-60, -30, 0, 30, 60];
+        latitudes.forEach(lat => {
+            const radius = 1.51 * Math.cos(THREE.MathUtils.degToRad(lat));
+            const y = 1.51 * Math.sin(THREE.MathUtils.degToRad(lat));
+            const ringGeometry = new THREE.RingGeometry(radius - 0.005, radius + 0.005, 64);
+            const ringMaterial = new THREE.MeshBasicMaterial({
+                color: 0xffffff,
+                transparent: true,
+                opacity: lat === 0 ? 0.4 : 0.2,
+                side: THREE.DoubleSide
+            });
+            const ring = new THREE.Mesh(ringGeometry, ringMaterial);
+            ring.position.y = y;
+            ring.rotation.x = Math.PI / 2;
+            earthGroup.add(ring);
+        });
+
+        // Longitude lines
+        const longitudes = [0, 30, 60, 90, 120, 150];
+        longitudes.forEach(lng => {
+            const curve = new THREE.EllipseCurve(0, 0, 1.51, 1.51, 0, Math.PI * 2, false, 0);
+            const points = curve.getPoints(64);
+            const geometry = new THREE.BufferGeometry().setFromPoints(points);
+            const material = new THREE.LineBasicMaterial({
+                color: 0xffffff,
+                transparent: true,
+                opacity: 0.2
+            });
+            const ellipse = new THREE.Line(geometry, material);
+            ellipse.rotation.y = THREE.MathUtils.degToRad(lng);
+            earthGroup.add(ellipse);
+        });
+
+        // Stylized continents as points/dots
+        const continentData = [
+            // North America
+            { lat: 45, lng: -100, size: 0.08 },
+            { lat: 40, lng: -95, size: 0.06 },
+            { lat: 35, lng: -90, size: 0.05 },
+            { lat: 50, lng: -110, size: 0.05 },
+            { lat: 55, lng: -120, size: 0.04 },
+            { lat: 30, lng: -85, size: 0.04 },
+            { lat: 25, lng: -100, size: 0.05 },
+            { lat: 20, lng: -105, size: 0.04 },
+
+            // South America
+            { lat: -10, lng: -55, size: 0.06 },
+            { lat: -20, lng: -50, size: 0.05 },
+            { lat: -30, lng: -60, size: 0.05 },
+            { lat: 5, lng: -70, size: 0.04 },
+            { lat: -40, lng: -65, size: 0.04 },
+
+            // Europe
+            { lat: 50, lng: 10, size: 0.05 },
+            { lat: 48, lng: 2, size: 0.05 },
+            { lat: 52, lng: 0, size: 0.04 },
+            { lat: 55, lng: 25, size: 0.04 },
+            { lat: 45, lng: 15, size: 0.04 },
+            { lat: 60, lng: 15, size: 0.03 },
+
+            // Africa
+            { lat: 30, lng: 30, size: 0.05 },
+            { lat: 10, lng: 20, size: 0.06 },
+            { lat: 0, lng: 25, size: 0.05 },
+            { lat: -10, lng: 25, size: 0.05 },
+            { lat: -25, lng: 25, size: 0.05 },
+            { lat: -30, lng: 25, size: 0.04 },
+            { lat: 5, lng: 40, size: 0.04 },
+
+            // Asia
+            { lat: 55, lng: 80, size: 0.05 },
+            { lat: 45, lng: 90, size: 0.06 },
+            { lat: 35, lng: 105, size: 0.07 },
+            { lat: 40, lng: 115, size: 0.06 },
+            { lat: 30, lng: 120, size: 0.05 },
+            { lat: 25, lng: 80, size: 0.06 },
+            { lat: 20, lng: 100, size: 0.05 },
+            { lat: 35, lng: 140, size: 0.05 },
+            { lat: 60, lng: 100, size: 0.04 },
+            { lat: 65, lng: 130, size: 0.04 },
+            { lat: 10, lng: 105, size: 0.04 },
+            { lat: 0, lng: 110, size: 0.04 },
+
+            // Australia
+            { lat: -25, lng: 135, size: 0.06 },
+            { lat: -30, lng: 145, size: 0.05 },
+            { lat: -20, lng: 140, size: 0.04 },
+            { lat: -35, lng: 140, size: 0.04 },
+        ];
+
+        // Create continent points
+        continentData.forEach(point => {
+            const phi = THREE.MathUtils.degToRad(90 - point.lat);
+            const theta = THREE.MathUtils.degToRad(point.lng);
+
+            const x = 1.52 * Math.sin(phi) * Math.cos(theta);
+            const y = 1.52 * Math.cos(phi);
+            const z = 1.52 * Math.sin(phi) * Math.sin(theta);
+
+            // Point
+            const dotGeometry = new THREE.SphereGeometry(point.size * 0.3, 8, 8);
+            const dotMaterial = new THREE.MeshBasicMaterial({
+                color: 0xffffff,
+                transparent: true,
+                opacity: 0.8
+            });
+            const dot = new THREE.Mesh(dotGeometry, dotMaterial);
+            dot.position.set(x, y, z);
+            earthGroup.add(dot);
+        });
+
+        // Connection lines between nearby continent points
+        const connectionMaterial = new THREE.LineBasicMaterial({
+            color: 0xffffff,
+            transparent: true,
+            opacity: 0.15
+        });
+
+        // Create connections for visual effect
+        for (let i = 0; i < continentData.length; i++) {
+            for (let j = i + 1; j < continentData.length; j++) {
+                const p1 = continentData[i];
+                const p2 = continentData[j];
+
+                const dist = Math.sqrt(
+                    Math.pow(p1.lat - p2.lat, 2) +
+                    Math.pow(p1.lng - p2.lng, 2)
+                );
+
+                if (dist < 25) {
+                    const phi1 = THREE.MathUtils.degToRad(90 - p1.lat);
+                    const theta1 = THREE.MathUtils.degToRad(p1.lng);
+                    const phi2 = THREE.MathUtils.degToRad(90 - p2.lat);
+                    const theta2 = THREE.MathUtils.degToRad(p2.lng);
+
+                    const points = [
+                        new THREE.Vector3(
+                            1.52 * Math.sin(phi1) * Math.cos(theta1),
+                            1.52 * Math.cos(phi1),
+                            1.52 * Math.sin(phi1) * Math.sin(theta1)
+                        ),
+                        new THREE.Vector3(
+                            1.52 * Math.sin(phi2) * Math.cos(theta2),
+                            1.52 * Math.cos(phi2),
+                            1.52 * Math.sin(phi2) * Math.sin(theta2)
+                        )
+                    ];
+
+                    const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
+                    const line = new THREE.Line(lineGeometry, connectionMaterial);
+                    earthGroup.add(line);
+                }
+            }
+        }
+
+        // Atmosphere glow
+        const atmosphereGeometry = new THREE.SphereGeometry(1.65, 48, 48);
+        const atmosphereMaterial = new THREE.MeshBasicMaterial({
+            color: 0xffffff,
+            transparent: true,
+            opacity: 0.03,
+            side: THREE.BackSide
+        });
+        const atmosphere = new THREE.Mesh(atmosphereGeometry, atmosphereMaterial);
+        earthGroup.add(atmosphere);
+
+        // Outer ring
+        const outerRingGeometry = new THREE.RingGeometry(2.2, 2.22, 64);
+        const outerRingMaterial = new THREE.MeshBasicMaterial({
+            color: 0xffffff,
+            transparent: true,
+            opacity: 0.1,
+            side: THREE.DoubleSide
+        });
+        const outerRing = new THREE.Mesh(outerRingGeometry, outerRingMaterial);
+        scene.add(outerRing);
+
+        // Second outer ring
+        const outerRing2Geometry = new THREE.RingGeometry(2.5, 2.51, 64);
+        const outerRing2 = new THREE.Mesh(outerRing2Geometry, outerRingMaterial.clone());
+        outerRing2.material.opacity = 0.05;
+        scene.add(outerRing2);
+
+        // Moon
+        const moonGeometry = new THREE.SphereGeometry(0.1, 16, 16);
+        const moonMaterial = new THREE.MeshBasicMaterial({
+            color: 0xffffff,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.5
+        });
+        const moon = new THREE.Mesh(moonGeometry, moonMaterial);
+        scene.add(moon);
+
+        // Animation
+        let rotationAngle = 0;
+        const rotationDisplay = document.getElementById('rotation-display');
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Rotate Earth
+            earthGroup.rotation.y += 0.002;
+            rotationAngle = (earthGroup.rotation.y * 180 / Math.PI) % 360;
+            rotationDisplay.textContent = rotationAngle.toFixed(2) + '°';
+
+            // Moon orbit
+            const moonTime = Date.now() * 0.0003;
+            moon.position.x = Math.cos(moonTime) * 2.8;
+            moon.position.z = Math.sin(moonTime) * 2.8;
+            moon.position.y = Math.sin(moonTime * 0.5) * 0.3;
+            moon.rotation.y += 0.01;
+
+            // Subtle camera movement
+            const cameraTime = Date.now() * 0.0001;
+            camera.position.x = Math.sin(cameraTime) * 0.3;
+            camera.position.y = Math.cos(cameraTime * 0.7) * 0.2;
+            camera.lookAt(0, 0, 0);
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Handle resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Coordinate updates
+        setInterval(() => {
+            const lat = (44.7866 + (Math.random() - 0.5) * 0.001).toFixed(4);
+            const lng = (93.2777 + (Math.random() - 0.5) * 0.001).toFixed(4);
+            const alt = (298 + Math.floor((Math.random() - 0.5) * 2));
+
+            document.getElementById('lat-value').textContent = lat + '° N';
+            document.getElementById('lng-value').textContent = lng + '° W';
+            document.getElementById('alt-value').textContent = alt + ' M';
+        }, 3000);
+    </script>
+</body>
 </html>
