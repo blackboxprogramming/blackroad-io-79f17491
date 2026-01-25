@@ -671,12 +671,13 @@
     .a91::after {
       content: '';
       position: absolute;
-      width: 8px;
-      height: 10px;
-      background: var(--o);
+      width: 0;
+      height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 10px solid var(--o);
       bottom: 0;
       left: 4px;
-      clip-path: polygon(50% 100%, 0 0, 100% 0);
     }
     @keyframes rocket { 0%,100% { transform: translateY(0) rotate(-45deg); } 50% { transform: translateY(-10px) rotate(-45deg); } }
 
