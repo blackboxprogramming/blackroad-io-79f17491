@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Agent Memory - BlackRoad</title>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, sans-serif;
+        padding: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+        background: #f5f5f5;
+      }
+      
+      h1 {
+        color: #333;
+        margin-bottom: 10px;
+      }
+      
+      .subtitle {
+        color: #666;
+        margin-bottom: 30px;
+      }
+      
+      .nav {
+        margin-bottom: 20px;
+      }
+      
+      .nav a {
+        color: #0066cc;
+        text-decoration: none;
+      }
+      
+      .nav a:hover {
+        text-decoration: underline;
+      }
+      
+      .section {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      }
+      
+      .input-group {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
+      
+      input[type="text"] {
+        flex: 1;
+        min-width: 200px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+      }
+      
+      button {
+        padding: 10px 20px;
+        background: #0066cc;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+      }
+      
+      button:hover {
+        background: #0052a3;
+      }
+      
+      button.secondary {
+        background: #6c757d;
+      }
+      
+      button.secondary:hover {
+        background: #5a6268;
+      }
+      
+      button.danger {
+        background: #dc3545;
+      }
+      
+      button.danger:hover {
+        background: #c82333;
+      }
+      
+      .agent-list {
+        display: grid;
+        gap: 15px;
+      }
+      
+      .agent-card {
+        border: 1px solid #e0e0e0;
+        padding: 15px;
+        border-radius: 6px;
+        background: #fafafa;
+      }
+      
+      .agent-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        margin-bottom: 10px;
+      }
+      
+      .agent-name {
+        font-weight: 600;
+        font-size: 16px;
+        color: #333;
+        flex: 1;
+      }
+      
+      .agent-actions {
+        display: flex;
+        gap: 8px;
+      }
+      
+      .agent-actions button {
+        padding: 5px 12px;
+        font-size: 12px;
+      }
+      
+      .agent-info {
+        font-size: 13px;
+        color: #666;
+        margin-bottom: 8px;
+      }
+      
+      .agent-id {
+        font-family: monospace;
+        background: #f0f0f0;
+        padding: 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        word-break: break-all;
+        color: #444;
+      }
+      
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+      
+      .stat-card {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 6px;
+        border-left: 3px solid #0066cc;
+      }
+      
+      .stat-label {
+        font-size: 12px;
+        color: #666;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      
+      .stat-value {
+        font-size: 24px;
+        font-weight: 600;
+        color: #333;
+        margin-top: 5px;
+      }
+      
+      .empty-state {
+        text-align: center;
+        padding: 40px;
+        color: #999;
+      }
+      
+      .empty-state-icon {
+        font-size: 48px;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nav">
+      <a href="index.html">← Back to Home</a>
+    </div>
+    
+    <h1>Agent Memory</h1>
+    <p class="subtitle">Track and manage Claude agent sessions</p>
+    
+    <div class="section">
+      <h2>Add New Agent</h2>
+      <div class="input-group">
+        <input 
+          type="text" 
+          id="sessionInput" 
+          placeholder="Session ID or URL (e.g., session_01ToNdyuPhUpgWkB37svZEY7)"
+        />
+        <input 
+          type="text" 
+          id="nameInput" 
+          placeholder="Agent name (optional)"
+        />
+        <button onclick="addAgent()">Add Agent</button>
+      </div>
+      <p style="font-size: 13px; color: #666; margin-top: -10px;">
+        💡 Tip: Paste a Claude session URL or branch name ending with a session ID
+      </p>
+    </div>
+    
+    <div class="section">
+      <h2>Statistics</h2>
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-label">Total Agents</div>
+          <div class="stat-value" id="totalAgents">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Last Updated</div>
+          <div class="stat-value" id="lastUpdated" style="font-size: 14px;">Never</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <h2 style="margin: 0;">All Agents</h2>
+        <div style="display: flex; gap: 10px;">
+          <button class="secondary" onclick="exportAgents()">Export Data</button>
+          <button class="secondary" onclick="importAgents()">Import Data</button>
+        </div>
+      </div>
+      
+      <div id="agentList" class="agent-list">
+        <div class="empty-state">
+          <div class="empty-state-icon">🤖</div>
+          <p>No agents yet. Add one above to get started!</p>
+        </div>
+      </div>
+    </div>
+    
+    <script src="agent-memory.js"></script>
+    <script>
+      const memory = new AgentMemory();
+      
+      function addAgent() {
+        const sessionInput = document.getElementById('sessionInput');
+        const nameInput = document.getElementById('nameInput');
+        
+        const sessionId = sessionInput.value.trim();
+        const name = nameInput.value.trim();
+        
+        if (!sessionId) {
+          alert('Please enter a session ID or URL');
+          return;
+        }
+        
+        const agent = memory.addAgent(sessionId, name || null);
+        
+        if (agent) {
+          sessionInput.value = '';
+          nameInput.value = '';
+          renderAgents();
+        } else {
+          alert('Failed to add agent');
+        }
+      }
+      
+      function updateAgentName(sessionId) {
+        const newName = prompt('Enter new name for this agent:');
+        if (newName) {
+          memory.updateAgentName(sessionId, newName);
+          renderAgents();
+        }
+      }
+      
+      function deleteAgent(sessionId) {
+        if (confirm('Are you sure you want to delete this agent?')) {
+          memory.deleteAgent(sessionId);
+          renderAgents();
+        }
+      }
+      
+      function exportAgents() {
+        const data = memory.exportData();
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `blackroad-agents-${new Date().toISOString().split('T')[0]}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      
+      function importAgents() {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'application/json';
+        input.onchange = (e) => {
+          const file = e.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+              try {
+                const data = JSON.parse(event.target.result);
+                if (memory.importData(data)) {
+                  alert('Agents imported successfully!');
+                  renderAgents();
+                } else {
+                  alert('Invalid data format');
+                }
+              } catch (error) {
+                alert('Failed to parse file: ' + error.message);
+              }
+            };
+            reader.readAsText(file);
+          }
+        };
+        input.click();
+      }
+      
+      function formatDate(dateString) {
+        const date = new Date(dateString);
+        const now = new Date();
+        const diff = now - date;
+        const minutes = Math.floor(diff / 60000);
+        const hours = Math.floor(diff / 3600000);
+        const days = Math.floor(diff / 86400000);
+        
+        if (minutes < 1) return 'Just now';
+        if (minutes < 60) return `${minutes}m ago`;
+        if (hours < 24) return `${hours}h ago`;
+        if (days < 7) return `${days}d ago`;
+        return date.toLocaleDateString();
+      }
+      
+      function renderAgents() {
+        const agents = memory.getAllAgents();
+        const listElement = document.getElementById('agentList');
+        const totalElement = document.getElementById('totalAgents');
+        const lastUpdatedElement = document.getElementById('lastUpdated');
+        
+        totalElement.textContent = agents.length;
+        
+        if (agents.length > 0) {
+          const latestUpdate = agents[0].updatedAt;
+          lastUpdatedElement.textContent = formatDate(latestUpdate);
+          
+          listElement.innerHTML = agents.map(agent => `
+            <div class="agent-card">
+              <div class="agent-header">
+                <div class="agent-name">${escapeHtml(agent.name)}</div>
+                <div class="agent-actions">
+                  <button class="secondary" onclick="updateAgentName('${agent.sessionId}')">Rename</button>
+                  <button class="danger" onclick="deleteAgent('${agent.sessionId}')">Delete</button>
+                </div>
+              </div>
+              <div class="agent-info">
+                Created: ${formatDate(agent.createdAt)} | 
+                Updated: ${formatDate(agent.updatedAt)}
+              </div>
+              <div class="agent-id">${escapeHtml(agent.sessionId)}</div>
+            </div>
+          `).join('');
+        } else {
+          lastUpdatedElement.textContent = 'Never';
+          listElement.innerHTML = `
+            <div class="empty-state">
+              <div class="empty-state-icon">🤖</div>
+              <p>No agents yet. Add one above to get started!</p>
+            </div>
+          `;
+        }
+      }
+      
+      function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+      }
+      
+      // Handle Enter key in inputs
+      document.getElementById('sessionInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') addAgent();
+      });
+      
+      document.getElementById('nameInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') addAgent();
+      });
+      
+      // Initial render
+      renderAgents();
+    </script>
+  </body>
+</html>
