@@ -291,6 +291,7 @@
         a.href = url;
         a.download = `blackroad-agents-${new Date().toISOString().split('T')[0]}.json`;
         a.click();
+        a.remove();
         URL.revokeObjectURL(url);
       }
       
@@ -353,8 +354,8 @@
               <div class="agent-header">
                 <div class="agent-name">${escapeHtml(agent.name)}</div>
                 <div class="agent-actions">
-                  <button class="secondary" onclick="updateAgentName('${agent.sessionId}')">Rename</button>
-                  <button class="danger" onclick="deleteAgent('${agent.sessionId}')">Delete</button>
+                  <button class="secondary agent-rename-btn" data-session-id="${escapeHtml(agent.sessionId)}">Rename</button>
+                  <button class="danger agent-delete-btn" data-session-id="${escapeHtml(agent.sessionId)}">Delete</button>
                 </div>
               </div>
               <div class="agent-info">
@@ -364,6 +365,15 @@
               <div class="agent-id">${escapeHtml(agent.sessionId)}</div>
             </div>
           `).join('');
+          
+          // Attach event listeners to buttons
+          listElement.querySelectorAll('.agent-rename-btn').forEach(btn => {
+            btn.addEventListener('click', () => updateAgentName(btn.dataset.sessionId));
+          });
+          
+          listElement.querySelectorAll('.agent-delete-btn').forEach(btn => {
+            btn.addEventListener('click', () => deleteAgent(btn.dataset.sessionId));
+          });
         } else {
           lastUpdatedElement.textContent = 'Never';
           listElement.innerHTML = `

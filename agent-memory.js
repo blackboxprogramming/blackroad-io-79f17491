@@ -18,7 +18,7 @@ class AgentMemory {
    * - "https://claude.ai/code/session_01ToNdyuPhUpgWkB37svZEY7"
    */
   extractSessionId(input) {
-    const sessionPattern = /(session_[a-zA-Z0-9]+)/;
+    const sessionPattern = /(session_[a-zA-Z0-9]{20,})/;
     const match = input.match(sessionPattern);
     return match ? match[1] : null;
   }
@@ -70,9 +70,16 @@ class AgentMemory {
    * Update agent name
    */
   updateAgentName(sessionId, newName) {
-    const agent = this.getAgent(sessionId);
-    if (agent) {
-      return this.addAgent(sessionId, newName, agent);
+    const cleanSessionId = this.extractSessionId(sessionId) || sessionId;
+    const index = this.agents.findIndex(a => a.sessionId === cleanSessionId);
+    if (index >= 0) {
+      this.agents[index] = {
+        ...this.agents[index],
+        name: newName,
+        updatedAt: new Date().toISOString()
+      };
+      this.saveToStorage();
+      return this.agents[index];
     }
     return null;
   }
