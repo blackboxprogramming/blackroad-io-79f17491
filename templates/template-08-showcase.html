@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackRoad OS — Template 08</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #000;
+            --gray-950: #080808;
+            --gray-900: #0e0e0e;
+            --gray-850: #141414;
+            --gray-800: #1a1a1a;
+            --gray-750: #212121;
+            --gray-700: #292929;
+            --gray-600: #3a3a3a;
+            --gray-500: #5a5a5a;
+            --gray-400: #7a7a7a;
+            --gray-300: #9a9a9a;
+            --gray-200: #bababa;
+            --gray-100: #dadada;
+            --white: #f2f2f2;
+
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 15px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--black);
+            color: var(--gray-400);
+            line-height: 1.6;
+        }
+
+        ::selection {
+            background: var(--gray-700);
+            color: var(--white);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo-mark {
+            width: 32px;
+            height: 32px;
+            background: var(--white);
+            display: grid;
+            place-items: center;
+        }
+
+        .logo-mark-inner {
+            width: 12px;
+            height: 12px;
+            background: var(--black);
+        }
+
+        .logo-text {
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--white);
+            letter-spacing: -0.01em;
+        }
+
+        .nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav a {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav a:hover {
+            color: var(--white);
+        }
+
+        .nav a.active {
+            color: var(--white);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header-btn {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.2s;
+            letter-spacing: 0.02em;
+        }
+
+        .header-btn-ghost {
+            color: var(--gray-400);
+        }
+
+        .header-btn-ghost:hover {
+            color: var(--white);
+        }
+
+        .header-btn-primary {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .header-btn-primary:hover {
+            background: var(--gray-200);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 10rem 0 6rem;
+            text-align: center;
+        }
+
+        .hero-label {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: -0.04em;
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.125rem;
+            color: var(--gray-500);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            font-weight: 300;
+        }
+
+        /* Filter Bar */
+        .filter-bar {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-500);
+            background: transparent;
+            border: 1px solid var(--gray-850);
+            padding: 0.625rem 1.25rem;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: 0.02em;
+        }
+
+        .filter-btn:hover {
+            color: var(--gray-300);
+            border-color: var(--gray-700);
+        }
+
+        .filter-btn.active {
+            color: var(--white);
+            background: var(--gray-850);
+            border-color: var(--gray-750);
+        }
+
+        /* Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 6rem;
+        }
+
+        /* Card */
+        .card {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            border-color: var(--gray-800);
+            transform: translateY(-4px);
+        }
+
+        .card:hover .card-image {
+            transform: scale(1.02);
+        }
+
+        .card:hover .card-title {
+            color: var(--white);
+        }
+
+        .card-image-wrapper {
+            aspect-ratio: 16 / 10;
+            overflow: hidden;
+            background: var(--gray-900);
+            position: relative;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        /* Placeholder patterns for images */
+        .card-pattern {
+            width: 100%;
+            height: 100%;
+            display: grid;
+            place-items: center;
+            position: relative;
+        }
+
+        .card-pattern-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+            gap: 1px;
+            width: 100%;
+            height: 100%;
+            padding: 1rem;
+        }
+
+        .card-pattern-cell {
+            background: var(--gray-850);
+            border-radius: 2px;
+            transition: background 0.2s;
+        }
+
+        .card:hover .card-pattern-cell:nth-child(odd) {
+            background: var(--gray-800);
+        }
+
+        .card-pattern-circles {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .card-pattern-circle {
+            width: 60px;
+            height: 60px;
+            border: 1px solid var(--gray-800);
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+
+        .card:hover .card-pattern-circle {
+            border-color: var(--gray-700);
+            transform: scale(1.1);
+        }
+
+        .card-pattern-lines {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+            padding: 2rem;
+        }
+
+        .card-pattern-line {
+            height: 2px;
+            background: var(--gray-850);
+            border-radius: 1px;
+            transition: background 0.2s;
+        }
+
+        .card:hover .card-pattern-line:nth-child(even) {
+            background: var(--gray-800);
+        }
+
+        .card-pattern-dots {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: repeat(6, 1fr);
+            gap: 12px;
+            padding: 1.5rem;
+            width: 100%;
+            height: 100%;
+        }
+
+        .card-pattern-dot {
+            width: 4px;
+            height: 4px;
+            background: var(--gray-800);
+            border-radius: 50%;
+            justify-self: center;
+            align-self: center;
+            transition: background 0.2s;
+        }
+
+        .card:hover .card-pattern-dot:nth-child(3n) {
+            background: var(--gray-600);
+        }
+
+        .card-pattern-blocks {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 8px;
+            padding: 1.5rem;
+            width: 100%;
+            height: 100%;
+        }
+
+        .card-pattern-block {
+            background: var(--gray-850);
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .card:hover .card-pattern-block:nth-child(2n) {
+            background: var(--gray-800);
+            transform: scale(0.95);
+        }
+
+        .card-pattern-diag {
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                var(--gray-900),
+                var(--gray-900) 10px,
+                var(--gray-850) 10px,
+                var(--gray-850) 20px
+            );
+            transition: all 0.3s;
+        }
+
+        .card:hover .card-pattern-diag {
+            background: repeating-linear-gradient(
+                45deg,
+                var(--gray-850),
+                var(--gray-850) 10px,
+                var(--gray-800) 10px,
+                var(--gray-800) 20px
+            );
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .card-tag {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-500);
+            background: var(--gray-900);
+            padding: 0.25rem 0.625rem;
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .card-title {
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--gray-200);
+            margin-bottom: 0.5rem;
+            transition: color 0.2s;
+        }
+
+        .card-description {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+            line-height: 1.6;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--gray-900);
+        }
+
+        .card-meta {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-600);
+        }
+
+        .card-arrow {
+            font-size: 1.25rem;
+            color: var(--gray-700);
+            transition: all 0.2s;
+        }
+
+        .card:hover .card-arrow {
+            color: var(--gray-400);
+            transform: translateX(4px);
+        }
+
+        /* Feature Card (Larger) */
+        .card-feature {
+            grid-column: span 2;
+        }
+
+        .card-feature .card-image-wrapper {
+            aspect-ratio: 2 / 1;
+        }
+
+        /* Stats Row */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--gray-900);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 6rem;
+        }
+
+        .stat {
+            background: var(--gray-950);
+            padding: 2.5rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--white);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* CTA Section */
+        .cta {
+            text-align: center;
+            padding: 6rem 0;
+            border-top: 1px solid var(--gray-900);
+        }
+
+        .cta-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--white);
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .cta-text {
+            font-size: 1rem;
+            color: var(--gray-500);
+            margin-bottom: 2rem;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--black);
+            background: var(--white);
+            padding: 0.875rem 2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: all 0.2s;
+            letter-spacing: 0.02em;
+        }
+
+        .cta-btn:hover {
+            background: var(--gray-200);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 3rem 0;
+            border-top: 1px solid var(--gray-900);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--gray-500);
+        }
+
+        .footer-copy {
+            font-size: 0.75rem;
+            color: var(--gray-700);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-link {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover {
+            color: var(--gray-300);
+        }
+
+        /* Responsive */
+        @media (max-width: 1100px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .card-feature {
+                grid-column: span 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            html {
+                font-size: 14px;
+            }
+
+            .container {
+                padding: 0 1.25rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .nav {
+                display: none;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card-feature {
+                grid-column: span 1;
+            }
+
+            .card-feature .card-image-wrapper {
+                aspect-ratio: 16 / 10;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-inner">
+                <div class="header-left">
+                    <a href="#" class="logo">
+                        <div class="logo-mark">
+                            <div class="logo-mark-inner"></div>
+                        </div>
+                        <span class="logo-text">BlackRoad</span>
+                    </a>
+                    <nav class="nav">
+                        <a href="#">Overview</a>
+                        <a href="#" class="active">Showcase</a>
+                        <a href="#">Docs</a>
+                        <a href="#">Pricing</a>
+                    </nav>
+                </div>
+                <div class="header-right">
+                    <a href="#" class="header-btn header-btn-ghost">Sign In</a>
+                    <a href="#" class="header-btn header-btn-primary">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-label">Showcase</div>
+                <h1 class="hero-title">Built with BlackRoad</h1>
+                <p class="hero-subtitle">
+                    Explore projects, integrations, and experiments built on the
+                    BlackRoad OS agent infrastructure platform.
+                </p>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="filter-bar">
+                <button class="filter-btn active">All</button>
+                <button class="filter-btn">Agents</button>
+                <button class="filter-btn">Infrastructure</button>
+                <button class="filter-btn">Integrations</button>
+                <button class="filter-btn">Research</button>
+                <button class="filter-btn">Community</button>
+            </div>
+
+            <div class="grid">
+                <article class="card card-feature">
+                    <div class="card-image-wrapper">
+                        <div class="card-pattern">
+                            <div class="card-pattern-grid">
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                                <div class="card-pattern-cell"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-tags">
+                            <span class="card-tag">Featured</span>
+                            <span class="card-tag">Agents</span>
+                        </div>
+                        <h3 class="card-title">Lucidia Core System</h3>
+                        <p class="card-description">
+                            The flagship recursive AI implementation featuring trinary logic,
+                            paraconsistent contradiction handling, and PS-SHA∞ memory persistence.
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="card-meta">1,000 agents · v0.1.0</span>
+                        <span class="card-arrow">→</span>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-image-wrapper">
+                        <div class="card-pattern">
+                            <div class="card-pattern-circles">
+                                <div class="card-pattern-circle"></div>
+                                <div class="card-pattern-circle"></div>
+                                <div class="card-pattern-circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-tags">
+                            <span class="card-tag">Infrastructure</span>
+                        </div>
+                        <h3 class="card-title">K3s Cluster Setup</h3>
+                        <p class="card-description">
+                            Production-ready cluster configuration with Alice gateway and Octavia inference nodes.
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="card-meta">4 nodes</span>
+                        <span class="card-arrow">→</span>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-image-wrapper">
+                        <div class="card-pattern">
+                            <div class="card-pattern-lines">
+                                <div class="card-pattern-line" style="width: 80%"></div>
+                                <div class="card-pattern-line" style="width: 65%"></div>
+                                <div class="card-pattern-line" style="width: 90%"></div>
+                                <div class="card-pattern-line" style="width: 45%"></div>
+                                <div class="card-pattern-line" style="width: 75%"></div>
+                                <div class="card-pattern-line" style="width: 55%"></div>
+                                <div class="card-pattern-line" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-tags">
+                            <span class="card-tag">Research</span>
+                        </div>
+                        <h3 class="card-title">Z-Framework Analysis</h3>
+                        <p class="card-description">
+                            Universal feedback system model: Z:=yx-w unifying physics and control theory.
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="card-meta">Theory</span>
+                        <span class="card-arrow">→</span>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-image-wrapper">
+                        <div class="card-pattern">
+                            <div class="card-pattern-dots">
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                                <div class="card-pattern-dot"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-tags">
+                            <span class="card-tag">Integrations</span>
+                        </div>
+                        <h3 class="card-title">NATS Event Bus</h3>
+                        <p class="card-description">
+                            Pub/sub messaging architecture for agent coordination and capability registry.
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="card-meta">847 events/sec</span>
+                        <span class="card-arrow">→</span>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-image-wrapper">
+                        <div class="card-pattern">
+                            <div class="card-pattern-blocks">
+                                <div class="card-pattern-block"></div>
+                                <div class="card-pattern-block"></div>
+                                <div class="card-pattern-block"></div>
+                                <div class="card-pattern-block"></div>
+                                <div class="card-pattern-block"></div>
+                                <div class="card-pattern-block"></div>
+                                <div class="card-pattern-block"></div>
+                                <div class="card-pattern-block"></div>
+                                <div class="card-pattern-block"></div>
+                                <div class="card-pattern-block"></div>
+                                <div class="card-pattern-block"></div>
+                                <div class="card-pattern-block"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-tags">
+                            <span class="card-tag">Agents</span>
+                        </div>
+                        <h3 class="card-title">Memory Persistence</h3>
+                        <p class="card-description">
+                            Append-only journals with truth state commits using PS-SHA∞ hashing.
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="card-meta">24.7K commits</span>
+                        <span class="card-arrow">→</span>
+                    </div>
+                </article>
+
+                <article class="card card-feature">
+                    <div class="card-image-wrapper">
+                        <div class="card-pattern">
+                            <div class="card-pattern-diag"></div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-tags">
+                            <span class="card-tag">Research</span>
+                            <span class="card-tag">Math</span>
+                        </div>
+                        <h3 class="card-title">1-2-3-4 Pauli Model</h3>
+                        <p class="card-description">
+                            Mapping ontological primitives (Structure, Change, Scale) to Pauli matrices
+                            with Strength as emergent invariant. Exploring the su(2) algebra of primitives.
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="card-meta">Physics · Ontology</span>
+                        <span class="card-arrow">→</span>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-image-wrapper">
+                        <div class="card-pattern">
+                            <div class="card-pattern-circles">
+                                <div class="card-pattern-circle" style="width: 40px; height: 40px;"></div>
+                                <div class="card-pattern-circle" style="width: 80px; height: 80px;"></div>
+                                <div class="card-pattern-circle" style="width: 40px; height: 40px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-tags">
+                            <span class="card-tag">Community</span>
+                        </div>
+                        <h3 class="card-title">Lucidia CLI</h3>
+                        <p class="card-description">
+                            Terminal-native OS for agent interaction. TUI with chat, ops, and Ollama integration.
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="card-meta">Open Source</span>
+                        <span class="card-arrow">→</span>
+                    </div>
+                </article>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-value">1,000</div>
+                    <div class="stat-label">Agents</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">19</div>
+                    <div class="stat-label">Domains</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">40+</div>
+                    <div class="stat-label">Repositories</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">∞</div>
+                    <div class="stat-label">Memory</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta">
+            <div class="container">
+                <h2 class="cta-title">Start Building</h2>
+                <p class="cta-text">Deploy your first agent in under five minutes.</p>
+                <a href="#" class="cta-btn">
+                    Get Started
+                    <span>→</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-brand">
+                    <span class="footer-logo">BlackRoad</span>
+                    <span class="footer-copy">© 2025 BlackRoad OS, Inc.</span>
+                </div>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">GitHub</a>
+                    <a href="#" class="footer-link">Discord</a>
+                    <a href="#" class="footer-link">Twitter</a>
+                    <a href="#" class="footer-link">Status</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
