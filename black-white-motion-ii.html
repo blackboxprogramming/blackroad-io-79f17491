@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Black & White Motion II</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #000;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      padding: 2px;
+    }
+
+    .cell {
+      aspect-ratio: 1;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* 1. Rotating Cube Wireframe */
+    .c1 .cube {
+      width: 60px;
+      height: 60px;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: cube-rotate 4s linear infinite;
+    }
+    .c1 .face {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border: 2px solid #fff;
+    }
+    .c1 .face:nth-child(1) { transform: translateZ(30px); }
+    .c1 .face:nth-child(2) { transform: translateZ(-30px); }
+    .c1 .face:nth-child(3) { transform: rotateY(90deg) translateZ(30px); }
+    .c1 .face:nth-child(4) { transform: rotateY(-90deg) translateZ(30px); }
+    @keyframes cube-rotate {
+      0% { transform: rotateX(-20deg) rotateY(0deg); }
+      100% { transform: rotateX(-20deg) rotateY(360deg); }
+    }
+
+    /* 2. Moiré Pattern */
+    .c2 .moire {
+      position: absolute;
+      width: 150%;
+      height: 150%;
+      background: repeating-linear-gradient(
+        0deg,
+        #fff 0px,
+        #fff 2px,
+        #000 2px,
+        #000 4px
+      );
+      animation: moire-spin 8s linear infinite;
+    }
+    .c2 .moire:nth-child(2) {
+      animation-direction: reverse;
+      opacity: 0.5;
+    }
+    @keyframes moire-spin { to { transform: rotate(360deg); } }
+
+    /* 3. Tunnel Zoom */
+    .c3 .ring {
+      position: absolute;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      animation: tunnel 3s linear infinite;
+    }
+    .c3 .ring:nth-child(1) { animation-delay: 0s; }
+    .c3 .ring:nth-child(2) { animation-delay: 0.3s; }
+    .c3 .ring:nth-child(3) { animation-delay: 0.6s; }
+    .c3 .ring:nth-child(4) { animation-delay: 0.9s; }
+    .c3 .ring:nth-child(5) { animation-delay: 1.2s; }
+    .c3 .ring:nth-child(6) { animation-delay: 1.5s; }
+    .c3 .ring:nth-child(7) { animation-delay: 1.8s; }
+    .c3 .ring:nth-child(8) { animation-delay: 2.1s; }
+    .c3 .ring:nth-child(9) { animation-delay: 2.4s; }
+    .c3 .ring:nth-child(10) { animation-delay: 2.7s; }
+    @keyframes tunnel {
+      0% { width: 5px; height: 5px; opacity: 1; }
+      100% { width: 200%; height: 200%; opacity: 0; }
+    }
+
+    /* 4. Newton's Cradle */
+    .c4 {
+      display: flex;
+      align-items: flex-start;
+      padding-top: 15%;
+    }
+    .c4 .string {
+      width: 2px;
+      height: 50px;
+      background: #fff;
+      position: relative;
+      transform-origin: top center;
+    }
+    .c4 .string::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 16px;
+      height: 16px;
+      background: #fff;
+      border-radius: 50%;
+    }
+    .c4 .string:first-child { animation: cradle-left 1s ease-in-out infinite; }
+    .c4 .string:last-child { animation: cradle-right 1s ease-in-out infinite; }
+    @keyframes cradle-left {
+      0%, 50% { transform: rotate(0deg); }
+      25% { transform: rotate(-30deg); }
+    }
+    @keyframes cradle-right {
+      0%, 50% { transform: rotate(0deg); }
+      75% { transform: rotate(30deg); }
+    }
+
+    /* 5. Staircase Illusion */
+    .c5 .step {
+      position: absolute;
+      background: #fff;
+      animation: stair-march 4s linear infinite;
+    }
+    .c5 .step:nth-child(1) { width: 80%; height: 8px; animation-delay: 0s; }
+    .c5 .step:nth-child(2) { width: 70%; height: 8px; animation-delay: 0.5s; }
+    .c5 .step:nth-child(3) { width: 60%; height: 8px; animation-delay: 1s; }
+    .c5 .step:nth-child(4) { width: 50%; height: 8px; animation-delay: 1.5s; }
+    .c5 .step:nth-child(5) { width: 40%; height: 8px; animation-delay: 2s; }
+    .c5 .step:nth-child(6) { width: 30%; height: 8px; animation-delay: 2.5s; }
+    .c5 .step:nth-child(7) { width: 20%; height: 8px; animation-delay: 3s; }
+    .c5 .step:nth-child(8) { width: 10%; height: 8px; animation-delay: 3.5s; }
+    @keyframes stair-march {
+      0% { top: -10%; opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { top: 110%; opacity: 0; }
+    }
+
+    /* 6. Gyroscope */
+    .c6 .gyro {
+      width: 70%;
+      height: 70%;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: gyro-outer 3s linear infinite;
+    }
+    .c6 .ring-g {
+      position: absolute;
+      inset: 0;
+      border: 2px solid #fff;
+      border-radius: 50%;
+    }
+    .c6 .ring-g:nth-child(2) {
+      transform: rotateX(90deg);
+      animation: gyro-inner 2s linear infinite;
+    }
+    .c6 .ring-g:nth-child(3) {
+      transform: rotateY(90deg);
+      animation: gyro-inner 1.5s linear infinite reverse;
+    }
+    @keyframes gyro-outer { to { transform: rotateZ(360deg); } }
+    @keyframes gyro-inner { to { transform: rotateX(90deg) rotateZ(360deg); } }
+
+    /* 7. Binary Rain */
+    .c7 {
+      display: flex;
+      gap: 8px;
+      font-family: monospace;
+      font-size: 10px;
+      color: #fff;
+    }
+    .c7 .col {
+      display: flex;
+      flex-direction: column;
+      animation: binary-fall 2s linear infinite;
+    }
+    .c7 .col:nth-child(1) { animation-delay: 0s; }
+    .c7 .col:nth-child(2) { animation-delay: 0.3s; }
+    .c7 .col:nth-child(3) { animation-delay: 0.6s; }
+    .c7 .col:nth-child(4) { animation-delay: 0.1s; }
+    .c7 .col:nth-child(5) { animation-delay: 0.8s; }
+    .c7 .col:nth-child(6) { animation-delay: 0.4s; }
+    @keyframes binary-fall {
+      0% { transform: translateY(-100%); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(100%); opacity: 0; }
+    }
+
+    /* 8. Hexagon Spin */
+    .c8 .hex {
+      width: 50px;
+      height: 29px;
+      background: #fff;
+      position: relative;
+      animation: spin 4s linear infinite;
+    }
+    .c8 .hex::before, .c8 .hex::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      border-left: 25px solid transparent;
+      border-right: 25px solid transparent;
+    }
+    .c8 .hex::before {
+      bottom: 100%;
+      border-bottom: 14px solid #fff;
+    }
+    .c8 .hex::after {
+      top: 100%;
+      border-top: 14px solid #fff;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* 9. Slinky */
+    .c9 .coil {
+      width: 60%;
+      height: 6px;
+      background: #fff;
+      border-radius: 3px;
+      position: absolute;
+      animation: slinky 2s ease-in-out infinite;
+    }
+    .c9 .coil:nth-child(1) { animation-delay: 0s; }
+    .c9 .coil:nth-child(2) { animation-delay: 0.1s; }
+    .c9 .coil:nth-child(3) { animation-delay: 0.2s; }
+    .c9 .coil:nth-child(4) { animation-delay: 0.3s; }
+    .c9 .coil:nth-child(5) { animation-delay: 0.4s; }
+    .c9 .coil:nth-child(6) { animation-delay: 0.5s; }
+    .c9 .coil:nth-child(7) { animation-delay: 0.6s; }
+    .c9 .coil:nth-child(8) { animation-delay: 0.7s; }
+    @keyframes slinky {
+      0%, 100% { transform: translateY(-40px) scaleX(0.5); }
+      50% { transform: translateY(40px) scaleX(1); }
+    }
+
+    /* 10. Wormhole */
+    .c10 .worm {
+      position: absolute;
+      border: 2px solid #fff;
+      animation: wormhole 4s ease-in-out infinite;
+    }
+    .c10 .worm:nth-child(1) { width: 10%; height: 10%; animation-delay: 0s; }
+    .c10 .worm:nth-child(2) { width: 20%; height: 20%; animation-delay: 0.3s; }
+    .c10 .worm:nth-child(3) { width: 30%; height: 30%; animation-delay: 0.6s; }
+    .c10 .worm:nth-child(4) { width: 40%; height: 40%; animation-delay: 0.9s; }
+    .c10 .worm:nth-child(5) { width: 50%; height: 50%; animation-delay: 1.2s; }
+    .c10 .worm:nth-child(6) { width: 60%; height: 60%; animation-delay: 1.5s; }
+    @keyframes wormhole {
+      0%, 100% { border-radius: 50%; transform: rotate(0deg); }
+      50% { border-radius: 10%; transform: rotate(180deg); }
+    }
+
+    /* 11. Propeller */
+    .c11 .blade {
+      position: absolute;
+      width: 8px;
+      height: 45%;
+      background: #fff;
+      border-radius: 4px;
+      transform-origin: center bottom;
+    }
+    .c11 .blades {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      animation: spin 0.5s linear infinite;
+    }
+    .c11 .blade:nth-child(1) { transform: rotate(0deg) translateY(-50%); }
+    .c11 .blade:nth-child(2) { transform: rotate(120deg) translateY(-50%); }
+    .c11 .blade:nth-child(3) { transform: rotate(240deg) translateY(-50%); }
+
+    /* 12. Tesseract */
+    .c12 .tess {
+      width: 50px;
+      height: 50px;
+      position: relative;
+      animation: tess-rotate 6s linear infinite;
+    }
+    .c12 .inner, .c12 .outer {
+      position: absolute;
+      border: 2px solid #fff;
+    }
+    .c12 .outer { inset: 0; }
+    .c12 .inner { inset: 15px; animation: tess-inner 3s linear infinite; }
+    .c12 .conn {
+      position: absolute;
+      width: 2px;
+      height: 21px;
+      background: #fff;
+      transform-origin: top center;
+    }
+    .c12 .conn:nth-child(3) { top: 0; left: 0; transform: rotate(45deg); }
+    .c12 .conn:nth-child(4) { top: 0; right: 0; transform: rotate(-45deg); }
+    .c12 .conn:nth-child(5) { bottom: 0; left: 0; transform: rotate(-45deg); transform-origin: bottom center; }
+    .c12 .conn:nth-child(6) { bottom: 0; right: 0; transform: rotate(45deg); transform-origin: bottom center; }
+    @keyframes tess-rotate { to { transform: rotate(360deg); } }
+    @keyframes tess-inner { to { transform: rotate(-360deg); } }
+
+    /* 13. Sound Spectrum */
+    .c13 {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .c13 i {
+      width: 5px;
+      background: #fff;
+      animation: spectrum 0.8s ease-in-out infinite;
+    }
+    .c13 i:nth-child(1) { animation-delay: 0s; }
+    .c13 i:nth-child(2) { animation-delay: 0.1s; }
+    .c13 i:nth-child(3) { animation-delay: 0.15s; }
+    .c13 i:nth-child(4) { animation-delay: 0.05s; }
+    .c13 i:nth-child(5) { animation-delay: 0.2s; }
+    .c13 i:nth-child(6) { animation-delay: 0.08s; }
+    .c13 i:nth-child(7) { animation-delay: 0.18s; }
+    .c13 i:nth-child(8) { animation-delay: 0.12s; }
+    .c13 i:nth-child(9) { animation-delay: 0.03s; }
+    .c13 i:nth-child(10) { animation-delay: 0.22s; }
+    @keyframes spectrum {
+      0%, 100% { height: 10px; }
+      50% { height: 60px; }
+    }
+
+    /* 14. Folding Square */
+    .c14 .fold {
+      width: 50px;
+      height: 50px;
+      background: #fff;
+      animation: fold 2s ease-in-out infinite;
+      transform-style: preserve-3d;
+    }
+    @keyframes fold {
+      0%, 100% { transform: perspective(200px) rotateX(0deg); }
+      25% { transform: perspective(200px) rotateX(180deg); }
+      50% { transform: perspective(200px) rotateX(180deg) rotateY(180deg); }
+      75% { transform: perspective(200px) rotateY(180deg); }
+    }
+
+    /* 15. Particle Explosion */
+    .c15 .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: #fff;
+      border-radius: 50%;
+      animation: explode 2s ease-out infinite;
+    }
+    .c15 .particle:nth-child(1) { animation-delay: 0s; --angle: 0deg; }
+    .c15 .particle:nth-child(2) { animation-delay: 0s; --angle: 45deg; }
+    .c15 .particle:nth-child(3) { animation-delay: 0s; --angle: 90deg; }
+    .c15 .particle:nth-child(4) { animation-delay: 0s; --angle: 135deg; }
+    .c15 .particle:nth-child(5) { animation-delay: 0s; --angle: 180deg; }
+    .c15 .particle:nth-child(6) { animation-delay: 0s; --angle: 225deg; }
+    .c15 .particle:nth-child(7) { animation-delay: 0s; --angle: 270deg; }
+    .c15 .particle:nth-child(8) { animation-delay: 0s; --angle: 315deg; }
+    @keyframes explode {
+      0% { transform: rotate(var(--angle)) translateY(0) scale(1); opacity: 1; }
+      100% { transform: rotate(var(--angle)) translateY(-60px) scale(0); opacity: 0; }
+    }
+
+    /* 16. Eye */
+    .c16 .eye {
+      width: 60px;
+      height: 35px;
+      border: 3px solid #fff;
+      border-radius: 50%;
+      position: relative;
+      overflow: hidden;
+    }
+    .c16 .pupil {
+      width: 20px;
+      height: 20px;
+      background: #fff;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: look 3s ease-in-out infinite;
+    }
+    @keyframes look {
+      0%, 100% { transform: translate(-50%, -50%); }
+      25% { transform: translate(-100%, -50%); }
+      50% { transform: translate(-50%, -50%); }
+      75% { transform: translate(0%, -50%); }
+    }
+
+    /* 17. Stretching Circle */
+    .c17 .stretch {
+      width: 40px;
+      height: 40px;
+      background: #fff;
+      border-radius: 50%;
+      animation: stretch 1.5s ease-in-out infinite;
+    }
+    @keyframes stretch {
+      0%, 100% { transform: scaleX(1) scaleY(1); }
+      25% { transform: scaleX(1.5) scaleY(0.7); }
+      50% { transform: scaleX(1) scaleY(1); }
+      75% { transform: scaleX(0.7) scaleY(1.5); }
+    }
+
+    /* 18. Rotating Squares */
+    .c18 .sq {
+      position: absolute;
+      border: 2px solid #fff;
+      animation: sq-rotate 4s linear infinite;
+    }
+    .c18 .sq:nth-child(1) { width: 60px; height: 60px; }
+    .c18 .sq:nth-child(2) { width: 45px; height: 45px; animation-direction: reverse; animation-duration: 3s; }
+    .c18 .sq:nth-child(3) { width: 30px; height: 30px; animation-duration: 2s; }
+    .c18 .sq:nth-child(4) { width: 15px; height: 15px; animation-direction: reverse; animation-duration: 1s; }
+    @keyframes sq-rotate { to { transform: rotate(360deg); } }
+
+    /* 19. Oscillating Line */
+    .c19 .line-o {
+      width: 80%;
+      height: 3px;
+      background: #fff;
+      animation: oscillate 1s ease-in-out infinite;
+      transform-origin: center;
+    }
+    @keyframes oscillate {
+      0%, 100% { transform: rotate(-20deg) scaleX(1); }
+      50% { transform: rotate(20deg) scaleX(0.6); }
+    }
+
+    /* 20. Diamonds */
+    .c20 .diamond {
+      width: 30px;
+      height: 30px;
+      background: #fff;
+      transform: rotate(45deg);
+      position: absolute;
+      animation: diamond-pulse 2s ease-in-out infinite;
+    }
+    .c20 .diamond:nth-child(1) { animation-delay: 0s; }
+    .c20 .diamond:nth-child(2) { animation-delay: 0.3s; transform: rotate(45deg) scale(0.6); }
+    .c20 .diamond:nth-child(3) { animation-delay: 0.6s; transform: rotate(45deg) scale(0.3); }
+    @keyframes diamond-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.2; }
+    }
+
+    /* 21. Arrow Flow */
+    .c21 .arrow {
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 15px solid #fff;
+      position: absolute;
+      animation: arrow-flow 1.5s linear infinite;
+    }
+    .c21 .arrow:nth-child(1) { animation-delay: 0s; }
+    .c21 .arrow:nth-child(2) { animation-delay: 0.3s; }
+    .c21 .arrow:nth-child(3) { animation-delay: 0.6s; }
+    .c21 .arrow:nth-child(4) { animation-delay: 0.9s; }
+    .c21 .arrow:nth-child(5) { animation-delay: 1.2s; }
+    @keyframes arrow-flow {
+      0% { bottom: 100%; opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { bottom: -20%; opacity: 0; }
+    }
+
+    /* 22. Hourglass */
+    .c22 .glass {
+      width: 30px;
+      height: 50px;
+      position: relative;
+      animation: flip-glass 4s ease-in-out infinite;
+    }
+    .c22 .top, .c22 .bot {
+      width: 0;
+      height: 0;
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      position: absolute;
+    }
+    .c22 .top {
+      top: 0;
+      border-top: 25px solid #fff;
+    }
+    .c22 .bot {
+      bottom: 0;
+      border-bottom: 25px solid #fff;
+    }
+    @keyframes flip-glass {
+      0%, 45% { transform: rotate(0deg); }
+      50%, 95% { transform: rotate(180deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* 23. Piston */
+    .c23 .piston {
+      width: 20px;
+      height: 40px;
+      background: #fff;
+      animation: piston 0.5s ease-in-out infinite;
+    }
+    .c23 .rod {
+      width: 8px;
+      height: 30px;
+      background: #fff;
+      margin-top: -5px;
+    }
+    @keyframes piston {
+      0%, 100% { transform: translateY(-15px); }
+      50% { transform: translateY(15px); }
+    }
+
+    /* 24. Wave Grid */
+    .c24 {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 4px;
+      padding: 15%;
+    }
+    .c24 i {
+      width: 6px;
+      height: 6px;
+      background: #fff;
+      border-radius: 50%;
+      animation: wave-grid 2s ease-in-out infinite;
+    }
+    .c24 i:nth-child(1) { animation-delay: 0s; }
+    .c24 i:nth-child(2) { animation-delay: 0.1s; }
+    .c24 i:nth-child(3) { animation-delay: 0.2s; }
+    .c24 i:nth-child(4) { animation-delay: 0.3s; }
+    .c24 i:nth-child(5) { animation-delay: 0.4s; }
+    .c24 i:nth-child(6) { animation-delay: 0.5s; }
+    .c24 i:nth-child(7) { animation-delay: 0.6s; }
+    .c24 i:nth-child(8) { animation-delay: 0.7s; }
+    .c24 i:nth-child(9) { animation-delay: 0.1s; }
+    .c24 i:nth-child(10) { animation-delay: 0.2s; }
+    .c24 i:nth-child(11) { animation-delay: 0.3s; }
+    .c24 i:nth-child(12) { animation-delay: 0.4s; }
+    .c24 i:nth-child(13) { animation-delay: 0.5s; }
+    .c24 i:nth-child(14) { animation-delay: 0.6s; }
+    .c24 i:nth-child(15) { animation-delay: 0.7s; }
+    .c24 i:nth-child(16) { animation-delay: 0.8s; }
+    @keyframes wave-grid {
+      0%, 100% { transform: scale(0.5); opacity: 0.3; }
+      50% { transform: scale(1.5); opacity: 1; }
+    }
+
+    /* 25. Spinning Triangles */
+    .c25 .tri {
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-bottom: 35px solid #fff;
+      animation: tri-spin 3s linear infinite;
+    }
+    .c25 .tri:nth-child(2) {
+      transform: rotate(180deg);
+      animation-direction: reverse;
+    }
+    @keyframes tri-spin { to { transform: rotate(360deg); } }
+
+    /* 26. Liquid Wave */
+    .c26 .wave-l {
+      position: absolute;
+      bottom: 30%;
+      width: 200%;
+      height: 100%;
+      background: #fff;
+      border-radius: 40%;
+      animation: liquid 3s ease-in-out infinite;
+    }
+    .c26 .wave-l:nth-child(2) {
+      animation-delay: 0.5s;
+      opacity: 0.5;
+    }
+    @keyframes liquid {
+      0%, 100% { transform: translateX(-25%) rotate(0deg); }
+      50% { transform: translateX(-25%) rotate(180deg); }
+    }
+
+    /* 27. Crosshair */
+    .c27 .cross-h {
+      position: relative;
+      width: 60px;
+      height: 60px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+    }
+    .c27 .cross-h::before, .c27 .cross-h::after {
+      content: '';
+      position: absolute;
+      background: #fff;
+    }
+    .c27 .cross-h::before {
+      width: 100%;
+      height: 2px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .c27 .cross-h::after {
+      width: 2px;
+      height: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .c27 .dot-c {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #fff;
+      border-radius: 50%;
+      animation: crosshair-move 2s ease-in-out infinite;
+    }
+    @keyframes crosshair-move {
+      0%, 100% { top: 30%; left: 30%; }
+      25% { top: 30%; left: 60%; }
+      50% { top: 60%; left: 60%; }
+      75% { top: 60%; left: 30%; }
+    }
+
+    /* 28. Rolling Ball */
+    .c28 {
+      overflow: hidden;
+    }
+    .c28 .ball-r {
+      width: 30px;
+      height: 30px;
+      border: 3px solid #fff;
+      border-radius: 50%;
+      position: relative;
+      animation: roll 2s linear infinite;
+    }
+    .c28 .ball-r::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 3px;
+      height: 50%;
+      background: #fff;
+      transform-origin: top center;
+    }
+    @keyframes roll {
+      0% { transform: translateX(-60px) rotate(0deg); }
+      100% { transform: translateX(60px) rotate(720deg); }
+    }
+
+    /* 29. Flower Bloom */
+    .c29 .petal {
+      position: absolute;
+      width: 12px;
+      height: 30px;
+      background: #fff;
+      border-radius: 50%;
+      transform-origin: center bottom;
+      animation: bloom 3s ease-in-out infinite;
+    }
+    .c29 .petal:nth-child(1) { transform: rotate(0deg); animation-delay: 0s; }
+    .c29 .petal:nth-child(2) { transform: rotate(45deg); animation-delay: 0.1s; }
+    .c29 .petal:nth-child(3) { transform: rotate(90deg); animation-delay: 0.2s; }
+    .c29 .petal:nth-child(4) { transform: rotate(135deg); animation-delay: 0.3s; }
+    .c29 .petal:nth-child(5) { transform: rotate(180deg); animation-delay: 0.4s; }
+    .c29 .petal:nth-child(6) { transform: rotate(225deg); animation-delay: 0.5s; }
+    .c29 .petal:nth-child(7) { transform: rotate(270deg); animation-delay: 0.6s; }
+    .c29 .petal:nth-child(8) { transform: rotate(315deg); animation-delay: 0.7s; }
+    @keyframes bloom {
+      0%, 100% { transform: rotate(var(--r, 0deg)) scaleY(0.5); opacity: 0.3; }
+      50% { transform: rotate(var(--r, 0deg)) scaleY(1); opacity: 1; }
+    }
+
+    /* 30. Gear */
+    .c30 .gear {
+      width: 50px;
+      height: 50px;
+      background: #fff;
+      border-radius: 50%;
+      position: relative;
+      animation: spin 3s linear infinite;
+    }
+    .c30 .tooth {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: #fff;
+    }
+    .c30 .tooth:nth-child(1) { top: -6px; left: 50%; transform: translateX(-50%); }
+    .c30 .tooth:nth-child(2) { bottom: -6px; left: 50%; transform: translateX(-50%); }
+    .c30 .tooth:nth-child(3) { left: -6px; top: 50%; transform: translateY(-50%); }
+    .c30 .tooth:nth-child(4) { right: -6px; top: 50%; transform: translateY(-50%); }
+    .c30 .hole {
+      position: absolute;
+      inset: 15px;
+      background: #000;
+      border-radius: 50%;
+    }
+
+    /* 31. Scanning Line */
+    .c31 .scan {
+      width: 80%;
+      height: 3px;
+      background: #fff;
+      box-shadow: 0 0 10px #fff, 0 0 20px #fff;
+      animation: scan 2s ease-in-out infinite;
+    }
+    @keyframes scan {
+      0%, 100% { transform: translateY(-40px); opacity: 0.3; }
+      50% { transform: translateY(40px); opacity: 1; }
+    }
+
+    /* 32. Atom */
+    .c32 .nucleus {
+      width: 15px;
+      height: 15px;
+      background: #fff;
+      border-radius: 50%;
+      position: absolute;
+    }
+    .c32 .orbit-a {
+      position: absolute;
+      width: 70px;
+      height: 30px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      animation: atom-orbit 2s linear infinite;
+    }
+    .c32 .orbit-a:nth-child(2) { transform: rotate(60deg); animation-delay: 0.3s; }
+    .c32 .orbit-a:nth-child(3) { transform: rotate(120deg); animation-delay: 0.6s; }
+    @keyframes atom-orbit { to { transform: rotate(calc(var(--base, 0deg) + 360deg)); } }
+  </style>
+</head>
+<body>
+  <div class="cell c1"><div class="cube"><div class="face"></div><div class="face"></div><div class="face"></div><div class="face"></div></div></div>
+  <div class="cell c2"><div class="moire"></div><div class="moire"></div></div>
+  <div class="cell c3"><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div></div>
+  <div class="cell c4"><div class="string"></div><div class="string"></div><div class="string"></div><div class="string"></div><div class="string"></div></div>
+  <div class="cell c5"><div class="step"></div><div class="step"></div><div class="step"></div><div class="step"></div><div class="step"></div><div class="step"></div><div class="step"></div><div class="step"></div></div>
+  <div class="cell c6"><div class="gyro"><div class="ring-g"></div><div class="ring-g"></div><div class="ring-g"></div></div></div>
+  <div class="cell c7"><div class="col">1<br>0<br>1<br>1<br>0</div><div class="col">0<br>1<br>0<br>1<br>1</div><div class="col">1<br>1<br>0<br>0<br>1</div><div class="col">0<br>0<br>1<br>1<br>0</div><div class="col">1<br>0<br>1<br>0<br>1</div><div class="col">0<br>1<br>1<br>0<br>0</div></div>
+  <div class="cell c8"><div class="hex"></div></div>
+  <div class="cell c9"><div class="coil"></div><div class="coil"></div><div class="coil"></div><div class="coil"></div><div class="coil"></div><div class="coil"></div><div class="coil"></div><div class="coil"></div></div>
+  <div class="cell c10"><div class="worm"></div><div class="worm"></div><div class="worm"></div><div class="worm"></div><div class="worm"></div><div class="worm"></div></div>
+  <div class="cell c11"><div class="blades"><div class="blade"></div><div class="blade"></div><div class="blade"></div></div></div>
+  <div class="cell c12"><div class="tess"><div class="outer"></div><div class="inner"></div><div class="conn"></div><div class="conn"></div><div class="conn"></div><div class="conn"></div></div></div>
+  <div class="cell c13"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="cell c14"><div class="fold"></div></div>
+  <div class="cell c15"><div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div></div>
+  <div class="cell c16"><div class="eye"><div class="pupil"></div></div></div>
+  <div class="cell c17"><div class="stretch"></div></div>
+  <div class="cell c18"><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+  <div class="cell c19"><div class="line-o"></div></div>
+  <div class="cell c20"><div class="diamond"></div><div class="diamond"></div><div class="diamond"></div></div>
+  <div class="cell c21"><div class="arrow"></div><div class="arrow"></div><div class="arrow"></div><div class="arrow"></div><div class="arrow"></div></div>
+  <div class="cell c22"><div class="glass"><div class="top"></div><div class="bot"></div></div></div>
+  <div class="cell c23"><div class="piston"></div><div class="rod"></div></div>
+  <div class="cell c24"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="cell c25"><div class="tri"></div><div class="tri"></div></div>
+  <div class="cell c26"><div class="wave-l"></div><div class="wave-l"></div></div>
+  <div class="cell c27"><div class="cross-h"></div><div class="dot-c"></div></div>
+  <div class="cell c28"><div class="ball-r"></div></div>
+  <div class="cell c29"><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div></div>
+  <div class="cell c30"><div class="gear"><div class="tooth"></div><div class="tooth"></div><div class="tooth"></div><div class="tooth"></div><div class="hole"></div></div></div>
+  <div class="cell c31"><div class="scan"></div></div>
+  <div class="cell c32"><div class="nucleus"></div><div class="orbit-a"></div><div class="orbit-a"></div><div class="orbit-a"></div></div>
+</body>
+</html>
