@@ -566,7 +566,8 @@ After merging to `main`:
 ### Workflow Security
 
 1. **Minimize permissions**: Only grant what's necessary
-2. **Pin action versions**: Use specific commits or tags, not `@main`
+2. **Pin action versions**: Use specific commits or tags for third-party actions (not `@main`)
+   - Exception: Internal reusable workflows (e.g., `blackroad-deploy`) can use `@main`
 3. **Validate inputs**: Sanitize any user-provided data
 4. **Protect secrets**: Never log or expose secrets
 5. **Review dependencies**: Audit third-party actions
