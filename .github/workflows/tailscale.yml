@@ -1,0 +1,41 @@
+name: Tailscale Connect
+
+on:
+  workflow_dispatch:
+    inputs:
+      tags:
+        description: 'Tailscale tags (comma-separated)'
+        required: false
+        default: 'tag:ci'
+  workflow_call:
+    inputs:
+      tags:
+        description: 'Tailscale tags for ACL'
+        type: string
+        default: 'tag:ci'
+    secrets:
+      TAILSCALE_AUTHKEY:
+        required: true
+
+jobs:
+  connect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Tailscale
+        uses: tailscale/github-action@v2
+        with:
+          authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+          tags: ${{ inputs.tags || 'tag:ci' }}
+
+      - name: Verify Tailscale connection
+        run: |
+          tailscale status
+          echo "Connected to Tailscale network"
+
+      - name: Show network info
+        run: |
+          echo "Tailscale IP: $(tailscale ip -4)"
+          echo "Hostname: $(tailscale status --self --json | jq -r '.Self.HostName')"

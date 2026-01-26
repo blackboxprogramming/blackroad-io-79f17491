@@ -1,0 +1,43 @@
+name: Tailscale Secure Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Tailscale
+        uses: tailscale/github-action@v2
+        with:
+          authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+          tags: tag:ci,tag:deploy
+
+      - name: Verify Tailscale connection
+        run: |
+          tailscale status
+          echo "Tailscale IP: $(tailscale ip -4)"
+
+      - name: Deploy via Tailscale network
+        run: |
+          echo "Deploying to ${{ inputs.environment }} environment"
+          echo "Connected to private network - ready for secure operations"
+          # Add deployment commands here that require Tailscale connectivity
+          # Example: ssh deploy@internal-server.tailnet 'deploy.sh'
+          # Example: curl http://internal-api.tailnet/deploy
+
+      - name: Deployment complete
+        run: echo "Deployment to ${{ inputs.environment }} completed via Tailscale"
