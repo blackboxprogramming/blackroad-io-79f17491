@@ -2,9 +2,9 @@ name: CORE CI
 
 on:
   pull_request:
-    branches: [ main, master ]
+    branches: [main, master]
   push:
-    branches: [ main, master ]
+    branches: [main, master]
 
 jobs:
   guard:
@@ -17,5 +17,43 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Lint placeholder
-        run: echo "Add lint/test here"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Check formatting
+        run: npm run format:check
+
+  validate-html:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate HTML structure
+        run: |
+          echo "Checking HTML files..."
+          for file in $(find . -name "*.html" -not -path "./node_modules/*"); do
+            echo "Validating: $file"
+            if grep -q "<!DOCTYPE html>" "$file"; then
+              echo "  DOCTYPE: OK"
+            else
+              echo "  DOCTYPE: MISSING"
+              exit 1
+            fi
+            if grep -q "<html" "$file"; then
+              echo "  HTML tag: OK"
+            else
+              echo "  HTML tag: MISSING"
+              exit 1
+            fi
+          done
+          echo "All HTML files validated successfully"

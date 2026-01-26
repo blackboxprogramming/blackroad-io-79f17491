@@ -1,0 +1,30 @@
+{
+  "name": "blackroad-io",
+  "version": "0.1.0",
+  "description": "Building sovereign, local-first AI systems",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "keywords": [
+    "ai",
+    "local-first",
+    "sovereign",
+    "privacy"
+  ],
+  "author": "BlackRoad",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.2.5",
+    "serve": "^14.2.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
