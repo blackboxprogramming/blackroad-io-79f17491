@@ -3,10 +3,58 @@
   <head>
     <meta charset="utf-8">
     <title>BlackRoad</title>
+    <style>
+      body {
+        font-family: system-ui;
+        padding: 40px;
+        max-width: 800px;
+        margin: 0 auto;
+        line-height: 1.6;
+      }
+      .next-section {
+        margin-top: 40px;
+        padding: 20px;
+        background: #f5f5f5;
+        border-radius: 8px;
+      }
+      .next-steps {
+        list-style: none;
+        padding: 0;
+      }
+      .next-steps li {
+        padding: 10px;
+        margin: 10px 0;
+        background: white;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+      .next-steps li:hover {
+        transform: translateX(10px);
+      }
+      .status {
+        display: inline-block;
+        padding: 5px 15px;
+        background: #4CAF50;
+        color: white;
+        border-radius: 20px;
+        font-size: 0.9em;
+      }
+    </style>
   </head>
-  <body style="font-family: system-ui; padding: 40px;">
+  <body>
     <h1>BlackRoad</h1>
     <p>Building sovereign, local-first AI systems.</p>
-    <p>Status: Online.</p>
+    <p>Status: <span class="status">Online</span></p>
+    
+    <div class="next-section">
+      <h2>Next Steps</h2>
+      <ul class="next-steps">
+        <li>→ Explore our local-first architecture</li>
+        <li>→ Learn about sovereign AI systems</li>
+        <li>→ Join the community</li>
+        <li>→ Start building with BlackRoad</li>
+      </ul>
+    </div>
   </body>
 </html>
