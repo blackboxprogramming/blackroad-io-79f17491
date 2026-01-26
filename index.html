@@ -38,10 +38,17 @@
         font-size: 3rem;
         font-weight: 700;
         margin-bottom: 1rem;
+        color: #667eea;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
+      }
+      
+      @supports not (background-clip: text) {
+        h1 {
+          color: #667eea;
+        }
       }
       
       .tagline {
@@ -125,15 +132,15 @@
       
       <section class="features">
         <div class="feature">
-          <h3>🔒 Privacy First</h3>
+          <h3><span aria-label="Lock icon" role="img">🔒</span> Privacy First</h3>
           <p>Your data stays on your devices. No cloud dependencies, no data harvesting.</p>
         </div>
         <div class="feature">
-          <h3>⚡ Local Processing</h3>
+          <h3><span aria-label="Lightning icon" role="img">⚡</span> Local Processing</h3>
           <p>Fast, responsive AI that runs entirely on your hardware.</p>
         </div>
         <div class="feature">
-          <h3>🌟 True Ownership</h3>
+          <h3><span aria-label="Star icon" role="img">🌟</span> True Ownership</h3>
           <p>Complete control over your AI systems and data.</p>
         </div>
       </section>
