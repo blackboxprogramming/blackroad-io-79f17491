@@ -45,7 +45,7 @@
           {{#each steps}}
           <div class="progress-step {{status}}">
             <span class="step-indicator">
-              {{#if (eq status 'completed')}}✓{{else}}{{@index}}{{/if}}
+              {{#if (eq status 'completed')}}✓{{else}}{{inc @index}}{{/if}}
             </span>
             <span class="step-text">{{label}}</span>
           </div>
