@@ -822,18 +822,18 @@
             <div class="calendar-container">
                 <div class="calendar-header">
                     <div class="calendar-nav">
-                        <button class="nav-btn">←</button>
-                        <button class="nav-btn">→</button>
+                        <button class="nav-btn" aria-label="Previous month">←</button>
+                        <button class="nav-btn" aria-label="Next month">→</button>
                         <h2 class="calendar-title">January 2026</h2>
-                        <button class="today-btn">Today</button>
+                        <button class="today-btn" aria-label="Go to today">Today</button>
                     </div>
                     <div class="calendar-actions">
-                        <div class="view-tabs">
-                            <button class="view-tab active">Month</button>
-                            <button class="view-tab">Week</button>
-                            <button class="view-tab">Day</button>
+                        <div class="view-tabs" role="tablist" aria-label="Calendar view selection">
+                            <button class="view-tab active" role="tab" aria-selected="true">Month</button>
+                            <button class="view-tab" role="tab" aria-selected="false">Week</button>
+                            <button class="view-tab" role="tab" aria-selected="false">Day</button>
                         </div>
-                        <button class="btn-primary">+ Event</button>
+                        <button class="btn-primary" aria-label="Add event">+ Event</button>
                     </div>
                 </div>
                 <div class="month-grid">
