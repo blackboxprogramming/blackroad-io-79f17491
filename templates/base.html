@@ -17,10 +17,12 @@
 </head>
 <body>
   <div class="container">
-    {{content}}
+    <!-- Trusted HTML content injection point -->
+    {{{content}}}
   </div>
   {{#if scripts}}
-  {{scripts}}
+  <!-- Trusted HTML/script injection point -->
+  {{{scripts}}}
   {{/if}}
 </body>
 </html>
