@@ -918,29 +918,32 @@
         <section class="section">
             <div class="section-label">Radio Buttons · Single Selection</div>
             <div class="form-group">
-                <label class="form-label">Coordination Model</label>
-                <div class="radio-group">
-                    <div class="radio-item selected">
+                <label class="form-label" id="coordination-model-label">Coordination Model</label>
+                <div class="radio-group" role="radiogroup" aria-labelledby="coordination-model-label">
+                    <label class="radio-item selected">
+                        <input type="radio" name="coordination-model" value="supervisor" checked>
                         <div class="radio"></div>
                         <div class="radio-content">
                             <span class="radio-label">Supervisor</span>
                             <span class="radio-desc">Central coordinator manages all agent tasks</span>
                         </div>
-                    </div>
-                    <div class="radio-item">
+                    </label>
+                    <label class="radio-item">
+                        <input type="radio" name="coordination-model" value="peer-to-peer">
                         <div class="radio"></div>
                         <div class="radio-content">
                             <span class="radio-label">Peer-to-Peer</span>
                             <span class="radio-desc">Agents communicate directly via capability registry</span>
                         </div>
-                    </div>
-                    <div class="radio-item">
+                    </label>
+                    <label class="radio-item">
+                        <input type="radio" name="coordination-model" value="hybrid">
                         <div class="radio"></div>
                         <div class="radio-content">
                             <span class="radio-label">Hybrid</span>
                             <span class="radio-desc">Combination of supervisor oversight and peer messaging</span>
                         </div>
-                    </div>
+                    </label>
                 </div>
             </div>
         </section>
