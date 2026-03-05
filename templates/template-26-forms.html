@@ -840,9 +840,26 @@
             <div class="section-label">Textarea · Multi-line</div>
             <div class="form-group">
                 <label class="form-label">Agent Description</label>
-                <textarea class="textarea" placeholder="Describe the agent's purpose and capabilities...">Lucidia is a recursive intelligence system implementing trinary logic states (TRUE/FALSE/UNKNOWN). Core capabilities include paraconsistent reasoning, contradiction detection and quarantine, PS-SHA∞ memory hashing, and NATS event bus publishing.</textarea>
-                <span class="char-count">284 / 500 characters</span>
+                <textarea id="agent-description" class="textarea" placeholder="Describe the agent's purpose and capabilities...">Lucidia is a recursive intelligence system implementing trinary logic states (TRUE/FALSE/UNKNOWN). Core capabilities include paraconsistent reasoning, contradiction detection and quarantine, PS-SHA∞ memory hashing, and NATS event bus publishing.</textarea>
+                <span id="agent-description-count" class="char-count"></span>
             </div>
+            <script>
+                (function () {
+                    var textarea = document.getElementById('agent-description');
+                    var counter = document.getElementById('agent-description-count');
+                    if (!textarea || !counter) return;
+
+                    var maxLength = 500;
+
+                    function updateCount() {
+                        var length = textarea.value ? textarea.value.length : 0;
+                        counter.textContent = length + ' / ' + maxLength + ' characters';
+                    }
+
+                    textarea.addEventListener('input', updateCount);
+                    updateCount();
+                })();
+            </script>
         </section>
 
         <!-- Select -->
