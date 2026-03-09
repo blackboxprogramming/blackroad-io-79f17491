@@ -1,0 +1,1640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlackRoad OS – File Browser & Tree View (Grayscale Template #14)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* 12-step grayscale */
+      --gray-0: #ffffff;
+      --gray-1: #fafafa;
+      --gray-2: #f5f5f5;
+      --gray-3: #eeeeee;
+      --gray-4: #e0e0e0;
+      --gray-5: #bdbdbd;
+      --gray-6: #9e9e9e;
+      --gray-7: #757575;
+      --gray-8: #616161;
+      --gray-9: #424242;
+      --gray-10: #212121;
+      --gray-11: #121212;
+      --gray-12: #000000;
+
+      /* Typography */
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      /* Spacing */
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-8: 32px;
+
+      /* Radii */
+      --radius-sm: 4px;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--gray-10);
+      color: var(--gray-3);
+      min-height: 100vh;
+      padding: var(--space-8);
+      line-height: 1.5;
+    }
+
+    h1, h2, h3 { font-family: var(--font-display); }
+    code, .mono { font-family: var(--font-mono); }
+
+    .page-title {
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--gray-0);
+      margin-bottom: var(--space-2);
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: var(--gray-6);
+      margin-bottom: var(--space-8);
+    }
+
+    .grid {
+      display: grid;
+      gap: var(--space-8);
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray-6);
+      margin-bottom: var(--space-3);
+    }
+
+    /* ========================================
+       FILE BROWSER LAYOUT
+    ======================================== */
+    .file-browser {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 1px;
+      background: var(--gray-8);
+      border: 1px solid var(--gray-7);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      min-height: 500px;
+    }
+
+    /* ========================================
+       SIDEBAR / TREE VIEW
+    ======================================== */
+    .sidebar {
+      background: var(--gray-9);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--gray-8);
+    }
+
+    .sidebar-title {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-2);
+    }
+
+    .sidebar-actions {
+      display: flex;
+      gap: var(--space-1);
+    }
+
+    .icon-btn {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-sm);
+      color: var(--gray-5);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .icon-btn:hover {
+      background: var(--gray-8);
+      color: var(--gray-2);
+    }
+
+    .icon-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .tree-container {
+      flex: 1;
+      overflow-y: auto;
+      padding: var(--space-2) 0;
+    }
+
+    /* Tree Structure */
+    .tree-item {
+      user-select: none;
+    }
+
+    .tree-node {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-1) var(--space-3);
+      padding-left: var(--indent, var(--space-3));
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+
+    .tree-node:hover {
+      background: var(--gray-8);
+    }
+
+    .tree-node.selected {
+      background: var(--gray-7);
+    }
+
+    .tree-node.selected .tree-label {
+      color: var(--gray-0);
+    }
+
+    .tree-chevron {
+      width: 16px;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray-6);
+      flex-shrink: 0;
+      transition: transform 0.15s;
+    }
+
+    .tree-chevron.expanded {
+      transform: rotate(90deg);
+    }
+
+    .tree-chevron.hidden {
+      visibility: hidden;
+    }
+
+    .tree-chevron svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    .tree-icon {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      color: var(--gray-5);
+    }
+
+    .tree-icon.folder {
+      color: var(--gray-4);
+    }
+
+    .tree-icon.file-config {
+      color: var(--gray-5);
+    }
+
+    .tree-icon.file-code {
+      color: var(--gray-5);
+    }
+
+    .tree-icon.file-doc {
+      color: var(--gray-6);
+    }
+
+    .tree-label {
+      flex: 1;
+      font-size: 13px;
+      color: var(--gray-3);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .tree-badge {
+      padding: 1px 6px;
+      background: var(--gray-8);
+      border-radius: 10px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--gray-5);
+    }
+
+    .tree-children {
+      display: none;
+    }
+
+    .tree-children.expanded {
+      display: block;
+    }
+
+    /* Indent levels */
+    .indent-1 { --indent: 28px; }
+    .indent-2 { --indent: 44px; }
+    .indent-3 { --indent: 60px; }
+    .indent-4 { --indent: 76px; }
+
+    /* ========================================
+       MAIN CONTENT AREA
+    ======================================== */
+    .main-content {
+      background: var(--gray-10);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Toolbar / Breadcrumb */
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--gray-8);
+      background: var(--gray-9);
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      flex: 1;
+      min-width: 0;
+    }
+
+    .breadcrumb-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-size: 13px;
+      color: var(--gray-5);
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+
+    .breadcrumb-item:hover {
+      color: var(--gray-2);
+    }
+
+    .breadcrumb-item.current {
+      color: var(--gray-1);
+      font-weight: 500;
+    }
+
+    .breadcrumb-sep {
+      color: var(--gray-7);
+      font-size: 12px;
+    }
+
+    .breadcrumb-item svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .toolbar-actions {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .view-toggle {
+      display: flex;
+      background: var(--gray-8);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    .view-btn {
+      width: 32px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      color: var(--gray-5);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .view-btn:hover {
+      color: var(--gray-2);
+    }
+
+    .view-btn.active {
+      background: var(--gray-7);
+      color: var(--gray-0);
+    }
+
+    .view-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ========================================
+       FILE LIST VIEW
+    ======================================== */
+    .file-list-container {
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .file-list-header {
+      display: grid;
+      grid-template-columns: 1fr 100px 140px 80px;
+      gap: var(--space-4);
+      padding: var(--space-2) var(--space-4);
+      border-bottom: 1px solid var(--gray-8);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray-6);
+    }
+
+    .file-list-header span {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+
+    .file-list-header span:hover {
+      color: var(--gray-4);
+    }
+
+    .sort-icon {
+      width: 12px;
+      height: 12px;
+    }
+
+    .file-row {
+      display: grid;
+      grid-template-columns: 1fr 100px 140px 80px;
+      gap: var(--space-4);
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--gray-9);
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+
+    .file-row:hover {
+      background: var(--gray-9);
+    }
+
+    .file-row.selected {
+      background: var(--gray-8);
+    }
+
+    .file-info {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      min-width: 0;
+    }
+
+    .file-icon {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gray-9);
+      border: 1px solid var(--gray-8);
+      border-radius: var(--radius-md);
+      flex-shrink: 0;
+    }
+
+    .file-icon svg {
+      width: 18px;
+      height: 18px;
+      color: var(--gray-5);
+    }
+
+    .file-icon.folder-icon {
+      background: var(--gray-8);
+    }
+
+    .file-icon.folder-icon svg {
+      color: var(--gray-4);
+    }
+
+    .file-details {
+      min-width: 0;
+    }
+
+    .file-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray-1);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .file-path {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gray-6);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .file-size {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--gray-5);
+    }
+
+    .file-modified {
+      font-size: 12px;
+      color: var(--gray-5);
+    }
+
+    .file-actions {
+      display: flex;
+      gap: var(--space-1);
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+
+    .file-row:hover .file-actions {
+      opacity: 1;
+    }
+
+    /* ========================================
+       GRID VIEW
+    ======================================== */
+    .file-grid-section {
+      margin-top: var(--space-8);
+    }
+
+    .file-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: var(--space-4);
+      padding: var(--space-4);
+      background: var(--gray-9);
+      border: 1px solid var(--gray-7);
+      border-radius: var(--radius-lg);
+    }
+
+    .grid-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: var(--space-4);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .grid-item:hover {
+      background: var(--gray-8);
+    }
+
+    .grid-item.selected {
+      background: var(--gray-7);
+    }
+
+    .grid-icon {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-3);
+    }
+
+    .grid-icon svg {
+      width: 40px;
+      height: 40px;
+      color: var(--gray-5);
+    }
+
+    .grid-icon.folder svg {
+      color: var(--gray-4);
+    }
+
+    .grid-name {
+      font-size: 12px;
+      color: var(--gray-2);
+      text-align: center;
+      word-break: break-word;
+      line-height: 1.3;
+    }
+
+    .grid-meta {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--gray-6);
+      margin-top: var(--space-1);
+    }
+
+    /* ========================================
+       FILE PREVIEW PANEL
+    ======================================== */
+    .preview-section {
+      margin-top: var(--space-8);
+    }
+
+    .preview-panel {
+      background: var(--gray-9);
+      border: 1px solid var(--gray-7);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .preview-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--gray-8);
+    }
+
+    .preview-file-info {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .preview-icon {
+      width: 24px;
+      height: 24px;
+      color: var(--gray-5);
+    }
+
+    .preview-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray-1);
+    }
+
+    .preview-actions {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .preview-body {
+      padding: var(--space-4);
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .code-preview {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--gray-3);
+      white-space: pre-wrap;
+    }
+
+    .code-preview .comment {
+      color: var(--gray-6);
+    }
+
+    .code-preview .keyword {
+      color: var(--gray-4);
+    }
+
+    .code-preview .string {
+      color: var(--gray-5);
+    }
+
+    .preview-meta {
+      display: flex;
+      gap: var(--space-6);
+      padding: var(--space-3) var(--space-4);
+      border-top: 1px solid var(--gray-8);
+      background: var(--gray-10);
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .meta-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      color: var(--gray-6);
+    }
+
+    .meta-value {
+      font-size: 13px;
+      color: var(--gray-3);
+    }
+
+    /* ========================================
+       CONTEXT MENU
+    ======================================== */
+    .context-menu-section {
+      margin-top: var(--space-8);
+    }
+
+    .context-demo {
+      position: relative;
+      padding: var(--space-8);
+      background: var(--gray-9);
+      border: 1px solid var(--gray-7);
+      border-radius: var(--radius-lg);
+      min-height: 200px;
+    }
+
+    .context-menu {
+      position: absolute;
+      top: 60px;
+      left: 100px;
+      min-width: 200px;
+      background: var(--gray-8);
+      border: 1px solid var(--gray-6);
+      border-radius: var(--radius-md);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+      z-index: 100;
+    }
+
+    .context-group {
+      padding: var(--space-1) 0;
+    }
+
+    .context-group + .context-group {
+      border-top: 1px solid var(--gray-7);
+    }
+
+    .context-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-2) var(--space-4);
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+
+    .context-item:hover {
+      background: var(--gray-7);
+    }
+
+    .context-item.danger:hover {
+      background: var(--gray-7);
+    }
+
+    .context-item.danger .context-label {
+      color: var(--gray-4);
+    }
+
+    .context-icon {
+      width: 16px;
+      height: 16px;
+      color: var(--gray-5);
+    }
+
+    .context-label {
+      flex: 1;
+      font-size: 13px;
+      color: var(--gray-2);
+    }
+
+    .context-shortcut {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gray-6);
+    }
+
+    /* ========================================
+       UPLOAD DROPZONE
+    ======================================== */
+    .dropzone-section {
+      margin-top: var(--space-8);
+    }
+
+    .dropzone {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-8);
+      border: 2px dashed var(--gray-7);
+      border-radius: var(--radius-lg);
+      background: var(--gray-9);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .dropzone:hover {
+      border-color: var(--gray-5);
+      background: var(--gray-8);
+    }
+
+    .dropzone.active {
+      border-color: var(--gray-4);
+      background: var(--gray-8);
+    }
+
+    .dropzone-icon {
+      width: 48px;
+      height: 48px;
+      color: var(--gray-6);
+      margin-bottom: var(--space-4);
+    }
+
+    .dropzone-title {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--gray-2);
+      margin-bottom: var(--space-2);
+    }
+
+    .dropzone-desc {
+      font-size: 14px;
+      color: var(--gray-6);
+      margin-bottom: var(--space-4);
+    }
+
+    .dropzone-btn {
+      padding: var(--space-2) var(--space-4);
+      background: var(--gray-7);
+      border: 1px solid var(--gray-6);
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--gray-1);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .dropzone-btn:hover {
+      background: var(--gray-6);
+    }
+
+    /* ========================================
+       FILE TYPE BADGES
+    ======================================== */
+    .badges-section {
+      margin-top: var(--space-8);
+    }
+
+    .badge-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+    }
+
+    .file-badge {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      background: var(--gray-9);
+      border: 1px solid var(--gray-7);
+      border-radius: var(--radius-md);
+    }
+
+    .badge-ext {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      padding: 2px 6px;
+      background: var(--gray-8);
+      border-radius: var(--radius-sm);
+      color: var(--gray-4);
+    }
+
+    .badge-label {
+      font-size: 12px;
+      color: var(--gray-5);
+    }
+
+    /* ========================================
+       SELECTION INFO BAR
+    ======================================== */
+    .selection-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-3) var(--space-4);
+      background: var(--gray-8);
+      border: 1px solid var(--gray-7);
+      border-radius: var(--radius-lg);
+      margin-top: var(--space-8);
+    }
+
+    .selection-info {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .selection-count {
+      font-size: 14px;
+      color: var(--gray-2);
+    }
+
+    .selection-count strong {
+      font-weight: 600;
+      color: var(--gray-0);
+    }
+
+    .selection-size {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--gray-5);
+    }
+
+    .selection-actions {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .action-btn {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      background: var(--gray-9);
+      border: 1px solid var(--gray-7);
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      color: var(--gray-3);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .action-btn:hover {
+      background: var(--gray-7);
+      border-color: var(--gray-6);
+    }
+
+    .action-btn svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* ========================================
+       TWO COLUMN LAYOUT
+    ======================================== */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-8);
+    }
+
+    @media (max-width: 900px) {
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+      .file-browser {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1 class="page-title">File Browser & Tree View</h1>
+  <p class="page-subtitle">Template #14 — Grayscale wireframe components for BlackRoad OS</p>
+
+  <div class="grid">
+    <!-- ============================================
+         FULL FILE BROWSER
+    ============================================ -->
+    <section>
+      <p class="section-label">File Browser with Tree Sidebar</p>
+      <div class="file-browser">
+        <!-- Sidebar Tree -->
+        <div class="sidebar">
+          <div class="sidebar-header">
+            <span class="sidebar-title">Explorer</span>
+            <div class="sidebar-actions">
+              <button class="icon-btn" title="New File">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                  <path d="M14 2v6h6M12 18v-6M9 15h6"/>
+                </svg>
+              </button>
+              <button class="icon-btn" title="New Folder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/>
+                  <path d="M12 11v6M9 14h6"/>
+                </svg>
+              </button>
+              <button class="icon-btn" title="Collapse All">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 15l-6-6-6 6"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="tree-container">
+            <!-- Root: blackroad-os -->
+            <div class="tree-item">
+              <div class="tree-node selected">
+                <span class="tree-chevron expanded">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 18l6-6-6-6"/>
+                  </svg>
+                </span>
+                <svg class="tree-icon folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/>
+                </svg>
+                <span class="tree-label">blackroad-os</span>
+              </div>
+              <div class="tree-children expanded">
+                <!-- agents folder -->
+                <div class="tree-item">
+                  <div class="tree-node indent-1">
+                    <span class="tree-chevron expanded">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 18l6-6-6-6"/>
+                      </svg>
+                    </span>
+                    <svg class="tree-icon folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/>
+                    </svg>
+                    <span class="tree-label">agents</span>
+                    <span class="tree-badge">12</span>
+                  </div>
+                  <div class="tree-children expanded">
+                    <div class="tree-item">
+                      <div class="tree-node indent-2">
+                        <span class="tree-chevron expanded">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 18l6-6-6-6"/>
+                          </svg>
+                        </span>
+                        <svg class="tree-icon folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/>
+                        </svg>
+                        <span class="tree-label">alice</span>
+                      </div>
+                      <div class="tree-children expanded">
+                        <div class="tree-item">
+                          <div class="tree-node indent-3">
+                            <span class="tree-chevron hidden"><svg viewBox="0 0 24 24"></svg></span>
+                            <svg class="tree-icon file-config" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                              <circle cx="12" cy="12" r="3"/>
+                              <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+                            </svg>
+                            <span class="tree-label">config.yaml</span>
+                          </div>
+                        </div>
+                        <div class="tree-item">
+                          <div class="tree-node indent-3">
+                            <span class="tree-chevron hidden"><svg viewBox="0 0 24 24"></svg></span>
+                            <svg class="tree-icon file-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                              <polyline points="16 18 22 12 16 6"/>
+                              <polyline points="8 6 2 12 8 18"/>
+                            </svg>
+                            <span class="tree-label">gateway.py</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="tree-item">
+                      <div class="tree-node indent-2">
+                        <span class="tree-chevron">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 18l6-6-6-6"/>
+                          </svg>
+                        </span>
+                        <svg class="tree-icon folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/>
+                        </svg>
+                        <span class="tree-label">lucidia</span>
+                      </div>
+                    </div>
+                    <div class="tree-item">
+                      <div class="tree-node indent-2">
+                        <span class="tree-chevron">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 18l6-6-6-6"/>
+                          </svg>
+                        </span>
+                        <svg class="tree-icon folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/>
+                        </svg>
+                        <span class="tree-label">octavia</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- config folder -->
+                <div class="tree-item">
+                  <div class="tree-node indent-1">
+                    <span class="tree-chevron">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 18l6-6-6-6"/>
+                      </svg>
+                    </span>
+                    <svg class="tree-icon folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/>
+                    </svg>
+                    <span class="tree-label">config</span>
+                  </div>
+                </div>
+                <!-- docs folder -->
+                <div class="tree-item">
+                  <div class="tree-node indent-1">
+                    <span class="tree-chevron">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 18l6-6-6-6"/>
+                      </svg>
+                    </span>
+                    <svg class="tree-icon folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/>
+                    </svg>
+                    <span class="tree-label">docs</span>
+                    <span class="tree-badge">24</span>
+                  </div>
+                </div>
+                <!-- root files -->
+                <div class="tree-item">
+                  <div class="tree-node indent-1">
+                    <span class="tree-chevron hidden"><svg viewBox="0 0 24 24"></svg></span>
+                    <svg class="tree-icon file-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                      <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                    </svg>
+                    <span class="tree-label">README.md</span>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <div class="tree-node indent-1">
+                    <span class="tree-chevron hidden"><svg viewBox="0 0 24 24"></svg></span>
+                    <svg class="tree-icon file-config" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                      <path d="M14 2v6h6"/>
+                    </svg>
+                    <span class="tree-label">docker-compose.yml</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+          <div class="toolbar">
+            <div class="breadcrumb">
+              <span class="breadcrumb-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                </svg>
+              </span>
+              <span class="breadcrumb-sep">/</span>
+              <span class="breadcrumb-item">blackroad-os</span>
+              <span class="breadcrumb-sep">/</span>
+              <span class="breadcrumb-item">agents</span>
+              <span class="breadcrumb-sep">/</span>
+              <span class="breadcrumb-item current">alice</span>
+            </div>
+            <div class="toolbar-actions">
+              <div class="view-toggle">
+                <button class="view-btn active" title="List View">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="8" y1="6" x2="21" y2="6"/>
+                    <line x1="8" y1="12" x2="21" y2="12"/>
+                    <line x1="8" y1="18" x2="21" y2="18"/>
+                    <line x1="3" y1="6" x2="3.01" y2="6"/>
+                    <line x1="3" y1="12" x2="3.01" y2="12"/>
+                    <line x1="3" y1="18" x2="3.01" y2="18"/>
+                  </svg>
+                </button>
+                <button class="view-btn" title="Grid View">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="7" height="7"/>
+                    <rect x="14" y="3" width="7" height="7"/>
+                    <rect x="14" y="14" width="7" height="7"/>
+                    <rect x="3" y="14" width="7" height="7"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="file-list-container">
+            <div class="file-list-header">
+              <span>
+                Name
+                <svg class="sort-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 5v14M19 12l-7 7-7-7"/>
+                </svg>
+              </span>
+              <span>Size</span>
+              <span>Modified</span>
+              <span></span>
+            </div>
+
+            <div class="file-row">
+              <div class="file-info">
+                <div class="file-icon folder-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/>
+                  </svg>
+                </div>
+                <div class="file-details">
+                  <div class="file-name">memory</div>
+                  <div class="file-path">Memory persistence modules</div>
+                </div>
+              </div>
+              <div class="file-size">—</div>
+              <div class="file-modified">2 hours ago</div>
+              <div class="file-actions">
+                <button class="icon-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="file-row">
+              <div class="file-info">
+                <div class="file-icon folder-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/>
+                  </svg>
+                </div>
+                <div class="file-details">
+                  <div class="file-name">traefik</div>
+                  <div class="file-path">Ingress routing configuration</div>
+                </div>
+              </div>
+              <div class="file-size">—</div>
+              <div class="file-modified">Yesterday</div>
+              <div class="file-actions">
+                <button class="icon-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="file-row selected">
+              <div class="file-info">
+                <div class="file-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"/>
+                    <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4"/>
+                  </svg>
+                </div>
+                <div class="file-details">
+                  <div class="file-name">config.yaml</div>
+                  <div class="file-path">Agent configuration</div>
+                </div>
+              </div>
+              <div class="file-size">2.4 KB</div>
+              <div class="file-modified">10 min ago</div>
+              <div class="file-actions">
+                <button class="icon-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="file-row">
+              <div class="file-info">
+                <div class="file-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="16 18 22 12 16 6"/>
+                    <polyline points="8 6 2 12 8 18"/>
+                  </svg>
+                </div>
+                <div class="file-details">
+                  <div class="file-name">gateway.py</div>
+                  <div class="file-path">K3s ingress controller</div>
+                </div>
+              </div>
+              <div class="file-size">8.7 KB</div>
+              <div class="file-modified">3 days ago</div>
+              <div class="file-actions">
+                <button class="icon-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="file-row">
+              <div class="file-info">
+                <div class="file-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="16 18 22 12 16 6"/>
+                    <polyline points="8 6 2 12 8 18"/>
+                  </svg>
+                </div>
+                <div class="file-details">
+                  <div class="file-name">health_check.py</div>
+                  <div class="file-path">Service monitoring</div>
+                </div>
+              </div>
+              <div class="file-size">1.2 KB</div>
+              <div class="file-modified">1 week ago</div>
+              <div class="file-actions">
+                <button class="icon-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="file-row">
+              <div class="file-info">
+                <div class="file-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                    <path d="M14 2v6h6M16 13H8M16 17H8"/>
+                  </svg>
+                </div>
+                <div class="file-details">
+                  <div class="file-name">README.md</div>
+                  <div class="file-path">Documentation</div>
+                </div>
+              </div>
+              <div class="file-size">4.1 KB</div>
+              <div class="file-modified">2 weeks ago</div>
+              <div class="file-actions">
+                <button class="icon-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="two-col">
+      <!-- ============================================
+           GRID VIEW
+      ============================================ -->
+      <section class="file-grid-section">
+        <p class="section-label">Grid View</p>
+        <div class="file-grid">
+          <div class="grid-item">
+            <div class="grid-icon folder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/>
+              </svg>
+            </div>
+            <div class="grid-name">memory</div>
+            <div class="grid-meta">4 items</div>
+          </div>
+          <div class="grid-item">
+            <div class="grid-icon folder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/>
+              </svg>
+            </div>
+            <div class="grid-name">traefik</div>
+            <div class="grid-meta">8 items</div>
+          </div>
+          <div class="grid-item selected">
+            <div class="grid-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83"/>
+              </svg>
+            </div>
+            <div class="grid-name">config.yaml</div>
+            <div class="grid-meta">2.4 KB</div>
+          </div>
+          <div class="grid-item">
+            <div class="grid-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="16 18 22 12 16 6"/>
+                <polyline points="8 6 2 12 8 18"/>
+              </svg>
+            </div>
+            <div class="grid-name">gateway.py</div>
+            <div class="grid-meta">8.7 KB</div>
+          </div>
+          <div class="grid-item">
+            <div class="grid-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="16 18 22 12 16 6"/>
+                <polyline points="8 6 2 12 8 18"/>
+              </svg>
+            </div>
+            <div class="grid-name">health_check.py</div>
+            <div class="grid-meta">1.2 KB</div>
+          </div>
+          <div class="grid-item">
+            <div class="grid-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                <path d="M14 2v6h6"/>
+              </svg>
+            </div>
+            <div class="grid-name">README.md</div>
+            <div class="grid-meta">4.1 KB</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================
+           CONTEXT MENU
+      ============================================ -->
+      <section class="context-menu-section">
+        <p class="section-label">Context Menu (Right-click)</p>
+        <div class="context-demo">
+          <div class="context-menu">
+            <div class="context-group">
+              <div class="context-item">
+                <svg class="context-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+                  <polyline points="15 3 21 3 21 9"/>
+                  <line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+                <span class="context-label">Open</span>
+                <span class="context-shortcut">↵</span>
+              </div>
+              <div class="context-item">
+                <svg class="context-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+                  <path d="M18.5 2.5a2.12 2.12 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                </svg>
+                <span class="context-label">Edit</span>
+                <span class="context-shortcut">⌘E</span>
+              </div>
+              <div class="context-item">
+                <svg class="context-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+                <span class="context-label">Preview</span>
+                <span class="context-shortcut">Space</span>
+              </div>
+            </div>
+            <div class="context-group">
+              <div class="context-item">
+                <svg class="context-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2"/>
+                  <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                </svg>
+                <span class="context-label">Copy</span>
+                <span class="context-shortcut">⌘C</span>
+              </div>
+              <div class="context-item">
+                <svg class="context-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/>
+                  <rect x="8" y="2" width="8" height="4" rx="1"/>
+                </svg>
+                <span class="context-label">Copy Path</span>
+                <span class="context-shortcut">⇧⌘C</span>
+              </div>
+              <div class="context-item">
+                <svg class="context-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                  <polyline points="7 10 12 15 17 10"/>
+                  <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                <span class="context-label">Download</span>
+                <span class="context-shortcut">⌘D</span>
+              </div>
+            </div>
+            <div class="context-group">
+              <div class="context-item">
+                <svg class="context-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17 3a2.85 2.83 0 114 4L7.5 20.5 2 22l1.5-5.5z"/>
+                </svg>
+                <span class="context-label">Rename</span>
+                <span class="context-shortcut">F2</span>
+              </div>
+              <div class="context-item danger">
+                <svg class="context-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="3 6 5 6 21 6"/>
+                  <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
+                </svg>
+                <span class="context-label">Delete</span>
+                <span class="context-shortcut">⌫</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============================================
+         FILE PREVIEW PANEL
+    ============================================ -->
+    <section class="preview-section">
+      <p class="section-label">File Preview Panel</p>
+      <div class="preview-panel">
+        <div class="preview-header">
+          <div class="preview-file-info">
+            <svg class="preview-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0"/>
+            </svg>
+            <span class="preview-name">config.yaml</span>
+          </div>
+          <div class="preview-actions">
+            <button class="icon-btn" title="Edit">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+                <path d="M18.5 2.5a2.12 2.12 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+              </svg>
+            </button>
+            <button class="icon-btn" title="Download">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="preview-body">
+          <pre class="code-preview"><span class="comment"># Alice Gateway Configuration</span>
+<span class="comment"># BlackRoad OS Agent Config v2.1</span>
+
+<span class="keyword">agent</span>:
+  <span class="keyword">name</span>: <span class="string">"Alice"</span>
+  <span class="keyword">role</span>: <span class="string">"Gateway Controller"</span>
+  <span class="keyword">version</span>: <span class="string">"2.1.4"</span>
+
+<span class="keyword">k3s</span>:
+  <span class="keyword">cluster</span>: <span class="string">"blackroad-prod"</span>
+  <span class="keyword">namespace</span>: <span class="string">"agents"</span>
+  <span class="keyword">replicas</span>: 2
+
+<span class="keyword">traefik</span>:
+  <span class="keyword">entrypoints</span>:
+    - <span class="string">"web"</span>
+    - <span class="string">"websecure"</span>
+  <span class="keyword">tls</span>:
+    <span class="keyword">enabled</span>: true
+    <span class="keyword">certResolver</span>: <span class="string">"letsencrypt"</span>
+
+<span class="keyword">health</span>:
+  <span class="keyword">interval</span>: <span class="string">"30s"</span>
+  <span class="keyword">timeout</span>: <span class="string">"10s"</span>
+  <span class="keyword">retries</span>: 3</pre>
+        </div>
+        <div class="preview-meta">
+          <div class="meta-item">
+            <span class="meta-label">Size</span>
+            <span class="meta-value">2.4 KB</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Modified</span>
+            <span class="meta-value">Jan 24, 2026 10:32 AM</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Created</span>
+            <span class="meta-value">Nov 15, 2025</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Encoding</span>
+            <span class="meta-value">UTF-8</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="two-col">
+      <!-- ============================================
+           UPLOAD DROPZONE
+      ============================================ -->
+      <section class="dropzone-section">
+        <p class="section-label">Upload Dropzone</p>
+        <div class="dropzone">
+          <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          <div class="dropzone-title">Drop files here</div>
+          <div class="dropzone-desc">or click to browse from your computer</div>
+          <button class="dropzone-btn">Choose Files</button>
+        </div>
+      </section>
+
+      <!-- ============================================
+           FILE TYPE BADGES
+      ============================================ -->
+      <section class="badges-section">
+        <p class="section-label">File Type Badges</p>
+        <div class="badge-grid">
+          <div class="file-badge">
+            <span class="badge-ext">.py</span>
+            <span class="badge-label">Python</span>
+          </div>
+          <div class="file-badge">
+            <span class="badge-ext">.yaml</span>
+            <span class="badge-label">Configuration</span>
+          </div>
+          <div class="file-badge">
+            <span class="badge-ext">.md</span>
+            <span class="badge-label">Markdown</span>
+          </div>
+          <div class="file-badge">
+            <span class="badge-ext">.json</span>
+            <span class="badge-label">JSON Data</span>
+          </div>
+          <div class="file-badge">
+            <span class="badge-ext">.sh</span>
+            <span class="badge-label">Shell Script</span>
+          </div>
+          <div class="file-badge">
+            <span class="badge-ext">.toml</span>
+            <span class="badge-label">TOML Config</span>
+          </div>
+          <div class="file-badge">
+            <span class="badge-ext">.env</span>
+            <span class="badge-label">Environment</span>
+          </div>
+          <div class="file-badge">
+            <span class="badge-ext">.log</span>
+            <span class="badge-label">Log File</span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============================================
+         SELECTION INFO BAR
+    ============================================ -->
+    <section>
+      <p class="section-label">Multi-Selection Bar</p>
+      <div class="selection-bar">
+        <div class="selection-info">
+          <span class="selection-count"><strong>3</strong> items selected</span>
+          <span class="selection-size">12.3 KB total</span>
+        </div>
+        <div class="selection-actions">
+          <button class="action-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2"/>
+              <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+            </svg>
+            Copy
+          </button>
+          <button class="action-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+            Move
+          </button>
+          <button class="action-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Download
+          </button>
+          <button class="action-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 6 5 6 21 6"/>
+              <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
+            </svg>
+            Delete
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
