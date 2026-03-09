@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agents — BlackRoad Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gray-0: #000000;
+      --gray-1: #09090b;
+      --gray-2: #111113;
+      --gray-3: #19191d;
+      --gray-4: #232329;
+      --gray-5: #2e2e36;
+      --gray-6: #3d3d47;
+      --gray-7: #53535f;
+      --gray-8: #70707d;
+      --gray-9: #909099;
+      --gray-10: #b4b4bb;
+      --gray-11: #dadadf;
+      --gray-12: #ffffff;
+
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--gray-1);
+      color: var(--gray-10);
+      font-size: 14px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* Layout */
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 240px;
+      background: var(--gray-0);
+      border-right: 1px solid var(--gray-3);
+      padding: 20px 0;
+      flex-shrink: 0;
+    }
+
+    .sidebar-logo {
+      padding: 0 20px 24px;
+      border-bottom: 1px solid var(--gray-3);
+      margin-bottom: 16px;
+    }
+
+    .sidebar-logo a {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--gray-12);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-icon {
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, var(--gray-5) 0%, var(--gray-3) 100%);
+      border-radius: 7px;
+    }
+
+    .sidebar-nav {
+      padding: 0 12px;
+    }
+
+    .nav-group {
+      margin-bottom: 24px;
+    }
+
+    .nav-group-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--gray-6);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 0 8px;
+      margin-bottom: 8px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      color: var(--gray-8);
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.15s;
+      margin-bottom: 2px;
+    }
+
+    .nav-item:hover {
+      color: var(--gray-11);
+      background: var(--gray-3);
+    }
+
+    .nav-item.active {
+      color: var(--gray-12);
+      background: var(--gray-4);
+    }
+
+    .nav-item svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      opacity: 0.7;
+    }
+
+    .nav-item .badge {
+      margin-left: auto;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      background: var(--gray-5);
+      color: var(--gray-9);
+      padding: 2px 7px;
+      border-radius: 10px;
+    }
+
+    /* Main */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    .header {
+      height: 64px;
+      border-bottom: 1px solid var(--gray-3);
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+      gap: 24px;
+    }
+
+    .header-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--gray-12);
+      letter-spacing: -0.3px;
+    }
+
+    .header-search {
+      position: relative;
+      margin-left: auto;
+    }
+
+    .header-search input {
+      width: 280px;
+      height: 36px;
+      background: var(--gray-2);
+      border: 1px solid var(--gray-4);
+      border-radius: 8px;
+      padding: 0 12px 0 36px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--gray-11);
+      outline: none;
+      transition: all 0.15s;
+    }
+
+    .header-search input::placeholder {
+      color: var(--gray-6);
+    }
+
+    .header-search input:focus {
+      border-color: var(--gray-5);
+      background: var(--gray-3);
+    }
+
+    .header-search svg {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      stroke: var(--gray-6);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--gray-5) 0%, var(--gray-4) 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gray-9);
+    }
+
+    /* Content */
+    .content {
+      flex: 1;
+      padding: 32px;
+      overflow-y: auto;
+    }
+
+    /* Page Header */
+    .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .page-header h1 {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--gray-12);
+      letter-spacing: -0.5px;
+    }
+
+    .page-header-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .btn-primary {
+      background: var(--gray-12);
+      color: var(--gray-1);
+    }
+
+    .btn-primary:hover {
+      background: var(--gray-11);
+    }
+
+    .btn-secondary {
+      background: var(--gray-3);
+      color: var(--gray-10);
+      border: 1px solid var(--gray-4);
+    }
+
+    .btn-secondary:hover {
+      background: var(--gray-4);
+      color: var(--gray-11);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--gray-9);
+      padding: 8px;
+    }
+
+    .btn-ghost:hover {
+      background: var(--gray-3);
+      color: var(--gray-11);
+    }
+
+    /* Filters Bar */
+    .filters {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .filter-label {
+      font-size: 12px;
+      color: var(--gray-7);
+    }
+
+    .filter-select {
+      height: 34px;
+      background: var(--gray-2);
+      border: 1px solid var(--gray-4);
+      border-radius: 6px;
+      padding: 0 32px 0 12px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--gray-10);
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23707080' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+    }
+
+    .filter-select:hover {
+      border-color: var(--gray-5);
+    }
+
+    .filter-chips {
+      display: flex;
+      gap: 8px;
+      margin-left: auto;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: var(--gray-3);
+      border: 1px solid var(--gray-4);
+      border-radius: 16px;
+      font-size: 12px;
+      color: var(--gray-10);
+    }
+
+    .chip-remove {
+      width: 14px;
+      height: 14px;
+      stroke: var(--gray-7);
+      cursor: pointer;
+      transition: stroke 0.15s;
+    }
+
+    .chip-remove:hover {
+      stroke: var(--gray-11);
+    }
+
+    /* Table */
+    .table-container {
+      background: var(--gray-2);
+      border: 1px solid var(--gray-3);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead {
+      background: var(--gray-3);
+    }
+
+    th {
+      text-align: left;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--gray-7);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--gray-4);
+    }
+
+    th.sortable {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    th.sortable:hover {
+      color: var(--gray-9);
+    }
+
+    th .sort-icon {
+      width: 12px;
+      height: 12px;
+      margin-left: 4px;
+      vertical-align: middle;
+      opacity: 0.5;
+    }
+
+    th.sorted .sort-icon {
+      opacity: 1;
+    }
+
+    td {
+      padding: 16px;
+      border-bottom: 1px solid var(--gray-3);
+      vertical-align: middle;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: var(--gray-3);
+    }
+
+    /* Checkbox */
+    .checkbox {
+      width: 16px;
+      height: 16px;
+      background: var(--gray-3);
+      border: 1px solid var(--gray-5);
+      border-radius: 4px;
+      cursor: pointer;
+      appearance: none;
+      transition: all 0.15s;
+    }
+
+    .checkbox:checked {
+      background: var(--gray-10);
+      border-color: var(--gray-10);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23111113' stroke-width='3'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    /* Agent Row */
+    .agent-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .agent-avatar {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--gray-5) 0%, var(--gray-4) 100%);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gray-9);
+    }
+
+    .agent-name {
+      font-weight: 600;
+      color: var(--gray-11);
+    }
+
+    .agent-id {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gray-7);
+      margin-top: 2px;
+    }
+
+    /* Status Badge */
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--gray-6);
+    }
+
+    .status.online .status-dot {
+      background: var(--gray-10);
+      box-shadow: 0 0 8px var(--gray-8);
+    }
+
+    .status.offline .status-dot {
+      background: var(--gray-6);
+    }
+
+    .status.busy .status-dot {
+      background: var(--gray-8);
+    }
+
+    .status-text {
+      color: var(--gray-9);
+    }
+
+    /* Capability Tags */
+    .capabilities {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .cap-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      padding: 4px 8px;
+      background: var(--gray-4);
+      color: var(--gray-9);
+      border-radius: 4px;
+    }
+
+    /* Metrics */
+    .metric {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--gray-10);
+    }
+
+    .metric-sub {
+      font-size: 11px;
+      color: var(--gray-7);
+      margin-top: 2px;
+    }
+
+    /* Actions */
+    .row-actions {
+      display: flex;
+      gap: 4px;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+
+    tr:hover .row-actions {
+      opacity: 1;
+    }
+
+    .action-btn {
+      width: 32px;
+      height: 32px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .action-btn svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--gray-7);
+    }
+
+    .action-btn:hover {
+      background: var(--gray-4);
+    }
+
+    .action-btn:hover svg {
+      stroke: var(--gray-11);
+    }
+
+    /* Pagination */
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-top: 1px solid var(--gray-3);
+      background: var(--gray-2);
+    }
+
+    .pagination-info {
+      font-size: 13px;
+      color: var(--gray-8);
+    }
+
+    .pagination-info strong {
+      color: var(--gray-10);
+      font-weight: 500;
+    }
+
+    .pagination-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .page-btn {
+      min-width: 36px;
+      height: 36px;
+      background: var(--gray-3);
+      border: 1px solid var(--gray-4);
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--gray-9);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .page-btn:hover:not(:disabled) {
+      background: var(--gray-4);
+      color: var(--gray-11);
+    }
+
+    .page-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .page-btn.active {
+      background: var(--gray-10);
+      border-color: var(--gray-10);
+      color: var(--gray-1);
+    }
+
+    .page-btn svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .sidebar {
+        display: none;
+      }
+      .content {
+        padding: 24px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header-search {
+        display: none;
+      }
+      .filters {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .filter-chips {
+        margin-left: 0;
+        margin-top: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <a href="#">
+          <div class="logo-icon"></div>
+          BlackRoad
+        </a>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-group">
+          <div class="nav-group-label">Overview</div>
+          <a href="#" class="nav-item">
+            <svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+            Dashboard
+          </a>
+          <a href="#" class="nav-item">
+            <svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+            Analytics
+          </a>
+        </div>
+        <div class="nav-group">
+          <div class="nav-group-label">Management</div>
+          <a href="#" class="nav-item active">
+            <svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+            Agents
+            <span class="badge">1,247</span>
+          </a>
+          <a href="#" class="nav-item">
+            <svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+            Tasks
+            <span class="badge">342</span>
+          </a>
+          <a href="#" class="nav-item">
+            <svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>
+            Memory
+          </a>
+          <a href="#" class="nav-item">
+            <svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            Events
+          </a>
+        </div>
+        <div class="nav-group">
+          <div class="nav-group-label">System</div>
+          <a href="#" class="nav-item">
+            <svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/></svg>
+            Infrastructure
+          </a>
+          <a href="#" class="nav-item">
+            <svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            Settings
+          </a>
+        </div>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="header">
+        <span class="header-title">Agent Management</span>
+        <div class="header-search">
+          <svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          <input type="text" placeholder="Search agents...">
+        </div>
+        <div class="header-actions">
+          <button class="btn-ghost">
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+          </button>
+          <div class="avatar">AL</div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="page-header">
+          <h1>Agents</h1>
+          <div class="page-header-actions">
+            <button class="btn btn-secondary">
+              <svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+              Export
+            </button>
+            <button class="btn btn-primary">
+              <svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              New Agent
+            </button>
+          </div>
+        </div>
+
+        <div class="filters">
+          <div class="filter-group">
+            <span class="filter-label">Status:</span>
+            <select class="filter-select">
+              <option>All statuses</option>
+              <option>Online</option>
+              <option>Offline</option>
+              <option>Busy</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <span class="filter-label">Capability:</span>
+            <select class="filter-select">
+              <option>All capabilities</option>
+              <option>reasoning</option>
+              <option>memory-sync</option>
+              <option>contradiction</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <span class="filter-label">Sort:</span>
+            <select class="filter-select">
+              <option>Last active</option>
+              <option>Name A-Z</option>
+              <option>Tasks completed</option>
+              <option>Uptime</option>
+            </select>
+          </div>
+          <div class="filter-chips">
+            <div class="chip">
+              Online
+              <svg class="chip-remove" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 40px"><input type="checkbox" class="checkbox"></th>
+                <th class="sortable sorted">Agent <svg class="sort-icon" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></th>
+                <th class="sortable">Status</th>
+                <th class="sortable">Capabilities</th>
+                <th class="sortable">Tasks</th>
+                <th class="sortable">Uptime</th>
+                <th style="width: 100px"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="checkbox" class="checkbox"></td>
+                <td>
+                  <div class="agent-info">
+                    <div class="agent-avatar">L7</div>
+                    <div>
+                      <div class="agent-name">Lucidia-7</div>
+                      <div class="agent-id">agt_7x9k2m4n</div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="status online">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Online</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="capabilities">
+                    <span class="cap-tag">reasoning</span>
+                    <span class="cap-tag">trinary</span>
+                    <span class="cap-tag">memory</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="metric">2,847</div>
+                  <div class="metric-sub">+124 today</div>
+                </td>
+                <td>
+                  <div class="metric">99.98%</div>
+                  <div class="metric-sub">12d 4h</div>
+                </td>
+                <td>
+                  <div class="row-actions">
+                    <button class="action-btn"><svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg></button>
+                    <button class="action-btn"><svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                    <button class="action-btn"><svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" class="checkbox"></td>
+                <td>
+                  <div class="agent-info">
+                    <div class="agent-avatar">A1</div>
+                    <div>
+                      <div class="agent-name">Alice</div>
+                      <div class="agent-id">agt_a1c3g8tw</div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="status online">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Online</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="capabilities">
+                    <span class="cap-tag">gateway</span>
+                    <span class="cap-tag">routing</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="metric">18,432</div>
+                  <div class="metric-sub">+891 today</div>
+                </td>
+                <td>
+                  <div class="metric">99.99%</div>
+                  <div class="metric-sub">28d 16h</div>
+                </td>
+                <td>
+                  <div class="row-actions">
+                    <button class="action-btn"><svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg></button>
+                    <button class="action-btn"><svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                    <button class="action-btn"><svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" class="checkbox"></td>
+                <td>
+                  <div class="agent-info">
+                    <div class="agent-avatar">OC</div>
+                    <div>
+                      <div class="agent-name">Octavia</div>
+                      <div class="agent-id">agt_0c7v1a8p</div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="status busy">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Busy</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="capabilities">
+                    <span class="cap-tag">hailo</span>
+                    <span class="cap-tag">inference</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="metric">947</div>
+                  <div class="metric-sub">+67 today</div>
+                </td>
+                <td>
+                  <div class="metric">99.87%</div>
+                  <div class="metric-sub">8d 2h</div>
+                </td>
+                <td>
+                  <div class="row-actions">
+                    <button class="action-btn"><svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg></button>
+                    <button class="action-btn"><svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                    <button class="action-btn"><svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" class="checkbox"></td>
+                <td>
+                  <div class="agent-info">
+                    <div class="agent-avatar">CC</div>
+                    <div>
+                      <div class="agent-name">Cecilia</div>
+                      <div class="agent-id">agt_cc9h2k5m</div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="status offline">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Standby</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="capabilities">
+                    <span class="cap-tag">orchestrator</span>
+                    <span class="cap-tag">human-loop</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="metric">156</div>
+                  <div class="metric-sub">+3 today</div>
+                </td>
+                <td>
+                  <div class="metric">—</div>
+                  <div class="metric-sub">On demand</div>
+                </td>
+                <td>
+                  <div class="row-actions">
+                    <button class="action-btn"><svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg></button>
+                    <button class="action-btn"><svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                    <button class="action-btn"><svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" class="checkbox"></td>
+                <td>
+                  <div class="agent-info">
+                    <div class="agent-avatar">L3</div>
+                    <div>
+                      <div class="agent-name">Lucidia-3</div>
+                      <div class="agent-id">agt_l3p8q2wx</div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="status online">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Online</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="capabilities">
+                    <span class="cap-tag">reasoning</span>
+                    <span class="cap-tag">contradiction</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="metric">1,203</div>
+                  <div class="metric-sub">+89 today</div>
+                </td>
+                <td>
+                  <div class="metric">99.94%</div>
+                  <div class="metric-sub">6d 18h</div>
+                </td>
+                <td>
+                  <div class="row-actions">
+                    <button class="action-btn"><svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg></button>
+                    <button class="action-btn"><svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                    <button class="action-btn"><svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="pagination">
+            <div class="pagination-info">
+              Showing <strong>1-5</strong> of <strong>1,247</strong> agents
+            </div>
+            <div class="pagination-controls">
+              <button class="page-btn" disabled>
+                <svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+              </button>
+              <button class="page-btn active">1</button>
+              <button class="page-btn">2</button>
+              <button class="page-btn">3</button>
+              <button class="page-btn">...</button>
+              <button class="page-btn">250</button>
+              <button class="page-btn">
+                <svg fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
