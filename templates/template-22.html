@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackRoad OS — Template 22</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #000;
+            --gray-950: #080808;
+            --gray-900: #0f0f0f;
+            --gray-850: #151515;
+            --gray-800: #1c1c1c;
+            --gray-750: #232323;
+            --gray-700: #2c2c2c;
+            --gray-600: #404040;
+            --gray-500: #5c5c5c;
+            --gray-400: #7c7c7c;
+            --gray-300: #9c9c9c;
+            --gray-200: #bcbcbc;
+            --gray-100: #dcdcdc;
+            --white: #f0f0f0;
+
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 15px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--black);
+            color: var(--gray-400);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        ::selection {
+            background: var(--gray-700);
+            color: var(--white);
+        }
+
+        /* Layout */
+        .page {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        /* Notification Panel */
+        .notification-panel {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            overflow: hidden;
+            max-width: 420px;
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .panel-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .panel-title h2 {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .badge {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--black);
+            background: var(--white);
+            padding: 0.125rem 0.375rem;
+            border-radius: 10px;
+            min-width: 18px;
+            text-align: center;
+        }
+
+        .badge.muted {
+            background: var(--gray-700);
+            color: var(--gray-300);
+        }
+
+        .panel-actions {
+            display: flex;
+            gap: 0.375rem;
+        }
+
+        .panel-btn {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-500);
+            background: transparent;
+            border: none;
+            padding: 0.375rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .panel-btn:hover {
+            color: var(--white);
+            background: var(--gray-900);
+        }
+
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            padding: 0.5rem 1rem;
+            gap: 0.25rem;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .filter-tab {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-500);
+            background: transparent;
+            border: none;
+            padding: 0.5rem 0.75rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .filter-tab:hover {
+            color: var(--gray-300);
+        }
+
+        .filter-tab.active {
+            color: var(--white);
+            background: var(--gray-900);
+        }
+
+        /* Notification List */
+        .notification-list {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .notification-group {
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .notification-group:last-child {
+            border-bottom: none;
+        }
+
+        .group-header {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.75rem 1.25rem 0.5rem;
+            background: var(--gray-950);
+            position: sticky;
+            top: 0;
+        }
+
+        .notification-item {
+            display: flex;
+            gap: 0.875rem;
+            padding: 1rem 1.25rem;
+            cursor: pointer;
+            transition: background 0.15s;
+            position: relative;
+        }
+
+        .notification-item:hover {
+            background: var(--gray-900);
+        }
+
+        .notification-item.unread {
+            background: var(--gray-900);
+        }
+
+        .notification-item.unread::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--gray-500);
+        }
+
+        .notification-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--gray-800);
+            border-radius: 8px;
+            display: grid;
+            place-items: center;
+            font-size: 1rem;
+            color: var(--gray-500);
+            flex-shrink: 0;
+        }
+
+        .notification-icon.agent { color: var(--gray-400); }
+        .notification-icon.deploy { color: var(--gray-300); }
+        .notification-icon.error { color: var(--gray-200); }
+        .notification-icon.success { color: var(--gray-400); }
+
+        .notification-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .notification-title {
+            font-size: 0.8125rem;
+            color: var(--gray-200);
+            margin-bottom: 0.25rem;
+        }
+
+        .notification-title strong {
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        .notification-body {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            margin-bottom: 0.375rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .notification-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .notification-time {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+        }
+
+        .notification-tag {
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            color: var(--gray-500);
+            background: var(--gray-800);
+            padding: 0.125rem 0.375rem;
+            border-radius: 3px;
+        }
+
+        .notification-actions {
+            display: flex;
+            gap: 0.375rem;
+            opacity: 0;
+            transition: opacity 0.15s;
+        }
+
+        .notification-item:hover .notification-actions {
+            opacity: 1;
+        }
+
+        .notif-action-btn {
+            width: 28px;
+            height: 28px;
+            display: grid;
+            place-items: center;
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            background: var(--gray-800);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .notif-action-btn:hover {
+            color: var(--white);
+            background: var(--gray-700);
+        }
+
+        /* Activity Timeline */
+        .activity-timeline {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            padding: 1.5rem;
+            max-width: 500px;
+        }
+
+        .timeline-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline-title {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .timeline-filter {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-500);
+            background: var(--gray-900);
+            border: none;
+            padding: 0.375rem 0.625rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .timeline-list {
+            position: relative;
+        }
+
+        .timeline-list::before {
+            content: '';
+            position: absolute;
+            left: 17px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--gray-900);
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 1rem;
+            padding-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-dot {
+            width: 36px;
+            height: 36px;
+            background: var(--gray-900);
+            border: 2px solid var(--gray-800);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline-dot.agent { border-color: var(--gray-600); color: var(--gray-400); }
+        .timeline-dot.deploy { border-color: var(--gray-500); color: var(--gray-300); }
+        .timeline-dot.commit { border-color: var(--gray-700); color: var(--gray-500); }
+
+        .timeline-content {
+            flex: 1;
+            padding-top: 0.375rem;
+        }
+
+        .timeline-event {
+            font-size: 0.8125rem;
+            color: var(--gray-300);
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-event strong {
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        .timeline-event code {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--gray-400);
+            background: var(--gray-800);
+            padding: 0.125rem 0.375rem;
+            border-radius: 3px;
+        }
+
+        .timeline-time {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+        }
+
+        .timeline-detail {
+            margin-top: 0.5rem;
+            padding: 0.625rem 0.75rem;
+            background: var(--gray-900);
+            border-radius: 6px;
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            max-width: 380px;
+        }
+
+        .toast {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .toast.success { border-left: 3px solid var(--gray-500); }
+        .toast.error { border-left: 3px solid var(--gray-400); }
+        .toast.warning { border-left: 3px solid var(--gray-500); }
+        .toast.info { border-left: 3px solid var(--gray-600); }
+
+        .toast-icon {
+            width: 20px;
+            height: 20px;
+            display: grid;
+            place-items: center;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+        }
+
+        .toast.success .toast-icon { color: var(--gray-400); }
+        .toast.error .toast-icon { color: var(--gray-300); }
+        .toast.warning .toast-icon { color: var(--gray-400); }
+        .toast.info .toast-icon { color: var(--gray-500); }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--gray-200);
+            margin-bottom: 0.125rem;
+        }
+
+        .toast-message {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        .toast-close {
+            width: 20px;
+            height: 20px;
+            display: grid;
+            place-items: center;
+            font-size: 0.75rem;
+            color: var(--gray-600);
+            background: transparent;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .toast-close:hover {
+            color: var(--white);
+            background: var(--gray-900);
+        }
+
+        .toast-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gray-900);
+            border-radius: 0 0 10px 10px;
+            overflow: hidden;
+        }
+
+        .toast-progress-bar {
+            height: 100%;
+            background: var(--gray-600);
+            width: 70%;
+        }
+
+        .toast-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+
+        .toast-btn {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            padding: 0.375rem 0.625rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .toast-btn.secondary {
+            color: var(--gray-400);
+            background: var(--gray-900);
+            border: none;
+        }
+
+        .toast-btn.secondary:hover {
+            color: var(--white);
+            background: var(--gray-800);
+        }
+
+        .toast-btn.primary {
+            color: var(--black);
+            background: var(--white);
+            border: none;
+        }
+
+        .toast-btn.primary:hover {
+            background: var(--gray-200);
+        }
+
+        /* Notification Preferences */
+        .notification-prefs {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            overflow: hidden;
+            max-width: 500px;
+        }
+
+        .prefs-header {
+            padding: 1.25rem;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .prefs-title {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 0.25rem;
+        }
+
+        .prefs-subtitle {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+        }
+
+        .prefs-section {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .prefs-section:last-child {
+            border-bottom: none;
+        }
+
+        .prefs-section-title {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+        }
+
+        .pref-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.625rem 0;
+        }
+
+        .pref-info {
+            flex: 1;
+        }
+
+        .pref-label {
+            font-size: 0.8125rem;
+            color: var(--gray-300);
+            margin-bottom: 0.125rem;
+        }
+
+        .pref-desc {
+            font-size: 0.6875rem;
+            color: var(--gray-600);
+        }
+
+        /* Toggle */
+        .toggle {
+            width: 36px;
+            height: 20px;
+            background: var(--gray-800);
+            border-radius: 10px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .toggle::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
+            background: var(--gray-500);
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+
+        .toggle.active {
+            background: var(--gray-600);
+        }
+
+        .toggle.active::after {
+            left: 18px;
+            background: var(--white);
+        }
+
+        /* Badge Display */
+        .badge-showcase {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .badge-item {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            padding: 0.75rem 1rem;
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 8px;
+        }
+
+        .badge-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--gray-900);
+            border-radius: 6px;
+            display: grid;
+            place-items: center;
+            font-size: 1rem;
+            color: var(--gray-500);
+            position: relative;
+        }
+
+        .badge-count {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            color: var(--black);
+            background: var(--white);
+            min-width: 16px;
+            height: 16px;
+            display: grid;
+            place-items: center;
+            border-radius: 8px;
+            border: 2px solid var(--gray-950);
+        }
+
+        .badge-count.warning {
+            background: var(--gray-400);
+        }
+
+        .badge-label {
+            font-size: 0.75rem;
+            color: var(--gray-400);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .notification-panel,
+            .activity-timeline,
+            .notification-prefs {
+                max-width: none;
+            }
+
+            .filter-tabs {
+                overflow-x: auto;
+            }
+
+            .notification-actions {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- Notification Panel -->
+        <section class="section">
+            <div class="section-label">Notification Panel · Grouped List</div>
+            <div class="notification-panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <h2>Notifications</h2>
+                        <span class="badge">12</span>
+                    </div>
+                    <div class="panel-actions">
+                        <button class="panel-btn">Mark all read</button>
+                        <button class="panel-btn">⚙</button>
+                    </div>
+                </div>
+                <div class="filter-tabs">
+                    <button class="filter-tab active">All</button>
+                    <button class="filter-tab">Agents</button>
+                    <button class="filter-tab">Deploys</button>
+                    <button class="filter-tab">Errors</button>
+                </div>
+                <div class="notification-list">
+                    <div class="notification-group">
+                        <div class="group-header">Today</div>
+                        <div class="notification-item unread">
+                            <div class="notification-icon deploy">▲</div>
+                            <div class="notification-content">
+                                <div class="notification-title"><strong>Deploy v1.4</strong> completed successfully</div>
+                                <div class="notification-body">K3s cluster updated. All pods healthy. NATS reconnected.</div>
+                                <div class="notification-meta">
+                                    <span class="notification-time">2 min ago</span>
+                                    <span class="notification-tag">production</span>
+                                </div>
+                            </div>
+                            <div class="notification-actions">
+                                <button class="notif-action-btn">✓</button>
+                                <button class="notif-action-btn">⋮</button>
+                            </div>
+                        </div>
+                        <div class="notification-item unread">
+                            <div class="notification-icon agent">◎</div>
+                            <div class="notification-content">
+                                <div class="notification-title"><strong>Lucidia</strong> completed memory indexing</div>
+                                <div class="notification-body">Processed 24,847 vectors in 3.2s. PS-SHA∞ hashes verified.</div>
+                                <div class="notification-meta">
+                                    <span class="notification-time">15 min ago</span>
+                                    <span class="notification-tag">agent-001</span>
+                                </div>
+                            </div>
+                            <div class="notification-actions">
+                                <button class="notif-action-btn">✓</button>
+                                <button class="notif-action-btn">⋮</button>
+                            </div>
+                        </div>
+                        <div class="notification-item">
+                            <div class="notification-icon error">⚠</div>
+                            <div class="notification-content">
+                                <div class="notification-title"><strong>Milvus</strong> connection timeout</div>
+                                <div class="notification-body">Vector DB connection lost for 8 seconds. Auto-recovered.</div>
+                                <div class="notification-meta">
+                                    <span class="notification-time">1 hour ago</span>
+                                    <span class="notification-tag">warning</span>
+                                </div>
+                            </div>
+                            <div class="notification-actions">
+                                <button class="notif-action-btn">✓</button>
+                                <button class="notif-action-btn">⋮</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="notification-group">
+                        <div class="group-header">Yesterday</div>
+                        <div class="notification-item">
+                            <div class="notification-icon success">✓</div>
+                            <div class="notification-content">
+                                <div class="notification-title"><strong>Trinary logic module</strong> tests passed</div>
+                                <div class="notification-body">All 147 test cases passed. Coverage: 94.2%</div>
+                                <div class="notification-meta">
+                                    <span class="notification-time">Yesterday, 4:32 PM</span>
+                                </div>
+                            </div>
+                            <div class="notification-actions">
+                                <button class="notif-action-btn">✓</button>
+                                <button class="notif-action-btn">⋮</button>
+                            </div>
+                        </div>
+                        <div class="notification-item">
+                            <div class="notification-icon agent">◇</div>
+                            <div class="notification-content">
+                                <div class="notification-title"><strong>Code Synthesis</strong> generated PR #247</div>
+                                <div class="notification-body">Event bus optimization: 23% latency reduction</div>
+                                <div class="notification-meta">
+                                    <span class="notification-time">Yesterday, 2:15 PM</span>
+                                </div>
+                            </div>
+                            <div class="notification-actions">
+                                <button class="notif-action-btn">✓</button>
+                                <button class="notif-action-btn">⋮</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Activity Timeline -->
+        <section class="section">
+            <div class="section-label">Activity Timeline · Chronological</div>
+            <div class="activity-timeline">
+                <div class="timeline-header">
+                    <h2 class="timeline-title">Recent Activity</h2>
+                    <button class="timeline-filter">All types ▾</button>
+                </div>
+                <div class="timeline-list">
+                    <div class="timeline-item">
+                        <div class="timeline-dot deploy">▲</div>
+                        <div class="timeline-content">
+                            <div class="timeline-event"><strong>Production deploy</strong> completed — v1.4.0</div>
+                            <div class="timeline-time">Today at 10:24 AM</div>
+                            <div class="timeline-detail">
+                                Deployed to alice.blackroad.lan • 3 pods updated • Zero downtime
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot agent">◎</div>
+                        <div class="timeline-content">
+                            <div class="timeline-event"><strong>Lucidia</strong> started memory journal sync</div>
+                            <div class="timeline-time">Today at 10:18 AM</div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot commit">◆</div>
+                        <div class="timeline-content">
+                            <div class="timeline-event">Merged PR <code>#247</code> into <code>main</code></div>
+                            <div class="timeline-time">Today at 10:12 AM</div>
+                            <div class="timeline-detail">
+                                feat: NATS event bus optimization — reviewed by Code Synthesis
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot agent">◇</div>
+                        <div class="timeline-content">
+                            <div class="timeline-event"><strong>Code Synthesis</strong> approved PR <code>#247</code></div>
+                            <div class="timeline-time">Today at 10:08 AM</div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot">◯</div>
+                        <div class="timeline-content">
+                            <div class="timeline-event">CI pipeline passed for <code>feature/nats-opt</code></div>
+                            <div class="timeline-time">Today at 9:54 AM</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Toast Notifications -->
+        <section class="section">
+            <div class="section-label">Toast Notifications · Status Alerts</div>
+            <div class="toast-container">
+                <div class="toast success">
+                    <div class="toast-icon">✓</div>
+                    <div class="toast-content">
+                        <div class="toast-title">Deploy successful</div>
+                        <div class="toast-message">BlackRoad OS v1.4 is now live on production.</div>
+                    </div>
+                    <button class="toast-close">×</button>
+                </div>
+
+                <div class="toast error">
+                    <div class="toast-icon">✕</div>
+                    <div class="toast-content">
+                        <div class="toast-title">Connection failed</div>
+                        <div class="toast-message">Unable to reach Milvus cluster. Retrying in 5s...</div>
+                    </div>
+                    <button class="toast-close">×</button>
+                    <div class="toast-progress">
+                        <div class="toast-progress-bar"></div>
+                    </div>
+                </div>
+
+                <div class="toast warning">
+                    <div class="toast-icon">⚠</div>
+                    <div class="toast-content">
+                        <div class="toast-title">High memory usage</div>
+                        <div class="toast-message">Agent pool memory at 87%. Consider scaling.</div>
+                        <div class="toast-actions">
+                            <button class="toast-btn secondary">Dismiss</button>
+                            <button class="toast-btn primary">Scale now</button>
+                        </div>
+                    </div>
+                    <button class="toast-close">×</button>
+                </div>
+
+                <div class="toast info">
+                    <div class="toast-icon">ℹ</div>
+                    <div class="toast-content">
+                        <div class="toast-title">Sync in progress</div>
+                        <div class="toast-message">Memory journal syncing across 3 nodes...</div>
+                    </div>
+                    <button class="toast-close">×</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Notification Preferences -->
+        <section class="section">
+            <div class="section-label">Notification Settings · Preferences</div>
+            <div class="notification-prefs">
+                <div class="prefs-header">
+                    <h2 class="prefs-title">Notification Preferences</h2>
+                    <p class="prefs-subtitle">Choose what updates you want to receive</p>
+                </div>
+                <div class="prefs-section">
+                    <div class="prefs-section-title">Agent Activity</div>
+                    <div class="pref-item">
+                        <div class="pref-info">
+                            <div class="pref-label">Agent status changes</div>
+                            <div class="pref-desc">When agents start, stop, or change state</div>
+                        </div>
+                        <div class="toggle active"></div>
+                    </div>
+                    <div class="pref-item">
+                        <div class="pref-info">
+                            <div class="pref-label">Memory sync completed</div>
+                            <div class="pref-desc">When PS-SHA∞ journal sync finishes</div>
+                        </div>
+                        <div class="toggle active"></div>
+                    </div>
+                    <div class="pref-item">
+                        <div class="pref-info">
+                            <div class="pref-label">Contradiction detected</div>
+                            <div class="pref-desc">When quarantine triggers for paraconsistent logic</div>
+                        </div>
+                        <div class="toggle active"></div>
+                    </div>
+                </div>
+                <div class="prefs-section">
+                    <div class="prefs-section-title">Infrastructure</div>
+                    <div class="pref-item">
+                        <div class="pref-info">
+                            <div class="pref-label">Deploy notifications</div>
+                            <div class="pref-desc">Production and staging deployments</div>
+                        </div>
+                        <div class="toggle active"></div>
+                    </div>
+                    <div class="pref-item">
+                        <div class="pref-info">
+                            <div class="pref-label">Error alerts</div>
+                            <div class="pref-desc">Critical errors and timeouts</div>
+                        </div>
+                        <div class="toggle active"></div>
+                    </div>
+                    <div class="pref-item">
+                        <div class="pref-info">
+                            <div class="pref-label">Resource warnings</div>
+                            <div class="pref-desc">High CPU, memory, or storage usage</div>
+                        </div>
+                        <div class="toggle"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Badge Examples -->
+        <section class="section">
+            <div class="section-label">Badge Indicators · Count Display</div>
+            <div class="badge-showcase">
+                <div class="badge-item">
+                    <div class="badge-icon">
+                        ◎
+                        <span class="badge-count">5</span>
+                    </div>
+                    <span class="badge-label">Agents</span>
+                </div>
+                <div class="badge-item">
+                    <div class="badge-icon">
+                        ⚡
+                        <span class="badge-count">12</span>
+                    </div>
+                    <span class="badge-label">Events</span>
+                </div>
+                <div class="badge-item">
+                    <div class="badge-icon">
+                        ⚠
+                        <span class="badge-count warning">3</span>
+                    </div>
+                    <span class="badge-label">Warnings</span>
+                </div>
+                <div class="badge-item">
+                    <div class="badge-icon">
+                        ▤
+                        <span class="badge-count">99+</span>
+                    </div>
+                    <span class="badge-label">Files</span>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
