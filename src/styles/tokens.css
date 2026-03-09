@@ -1,0 +1,148 @@
+/**
+ * BlackRoad OS - Design Tokens
+ * Core design system variables for grayscale interfaces
+ */
+
+:root {
+  /* ==================== */
+  /* COLORS - GRAY SCALE */
+  /* ==================== */
+  --gray-0: #000000;
+  --gray-1: #09090b;
+  --gray-2: #0f0f12;
+  --gray-3: #18181d;
+  --gray-4: #222229;
+  --gray-5: #2d2d36;
+  --gray-6: #3c3c47;
+  --gray-7: #505062;
+  --gray-8: #6b6b7d;
+  --gray-9: #8b8b9e;
+  --gray-10: #ababba;
+  --gray-11: #d1d1db;
+  --gray-12: #ffffff;
+
+  /* ==================== */
+  /* TYPOGRAPHY */
+  /* ==================== */
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Font sizes */
+  --text-xs: 11px;
+  --text-sm: 12px;
+  --text-base: 14px;
+  --text-lg: 16px;
+  --text-xl: 18px;
+  --text-2xl: 24px;
+  --text-3xl: 32px;
+
+  /* Font weights */
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+
+  /* Line heights */
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.6;
+
+  /* Letter spacing */
+  --tracking-tight: -0.5px;
+  --tracking-normal: 0;
+  --tracking-wide: 0.5px;
+
+  /* ==================== */
+  /* SPACING */
+  /* ==================== */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* ==================== */
+  /* BORDER RADIUS */
+  /* ==================== */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* ==================== */
+  /* SHADOWS */
+  /* ==================== */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.6);
+
+  /* Focus ring */
+  --shadow-focus: 0 0 0 3px rgba(107, 107, 125, 0.15);
+  --shadow-focus-primary: 0 0 0 3px rgba(209, 209, 219, 0.3);
+
+  /* ==================== */
+  /* TRANSITIONS */
+  /* ==================== */
+  --transition-fast: 0.1s ease;
+  --transition-base: 0.15s ease;
+  --transition-slow: 0.2s ease;
+  --transition-slower: 0.3s ease;
+
+  /* ==================== */
+  /* Z-INDEX SCALE */
+  /* ==================== */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-popover: 500;
+  --z-tooltip: 600;
+  --z-toast: 700;
+
+  /* ==================== */
+  /* BREAKPOINTS (for reference) */
+  /* ==================== */
+  /* --breakpoint-sm: 640px; */
+  /* --breakpoint-md: 768px; */
+  /* --breakpoint-lg: 1024px; */
+  /* --breakpoint-xl: 1280px; */
+}
+
+/* ==================== */
+/* BASE RESET */
+/* ==================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--gray-1);
+  color: var(--gray-10);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==================== */
+/* FONT IMPORTS HELPER */
+/* ==================== */
+/*
+  Add this to your HTML <head>:
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+*/
