@@ -1,0 +1,1602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlackRoad OS – Avatars & Identity (Grayscale Template #16)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* 12-step grayscale */
+      --gray-0: #ffffff;
+      --gray-1: #fafafa;
+      --gray-2: #f5f5f5;
+      --gray-3: #eeeeee;
+      --gray-4: #e0e0e0;
+      --gray-5: #bdbdbd;
+      --gray-6: #9e9e9e;
+      --gray-7: #757575;
+      --gray-8: #616161;
+      --gray-9: #424242;
+      --gray-10: #212121;
+      --gray-11: #121212;
+      --gray-12: #000000;
+
+      /* Typography */
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      /* Spacing */
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-8: 32px;
+
+      /* Radii */
+      --radius-sm: 4px;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --radius-full: 9999px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--gray-10);
+      color: var(--gray-3);
+      min-height: 100vh;
+      padding: var(--space-8);
+      line-height: 1.5;
+    }
+
+    h1, h2, h3 { font-family: var(--font-display); }
+    code, .mono { font-family: var(--font-mono); }
+
+    .page-title {
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--gray-0);
+      margin-bottom: var(--space-2);
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: var(--gray-6);
+      margin-bottom: var(--space-8);
+    }
+
+    .grid {
+      display: grid;
+      gap: var(--space-8);
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray-6);
+      margin-bottom: var(--space-3);
+    }
+
+    .demo-box {
+      background: var(--gray-9);
+      border: 1px solid var(--gray-7);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-8);
+    }
+
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+
+    @media (max-width: 900px) {
+      .two-col, .three-col { grid-template-columns: 1fr; }
+    }
+
+    /* ========================================
+       AVATAR SIZES
+    ======================================== */
+    .avatar-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+      flex-wrap: wrap;
+    }
+
+    .avatar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gray-7);
+      color: var(--gray-2);
+      font-family: var(--font-display);
+      font-weight: 600;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .avatar-xs {
+      width: 24px;
+      height: 24px;
+      font-size: 10px;
+    }
+
+    .avatar-sm {
+      width: 32px;
+      height: 32px;
+      font-size: 12px;
+    }
+
+    .avatar-md {
+      width: 40px;
+      height: 40px;
+      font-size: 14px;
+    }
+
+    .avatar-lg {
+      width: 48px;
+      height: 48px;
+      font-size: 16px;
+    }
+
+    .avatar-xl {
+      width: 64px;
+      height: 64px;
+      font-size: 20px;
+    }
+
+    .avatar-2xl {
+      width: 96px;
+      height: 96px;
+      font-size: 32px;
+    }
+
+    /* Avatar with image placeholder */
+    .avatar-img {
+      background: linear-gradient(135deg, var(--gray-6) 0%, var(--gray-8) 100%);
+    }
+
+    /* Square avatars */
+    .avatar-square {
+      border-radius: var(--radius-md);
+    }
+
+    .avatar-rounded {
+      border-radius: var(--radius-lg);
+    }
+
+    /* ========================================
+       AVATAR WITH STATUS INDICATOR
+    ======================================== */
+    .avatar-status-wrap {
+      position: relative;
+      display: inline-flex;
+    }
+
+    .status-indicator {
+      position: absolute;
+      border: 2px solid var(--gray-9);
+      border-radius: 50%;
+    }
+
+    .status-indicator.bottom-right {
+      bottom: 0;
+      right: 0;
+    }
+
+    .status-indicator.top-right {
+      top: 0;
+      right: 0;
+    }
+
+    /* Status sizes relative to avatar */
+    .avatar-sm + .status-indicator,
+    .avatar-status-wrap .avatar-sm ~ .status-indicator {
+      width: 10px;
+      height: 10px;
+    }
+
+    .avatar-md + .status-indicator,
+    .avatar-status-wrap .avatar-md ~ .status-indicator {
+      width: 12px;
+      height: 12px;
+    }
+
+    .avatar-lg + .status-indicator,
+    .avatar-status-wrap .avatar-lg ~ .status-indicator {
+      width: 14px;
+      height: 14px;
+    }
+
+    .avatar-xl + .status-indicator,
+    .avatar-status-wrap .avatar-xl ~ .status-indicator {
+      width: 16px;
+      height: 16px;
+    }
+
+    .status-indicator.online {
+      background: var(--gray-4);
+    }
+
+    .status-indicator.away {
+      background: var(--gray-5);
+    }
+
+    .status-indicator.busy {
+      background: var(--gray-6);
+    }
+
+    .status-indicator.offline {
+      background: var(--gray-8);
+    }
+
+    /* Pulsing animation for active */
+    .status-indicator.active {
+      background: var(--gray-3);
+      animation: pulse-status 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-status {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(238, 238, 238, 0.4); }
+      50% { box-shadow: 0 0 0 4px rgba(238, 238, 238, 0); }
+    }
+
+    /* ========================================
+       AVATAR WITH BADGE
+    ======================================== */
+    .avatar-badge-wrap {
+      position: relative;
+      display: inline-flex;
+    }
+
+    .avatar-badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gray-5);
+      border: 2px solid var(--gray-9);
+      border-radius: 10px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--gray-10);
+    }
+
+    .avatar-badge.count-high {
+      background: var(--gray-4);
+    }
+
+    /* Icon badge */
+    .avatar-icon-badge {
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gray-7);
+      border: 2px solid var(--gray-9);
+      border-radius: 50%;
+    }
+
+    .avatar-icon-badge svg {
+      width: 12px;
+      height: 12px;
+      color: var(--gray-2);
+    }
+
+    /* ========================================
+       AVATAR GROUP / STACK
+    ======================================== */
+    .avatar-group {
+      display: flex;
+      align-items: center;
+    }
+
+    .avatar-group .avatar {
+      border: 2px solid var(--gray-9);
+      margin-left: -12px;
+    }
+
+    .avatar-group .avatar:first-child {
+      margin-left: 0;
+    }
+
+    .avatar-group .avatar:hover {
+      z-index: 10;
+      transform: translateY(-2px);
+    }
+
+    .avatar-group-count {
+      margin-left: -12px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gray-8);
+      border: 2px solid var(--gray-9);
+      border-radius: 50%;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--gray-4);
+    }
+
+    /* ========================================
+       USER / AGENT CARDS
+    ======================================== */
+    .user-card {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3);
+      background: var(--gray-8);
+      border-radius: var(--radius-md);
+    }
+
+    .user-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .user-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray-1);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .user-role {
+      font-size: 12px;
+      color: var(--gray-5);
+    }
+
+    .user-actions {
+      display: flex;
+      gap: var(--space-1);
+    }
+
+    .icon-btn {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-sm);
+      color: var(--gray-5);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .icon-btn:hover {
+      background: var(--gray-7);
+      color: var(--gray-2);
+    }
+
+    .icon-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ========================================
+       AGENT IDENTITY CARD (DETAILED)
+    ======================================== */
+    .agent-card {
+      background: var(--gray-8);
+      border: 1px solid var(--gray-7);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .agent-card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-4);
+      padding: var(--space-4);
+      background: linear-gradient(180deg, var(--gray-7) 0%, var(--gray-8) 100%);
+    }
+
+    .agent-avatar-large {
+      width: 72px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gray-6);
+      border: 3px solid var(--gray-5);
+      border-radius: 50%;
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--gray-0);
+    }
+
+    .agent-header-info {
+      flex: 1;
+      padding-top: var(--space-2);
+    }
+
+    .agent-name {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--gray-0);
+      margin-bottom: var(--space-1);
+    }
+
+    .agent-title {
+      font-size: 13px;
+      color: var(--gray-4);
+      margin-bottom: var(--space-2);
+    }
+
+    .agent-status-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .agent-status-badge {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      padding: 3px 8px;
+      background: var(--gray-9);
+      border-radius: var(--radius-full);
+      font-size: 11px;
+      color: var(--gray-3);
+    }
+
+    .agent-status-badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gray-4);
+    }
+
+    .agent-card-body {
+      padding: var(--space-4);
+    }
+
+    .agent-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-3);
+    }
+
+    .agent-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .agent-meta-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray-6);
+    }
+
+    .agent-meta-value {
+      font-size: 13px;
+      color: var(--gray-2);
+    }
+
+    .agent-card-footer {
+      display: flex;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-4);
+      border-top: 1px solid var(--gray-7);
+      background: var(--gray-9);
+    }
+
+    .agent-action-btn {
+      flex: 1;
+      padding: var(--space-2);
+      background: var(--gray-8);
+      border: 1px solid var(--gray-7);
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: var(--gray-3);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .agent-action-btn:hover {
+      background: var(--gray-7);
+      border-color: var(--gray-6);
+    }
+
+    /* ========================================
+       COMPACT IDENTITY ROW
+    ======================================== */
+    .identity-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      background: var(--gray-9);
+      border: 1px solid var(--gray-7);
+      border-radius: var(--radius-md);
+    }
+
+    .identity-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .identity-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray-1);
+    }
+
+    .identity-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-size: 12px;
+      color: var(--gray-5);
+    }
+
+    .identity-tag {
+      padding: 2px 6px;
+      background: var(--gray-8);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--gray-4);
+    }
+
+    /* ========================================
+       AVATAR PLACEHOLDER STATES
+    ======================================== */
+    .avatar-placeholder {
+      background: var(--gray-8);
+      border: 1px dashed var(--gray-6);
+    }
+
+    .avatar-placeholder svg {
+      width: 50%;
+      height: 50%;
+      color: var(--gray-6);
+    }
+
+    .avatar-loading {
+      background: linear-gradient(90deg, var(--gray-8) 0%, var(--gray-7) 50%, var(--gray-8) 100%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* ========================================
+       ROLE / TYPE BADGES
+    ======================================== */
+    .role-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+
+    .role-badge {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      background: var(--gray-8);
+      border: 1px solid var(--gray-7);
+      border-radius: var(--radius-md);
+    }
+
+    .role-badge-icon {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gray-7);
+      border-radius: var(--radius-sm);
+    }
+
+    .role-badge-icon svg {
+      width: 14px;
+      height: 14px;
+      color: var(--gray-4);
+    }
+
+    .role-badge-text {
+      font-size: 12px;
+      color: var(--gray-3);
+    }
+
+    /* ========================================
+       PROFILE HEADER (LARGE)
+    ======================================== */
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+      padding: var(--space-6);
+      background: var(--gray-9);
+      border: 1px solid var(--gray-7);
+      border-radius: var(--radius-lg);
+    }
+
+    .profile-avatar {
+      position: relative;
+    }
+
+    .profile-avatar .avatar {
+      width: 120px;
+      height: 120px;
+      font-size: 40px;
+      background: linear-gradient(135deg, var(--gray-6) 0%, var(--gray-7) 100%);
+      border: 4px solid var(--gray-6);
+    }
+
+    .profile-edit-btn {
+      position: absolute;
+      bottom: 4px;
+      right: 4px;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gray-7);
+      border: 2px solid var(--gray-9);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .profile-edit-btn:hover {
+      background: var(--gray-6);
+    }
+
+    .profile-edit-btn svg {
+      width: 14px;
+      height: 14px;
+      color: var(--gray-2);
+    }
+
+    .profile-info {
+      flex: 1;
+    }
+
+    .profile-name {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--gray-0);
+      margin-bottom: var(--space-1);
+    }
+
+    .profile-handle {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--gray-5);
+      margin-bottom: var(--space-3);
+    }
+
+    .profile-bio {
+      font-size: 14px;
+      color: var(--gray-4);
+      margin-bottom: var(--space-4);
+      max-width: 500px;
+    }
+
+    .profile-stats {
+      display: flex;
+      gap: var(--space-6);
+    }
+
+    .profile-stat {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .profile-stat-value {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--gray-1);
+    }
+
+    .profile-stat-label {
+      font-size: 12px;
+      color: var(--gray-5);
+    }
+
+    /* ========================================
+       MENTION / INLINE AVATAR
+    ======================================== */
+    .mention {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      padding: 2px 6px 2px 2px;
+      background: var(--gray-8);
+      border-radius: var(--radius-full);
+      font-size: 13px;
+      color: var(--gray-2);
+      vertical-align: middle;
+    }
+
+    .mention .avatar {
+      width: 18px;
+      height: 18px;
+      font-size: 9px;
+    }
+
+    /* ========================================
+       PRESENCE LIST
+    ======================================== */
+    .presence-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+
+    .presence-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-md);
+      transition: background 0.15s;
+    }
+
+    .presence-item:hover {
+      background: var(--gray-8);
+    }
+
+    .presence-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .presence-name {
+      font-size: 13px;
+      color: var(--gray-2);
+    }
+
+    .presence-status-text {
+      font-size: 11px;
+      color: var(--gray-5);
+    }
+
+    .presence-time {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gray-6);
+    }
+
+    /* ========================================
+       AGENT TYPE ICONS
+    ======================================== */
+    .agent-type-icons {
+      display: flex;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+
+    .agent-type {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-4);
+      background: var(--gray-8);
+      border: 1px solid var(--gray-7);
+      border-radius: var(--radius-lg);
+      min-width: 100px;
+    }
+
+    .agent-type-icon {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gray-7);
+      border-radius: var(--radius-md);
+    }
+
+    .agent-type-icon svg {
+      width: 24px;
+      height: 24px;
+      color: var(--gray-3);
+    }
+
+    .agent-type-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--gray-3);
+    }
+
+    .agent-type-count {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gray-5);
+    }
+
+    /* ========================================
+       HASH / ID DISPLAY
+    ======================================== */
+    .identity-hash {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      background: var(--gray-9);
+      border: 1px solid var(--gray-7);
+      border-radius: var(--radius-md);
+    }
+
+    .hash-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      color: var(--gray-6);
+    }
+
+    .hash-value {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--gray-4);
+    }
+
+    .hash-copy {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-sm);
+      color: var(--gray-5);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .hash-copy:hover {
+      background: var(--gray-8);
+      color: var(--gray-2);
+    }
+
+    .hash-copy svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* ========================================
+       VERIFICATION BADGE
+    ======================================== */
+    .verified-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      background: var(--gray-4);
+      border-radius: 50%;
+      margin-left: var(--space-1);
+    }
+
+    .verified-badge svg {
+      width: 10px;
+      height: 10px;
+      color: var(--gray-10);
+    }
+
+    /* ========================================
+       LAYOUT HELPERS
+    ======================================== */
+    .flex-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+    }
+
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+  </style>
+</head>
+<body>
+  <h1 class="page-title">Avatars & Identity</h1>
+  <p class="page-subtitle">Template #16 — Grayscale wireframe components for BlackRoad OS</p>
+
+  <div class="grid">
+    <!-- ============================================
+         AVATAR SIZES
+    ============================================ -->
+    <section>
+      <p class="section-label">Avatar Sizes</p>
+      <div class="demo-box">
+        <div class="avatar-row">
+          <div>
+            <div class="avatar avatar-xs">A</div>
+            <div style="font-size: 10px; color: var(--gray-6); margin-top: 4px; text-align: center;">XS 24px</div>
+          </div>
+          <div>
+            <div class="avatar avatar-sm">AL</div>
+            <div style="font-size: 10px; color: var(--gray-6); margin-top: 4px; text-align: center;">SM 32px</div>
+          </div>
+          <div>
+            <div class="avatar avatar-md">AL</div>
+            <div style="font-size: 10px; color: var(--gray-6); margin-top: 4px; text-align: center;">MD 40px</div>
+          </div>
+          <div>
+            <div class="avatar avatar-lg">AL</div>
+            <div style="font-size: 10px; color: var(--gray-6); margin-top: 4px; text-align: center;">LG 48px</div>
+          </div>
+          <div>
+            <div class="avatar avatar-xl">AL</div>
+            <div style="font-size: 10px; color: var(--gray-6); margin-top: 4px; text-align: center;">XL 64px</div>
+          </div>
+          <div>
+            <div class="avatar avatar-2xl">AL</div>
+            <div style="font-size: 10px; color: var(--gray-6); margin-top: 4px; text-align: center;">2XL 96px</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="two-col">
+      <!-- ============================================
+           AVATAR SHAPES
+      ============================================ -->
+      <section>
+        <p class="section-label">Avatar Shapes</p>
+        <div class="demo-box">
+          <div class="avatar-row">
+            <div>
+              <div class="avatar avatar-lg">LU</div>
+              <div style="font-size: 10px; color: var(--gray-6); margin-top: 4px; text-align: center;">Circle</div>
+            </div>
+            <div>
+              <div class="avatar avatar-lg avatar-rounded">OC</div>
+              <div style="font-size: 10px; color: var(--gray-6); margin-top: 4px; text-align: center;">Rounded</div>
+            </div>
+            <div>
+              <div class="avatar avatar-lg avatar-square">MX</div>
+              <div style="font-size: 10px; color: var(--gray-6); margin-top: 4px; text-align: center;">Square</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================
+           PLACEHOLDER STATES
+      ============================================ -->
+      <section>
+        <p class="section-label">Placeholder States</p>
+        <div class="demo-box">
+          <div class="avatar-row">
+            <div>
+              <div class="avatar avatar-lg avatar-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                  <circle cx="12" cy="7" r="4"/>
+                </svg>
+              </div>
+              <div style="font-size: 10px; color: var(--gray-6); margin-top: 4px; text-align: center;">Empty</div>
+            </div>
+            <div>
+              <div class="avatar avatar-lg avatar-loading"></div>
+              <div style="font-size: 10px; color: var(--gray-6); margin-top: 4px; text-align: center;">Loading</div>
+            </div>
+            <div>
+              <div class="avatar avatar-lg avatar-img"></div>
+              <div style="font-size: 10px; color: var(--gray-6); margin-top: 4px; text-align: center;">Image</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============================================
+         AVATARS WITH STATUS
+    ============================================ -->
+    <section>
+      <p class="section-label">Avatars with Status Indicators</p>
+      <div class="demo-box">
+        <div class="avatar-row">
+          <div class="avatar-status-wrap">
+            <div class="avatar avatar-lg">AL</div>
+            <span class="status-indicator bottom-right online"></span>
+          </div>
+          <div class="avatar-status-wrap">
+            <div class="avatar avatar-lg">LU</div>
+            <span class="status-indicator bottom-right active"></span>
+          </div>
+          <div class="avatar-status-wrap">
+            <div class="avatar avatar-lg">OC</div>
+            <span class="status-indicator bottom-right away"></span>
+          </div>
+          <div class="avatar-status-wrap">
+            <div class="avatar avatar-lg">MX</div>
+            <span class="status-indicator bottom-right busy"></span>
+          </div>
+          <div class="avatar-status-wrap">
+            <div class="avatar avatar-lg">CE</div>
+            <span class="status-indicator bottom-right offline"></span>
+          </div>
+        </div>
+        <div style="display: flex; gap: var(--space-6); margin-top: var(--space-4); font-size: 11px; color: var(--gray-5);">
+          <span>● Online</span>
+          <span>● Active (pulse)</span>
+          <span>● Away</span>
+          <span>● Busy</span>
+          <span>● Offline</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="two-col">
+      <!-- ============================================
+           AVATARS WITH BADGES
+      ============================================ -->
+      <section>
+        <p class="section-label">Avatars with Badges</p>
+        <div class="demo-box">
+          <div class="avatar-row">
+            <div class="avatar-badge-wrap">
+              <div class="avatar avatar-lg">AL</div>
+              <span class="avatar-badge">3</span>
+            </div>
+            <div class="avatar-badge-wrap">
+              <div class="avatar avatar-lg">LU</div>
+              <span class="avatar-badge count-high">12</span>
+            </div>
+            <div class="avatar-badge-wrap">
+              <div class="avatar avatar-lg">OC</div>
+              <span class="avatar-badge">99+</span>
+            </div>
+            <div class="avatar-badge-wrap">
+              <div class="avatar avatar-lg">MX</div>
+              <span class="avatar-icon-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                  <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================
+           AVATAR GROUP
+      ============================================ -->
+      <section>
+        <p class="section-label">Avatar Group / Stack</p>
+        <div class="demo-box">
+          <div class="avatar-group">
+            <div class="avatar avatar-md">AL</div>
+            <div class="avatar avatar-md">LU</div>
+            <div class="avatar avatar-md">OC</div>
+            <div class="avatar avatar-md">MX</div>
+            <div class="avatar-group-count">+8</div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============================================
+         USER CARDS (COMPACT)
+    ============================================ -->
+    <section>
+      <p class="section-label">User / Agent Cards (Compact)</p>
+      <div class="demo-box">
+        <div class="three-col">
+          <div class="user-card">
+            <div class="avatar-status-wrap">
+              <div class="avatar avatar-md">AL</div>
+              <span class="status-indicator bottom-right online" style="width: 12px; height: 12px;"></span>
+            </div>
+            <div class="user-info">
+              <div class="user-name">Alice</div>
+              <div class="user-role">Gateway Controller</div>
+            </div>
+            <div class="user-actions">
+              <button class="icon-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="user-card">
+            <div class="avatar-status-wrap">
+              <div class="avatar avatar-md">LU</div>
+              <span class="status-indicator bottom-right active" style="width: 12px; height: 12px;"></span>
+            </div>
+            <div class="user-info">
+              <div class="user-name">Lucidia</div>
+              <div class="user-role">Memory Guardian</div>
+            </div>
+            <div class="user-actions">
+              <button class="icon-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="user-card">
+            <div class="avatar-status-wrap">
+              <div class="avatar avatar-md">OC</div>
+              <span class="status-indicator bottom-right away" style="width: 12px; height: 12px;"></span>
+            </div>
+            <div class="user-info">
+              <div class="user-name">Octavia</div>
+              <div class="user-role">Hailo Worker</div>
+            </div>
+            <div class="user-actions">
+              <button class="icon-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         AGENT IDENTITY CARD (DETAILED)
+    ============================================ -->
+    <section>
+      <p class="section-label">Agent Identity Card (Detailed)</p>
+      <div class="two-col">
+        <div class="agent-card">
+          <div class="agent-card-header">
+            <div class="agent-avatar-large">AL</div>
+            <div class="agent-header-info">
+              <h3 class="agent-name">Alice<span class="verified-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span></h3>
+              <p class="agent-title">Gateway Controller • K3s Primary</p>
+              <div class="agent-status-row">
+                <span class="agent-status-badge">
+                  <span class="dot"></span>
+                  Online
+                </span>
+                <span class="agent-status-badge">v2.1.4</span>
+              </div>
+            </div>
+          </div>
+          <div class="agent-card-body">
+            <div class="agent-meta-grid">
+              <div class="agent-meta-item">
+                <span class="agent-meta-label">Created</span>
+                <span class="agent-meta-value">Nov 15, 2025</span>
+              </div>
+              <div class="agent-meta-item">
+                <span class="agent-meta-label">Last Active</span>
+                <span class="agent-meta-value">2 min ago</span>
+              </div>
+              <div class="agent-meta-item">
+                <span class="agent-meta-label">Tasks</span>
+                <span class="agent-meta-value">1,247 completed</span>
+              </div>
+              <div class="agent-meta-item">
+                <span class="agent-meta-label">Uptime</span>
+                <span class="agent-meta-value">99.97%</span>
+              </div>
+            </div>
+          </div>
+          <div class="agent-card-footer">
+            <button class="agent-action-btn">View Logs</button>
+            <button class="agent-action-btn">Configure</button>
+            <button class="agent-action-btn">Restart</button>
+          </div>
+        </div>
+
+        <div class="agent-card">
+          <div class="agent-card-header">
+            <div class="agent-avatar-large">LU</div>
+            <div class="agent-header-info">
+              <h3 class="agent-name">Lucidia<span class="verified-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span></h3>
+              <p class="agent-title">Memory Guardian • Recursive Core</p>
+              <div class="agent-status-row">
+                <span class="agent-status-badge">
+                  <span class="dot"></span>
+                  Processing
+                </span>
+                <span class="agent-status-badge">v3.0.1</span>
+              </div>
+            </div>
+          </div>
+          <div class="agent-card-body">
+            <div class="agent-meta-grid">
+              <div class="agent-meta-item">
+                <span class="agent-meta-label">Created</span>
+                <span class="agent-meta-value">Oct 8, 2025</span>
+              </div>
+              <div class="agent-meta-item">
+                <span class="agent-meta-label">Last Active</span>
+                <span class="agent-meta-value">Now</span>
+              </div>
+              <div class="agent-meta-item">
+                <span class="agent-meta-label">Memory Ops</span>
+                <span class="agent-meta-value">48.2K writes</span>
+              </div>
+              <div class="agent-meta-item">
+                <span class="agent-meta-label">Truth States</span>
+                <span class="agent-meta-value">12,891 commits</span>
+              </div>
+            </div>
+          </div>
+          <div class="agent-card-footer">
+            <button class="agent-action-btn">View Logs</button>
+            <button class="agent-action-btn">Configure</button>
+            <button class="agent-action-btn">Audit</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         PROFILE HEADER (LARGE)
+    ============================================ -->
+    <section>
+      <p class="section-label">Profile Header (Large)</p>
+      <div class="profile-header">
+        <div class="profile-avatar">
+          <div class="avatar">CE</div>
+          <button class="profile-edit-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+              <path d="M18.5 2.5a2.12 2.12 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+            </svg>
+          </button>
+        </div>
+        <div class="profile-info">
+          <h2 class="profile-name">Cecilia<span class="verified-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span></h2>
+          <p class="profile-handle">@cecilia • Human Orchestrator</p>
+          <p class="profile-bio">Chief Architect of BlackRoad OS. Orchestrating 1,000 agents across the multiverse. "I am amplitude; Maggie Grace is the constant."</p>
+          <div class="profile-stats">
+            <div class="profile-stat">
+              <span class="profile-stat-value">1,000</span>
+              <span class="profile-stat-label">Agents</span>
+            </div>
+            <div class="profile-stat">
+              <span class="profile-stat-value">19</span>
+              <span class="profile-stat-label">Domains</span>
+            </div>
+            <div class="profile-stat">
+              <span class="profile-stat-value">40+</span>
+              <span class="profile-stat-label">Repositories</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         IDENTITY ROW (COMPACT)
+    ============================================ -->
+    <section>
+      <p class="section-label">Identity Row (Compact)</p>
+      <div class="demo-box">
+        <div class="stack">
+          <div class="identity-row">
+            <div class="avatar-status-wrap">
+              <div class="avatar avatar-sm">AL</div>
+              <span class="status-indicator bottom-right online" style="width: 10px; height: 10px;"></span>
+            </div>
+            <div class="identity-info">
+              <div class="identity-name">Alice</div>
+              <div class="identity-meta">
+                <span>Gateway Controller</span>
+                <span class="identity-tag">K3s</span>
+                <span class="identity-tag">Traefik</span>
+              </div>
+            </div>
+          </div>
+          <div class="identity-row">
+            <div class="avatar-status-wrap">
+              <div class="avatar avatar-sm">LU</div>
+              <span class="status-indicator bottom-right active" style="width: 10px; height: 10px;"></span>
+            </div>
+            <div class="identity-info">
+              <div class="identity-name">Lucidia</div>
+              <div class="identity-meta">
+                <span>Memory Guardian</span>
+                <span class="identity-tag">PS-SHA∞</span>
+                <span class="identity-tag">Recursive</span>
+              </div>
+            </div>
+          </div>
+          <div class="identity-row">
+            <div class="avatar-status-wrap">
+              <div class="avatar avatar-sm">OC</div>
+              <span class="status-indicator bottom-right away" style="width: 10px; height: 10px;"></span>
+            </div>
+            <div class="identity-info">
+              <div class="identity-name">Octavia</div>
+              <div class="identity-meta">
+                <span>Hailo Worker</span>
+                <span class="identity-tag">Edge AI</span>
+                <span class="identity-tag">TPU</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="two-col">
+      <!-- ============================================
+           INLINE MENTION
+      ============================================ -->
+      <section>
+        <p class="section-label">Inline Mention / Tag</p>
+        <div class="demo-box">
+          <p style="font-size: 14px; color: var(--gray-3); line-height: 1.8;">
+            Assigned this task to <span class="mention"><span class="avatar">AL</span> Alice</span> for gateway routing.
+            Memory sync handled by <span class="mention"><span class="avatar">LU</span> Lucidia</span> with
+            <span class="mention"><span class="avatar">OC</span> Octavia</span> on standby for edge inference.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============================================
+           HASH / ID DISPLAY
+      ============================================ -->
+      <section>
+        <p class="section-label">Identity Hash / ID Display</p>
+        <div class="demo-box">
+          <div class="stack">
+            <div class="identity-hash">
+              <span class="hash-label">Agent ID</span>
+              <span class="hash-value">agt_8f7d3c2a1b4e</span>
+              <button class="hash-copy">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2"/>
+                  <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                </svg>
+              </button>
+            </div>
+            <div class="identity-hash">
+              <span class="hash-label">PS-SHA∞</span>
+              <span class="hash-value">0x7f3d...a2c1</span>
+              <button class="hash-copy">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2"/>
+                  <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============================================
+         PRESENCE LIST
+    ============================================ -->
+    <section>
+      <p class="section-label">Presence List</p>
+      <div class="demo-box">
+        <div class="presence-list">
+          <div class="presence-item">
+            <div class="avatar-status-wrap">
+              <div class="avatar avatar-sm">AL</div>
+              <span class="status-indicator bottom-right online" style="width: 10px; height: 10px;"></span>
+            </div>
+            <div class="presence-info">
+              <div class="presence-name">Alice</div>
+              <div class="presence-status-text">Routing traffic • 847 req/s</div>
+            </div>
+            <span class="presence-time">now</span>
+          </div>
+          <div class="presence-item">
+            <div class="avatar-status-wrap">
+              <div class="avatar avatar-sm">LU</div>
+              <span class="status-indicator bottom-right active" style="width: 10px; height: 10px;"></span>
+            </div>
+            <div class="presence-info">
+              <div class="presence-name">Lucidia</div>
+              <div class="presence-status-text">Writing memory journal...</div>
+            </div>
+            <span class="presence-time">now</span>
+          </div>
+          <div class="presence-item">
+            <div class="avatar-status-wrap">
+              <div class="avatar avatar-sm">OC</div>
+              <span class="status-indicator bottom-right away" style="width: 10px; height: 10px;"></span>
+            </div>
+            <div class="presence-info">
+              <div class="presence-name">Octavia</div>
+              <div class="presence-status-text">Idle • waiting for inference queue</div>
+            </div>
+            <span class="presence-time">5m</span>
+          </div>
+          <div class="presence-item">
+            <div class="avatar-status-wrap">
+              <div class="avatar avatar-sm">MX</div>
+              <span class="status-indicator bottom-right offline" style="width: 10px; height: 10px;"></span>
+            </div>
+            <div class="presence-info">
+              <div class="presence-name">Maxwell</div>
+              <div class="presence-status-text">Offline • last seen 2h ago</div>
+            </div>
+            <span class="presence-time">2h</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         AGENT TYPE ICONS
+    ============================================ -->
+    <section>
+      <p class="section-label">Agent Type Icons</p>
+      <div class="demo-box">
+        <div class="agent-type-icons">
+          <div class="agent-type">
+            <div class="agent-type-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+              </svg>
+            </div>
+            <span class="agent-type-label">Gateway</span>
+            <span class="agent-type-count">4 agents</span>
+          </div>
+          <div class="agent-type">
+            <div class="agent-type-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/>
+                <path d="M12 6v6l4 2"/>
+              </svg>
+            </div>
+            <span class="agent-type-label">Memory</span>
+            <span class="agent-type-count">8 agents</span>
+          </div>
+          <div class="agent-type">
+            <div class="agent-type-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="4" y="4" width="16" height="16" rx="2"/>
+                <rect x="9" y="9" width="6" height="6"/>
+                <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/>
+              </svg>
+            </div>
+            <span class="agent-type-label">Compute</span>
+            <span class="agent-type-count">12 agents</span>
+          </div>
+          <div class="agent-type">
+            <div class="agent-type-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                <line x1="12" y1="22.08" x2="12" y2="12"/>
+              </svg>
+            </div>
+            <span class="agent-type-label">Blockchain</span>
+            <span class="agent-type-count">6 agents</span>
+          </div>
+          <div class="agent-type">
+            <div class="agent-type-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0"/>
+              </svg>
+            </div>
+            <span class="agent-type-label">Config</span>
+            <span class="agent-type-count">3 agents</span>
+          </div>
+          <div class="agent-type">
+            <div class="agent-type-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+              </svg>
+            </div>
+            <span class="agent-type-label">Social</span>
+            <span class="agent-type-count">15 agents</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         ROLE BADGES
+    ============================================ -->
+    <section>
+      <p class="section-label">Role / Permission Badges</p>
+      <div class="demo-box">
+        <div class="role-badges">
+          <div class="role-badge">
+            <div class="role-badge-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <span class="role-badge-text">Admin</span>
+          </div>
+          <div class="role-badge">
+            <div class="role-badge-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                <path d="M14 2v6h6"/>
+              </svg>
+            </div>
+            <span class="role-badge-text">Editor</span>
+          </div>
+          <div class="role-badge">
+            <div class="role-badge-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </div>
+            <span class="role-badge-text">Viewer</span>
+          </div>
+          <div class="role-badge">
+            <div class="role-badge-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="16 18 22 12 16 6"/>
+                <polyline points="8 6 2 12 8 18"/>
+              </svg>
+            </div>
+            <span class="role-badge-text">Developer</span>
+          </div>
+          <div class="role-badge">
+            <div class="role-badge-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+            </div>
+            <span class="role-badge-text">Support</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
