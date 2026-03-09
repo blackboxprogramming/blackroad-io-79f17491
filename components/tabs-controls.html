@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlackRoad OS – Tabs & Segmented Controls (Grayscale Template #15)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* 12-step grayscale */
+      --gray-0: #ffffff;
+      --gray-1: #fafafa;
+      --gray-2: #f5f5f5;
+      --gray-3: #eeeeee;
+      --gray-4: #e0e0e0;
+      --gray-5: #bdbdbd;
+      --gray-6: #9e9e9e;
+      --gray-7: #757575;
+      --gray-8: #616161;
+      --gray-9: #424242;
+      --gray-10: #212121;
+      --gray-11: #121212;
+      --gray-12: #000000;
+
+      /* Typography */
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      /* Spacing */
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-8: 32px;
+
+      /* Radii */
+      --radius-sm: 4px;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --radius-full: 9999px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--gray-10);
+      color: var(--gray-3);
+      min-height: 100vh;
+      padding: var(--space-8);
+      line-height: 1.5;
+    }
+
+    h1, h2, h3 { font-family: var(--font-display); }
+    code, .mono { font-family: var(--font-mono); }
+
+    .page-title {
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--gray-0);
+      margin-bottom: var(--space-2);
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: var(--gray-6);
+      margin-bottom: var(--space-8);
+    }
+
+    .grid {
+      display: grid;
+      gap: var(--space-8);
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray-6);
+      margin-bottom: var(--space-3);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-8);
+    }
+
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+
+    @media (max-width: 900px) {
+      .two-col, .three-col { grid-template-columns: 1fr; }
+    }
+
+    /* ========================================
+       DEMO CONTAINERS
+    ======================================== */
+    .demo-box {
+      background: var(--gray-9);
+      border: 1px solid var(--gray-7);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+    }
+
+    .demo-content {
+      margin-top: var(--space-4);
+      padding: var(--space-4);
+      background: var(--gray-10);
+      border-radius: var(--radius-md);
+      min-height: 120px;
+    }
+
+    .demo-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      min-height: 100px;
+      color: var(--gray-6);
+      font-size: 13px;
+    }
+
+    /* ========================================
+       HORIZONTAL TABS - UNDERLINE STYLE
+    ======================================== */
+    .tabs-underline {
+      display: flex;
+      gap: var(--space-1);
+      border-bottom: 1px solid var(--gray-7);
+    }
+
+    .tab-underline {
+      position: relative;
+      padding: var(--space-3) var(--space-4);
+      background: transparent;
+      border: none;
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--gray-5);
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+
+    .tab-underline:hover {
+      color: var(--gray-2);
+    }
+
+    .tab-underline.active {
+      color: var(--gray-0);
+    }
+
+    .tab-underline.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gray-3);
+    }
+
+    /* ========================================
+       HORIZONTAL TABS - BOXED STYLE
+    ======================================== */
+    .tabs-boxed {
+      display: inline-flex;
+      background: var(--gray-8);
+      border-radius: var(--radius-md);
+      padding: var(--space-1);
+      gap: var(--space-1);
+    }
+
+    .tab-boxed {
+      padding: var(--space-2) var(--space-4);
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--gray-5);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .tab-boxed:hover {
+      color: var(--gray-2);
+      background: var(--gray-7);
+    }
+
+    .tab-boxed.active {
+      background: var(--gray-6);
+      color: var(--gray-0);
+    }
+
+    /* ========================================
+       HORIZONTAL TABS - PILL STYLE
+    ======================================== */
+    .tabs-pill {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .tab-pill {
+      padding: var(--space-2) var(--space-4);
+      background: transparent;
+      border: 1px solid var(--gray-7);
+      border-radius: var(--radius-full);
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--gray-5);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .tab-pill:hover {
+      border-color: var(--gray-5);
+      color: var(--gray-2);
+    }
+
+    .tab-pill.active {
+      background: var(--gray-3);
+      border-color: var(--gray-3);
+      color: var(--gray-10);
+    }
+
+    /* ========================================
+       TABS WITH ICONS
+    ======================================== */
+    .tabs-icons {
+      display: flex;
+      gap: var(--space-1);
+      border-bottom: 1px solid var(--gray-7);
+    }
+
+    .tab-icon {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      position: relative;
+      padding: var(--space-3) var(--space-4);
+      background: transparent;
+      border: none;
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--gray-5);
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+
+    .tab-icon svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .tab-icon:hover {
+      color: var(--gray-2);
+    }
+
+    .tab-icon.active {
+      color: var(--gray-0);
+    }
+
+    .tab-icon.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gray-3);
+    }
+
+    /* ========================================
+       TABS WITH BADGES
+    ======================================== */
+    .tabs-badge {
+      display: flex;
+      gap: var(--space-1);
+      border-bottom: 1px solid var(--gray-7);
+    }
+
+    .tab-badge {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      position: relative;
+      padding: var(--space-3) var(--space-4);
+      background: transparent;
+      border: none;
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--gray-5);
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+
+    .tab-badge:hover {
+      color: var(--gray-2);
+    }
+
+    .tab-badge.active {
+      color: var(--gray-0);
+    }
+
+    .tab-badge.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gray-3);
+    }
+
+    .badge {
+      padding: 2px 8px;
+      background: var(--gray-8);
+      border-radius: 10px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gray-5);
+    }
+
+    .tab-badge.active .badge {
+      background: var(--gray-7);
+      color: var(--gray-2);
+    }
+
+    /* ========================================
+       VERTICAL TABS
+    ======================================== */
+    .tabs-vertical-container {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: var(--space-4);
+    }
+
+    .tabs-vertical {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+      border-right: 1px solid var(--gray-8);
+      padding-right: var(--space-4);
+    }
+
+    .tab-vertical {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--gray-5);
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.15s;
+    }
+
+    .tab-vertical svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .tab-vertical:hover {
+      background: var(--gray-8);
+      color: var(--gray-2);
+    }
+
+    .tab-vertical.active {
+      background: var(--gray-7);
+      color: var(--gray-0);
+    }
+
+    .vertical-content {
+      padding: var(--space-2);
+    }
+
+    .vertical-content-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--gray-1);
+      margin-bottom: var(--space-3);
+    }
+
+    .vertical-content-text {
+      font-size: 14px;
+      color: var(--gray-4);
+    }
+
+    /* ========================================
+       SEGMENTED CONTROL - STANDARD
+    ======================================== */
+    .segment-control {
+      display: inline-flex;
+      background: var(--gray-9);
+      border: 1px solid var(--gray-7);
+      border-radius: var(--radius-md);
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .segment-btn {
+      padding: var(--space-2) var(--space-4);
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--gray-5);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .segment-btn:hover {
+      color: var(--gray-2);
+    }
+
+    .segment-btn.active {
+      background: var(--gray-7);
+      color: var(--gray-0);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    /* ========================================
+       SEGMENTED CONTROL - ICONS ONLY
+    ======================================== */
+    .segment-icons {
+      display: inline-flex;
+      background: var(--gray-9);
+      border: 1px solid var(--gray-7);
+      border-radius: var(--radius-md);
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .segment-icon-btn {
+      width: 36px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-sm);
+      color: var(--gray-5);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .segment-icon-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .segment-icon-btn:hover {
+      color: var(--gray-2);
+    }
+
+    .segment-icon-btn.active {
+      background: var(--gray-7);
+      color: var(--gray-0);
+    }
+
+    /* ========================================
+       SEGMENTED CONTROL - FULL WIDTH
+    ======================================== */
+    .segment-full {
+      display: flex;
+      background: var(--gray-9);
+      border: 1px solid var(--gray-7);
+      border-radius: var(--radius-md);
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .segment-full .segment-btn {
+      flex: 1;
+      text-align: center;
+    }
+
+    /* ========================================
+       TOGGLE SWITCH TABS
+    ======================================== */
+    .toggle-tabs {
+      display: inline-flex;
+      background: var(--gray-8);
+      border-radius: var(--radius-full);
+      padding: 4px;
+    }
+
+    .toggle-tab {
+      padding: var(--space-2) var(--space-5);
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-full);
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--gray-5);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .toggle-tab:hover {
+      color: var(--gray-2);
+    }
+
+    .toggle-tab.active {
+      background: var(--gray-2);
+      color: var(--gray-10);
+    }
+
+    /* ========================================
+       CARD TABS
+    ======================================== */
+    .tabs-cards {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .tab-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-4);
+      background: var(--gray-9);
+      border: 1px solid var(--gray-7);
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .tab-card:hover {
+      border-color: var(--gray-5);
+      background: var(--gray-8);
+    }
+
+    .tab-card.active {
+      border-color: var(--gray-4);
+      background: var(--gray-8);
+    }
+
+    .tab-card-icon {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gray-8);
+      border-radius: var(--radius-md);
+      color: var(--gray-5);
+    }
+
+    .tab-card.active .tab-card-icon {
+      background: var(--gray-6);
+      color: var(--gray-0);
+    }
+
+    .tab-card-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .tab-card-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-4);
+    }
+
+    .tab-card.active .tab-card-label {
+      color: var(--gray-1);
+    }
+
+    .tab-card-desc {
+      font-size: 11px;
+      color: var(--gray-6);
+      text-align: center;
+    }
+
+    /* ========================================
+       SCROLLABLE TABS
+    ======================================== */
+    .tabs-scroll-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .tabs-scroll {
+      display: flex;
+      gap: var(--space-1);
+      overflow-x: auto;
+      border-bottom: 1px solid var(--gray-7);
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding-bottom: 0;
+    }
+
+    .tabs-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .scroll-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gray-8);
+      border: 1px solid var(--gray-7);
+      border-radius: var(--radius-sm);
+      color: var(--gray-4);
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    .scroll-btn:hover {
+      background: var(--gray-7);
+      color: var(--gray-1);
+    }
+
+    .scroll-btn.left {
+      left: 0;
+    }
+
+    .scroll-btn.right {
+      right: 0;
+    }
+
+    .scroll-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ========================================
+       NESTED / HIERARCHICAL TABS
+    ======================================== */
+    .tabs-nested-container {
+      background: var(--gray-9);
+      border: 1px solid var(--gray-7);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .tabs-primary {
+      display: flex;
+      background: var(--gray-8);
+      border-bottom: 1px solid var(--gray-7);
+    }
+
+    .tab-primary {
+      padding: var(--space-4) var(--space-5);
+      background: transparent;
+      border: none;
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray-5);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .tab-primary:hover {
+      color: var(--gray-2);
+      background: var(--gray-7);
+    }
+
+    .tab-primary.active {
+      color: var(--gray-0);
+      background: var(--gray-9);
+    }
+
+    .tabs-secondary {
+      display: flex;
+      gap: var(--space-1);
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--gray-8);
+    }
+
+    .tab-secondary {
+      padding: var(--space-2) var(--space-3);
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      color: var(--gray-5);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .tab-secondary:hover {
+      background: var(--gray-8);
+      color: var(--gray-2);
+    }
+
+    .tab-secondary.active {
+      background: var(--gray-7);
+      color: var(--gray-0);
+    }
+
+    .nested-content {
+      padding: var(--space-4);
+      color: var(--gray-4);
+      font-size: 13px;
+    }
+
+    /* ========================================
+       CLOSABLE TABS
+    ======================================== */
+    .tabs-closable {
+      display: flex;
+      gap: 1px;
+      background: var(--gray-8);
+      border-bottom: 1px solid var(--gray-7);
+    }
+
+    .tab-closable {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-3) var(--space-3) var(--space-4);
+      background: var(--gray-9);
+      border: none;
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--gray-5);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .tab-closable:hover {
+      background: var(--gray-8);
+      color: var(--gray-2);
+    }
+
+    .tab-closable.active {
+      background: var(--gray-10);
+      color: var(--gray-0);
+    }
+
+    .tab-close {
+      width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-sm);
+      color: var(--gray-6);
+      cursor: pointer;
+      opacity: 0;
+      transition: all 0.15s;
+    }
+
+    .tab-closable:hover .tab-close,
+    .tab-closable.active .tab-close {
+      opacity: 1;
+    }
+
+    .tab-close:hover {
+      background: var(--gray-7);
+      color: var(--gray-2);
+    }
+
+    .tab-close svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    .tab-add {
+      width: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gray-9);
+      border: none;
+      color: var(--gray-6);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .tab-add:hover {
+      background: var(--gray-8);
+      color: var(--gray-2);
+    }
+
+    .tab-add svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ========================================
+       STATUS INDICATOR TABS
+    ======================================== */
+    .tabs-status {
+      display: flex;
+      gap: var(--space-1);
+      border-bottom: 1px solid var(--gray-7);
+    }
+
+    .tab-status {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      position: relative;
+      padding: var(--space-3) var(--space-4);
+      background: transparent;
+      border: none;
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--gray-5);
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+
+    .tab-status:hover {
+      color: var(--gray-2);
+    }
+
+    .tab-status.active {
+      color: var(--gray-0);
+    }
+
+    .tab-status.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gray-3);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gray-6);
+    }
+
+    .status-dot.online {
+      background: var(--gray-4);
+      box-shadow: 0 0 0 2px var(--gray-8);
+    }
+
+    .status-dot.warning {
+      background: var(--gray-5);
+    }
+
+    .status-dot.error {
+      background: var(--gray-5);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* ========================================
+       BUTTON GROUP (RELATED TO SEGMENTS)
+    ======================================== */
+    .btn-group {
+      display: inline-flex;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--gray-7);
+    }
+
+    .btn-group-item {
+      padding: var(--space-2) var(--space-4);
+      background: var(--gray-9);
+      border: none;
+      border-right: 1px solid var(--gray-7);
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--gray-4);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-group-item:last-child {
+      border-right: none;
+    }
+
+    .btn-group-item:hover {
+      background: var(--gray-8);
+      color: var(--gray-2);
+    }
+
+    .btn-group-item.active {
+      background: var(--gray-7);
+      color: var(--gray-0);
+    }
+
+    /* ========================================
+       STEPPER / WIZARD TABS
+    ======================================== */
+    .stepper {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .step {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .step-number {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gray-8);
+      border: 1px solid var(--gray-7);
+      border-radius: 50%;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--gray-5);
+    }
+
+    .step.active .step-number {
+      background: var(--gray-3);
+      border-color: var(--gray-3);
+      color: var(--gray-10);
+    }
+
+    .step.completed .step-number {
+      background: var(--gray-6);
+      border-color: var(--gray-6);
+      color: var(--gray-0);
+    }
+
+    .step-label {
+      font-size: 13px;
+      color: var(--gray-5);
+    }
+
+    .step.active .step-label {
+      color: var(--gray-1);
+      font-weight: 500;
+    }
+
+    .step.completed .step-label {
+      color: var(--gray-4);
+    }
+
+    .step-connector {
+      width: 40px;
+      height: 1px;
+      background: var(--gray-7);
+    }
+
+    .step-connector.completed {
+      background: var(--gray-5);
+    }
+
+    /* ========================================
+       MICRO TABS (COMPACT)
+    ======================================== */
+    .tabs-micro {
+      display: inline-flex;
+      gap: 2px;
+      background: var(--gray-9);
+      border-radius: var(--radius-sm);
+      padding: 2px;
+    }
+
+    .tab-micro {
+      padding: var(--space-1) var(--space-2);
+      background: transparent;
+      border: none;
+      border-radius: 3px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gray-5);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .tab-micro:hover {
+      color: var(--gray-2);
+    }
+
+    .tab-micro.active {
+      background: var(--gray-7);
+      color: var(--gray-0);
+    }
+
+    /* ========================================
+       EXAMPLES GRID
+    ======================================== */
+    .examples-title {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--gray-2);
+      margin-bottom: var(--space-4);
+      padding-top: var(--space-6);
+      border-top: 1px solid var(--gray-8);
+    }
+
+  </style>
+</head>
+<body>
+  <h1 class="page-title">Tabs & Segmented Controls</h1>
+  <p class="page-subtitle">Template #15 — Grayscale wireframe components for BlackRoad OS</p>
+
+  <div class="grid">
+    <!-- ============================================
+         UNDERLINE TABS
+    ============================================ -->
+    <section>
+      <p class="section-label">Horizontal Tabs — Underline Style</p>
+      <div class="demo-box">
+        <div class="tabs-underline">
+          <button class="tab-underline active">Overview</button>
+          <button class="tab-underline">Agents</button>
+          <button class="tab-underline">Events</button>
+          <button class="tab-underline">Logs</button>
+          <button class="tab-underline">Settings</button>
+        </div>
+        <div class="demo-content">
+          <div class="demo-placeholder">Overview content — Alice gateway status, cluster health</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="two-col">
+      <!-- ============================================
+           BOXED TABS
+      ============================================ -->
+      <section>
+        <p class="section-label">Boxed Tabs</p>
+        <div class="demo-box">
+          <div class="tabs-boxed">
+            <button class="tab-boxed active">All</button>
+            <button class="tab-boxed">Active</button>
+            <button class="tab-boxed">Idle</button>
+            <button class="tab-boxed">Offline</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================
+           PILL TABS
+      ============================================ -->
+      <section>
+        <p class="section-label">Pill Tabs</p>
+        <div class="demo-box">
+          <div class="tabs-pill">
+            <button class="tab-pill active">Day</button>
+            <button class="tab-pill">Week</button>
+            <button class="tab-pill">Month</button>
+            <button class="tab-pill">Year</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============================================
+         TABS WITH ICONS
+    ============================================ -->
+    <section>
+      <p class="section-label">Tabs with Icons</p>
+      <div class="demo-box">
+        <div class="tabs-icons">
+          <button class="tab-icon active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <path d="M3 9h18M9 21V9"/>
+            </svg>
+            Dashboard
+          </button>
+          <button class="tab-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+            </svg>
+            Agents
+          </button>
+          <button class="tab-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+            </svg>
+            Activity
+          </button>
+          <button class="tab-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+              <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+            </svg>
+            Docs
+          </button>
+          <button class="tab-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4"/>
+            </svg>
+            Settings
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         TABS WITH BADGES
+    ============================================ -->
+    <section>
+      <p class="section-label">Tabs with Badges / Counts</p>
+      <div class="demo-box">
+        <div class="tabs-badge">
+          <button class="tab-badge active">
+            All Agents
+            <span class="badge">24</span>
+          </button>
+          <button class="tab-badge">
+            Online
+            <span class="badge">18</span>
+          </button>
+          <button class="tab-badge">
+            Pending
+            <span class="badge">3</span>
+          </button>
+          <button class="tab-badge">
+            Errors
+            <span class="badge">2</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         VERTICAL TABS
+    ============================================ -->
+    <section>
+      <p class="section-label">Vertical Tabs</p>
+      <div class="demo-box">
+        <div class="tabs-vertical-container">
+          <div class="tabs-vertical">
+            <button class="tab-vertical active">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+              Profile
+            </button>
+            <button class="tab-vertical">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2"/>
+                <path d="M7 11V7a5 5 0 0110 0v4"/>
+              </svg>
+              Security
+            </button>
+            <button class="tab-vertical">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                <path d="M13.73 21a2 2 0 01-3.46 0"/>
+              </svg>
+              Notifications
+            </button>
+            <button class="tab-vertical">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+              </svg>
+              API Keys
+            </button>
+            <button class="tab-vertical">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+              Integrations
+            </button>
+          </div>
+          <div class="vertical-content">
+            <h3 class="vertical-content-title">Profile Settings</h3>
+            <p class="vertical-content-text">Configure your Cecilia identity, agent aliases, and display preferences for the BlackRoad OS console.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="two-col">
+      <!-- ============================================
+           SEGMENTED CONTROL - STANDARD
+      ============================================ -->
+      <section>
+        <p class="section-label">Segmented Control — Standard</p>
+        <div class="demo-box">
+          <div class="segment-control">
+            <button class="segment-btn active">Live</button>
+            <button class="segment-btn">Staging</button>
+            <button class="segment-btn">Development</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================
+           SEGMENTED CONTROL - ICONS
+      ============================================ -->
+      <section>
+        <p class="section-label">Segmented Control — Icons Only</p>
+        <div class="demo-box">
+          <div class="segment-icons">
+            <button class="segment-icon-btn active" title="List View">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="8" y1="6" x2="21" y2="6"/>
+                <line x1="8" y1="12" x2="21" y2="12"/>
+                <line x1="8" y1="18" x2="21" y2="18"/>
+                <line x1="3" y1="6" x2="3.01" y2="6"/>
+                <line x1="3" y1="12" x2="3.01" y2="12"/>
+                <line x1="3" y1="18" x2="3.01" y2="18"/>
+              </svg>
+            </button>
+            <button class="segment-icon-btn" title="Grid View">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="7" height="7"/>
+                <rect x="14" y="3" width="7" height="7"/>
+                <rect x="14" y="14" width="7" height="7"/>
+                <rect x="3" y="14" width="7" height="7"/>
+              </svg>
+            </button>
+            <button class="segment-icon-btn" title="Card View">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <path d="M3 9h18"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============================================
+         SEGMENTED CONTROL - FULL WIDTH
+    ============================================ -->
+    <section>
+      <p class="section-label">Segmented Control — Full Width</p>
+      <div class="demo-box">
+        <div class="segment-full">
+          <button class="segment-btn">Alice</button>
+          <button class="segment-btn active">Lucidia</button>
+          <button class="segment-btn">Octavia</button>
+          <button class="segment-btn">Maxwell</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="two-col">
+      <!-- ============================================
+           TOGGLE SWITCH TABS
+      ============================================ -->
+      <section>
+        <p class="section-label">Toggle Switch Style</p>
+        <div class="demo-box">
+          <div class="toggle-tabs">
+            <button class="toggle-tab active">Enabled</button>
+            <button class="toggle-tab">Disabled</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================
+           BUTTON GROUP
+      ============================================ -->
+      <section>
+        <p class="section-label">Button Group</p>
+        <div class="demo-box">
+          <div class="btn-group">
+            <button class="btn-group-item">Left</button>
+            <button class="btn-group-item active">Center</button>
+            <button class="btn-group-item">Right</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============================================
+         CARD TABS
+    ============================================ -->
+    <section>
+      <p class="section-label">Card Tabs</p>
+      <div class="demo-box">
+        <div class="tabs-cards">
+          <div class="tab-card active">
+            <div class="tab-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+            </div>
+            <span class="tab-card-label">Healthy</span>
+            <span class="tab-card-desc">All systems operational</span>
+          </div>
+          <div class="tab-card">
+            <div class="tab-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+            </div>
+            <span class="tab-card-label">Warning</span>
+            <span class="tab-card-desc">Minor issues detected</span>
+          </div>
+          <div class="tab-card">
+            <div class="tab-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="15" y1="9" x2="9" y2="15"/>
+                <line x1="9" y1="9" x2="15" y2="15"/>
+              </svg>
+            </div>
+            <span class="tab-card-label">Critical</span>
+            <span class="tab-card-desc">Immediate action needed</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         NESTED / HIERARCHICAL TABS
+    ============================================ -->
+    <section>
+      <p class="section-label">Nested / Hierarchical Tabs</p>
+      <div class="tabs-nested-container">
+        <div class="tabs-primary">
+          <button class="tab-primary active">Infrastructure</button>
+          <button class="tab-primary">Agents</button>
+          <button class="tab-primary">Memory</button>
+          <button class="tab-primary">Network</button>
+        </div>
+        <div class="tabs-secondary">
+          <button class="tab-secondary active">K3s Cluster</button>
+          <button class="tab-secondary">Traefik Routes</button>
+          <button class="tab-secondary">Redis Cache</button>
+          <button class="tab-secondary">Containers</button>
+        </div>
+        <div class="nested-content">
+          K3s cluster status for BlackRoad infrastructure — Alice gateway, Octavia Hailo workers, pod health metrics.
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         CLOSABLE TABS
+    ============================================ -->
+    <section>
+      <p class="section-label">Closable / Editor Tabs</p>
+      <div class="demo-box" style="padding: 0;">
+        <div class="tabs-closable">
+          <button class="tab-closable active">
+            config.yaml
+            <span class="tab-close">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </span>
+          </button>
+          <button class="tab-closable">
+            gateway.py
+            <span class="tab-close">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </span>
+          </button>
+          <button class="tab-closable">
+            README.md
+            <span class="tab-close">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </span>
+          </button>
+          <button class="tab-add" title="New Tab">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"/>
+              <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         STATUS INDICATOR TABS
+    ============================================ -->
+    <section>
+      <p class="section-label">Status Indicator Tabs</p>
+      <div class="demo-box">
+        <div class="tabs-status">
+          <button class="tab-status active">
+            <span class="status-dot online"></span>
+            Alice
+          </button>
+          <button class="tab-status">
+            <span class="status-dot online"></span>
+            Lucidia
+          </button>
+          <button class="tab-status">
+            <span class="status-dot warning"></span>
+            Octavia
+          </button>
+          <button class="tab-status">
+            <span class="status-dot error"></span>
+            Maxwell
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         STEPPER / WIZARD
+    ============================================ -->
+    <section>
+      <p class="section-label">Stepper / Wizard Tabs</p>
+      <div class="demo-box">
+        <div class="stepper">
+          <div class="step completed">
+            <span class="step-number">✓</span>
+            <span class="step-label">Configure</span>
+          </div>
+          <div class="step-connector completed"></div>
+          <div class="step active">
+            <span class="step-number">2</span>
+            <span class="step-label">Deploy</span>
+          </div>
+          <div class="step-connector"></div>
+          <div class="step">
+            <span class="step-number">3</span>
+            <span class="step-label">Verify</span>
+          </div>
+          <div class="step-connector"></div>
+          <div class="step">
+            <span class="step-number">4</span>
+            <span class="step-label">Complete</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="three-col">
+      <!-- ============================================
+           MICRO TABS
+      ============================================ -->
+      <section>
+        <p class="section-label">Micro Tabs (Compact)</p>
+        <div class="demo-box">
+          <div class="tabs-micro">
+            <button class="tab-micro active">1h</button>
+            <button class="tab-micro">6h</button>
+            <button class="tab-micro">24h</button>
+            <button class="tab-micro">7d</button>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <p class="section-label">Micro Tabs — Format</p>
+        <div class="demo-box">
+          <div class="tabs-micro">
+            <button class="tab-micro active">JSON</button>
+            <button class="tab-micro">YAML</button>
+            <button class="tab-micro">TOML</button>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <p class="section-label">Micro Tabs — Sort</p>
+        <div class="demo-box">
+          <div class="tabs-micro">
+            <button class="tab-micro">A-Z</button>
+            <button class="tab-micro active">Recent</button>
+            <button class="tab-micro">Size</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============================================
+         SCROLLABLE TABS EXAMPLE
+    ============================================ -->
+    <section>
+      <p class="section-label">Scrollable Tabs (Overflow)</p>
+      <div class="demo-box">
+        <div class="tabs-scroll-container">
+          <div class="tabs-scroll">
+            <button class="tab-underline active">Overview</button>
+            <button class="tab-underline">Alice</button>
+            <button class="tab-underline">Lucidia</button>
+            <button class="tab-underline">Octavia</button>
+            <button class="tab-underline">Maxwell</button>
+            <button class="tab-underline">Events</button>
+            <button class="tab-underline">Memory</button>
+            <button class="tab-underline">Blockchain</button>
+            <button class="tab-underline">Analytics</button>
+            <button class="tab-underline">Logs</button>
+            <button class="tab-underline">Settings</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
