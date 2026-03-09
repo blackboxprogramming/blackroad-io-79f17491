@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pixel Character Editor</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: #1a1a1a;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+    }
+
+    .subtitle {
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 12px;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background: #333;
+      color: #fff;
+      border: 1px solid #444;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 12px;
+      transition: all 0.2s;
+    }
+
+    button:hover {
+      background: #444;
+      border-color: #666;
+    }
+
+    .size-selector {
+      display: flex;
+      gap: 5px;
+      margin-bottom: 20px;
+    }
+
+    .size-selector button.active {
+      background: #fff;
+      color: #000;
+    }
+
+    .editor-container {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+    }
+
+    .pixel-grid {
+      display: grid;
+      gap: 1px;
+      background: #333;
+      padding: 1px;
+      cursor: crosshair;
+    }
+
+    .pixel {
+      background: #fff;
+      transition: background 0.1s;
+    }
+
+    .pixel.on {
+      background: #000;
+    }
+
+    .preview-section {
+      text-align: center;
+    }
+
+    .preview-label {
+      font-size: 10px;
+      color: #666;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .preview {
+      display: grid;
+      gap: 0;
+      image-rendering: pixelated;
+    }
+
+    .preview .pixel {
+      background: #fff;
+    }
+
+    .preview .pixel.on {
+      background: #000;
+    }
+
+    .templates {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .templates-label {
+      font-size: 10px;
+      color: #666;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .template-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .output {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .output-label {
+      font-size: 10px;
+      color: #666;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .output-data {
+      background: #222;
+      padding: 15px;
+      font-size: 11px;
+      color: #888;
+      max-width: 400px;
+      word-break: break-all;
+      border: 1px solid #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>PIXEL EDITOR</h1>
+  <p class="subtitle">click to draw · drag to paint · right-click to erase</p>
+
+  <div class="size-selector">
+    <button onclick="setGridSize(8)" class="active">8×8</button>
+    <button onclick="setGridSize(16)">16×16</button>
+    <button onclick="setGridSize(32)">32×32</button>
+  </div>
+
+  <div class="controls">
+    <button onclick="clearGrid()">Clear</button>
+    <button onclick="invertGrid()">Invert</button>
+    <button onclick="copyData()">Copy Data</button>
+  </div>
+
+  <div class="editor-container">
+    <div class="pixel-grid" id="grid"></div>
+
+    <div class="preview-section">
+      <div class="preview-label">Preview</div>
+      <div class="preview" id="preview"></div>
+    </div>
+  </div>
+
+  <div class="templates">
+    <div class="templates-label">Templates</div>
+    <div class="template-buttons">
+      <button onclick="loadTemplate('face')">Face</button>
+      <button onclick="loadTemplate('ghost')">Ghost</button>
+      <button onclick="loadTemplate('heart')">Heart</button>
+      <button onclick="loadTemplate('skull')">Skull</button>
+      <button onclick="loadTemplate('alien')">Alien</button>
+    </div>
+  </div>
+
+  <div class="output">
+    <div class="output-label">Array Data</div>
+    <div class="output-data" id="output"></div>
+  </div>
+
+  <script>
+    let gridSize = 8;
+    let pixelSize = 24;
+    let previewPixelSize = 4;
+    let pixels = [];
+    let isDrawing = false;
+    let drawMode = 1;
+
+    const templates = {
+      face: [
+        0,0,1,1,1,1,0,0,
+        0,1,1,1,1,1,1,0,
+        1,1,1,1,1,1,1,1,
+        1,1,1,0,0,1,1,1,
+        1,1,1,1,1,1,1,1,
+        1,1,0,1,1,0,1,1,
+        0,1,1,1,1,1,1,0,
+        0,0,1,1,1,1,0,0
+      ],
+      ghost: [
+        0,0,1,1,1,1,0,0,
+        0,1,1,1,1,1,1,0,
+        1,1,0,1,1,0,1,1,
+        1,1,1,1,1,1,1,1,
+        1,1,1,1,1,1,1,1,
+        1,1,1,1,1,1,1,1,
+        1,1,1,1,1,1,1,1,
+        1,0,1,0,0,1,0,1
+      ],
+      heart: [
+        0,1,1,0,0,1,1,0,
+        1,1,1,1,1,1,1,1,
+        1,1,1,1,1,1,1,1,
+        1,1,1,1,1,1,1,1,
+        0,1,1,1,1,1,1,0,
+        0,0,1,1,1,1,0,0,
+        0,0,0,1,1,0,0,0,
+        0,0,0,0,0,0,0,0
+      ],
+      skull: [
+        0,1,1,1,1,1,1,0,
+        1,1,1,1,1,1,1,1,
+        1,1,0,1,1,0,1,1,
+        1,1,0,1,1,0,1,1,
+        1,1,1,1,1,1,1,1,
+        0,1,1,0,0,1,1,0,
+        0,1,0,1,1,0,1,0,
+        0,0,1,1,1,1,0,0
+      ],
+      alien: [
+        0,0,1,0,0,1,0,0,
+        0,0,0,1,1,0,0,0,
+        0,1,1,1,1,1,1,0,
+        1,1,0,1,1,0,1,1,
+        1,1,1,1,1,1,1,1,
+        0,0,1,0,0,1,0,0,
+        0,1,0,0,0,0,1,0,
+        1,0,0,0,0,0,0,1
+      ]
+    };
+
+    function initGrid() {
+      const grid = document.getElementById('grid');
+      const preview = document.getElementById('preview');
+
+      grid.innerHTML = '';
+      preview.innerHTML = '';
+
+      grid.style.gridTemplateColumns = `repeat(${gridSize}, ${pixelSize}px)`;
+      preview.style.gridTemplateColumns = `repeat(${gridSize}, ${previewPixelSize}px)`;
+
+      pixels = new Array(gridSize * gridSize).fill(0);
+
+      for (let i = 0; i < gridSize * gridSize; i++) {
+        const pixel = document.createElement('div');
+        pixel.className = 'pixel';
+        pixel.style.width = pixelSize + 'px';
+        pixel.style.height = pixelSize + 'px';
+        pixel.dataset.index = i;
+
+        pixel.addEventListener('mousedown', (e) => {
+          e.preventDefault();
+          isDrawing = true;
+          drawMode = e.button === 2 ? 0 : 1;
+          togglePixel(i, drawMode);
+        });
+
+        pixel.addEventListener('mouseenter', () => {
+          if (isDrawing) togglePixel(i, drawMode);
+        });
+
+        pixel.addEventListener('contextmenu', (e) => e.preventDefault());
+
+        grid.appendChild(pixel);
+
+        const previewPixel = document.createElement('div');
+        previewPixel.className = 'pixel';
+        previewPixel.style.width = previewPixelSize + 'px';
+        previewPixel.style.height = previewPixelSize + 'px';
+        preview.appendChild(previewPixel);
+      }
+
+      document.addEventListener('mouseup', () => isDrawing = false);
+      updateOutput();
+    }
+
+    function togglePixel(index, value) {
+      pixels[index] = value;
+      const gridPixels = document.querySelectorAll('#grid .pixel');
+      const previewPixels = document.querySelectorAll('#preview .pixel');
+
+      if (value) {
+        gridPixels[index].classList.add('on');
+        previewPixels[index].classList.add('on');
+      } else {
+        gridPixels[index].classList.remove('on');
+        previewPixels[index].classList.remove('on');
+      }
+
+      updateOutput();
+    }
+
+    function clearGrid() {
+      pixels.fill(0);
+      document.querySelectorAll('.pixel').forEach(p => p.classList.remove('on'));
+      updateOutput();
+    }
+
+    function invertGrid() {
+      pixels = pixels.map(p => p ? 0 : 1);
+      const gridPixels = document.querySelectorAll('#grid .pixel');
+      const previewPixels = document.querySelectorAll('#preview .pixel');
+
+      pixels.forEach((p, i) => {
+        gridPixels[i].classList.toggle('on', p);
+        previewPixels[i].classList.toggle('on', p);
+      });
+
+      updateOutput();
+    }
+
+    function setGridSize(size) {
+      gridSize = size;
+      pixelSize = size === 8 ? 24 : size === 16 ? 16 : 10;
+      previewPixelSize = size === 8 ? 4 : size === 16 ? 3 : 2;
+
+      document.querySelectorAll('.size-selector button').forEach(b => {
+        b.classList.toggle('active', b.textContent === `${size}×${size}`);
+      });
+
+      initGrid();
+    }
+
+    function loadTemplate(name) {
+      if (gridSize !== 8) {
+        setGridSize(8);
+      }
+
+      const template = templates[name];
+      if (!template) return;
+
+      pixels = [...template];
+      const gridPixels = document.querySelectorAll('#grid .pixel');
+      const previewPixels = document.querySelectorAll('#preview .pixel');
+
+      pixels.forEach((p, i) => {
+        gridPixels[i].classList.toggle('on', p);
+        previewPixels[i].classList.toggle('on', p);
+      });
+
+      updateOutput();
+    }
+
+    function updateOutput() {
+      document.getElementById('output').textContent = `[${pixels.join(',')}]`;
+    }
+
+    function copyData() {
+      navigator.clipboard.writeText(`[${pixels.join(',')}]`);
+    }
+
+    initGrid();
+  </script>
+</body>
+</html>
