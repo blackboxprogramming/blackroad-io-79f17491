@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackRoad OS — Template 02</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #000000;
+            --gray-950: #080808;
+            --gray-900: #0f0f0f;
+            --gray-850: #161616;
+            --gray-800: #1c1c1c;
+            --gray-750: #252525;
+            --gray-700: #2e2e2e;
+            --gray-600: #404040;
+            --gray-500: #5c5c5c;
+            --gray-400: #7a7a7a;
+            --gray-300: #a0a0a0;
+            --gray-200: #c4c4c4;
+            --gray-100: #e0e0e0;
+            --gray-50: #f0f0f0;
+            --white: #ffffff;
+
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--black);
+            color: var(--gray-300);
+            line-height: 1.5;
+        }
+
+        /* Utility */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header - Minimal top bar */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: var(--black);
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 56px;
+            padding: 0 2rem;
+        }
+
+        .wordmark {
+            font-family: var(--font-display);
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--white);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-minimal {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-minimal a {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-500);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+            transition: color 0.15s;
+        }
+
+        .nav-minimal a:hover {
+            color: var(--white);
+        }
+
+        .status-badge {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-400);
+            padding: 0.25rem 0.5rem;
+            border: 1px solid var(--gray-800);
+            letter-spacing: 0.05em;
+        }
+
+        /* Hero - Brutalist typography */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 56px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            width: 100%;
+        }
+
+        .hero-left {
+            padding: 4rem 0;
+        }
+
+        .hero-eyebrow {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-600);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(4rem, 10vw, 8rem);
+            font-weight: 700;
+            color: var(--white);
+            line-height: 0.9;
+            letter-spacing: -0.04em;
+            margin-bottom: 2rem;
+        }
+
+        .hero-title-light {
+            font-weight: 300;
+            color: var(--gray-600);
+        }
+
+        .hero-text {
+            font-size: 1rem;
+            font-weight: 300;
+            color: var(--gray-400);
+            max-width: 400px;
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--gray-700);
+            transition: all 0.2s;
+        }
+
+        .hero-cta:hover {
+            border-color: var(--white);
+            gap: 1rem;
+        }
+
+        .hero-cta-arrow {
+            font-size: 1rem;
+            transition: transform 0.2s;
+        }
+
+        .hero-cta:hover .hero-cta-arrow {
+            transform: translateX(4px);
+        }
+
+        .hero-right {
+            position: relative;
+            height: 100%;
+            min-height: 500px;
+        }
+
+        .hero-visual {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 100%;
+            aspect-ratio: 1;
+            max-width: 500px;
+        }
+
+        .hero-ring {
+            position: absolute;
+            border: 1px solid var(--gray-850);
+            border-radius: 50%;
+            animation: rotate 60s linear infinite;
+        }
+
+        .hero-ring:nth-child(1) {
+            inset: 0;
+        }
+
+        .hero-ring:nth-child(2) {
+            inset: 15%;
+            border-color: var(--gray-800);
+            animation-duration: 45s;
+            animation-direction: reverse;
+        }
+
+        .hero-ring:nth-child(3) {
+            inset: 30%;
+            border-color: var(--gray-750);
+            animation-duration: 30s;
+        }
+
+        .hero-center {
+            position: absolute;
+            inset: 40%;
+            background: var(--gray-900);
+            border: 1px solid var(--gray-800);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-center-text {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-500);
+            letter-spacing: 0.1em;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Metrics Bar */
+        .metrics-bar {
+            background: var(--gray-950);
+            border-top: 1px solid var(--gray-900);
+            border-bottom: 1px solid var(--gray-900);
+            padding: 2rem 0;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1px;
+        }
+
+        .metric {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .metric-value {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 300;
+            color: var(--white);
+            letter-spacing: -0.02em;
+        }
+
+        .metric-label {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 0.25rem;
+        }
+
+        /* Split Section */
+        .split-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 80vh;
+        }
+
+        .split-left {
+            background: var(--gray-950);
+            padding: 6rem 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .split-right {
+            background: var(--gray-900);
+            padding: 6rem 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .split-number {
+            font-family: var(--font-display);
+            font-size: 0.875rem;
+            font-weight: 300;
+            color: var(--gray-700);
+            margin-bottom: 2rem;
+        }
+
+        .split-title {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--white);
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .split-text {
+            font-size: 0.9375rem;
+            font-weight: 300;
+            color: var(--gray-400);
+            line-height: 1.8;
+            max-width: 400px;
+        }
+
+        /* Stack List */
+        .stack-section {
+            padding: 6rem 0;
+            background: var(--black);
+        }
+
+        .stack-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 3rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .stack-title {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--white);
+            letter-spacing: -0.01em;
+        }
+
+        .stack-count {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-600);
+        }
+
+        .stack-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stack-item {
+            display: grid;
+            grid-template-columns: 3rem 1fr 200px 120px;
+            gap: 2rem;
+            align-items: center;
+            padding: 1.25rem 0;
+            border-bottom: 1px solid var(--gray-900);
+            transition: background 0.15s;
+        }
+
+        .stack-item:hover {
+            background: var(--gray-950);
+            margin: 0 -2rem;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        .stack-index {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-700);
+        }
+
+        .stack-name {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--white);
+        }
+
+        .stack-desc {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+        }
+
+        .stack-tag {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-600);
+            text-align: right;
+            letter-spacing: 0.05em;
+        }
+
+        /* Code Window */
+        .code-section {
+            padding: 6rem 0;
+            background: var(--gray-950);
+        }
+
+        .code-window {
+            background: var(--black);
+            border: 1px solid var(--gray-900);
+            max-width: 900px;
+        }
+
+        .code-titlebar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .code-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .code-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--gray-850);
+            border: 1px solid var(--gray-800);
+        }
+
+        .code-filename {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-600);
+        }
+
+        .code-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .code-action {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-600);
+            font-size: 0.75rem;
+        }
+
+        .code-content {
+            padding: 1.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.8125rem;
+            line-height: 1.9;
+            overflow-x: auto;
+        }
+
+        .code-line {
+            display: flex;
+        }
+
+        .code-ln {
+            width: 2.5rem;
+            color: var(--gray-800);
+            user-select: none;
+            flex-shrink: 0;
+        }
+
+        .code-text {
+            color: var(--gray-400);
+        }
+
+        .code-text .kw { color: var(--gray-200); }
+        .code-text .str { color: var(--gray-500); }
+        .code-text .fn { color: var(--white); }
+        .code-text .cm { color: var(--gray-700); }
+
+        /* Nodes Grid */
+        .nodes-section {
+            padding: 6rem 0;
+            background: var(--black);
+        }
+
+        .nodes-header {
+            margin-bottom: 3rem;
+        }
+
+        .nodes-label {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-700);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .nodes-title {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--white);
+            letter-spacing: -0.02em;
+        }
+
+        .nodes-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--gray-900);
+            border: 1px solid var(--gray-900);
+        }
+
+        .node-card {
+            background: var(--gray-950);
+            padding: 2rem;
+            transition: background 0.2s;
+        }
+
+        .node-card:hover {
+            background: var(--gray-900);
+        }
+
+        .node-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .node-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--gray-600);
+            border-radius: 50%;
+        }
+
+        .node-dot.active {
+            background: var(--gray-300);
+            box-shadow: 0 0 8px var(--gray-500);
+        }
+
+        .node-status-text {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .node-name {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .node-role {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+            margin-bottom: 1.5rem;
+        }
+
+        .node-specs {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .node-spec {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-600);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 3rem 0;
+            border-top: 1px solid var(--gray-900);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--gray-400);
+            letter-spacing: 0.05em;
+        }
+
+        .footer-copy {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-700);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-link {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-600);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+            transition: color 0.15s;
+        }
+
+        .footer-link:hover {
+            color: var(--white);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-right {
+                display: none;
+            }
+
+            .split-section {
+                grid-template-columns: 1fr;
+            }
+
+            .metrics-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .nodes-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stack-item {
+                grid-template-columns: 2rem 1fr 100px;
+            }
+
+            .stack-desc {
+                display: none;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nodes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stack-item {
+                grid-template-columns: 1fr auto;
+            }
+
+            .stack-index {
+                display: none;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <span class="wordmark">BlackRoad</span>
+            <div class="header-right">
+                <nav class="nav-minimal">
+                    <a href="#">Platform</a>
+                    <a href="#">Docs</a>
+                    <a href="#">GitHub</a>
+                </nav>
+                <span class="status-badge">v0.1.0-alpha</span>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-left">
+                    <span class="hero-eyebrow">Agent Operating System</span>
+                    <h1 class="hero-title">
+                        Build<br>
+                        <span class="hero-title-light">the</span><br>
+                        Future
+                    </h1>
+                    <p class="hero-text">
+                        Browser-native infrastructure for autonomous AI systems.
+                        Orchestrate thousands of agents with memory persistence,
+                        trinary logic, and recursive intelligence.
+                    </p>
+                    <a href="#" class="hero-cta">
+                        Start Building
+                        <span class="hero-cta-arrow">→</span>
+                    </a>
+                </div>
+                <div class="hero-right">
+                    <div class="hero-visual">
+                        <div class="hero-ring"></div>
+                        <div class="hero-ring"></div>
+                        <div class="hero-ring"></div>
+                        <div class="hero-center">
+                            <span class="hero-center-text">LUCIDIA</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="metrics-bar">
+        <div class="container">
+            <div class="metrics-grid">
+                <div class="metric">
+                    <div class="metric-value">1,000</div>
+                    <div class="metric-label">Agents</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">19</div>
+                    <div class="metric-label">Domains</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">40+</div>
+                    <div class="metric-label">Repos</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">15K</div>
+                    <div class="metric-label">API/Day</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">∞</div>
+                    <div class="metric-label">Memory</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="split-section">
+        <div class="split-left">
+            <span class="split-number">01</span>
+            <h2 class="split-title">Recursive<br>Intelligence</h2>
+            <p class="split-text">
+                Lucidia operates on trinary logic—1, 0, and -1 states enabling
+                nuanced reasoning that binary systems cannot achieve.
+                Contradictions become fuel for creativity through paraconsistent
+                handling and context branching.
+            </p>
+        </div>
+        <div class="split-right">
+            <span class="split-number">02</span>
+            <h2 class="split-title">Memory<br>Persistence</h2>
+            <p class="split-text">
+                PS-SHA∞ cryptographic hashing ensures every agent interaction
+                persists through append-only journals. Truth state commits
+                create an immutable record of agent evolution and learning.
+            </p>
+        </div>
+    </section>
+
+    <section class="stack-section">
+        <div class="container">
+            <div class="stack-header">
+                <h2 class="stack-title">Technology Stack</h2>
+                <span class="stack-count">8 components</span>
+            </div>
+            <div class="stack-list">
+                <div class="stack-item">
+                    <span class="stack-index">01</span>
+                    <span class="stack-name">LangGraph + CrewAI</span>
+                    <span class="stack-desc">Agent orchestration</span>
+                    <span class="stack-tag">AGENTS</span>
+                </div>
+                <div class="stack-item">
+                    <span class="stack-index">02</span>
+                    <span class="stack-name">vLLM + llama.cpp</span>
+                    <span class="stack-desc">Local inference</span>
+                    <span class="stack-tag">LLM</span>
+                </div>
+                <div class="stack-item">
+                    <span class="stack-index">03</span>
+                    <span class="stack-name">Milvus</span>
+                    <span class="stack-desc">Vector database</span>
+                    <span class="stack-tag">VECTORS</span>
+                </div>
+                <div class="stack-item">
+                    <span class="stack-index">04</span>
+                    <span class="stack-name">NATS</span>
+                    <span class="stack-desc">Event messaging</span>
+                    <span class="stack-tag">MESSAGING</span>
+                </div>
+                <div class="stack-item">
+                    <span class="stack-index">05</span>
+                    <span class="stack-name">Kubeflow + Langfuse</span>
+                    <span class="stack-desc">ML operations</span>
+                    <span class="stack-tag">MLOPS</span>
+                </div>
+                <div class="stack-item">
+                    <span class="stack-index">06</span>
+                    <span class="stack-name">APISIX</span>
+                    <span class="stack-desc">API gateway</span>
+                    <span class="stack-tag">API</span>
+                </div>
+                <div class="stack-item">
+                    <span class="stack-index">07</span>
+                    <span class="stack-name">Besu</span>
+                    <span class="stack-desc">Blockchain layer</span>
+                    <span class="stack-tag">CHAIN</span>
+                </div>
+                <div class="stack-item">
+                    <span class="stack-index">08</span>
+                    <span class="stack-name">Ethereal Engine</span>
+                    <span class="stack-desc">Virtual worlds</span>
+                    <span class="stack-tag">METAVERSE</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="code-section">
+        <div class="container">
+            <div class="code-window">
+                <div class="code-titlebar">
+                    <div class="code-dots">
+                        <span class="code-dot"></span>
+                        <span class="code-dot"></span>
+                        <span class="code-dot"></span>
+                    </div>
+                    <span class="code-filename">lucidia.config.py</span>
+                    <div class="code-actions">
+                        <span class="code-action">⋯</span>
+                    </div>
+                </div>
+                <div class="code-content">
+                    <div class="code-line"><span class="code-ln">1</span><span class="code-text"><span class="cm"># Initialize Lucidia core with trinary logic</span></span></div>
+                    <div class="code-line"><span class="code-ln">2</span><span class="code-text"><span class="kw">from</span> blackroad <span class="kw">import</span> Lucidia, Memory, EventBus</span></div>
+                    <div class="code-line"><span class="code-ln">3</span><span class="code-text"></span></div>
+                    <div class="code-line"><span class="code-ln">4</span><span class="code-text">agent = <span class="fn">Lucidia</span>(</span></div>
+                    <div class="code-line"><span class="code-ln">5</span><span class="code-text">    name=<span class="str">"cecilia"</span>,</span></div>
+                    <div class="code-line"><span class="code-ln">6</span><span class="code-text">    logic=<span class="str">"trinary"</span>,</span></div>
+                    <div class="code-line"><span class="code-ln">7</span><span class="code-text">    memory=<span class="fn">Memory</span>(</span></div>
+                    <div class="code-line"><span class="code-ln">8</span><span class="code-text">        hash=<span class="str">"ps-sha-infinity"</span>,</span></div>
+                    <div class="code-line"><span class="code-ln">9</span><span class="code-text">        journal=<span class="str">"append-only"</span></span></div>
+                    <div class="code-line"><span class="code-ln">10</span><span class="code-text">    ),</span></div>
+                    <div class="code-line"><span class="code-ln">11</span><span class="code-text">    contradiction=<span class="str">"quarantine"</span></span></div>
+                    <div class="code-line"><span class="code-ln">12</span><span class="code-text">)</span></div>
+                    <div class="code-line"><span class="code-ln">13</span><span class="code-text"></span></div>
+                    <div class="code-line"><span class="code-ln">14</span><span class="code-text"><span class="kw">await</span> agent.<span class="fn">connect</span>(<span class="fn">EventBus</span>())</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="nodes-section">
+        <div class="container">
+            <div class="nodes-header">
+                <div class="nodes-label">Infrastructure</div>
+                <h2 class="nodes-title">Cluster Nodes</h2>
+            </div>
+            <div class="nodes-grid">
+                <div class="node-card">
+                    <div class="node-status">
+                        <span class="node-dot active"></span>
+                        <span class="node-status-text">Online</span>
+                    </div>
+                    <h3 class="node-name">Alice</h3>
+                    <p class="node-role">Gateway Node</p>
+                    <div class="node-specs">
+                        <span class="node-spec">K3s + Traefik</span>
+                        <span class="node-spec">Redis</span>
+                        <span class="node-spec">API Services</span>
+                    </div>
+                </div>
+                <div class="node-card">
+                    <div class="node-status">
+                        <span class="node-dot active"></span>
+                        <span class="node-status-text">Online</span>
+                    </div>
+                    <h3 class="node-name">Octavia</h3>
+                    <p class="node-role">Inference Worker</p>
+                    <div class="node-specs">
+                        <span class="node-spec">Hailo Accelerator</span>
+                        <span class="node-spec">Queue Processing</span>
+                        <span class="node-spec">Edge Compute</span>
+                    </div>
+                </div>
+                <div class="node-card">
+                    <div class="node-status">
+                        <span class="node-dot active"></span>
+                        <span class="node-status-text">Online</span>
+                    </div>
+                    <h3 class="node-name">Lucidia-1</h3>
+                    <p class="node-role">LLM Compute</p>
+                    <div class="node-specs">
+                        <span class="node-spec">Ollama</span>
+                        <span class="node-spec">vLLM</span>
+                        <span class="node-spec">Pi 5</span>
+                    </div>
+                </div>
+                <div class="node-card">
+                    <div class="node-status">
+                        <span class="node-dot"></span>
+                        <span class="node-status-text">Standby</span>
+                    </div>
+                    <h3 class="node-name">Lucidia-2</h3>
+                    <p class="node-role">Backup Compute</p>
+                    <div class="node-specs">
+                        <span class="node-spec">Phi-3</span>
+                        <span class="node-spec">Inference</span>
+                        <span class="node-spec">Pi 5</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-left">
+                    <span class="footer-logo">BLACKROAD</span>
+                    <span class="footer-copy">© 2025 BlackRoad OS, Inc.</span>
+                </div>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">GitHub</a>
+                    <a href="#" class="footer-link">Discord</a>
+                    <a href="#" class="footer-link">Status</a>
+                    <a href="#" class="footer-link">Docs</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
