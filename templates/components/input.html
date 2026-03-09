@@ -1,0 +1,35 @@
+<!-- Input Component -->
+<!--
+  Variables:
+    - name: Input name attribute
+    - label: Label text (optional)
+    - type: "text" | "email" | "password" | "number" etc.
+    - placeholder: Placeholder text
+    - value: Current value
+    - mono: boolean - use monospace font
+    - error: Error message (optional)
+    - help: Help text (optional)
+    - required: boolean
+    - disabled: boolean
+-->
+<div class="input-wrapper {{class}}">
+  {{#if label}}
+  <label class="input-label" for="{{name}}">{{label}}</label>
+  {{/if}}
+  <input
+    type="{{#if type}}{{type}}{{else}}text{{/if}}"
+    id="{{name}}"
+    name="{{name}}"
+    class="input {{#if mono}}input-mono{{/if}} {{#if error}}input-error{{/if}}"
+    {{#if placeholder}}placeholder="{{placeholder}}"{{/if}}
+    {{#if value}}value="{{value}}"{{/if}}
+    {{#if required}}required{{/if}}
+    {{#if disabled}}disabled{{/if}}
+  >
+  {{#if error}}
+  <div class="input-error-text">{{error}}</div>
+  {{/if}}
+  {{#if help}}
+  <div class="input-help">{{help}}</div>
+  {{/if}}
+</div>

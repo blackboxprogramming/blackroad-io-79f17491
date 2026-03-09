@@ -1,0 +1,38 @@
+<!-- Line Chart Component -->
+<!--
+  Variables:
+    - title: Chart title
+    - tabs: [{ label, active }] (optional)
+    - y_labels: [string] - Y-axis labels from top to bottom
+    - x_labels: [string] - X-axis labels
+    - data: Chart data for JS rendering (optional)
+-->
+<div class="chart-card line-chart-card {{class}}">
+  <div class="chart-header">
+    <span class="chart-title">{{title}}</span>
+    {{#if tabs}}
+    <div class="chart-tabs">
+      {{#each tabs}}
+      <button class="chart-tab {{#if active}}active{{/if}}">{{label}}</button>
+      {{/each}}
+    </div>
+    {{/if}}
+  </div>
+  <div class="line-chart" {{#if data}}data-chart="{{data}}"{{/if}}>
+    <div class="chart-grid">
+      {{#each y_labels}}
+      <div class="grid-line"><span class="grid-label">{{this}}</span></div>
+      {{/each}}
+    </div>
+    <div class="chart-area"></div>
+    <div class="chart-line"></div>
+    <div class="chart-line chart-line-2"></div>
+  </div>
+  {{#if x_labels}}
+  <div class="chart-x-axis">
+    {{#each x_labels}}
+    <span class="x-label">{{this}}</span>
+    {{/each}}
+  </div>
+  {{/if}}
+</div>

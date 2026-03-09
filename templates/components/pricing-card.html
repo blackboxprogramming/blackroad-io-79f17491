@@ -1,0 +1,70 @@
+<!-- Pricing Card Component -->
+<!--
+  Variables:
+    - id: Plan ID
+    - name: Plan name
+    - description: Plan description
+    - icon: Icon HTML (optional)
+    - featured: Boolean for featured/popular plan
+    - featured_label: Featured badge label (default: "Most Popular")
+    - currency: Currency symbol (default: $)
+    - price: Price amount (number or "Custom")
+    - period: Price period (e.g., "/ month")
+    - price_note: Note below price (e.g., "Billed annually")
+    - features_label: Features section label
+    - features: Array of feature objects with {text, highlight}
+    - cta_label: CTA button label
+    - cta_action: CTA button action
+    - cta_primary: Boolean for primary button style
+    - class: Additional CSS classes (optional)
+-->
+<div class="pricing-card {{#if featured}}featured{{/if}} {{class}}" data-plan="{{id}}">
+  {{#if featured}}
+  <span class="pricing-badge">{{featured_label}}</span>
+  {{/if}}
+
+  <div class="plan-header">
+    {{#if icon}}
+    <div class="plan-icon">
+      {{{icon}}}
+    </div>
+    {{else}}
+    <div class="plan-icon"></div>
+    {{/if}}
+    <h3 class="plan-name">{{name}}</h3>
+    <p class="plan-desc">{{description}}</p>
+  </div>
+
+  <div class="plan-pricing">
+    <div class="plan-price">
+      {{#if (eq price 'Custom')}}
+      <span class="price-amount custom">Custom</span>
+      {{else}}
+      <span class="price-currency">{{currency}}</span>
+      <span class="price-amount">{{price}}</span>
+      <span class="price-period">{{period}}</span>
+      {{/if}}
+    </div>
+    {{#if price_note}}
+    <p class="price-note">{{price_note}}</p>
+    {{/if}}
+  </div>
+
+  <div class="plan-features">
+    {{#if features_label}}
+    <div class="features-label">{{features_label}}</div>
+    {{/if}}
+    {{#each features}}
+    <div class="feature-item">
+      <span class="feature-check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" width="12" height="12">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </span>
+      <span class="feature-text">{{{text}}}</span>
+    </div>
+    {{/each}}
+  </div>
+
+  <button class="plan-cta {{#if cta_primary}}plan-cta-primary{{else}}plan-cta-secondary{{/if}}" data-action="{{cta_action}}">{{cta_label}}</button>
+</div>

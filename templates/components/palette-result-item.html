@@ -1,0 +1,42 @@
+<!-- Palette Result Item Component -->
+<!--
+  Variables:
+    - id: Item ID
+    - icon: Icon HTML (optional)
+    - title: Item title (supports HTML with <mark> for highlights)
+    - description: Item description
+    - badge: Badge label (optional)
+    - shortcut: Array of keyboard keys (optional)
+    - selected: Boolean for selected state
+    - class: Additional CSS classes (optional)
+-->
+<div class="result-item {{#if selected}}selected{{/if}} {{class}}" data-id="{{id}}">
+  <div class="result-icon">
+    {{#if icon}}
+    {{{icon}}}
+    {{else}}
+    <span class="result-icon-inner"></span>
+    {{/if}}
+  </div>
+
+  <div class="result-content">
+    <div class="result-title">{{{title}}}</div>
+    {{#if description}}
+    <div class="result-desc">{{description}}</div>
+    {{/if}}
+  </div>
+
+  <div class="result-meta">
+    {{#if badge}}
+    <span class="result-badge">{{badge}}</span>
+    {{/if}}
+
+    {{#if shortcut}}
+    <div class="result-shortcut">
+      {{#each shortcut}}
+      <kbd>{{this}}</kbd>
+      {{/each}}
+    </div>
+    {{/if}}
+  </div>
+</div>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlackRoad — AI-Powered Development Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/variables.css">
+  <link rel="stylesheet" href="../styles/base.css">
+  <link rel="stylesheet" href="../styles/typography.css">
+  <link rel="stylesheet" href="../styles/components.css">
+  <link rel="stylesheet" href="../styles/landing.css">
+</head>
+<body class="landing-layout">
+  <!-- Navigation -->
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">BlackRoad</a>
+      <div class="nav-links">
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#how-it-works" class="nav-link">How it Works</a>
+        <a href="#pricing" class="nav-link">Pricing</a>
+        <a href="/docs" class="nav-link">Docs</a>
+      </div>
+      <div class="nav-actions">
+        <a href="/login" class="btn btn-ghost">Sign In</a>
+        <a href="/signup" class="btn btn-primary">Get Started</a>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+          <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-badge">
+      <span class="badge-dot active"></span>
+      <span>Now in Public Beta</span>
+    </div>
+    <h1 class="hero-title">Build faster with<br>AI-powered agents</h1>
+    <p class="hero-subtitle">BlackRoad helps teams ship software faster with intelligent AI agents that understand your codebase, automate tasks, and collaborate seamlessly.</p>
+    <div class="hero-actions">
+      <a href="/signup" class="btn btn-primary btn-lg">Start Building Free</a>
+      <a href="/demo" class="btn btn-outline btn-lg">Watch Demo</a>
+    </div>
+    <div class="hero-visual">
+      <div style="color: var(--gray-600); font-family: 'JetBrains Mono', monospace; font-size: 14px;">
+        [Platform Screenshot / Animation]
+      </div>
+    </div>
+  </section>
+
+  <!-- Logos Section -->
+  <section class="logos-section">
+    <p class="logos-label">Trusted by teams at</p>
+    <div class="logos-grid">
+      <div class="logo-item" style="width: 100px; height: 40px; background: var(--gray-800); border-radius: 4px;"></div>
+      <div class="logo-item" style="width: 100px; height: 40px; background: var(--gray-800); border-radius: 4px;"></div>
+      <div class="logo-item" style="width: 100px; height: 40px; background: var(--gray-800); border-radius: 4px;"></div>
+      <div class="logo-item" style="width: 100px; height: 40px; background: var(--gray-800); border-radius: 4px;"></div>
+      <div class="logo-item" style="width: 100px; height: 40px; background: var(--gray-800); border-radius: 4px;"></div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="landing-section" id="features">
+    <div class="section-header">
+      <p class="section-label">Features</p>
+      <h2 class="section-title">Everything you need to build</h2>
+      <p class="section-desc">Powerful tools that help you ship faster without sacrificing quality.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Intelligent Agents</h3>
+        <p class="feature-desc">AI agents that understand your codebase and can execute complex tasks autonomously.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Code Generation</h3>
+        <p class="feature-desc">Generate production-ready code from natural language descriptions with context awareness.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Workflow Automation</h3>
+        <p class="feature-desc">Automate repetitive development workflows with customizable pipelines and triggers.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Team Collaboration</h3>
+        <p class="feature-desc">Share agents, templates, and workflows across your team with fine-grained permissions.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Enterprise Security</h3>
+        <p class="feature-desc">SOC 2 compliant with SSO, audit logs, and data encryption at rest and in transit.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">API & Integrations</h3>
+        <p class="feature-desc">Connect with your existing tools via REST API, webhooks, and native integrations.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bento Grid Section -->
+  <section class="landing-section" id="how-it-works">
+    <div class="section-header">
+      <p class="section-label">How it works</p>
+      <h2 class="section-title">Simple yet powerful</h2>
+      <p class="section-desc">Get started in minutes and scale to enterprise needs.</p>
+    </div>
+    <div class="bento-grid">
+      <div class="bento-card wide">
+        <span class="bento-label">Step 01</span>
+        <h3 class="bento-title">Connect your codebase</h3>
+        <p class="bento-desc">Link your GitHub, GitLab, or Bitbucket repositories with one click.</p>
+        <div class="bento-visual"></div>
+      </div>
+      <div class="bento-card">
+        <span class="bento-label">Step 02</span>
+        <h3 class="bento-title">Configure agents</h3>
+        <p class="bento-desc">Choose from pre-built agents or create custom ones for your needs.</p>
+        <div class="bento-visual"></div>
+      </div>
+      <div class="bento-card">
+        <span class="bento-label">Step 03</span>
+        <h3 class="bento-title">Start building</h3>
+        <p class="bento-desc">Chat naturally to generate code, fix bugs, and automate tasks.</p>
+        <div class="bento-visual"></div>
+      </div>
+      <div class="bento-card wide">
+        <span class="bento-label">Step 04</span>
+        <h3 class="bento-title">Deploy with confidence</h3>
+        <p class="bento-desc">Review changes, run tests automatically, and merge with one click.</p>
+        <div class="bento-visual"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="stat-value">50K+</div>
+        <div class="stat-label">Developers</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">2.5M</div>
+        <div class="stat-label">Tasks Completed</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">99.9%</div>
+        <div class="stat-label">Uptime</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">4.9/5</div>
+        <div class="stat-label">User Rating</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="landing-section">
+    <div class="section-header">
+      <p class="section-label">Testimonials</p>
+      <h2 class="section-title">Loved by developers</h2>
+      <p class="section-desc">See what teams are saying about BlackRoad.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <p class="testimonial-text">"BlackRoad has completely transformed how we approach development. Our velocity has increased by 40% since adopting it."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">JD</div>
+          <div>
+            <div class="author-name">Jane Doe</div>
+            <div class="author-role">CTO at TechCorp</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-text">"The AI agents actually understand our codebase context. It's like having a senior developer available 24/7."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">MS</div>
+          <div>
+            <div class="author-name">Mike Smith</div>
+            <div class="author-role">Lead Engineer at StartupXYZ</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-text">"We've reduced code review time by 60%. The automated suggestions are incredibly accurate and helpful."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">SC</div>
+          <div>
+            <div class="author-name">Sarah Chen</div>
+            <div class="author-role">VP Engineering at ScaleUp</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-box">
+      <h2 class="cta-title">Ready to build faster?</h2>
+      <p class="cta-desc">Join thousands of developers shipping better software with BlackRoad.</p>
+      <div class="cta-actions">
+        <a href="/signup" class="btn btn-primary btn-lg">Get Started Free</a>
+        <a href="/contact" class="btn btn-outline btn-lg">Talk to Sales</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">BlackRoad</div>
+          <p class="footer-desc">AI-powered development platform for teams that want to ship faster.</p>
+        </div>
+        <div class="footer-column">
+          <h4 class="footer-title">Product</h4>
+          <a href="/features" class="footer-link">Features</a>
+          <a href="/pricing" class="footer-link">Pricing</a>
+          <a href="/integrations" class="footer-link">Integrations</a>
+          <a href="/changelog" class="footer-link">Changelog</a>
+        </div>
+        <div class="footer-column">
+          <h4 class="footer-title">Resources</h4>
+          <a href="/docs" class="footer-link">Documentation</a>
+          <a href="/guides" class="footer-link">Guides</a>
+          <a href="/api" class="footer-link">API Reference</a>
+          <a href="/blog" class="footer-link">Blog</a>
+        </div>
+        <div class="footer-column">
+          <h4 class="footer-title">Company</h4>
+          <a href="/about" class="footer-link">About</a>
+          <a href="/careers" class="footer-link">Careers</a>
+          <a href="/contact" class="footer-link">Contact</a>
+          <a href="/press" class="footer-link">Press Kit</a>
+        </div>
+        <div class="footer-column">
+          <h4 class="footer-title">Legal</h4>
+          <a href="/privacy" class="footer-link">Privacy</a>
+          <a href="/terms" class="footer-link">Terms</a>
+          <a href="/security" class="footer-link">Security</a>
+          <a href="/gdpr" class="footer-link">GDPR</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2025 BlackRoad. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="/privacy">Privacy Policy</a>
+          <a href="/terms">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!-- Bottom Sheet Component (Mobile) -->
+<!--
+  Variables:
+    - id: Sheet ID
+    - title: Sheet title
+    - description: Sheet description
+    - actions: Array of action objects with {label, action, type: 'primary'|'secondary'|'ghost'}
+    - show_handle: Boolean to show drag handle (default: true)
+    - class: Additional CSS classes (optional)
+-->
+<div class="sheet-backdrop" data-sheet="{{id}}">
+  <div class="sheet {{class}}">
+    {{#unless (eq show_handle false)}}
+    <div class="sheet-handle"></div>
+    {{/unless}}
+
+    <div class="sheet-body">
+      {{#if title}}
+      <h3 class="sheet-title">{{title}}</h3>
+      {{/if}}
+
+      {{#if description}}
+      <p class="sheet-desc">{{description}}</p>
+      {{/if}}
+
+      {{#if actions}}
+      <div class="sheet-actions">
+        {{#each actions}}
+        <button class="sheet-btn sheet-btn-{{type}}" data-action="{{action}}">{{label}}</button>
+        {{/each}}
+      </div>
+      {{/if}}
+
+      {{{content}}}
+    </div>
+  </div>
+</div>

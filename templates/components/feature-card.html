@@ -1,0 +1,14 @@
+<!-- Feature Card Component -->
+<!--
+  Variables:
+    - icon: Icon HTML/SVG
+    - title: Feature title
+    - description: Feature description
+-->
+<div class="feature-card {{class}}">
+  {{#if icon}}
+  <div class="feature-icon">{{{icon}}}</div>
+  {{/if}}
+  <h3 class="feature-title">{{title}}</h3>
+  <p class="feature-desc">{{description}}</p>
+</div>

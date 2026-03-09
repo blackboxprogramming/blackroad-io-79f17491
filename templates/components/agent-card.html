@@ -1,0 +1,32 @@
+<!-- Agent Card Component -->
+<!--
+  Variables:
+    - avatar: Single letter/emoji for avatar
+    - name: Agent name
+    - role: Agent role description
+    - badge_text: Badge label (optional)
+    - badge_variant: "default" | "outline" | "success" | "warning" | "error"
+    - stats: Array of { value, label }
+-->
+<div class="agent-card {{class}}">
+  <div class="agent-header">
+    <div class="agent-avatar">{{avatar}}</div>
+    <div class="agent-info">
+      <div class="agent-name">{{name}}</div>
+      <div class="agent-role">{{role}}</div>
+    </div>
+    {{#if badge_text}}
+    <span class="badge {{#if badge_variant}}badge-{{badge_variant}}{{/if}}">{{badge_text}}</span>
+    {{/if}}
+  </div>
+  {{#if stats}}
+  <div class="agent-meta">
+    {{#each stats}}
+    <div class="agent-stat">
+      <span class="agent-stat-value">{{value}}</span>
+      <span class="agent-stat-label">{{label}}</span>
+    </div>
+    {{/each}}
+  </div>
+  {{/if}}
+</div>

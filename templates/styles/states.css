@@ -1,0 +1,658 @@
+/* ============================================
+   BASE STATE CARD
+   ============================================ */
+
+.state-card {
+  text-align: center;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.state-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 24px;
+  background: var(--gray-800);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray-500);
+}
+
+.state-icon svg {
+  width: 40px;
+  height: 40px;
+}
+
+.state-icon-inner {
+  width: 40px;
+  height: 40px;
+  background: var(--gray-700);
+  border-radius: 10px;
+}
+
+.state-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+
+.state-desc {
+  font-size: 14px;
+  color: var(--gray-500);
+  margin-bottom: 24px;
+  line-height: 1.7;
+}
+
+.state-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.state-btn {
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.state-btn-primary {
+  background: var(--gray-100);
+  color: var(--gray-900);
+}
+
+.state-btn-primary:hover {
+  background: var(--white);
+}
+
+.state-btn-secondary {
+  background: transparent;
+  color: var(--gray-400);
+  border: 1px solid var(--gray-700);
+}
+
+.state-btn-secondary:hover {
+  background: var(--gray-800);
+  color: var(--gray-200);
+}
+
+/* ============================================
+   ERROR CODE
+   ============================================ */
+
+.error-code {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 72px;
+  font-weight: 700;
+  color: var(--gray-800);
+  margin-bottom: 16px;
+  line-height: 1;
+}
+
+/* ============================================
+   EMPTY STATE ILLUSTRATION
+   ============================================ */
+
+.empty-illustration {
+  width: 120px;
+  height: 100px;
+  margin: 0 auto 24px;
+  position: relative;
+}
+
+.empty-box {
+  width: 80px;
+  height: 60px;
+  background: var(--gray-800);
+  border-radius: 8px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.empty-line {
+  width: 50px;
+  height: 8px;
+  background: var(--gray-700);
+  border-radius: 4px;
+  position: absolute;
+}
+
+.empty-line:nth-child(1) {
+  top: 0;
+  left: 10px;
+}
+
+.empty-line:nth-child(2) {
+  top: 16px;
+  left: 30px;
+  width: 40px;
+}
+
+.empty-line:nth-child(3) {
+  top: 32px;
+  left: 50px;
+  width: 30px;
+}
+
+/* ============================================
+   LOADING STATES
+   ============================================ */
+
+.loading-spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid var(--gray-800);
+  border-top-color: var(--gray-500);
+  border-radius: 50%;
+  margin: 0 auto 24px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-dots {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+
+.loading-dot {
+  width: 10px;
+  height: 10px;
+  background: var(--gray-600);
+  border-radius: 50%;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.loading-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loading-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+.loading-bar {
+  width: 200px;
+  height: 4px;
+  background: var(--gray-800);
+  border-radius: 2px;
+  margin: 0 auto 24px;
+  overflow: hidden;
+}
+
+.loading-bar-fill {
+  width: 40%;
+  height: 100%;
+  background: var(--gray-600);
+  border-radius: 2px;
+  animation: loading 1.5s ease-in-out infinite;
+}
+
+@keyframes loading {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(350%); }
+}
+
+/* ============================================
+   SUCCESS STATE
+   ============================================ */
+
+.success-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 24px;
+  background: rgba(34, 197, 94, 0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.success-check {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--gray-400);
+  border-radius: 50%;
+  position: relative;
+}
+
+.success-check::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 14px;
+  border: solid var(--gray-400);
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+  top: 4px;
+  left: 9px;
+}
+
+/* ============================================
+   OFFLINE STATE
+   ============================================ */
+
+.offline-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 24px;
+  position: relative;
+}
+
+.offline-cloud {
+  width: 60px;
+  height: 36px;
+  background: var(--gray-800);
+  border-radius: 18px;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+
+.offline-cloud::before {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background: var(--gray-800);
+  border-radius: 50%;
+  top: -12px;
+  left: 10px;
+}
+
+.offline-cloud::after {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: var(--gray-800);
+  border-radius: 50%;
+  top: -6px;
+  right: 12px;
+}
+
+.offline-slash {
+  width: 4px;
+  height: 70px;
+  background: var(--gray-700);
+  border-radius: 2px;
+  position: absolute;
+  top: 5px;
+  left: 38px;
+  transform: rotate(-45deg);
+}
+
+/* ============================================
+   MAINTENANCE STATE
+   ============================================ */
+
+.maintenance-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.gear {
+  width: 50px;
+  height: 50px;
+  background: var(--gray-700);
+  border-radius: 50%;
+  position: relative;
+  animation: rotate-gear 4s linear infinite;
+}
+
+.gear::before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: var(--gray-900);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.gear-small {
+  width: 30px;
+  height: 30px;
+  background: var(--gray-800);
+  border-radius: 50%;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  animation: rotate-gear-reverse 3s linear infinite;
+}
+
+.gear-small::before {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: var(--gray-900);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes rotate-gear {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes rotate-gear-reverse {
+  to { transform: rotate(-360deg); }
+}
+
+/* ============================================
+   PERMISSION DENIED STATE
+   ============================================ */
+
+.permission-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 24px;
+  background: var(--gray-800);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.lock-body {
+  width: 28px;
+  height: 22px;
+  background: var(--gray-600);
+  border-radius: 4px;
+  position: relative;
+  top: 4px;
+}
+
+.lock-shackle {
+  width: 18px;
+  height: 14px;
+  border: 4px solid var(--gray-600);
+  border-bottom: none;
+  border-radius: 10px 10px 0 0;
+  position: absolute;
+  top: -10px;
+  left: 5px;
+}
+
+/* ============================================
+   SKELETON LOADING
+   ============================================ */
+
+.skeleton-container {
+  width: 100%;
+}
+
+.skeleton-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.skeleton-avatar {
+  width: 48px;
+  height: 48px;
+  background: var(--gray-800);
+  border-radius: 50%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.skeleton-text {
+  flex: 1;
+}
+
+.skeleton-line {
+  height: 12px;
+  background: var(--gray-800);
+  border-radius: 6px;
+  margin-bottom: 8px;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+.skeleton-line:last-child {
+  margin-bottom: 0;
+}
+
+.skeleton-card {
+  background: var(--gray-850);
+  border: 1px solid var(--gray-800);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.skeleton-card:last-child {
+  margin-bottom: 0;
+}
+
+.skeleton-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.skeleton-row:last-child {
+  margin-bottom: 0;
+}
+
+.skeleton-block {
+  height: 80px;
+  background: var(--gray-800);
+  border-radius: 8px;
+  flex: 1;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+.skeleton-block:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.skeleton-block:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.skeleton-list-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--gray-800);
+}
+
+.skeleton-list-item:last-child {
+  border-bottom: none;
+}
+
+@keyframes shimmer {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* ============================================
+   INLINE STATUS MESSAGES
+   ============================================ */
+
+.inline-state {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  background: var(--gray-800);
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.inline-state:last-child {
+  margin-bottom: 0;
+}
+
+.inline-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--gray-700);
+  border-radius: 8px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inline-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.inline-icon.success {
+  background: rgba(34, 197, 94, 0.2);
+  color: #4ade80;
+}
+
+.inline-icon.warning {
+  background: rgba(250, 204, 21, 0.2);
+  color: #fbbf24;
+}
+
+.inline-icon.error {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+}
+
+.inline-icon.info {
+  background: rgba(59, 130, 246, 0.2);
+  color: #60a5fa;
+}
+
+.inline-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.inline-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gray-200);
+  margin-bottom: 2px;
+}
+
+.inline-desc {
+  font-size: 12px;
+  color: var(--gray-500);
+}
+
+.inline-action {
+  font-size: 12px;
+  color: var(--gray-400);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+  white-space: nowrap;
+}
+
+.inline-action:hover {
+  color: var(--gray-200);
+}
+
+.inline-dismiss {
+  margin-left: 8px;
+}
+
+/* ============================================
+   STATE CONTAINER
+   ============================================ */
+
+.state-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  padding: 40px;
+}
+
+.state-container.full-page {
+  min-height: 100vh;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 640px) {
+  .state-card {
+    max-width: 100%;
+    padding: 0 16px;
+  }
+
+  .error-code {
+    font-size: 56px;
+  }
+
+  .state-title {
+    font-size: 20px;
+  }
+
+  .state-desc {
+    font-size: 13px;
+  }
+
+  .state-actions {
+    flex-direction: column;
+  }
+
+  .state-btn {
+    width: 100%;
+  }
+
+  .skeleton-row {
+    flex-direction: column;
+  }
+
+  .skeleton-block {
+    width: 100%;
+  }
+
+  .inline-state {
+    padding: 14px 16px;
+  }
+
+  .inline-action {
+    display: none;
+  }
+
+  .inline-action:first-of-type {
+    display: block;
+  }
+}

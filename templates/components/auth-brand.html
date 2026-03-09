@@ -1,0 +1,40 @@
+<!-- Auth Brand Panel Component -->
+<!--
+  Variables:
+    - logo: Logo text
+    - visual: Visual HTML content
+    - quote: Testimonial quote
+    - author: { name, title, avatar }
+    - links: Array of { text, href }
+-->
+<div class="panel-brand">
+  <div class="brand-logo">{{#if logo}}{{logo}}{{else}}BlackRoad{{/if}}</div>
+
+  <div class="brand-content">
+    {{#if visual}}
+    <div class="brand-visual">{{visual}}</div>
+    {{/if}}
+
+    {{#if quote}}
+    <blockquote class="brand-quote">"{{quote}}"</blockquote>
+    {{/if}}
+
+    {{#if author}}
+    <div class="brand-author">
+      <div class="author-avatar">{{author.avatar}}</div>
+      <div>
+        <div class="author-name">{{author.name}}</div>
+        <div class="author-title">{{author.title}}</div>
+      </div>
+    </div>
+    {{/if}}
+  </div>
+
+  {{#if links}}
+  <div class="brand-footer">
+    {{#each links}}
+    <a href="{{href}}">{{text}}</a>
+    {{/each}}
+  </div>
+  {{/if}}
+</div>

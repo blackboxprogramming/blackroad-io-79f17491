@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modals — BlackRoad</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/variables.css">
+  <link rel="stylesheet" href="../styles/base.css">
+  <link rel="stylesheet" href="../styles/typography.css">
+  <link rel="stylesheet" href="../styles/components.css">
+  <link rel="stylesheet" href="../styles/modals.css">
+  <style>
+    body {
+      padding: 40px;
+    }
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .demo-section {
+      display: flex;
+      flex-direction: column;
+    }
+    .demo-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gray-600);
+      margin-bottom: 16px;
+    }
+    /* Demo backdrop for display */
+    .demo-backdrop {
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 12px;
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 400px;
+    }
+    .demo-backdrop .modal-backdrop {
+      position: relative;
+      background: transparent;
+      padding: 0;
+    }
+    /* Slideover demo */
+    .slideover-demo {
+      position: relative;
+      height: 500px;
+      background: var(--gray-950);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .slideover-demo .slideover-backdrop {
+      position: absolute;
+    }
+    .slideover-demo .slideover {
+      position: absolute;
+    }
+    /* Sheet demo */
+    .sheet-demo {
+      position: relative;
+      height: 400px;
+      background: var(--gray-950);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .sheet-demo .sheet-backdrop {
+      position: absolute;
+    }
+    .sheet-demo .sheet {
+      position: absolute;
+      max-width: 500px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    @media (max-width: 900px) {
+      .demo-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-grid">
+
+    <!-- CONFIRMATION MODAL -->
+    <div class="demo-section">
+      <div class="demo-label">Confirmation / Danger</div>
+      <div class="demo-backdrop">
+        <div class="modal">
+          <div class="modal-header">
+            <div>
+              <div class="modal-icon danger">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                  <path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                </svg>
+              </div>
+            </div>
+            <button class="modal-close">&times;</button>
+          </div>
+          <div class="modal-body">
+            <h2 class="modal-title">Delete Code Assistant?</h2>
+            <p class="modal-desc">This action cannot be undone. All associated data, memory entries, and task history will be permanently removed.</p>
+            <div class="confirm-input-wrapper">
+              <div class="confirm-label">Type <code>Code Assistant</code> to confirm</div>
+              <input type="text" class="form-input" placeholder="Code Assistant">
+            </div>
+          </div>
+          <div class="modal-footer right">
+            <button class="modal-btn modal-btn-secondary">Cancel</button>
+            <button class="modal-btn modal-btn-danger">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FORM MODAL -->
+    <div class="demo-section">
+      <div class="demo-label">Form / Create</div>
+      <div class="demo-backdrop">
+        <div class="modal">
+          <div class="modal-header">
+            <div>
+              <div class="modal-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                  <circle cx="9" cy="7" r="4"/>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+              </div>
+            </div>
+            <button class="modal-close">&times;</button>
+          </div>
+          <div class="modal-body">
+            <h2 class="modal-title">Create new agent</h2>
+            <p class="modal-desc">Configure your agent's identity and capabilities.</p>
+            <div style="margin-top: 20px;">
+              <div class="form-group">
+                <label class="form-label">Agent name</label>
+                <input type="text" class="form-input" placeholder="Enter agent name...">
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Role</label>
+                  <select class="form-select">
+                    <option>Development</option>
+                    <option>Analytics</option>
+                    <option>Research</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Model</label>
+                  <select class="form-select">
+                    <option>Claude 3 Opus</option>
+                    <option>Claude 3 Sonnet</option>
+                    <option>GPT-4</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer right">
+            <button class="modal-btn modal-btn-secondary">Cancel</button>
+            <button class="modal-btn modal-btn-primary">Create Agent</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIST SELECTION MODAL -->
+    <div class="demo-section">
+      <div class="demo-label">List / Selection</div>
+      <div class="demo-backdrop">
+        <div class="modal">
+          <div class="modal-header">
+            <div></div>
+            <button class="modal-close">&times;</button>
+          </div>
+          <div class="modal-body">
+            <h2 class="modal-title">Assign to agent</h2>
+            <p class="modal-desc">Select an agent to handle this task.</p>
+            <div class="modal-list">
+              <div class="modal-list-item selected">
+                <div class="list-item-avatar"></div>
+                <div class="list-item-content">
+                  <div class="list-item-title">Code Assistant</div>
+                  <div class="list-item-desc">Development & Code Review</div>
+                </div>
+                <span class="list-item-check"></span>
+              </div>
+              <div class="modal-list-item">
+                <div class="list-item-avatar"></div>
+                <div class="list-item-content">
+                  <div class="list-item-title">Data Analyst</div>
+                  <div class="list-item-desc">Analytics & Insights</div>
+                </div>
+                <span class="list-item-check"></span>
+              </div>
+              <div class="modal-list-item">
+                <div class="list-item-avatar"></div>
+                <div class="list-item-content">
+                  <div class="list-item-title">Research Assistant</div>
+                  <div class="list-item-desc">Research & Documentation</div>
+                </div>
+                <span class="list-item-check"></span>
+              </div>
+              <div class="modal-list-item">
+                <div class="list-item-avatar"></div>
+                <div class="list-item-content">
+                  <div class="list-item-title">DevOps Engineer</div>
+                  <div class="list-item-desc">Infrastructure & Deployment</div>
+                </div>
+                <span class="list-item-check"></span>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer right">
+            <button class="modal-btn modal-btn-secondary">Cancel</button>
+            <button class="modal-btn modal-btn-primary">Assign</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROGRESS MODAL -->
+    <div class="demo-section">
+      <div class="demo-label">Progress / Loading</div>
+      <div class="demo-backdrop">
+        <div class="modal">
+          <div class="modal-header">
+            <div>
+              <div class="modal-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                  <polyline points="16 18 22 12 16 6"/>
+                  <polyline points="8 6 2 12 8 18"/>
+                </svg>
+              </div>
+            </div>
+            <button class="modal-close">&times;</button>
+          </div>
+          <div class="modal-body">
+            <h2 class="modal-title">Deploying agents</h2>
+            <p class="modal-desc">Please wait while we configure and deploy your agents.</p>
+            <div class="progress-section">
+              <div class="progress-header">
+                <span class="progress-label">Overall progress</span>
+                <span class="progress-value">65%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 65%"></div>
+              </div>
+              <div class="progress-steps">
+                <div class="progress-step completed">
+                  <span class="step-indicator">✓</span>
+                  <span class="step-text">Validating configuration</span>
+                </div>
+                <div class="progress-step completed">
+                  <span class="step-indicator">✓</span>
+                  <span class="step-text">Provisioning resources</span>
+                </div>
+                <div class="progress-step active">
+                  <span class="step-indicator">3</span>
+                  <span class="step-text">Deploying agents</span>
+                </div>
+                <div class="progress-step">
+                  <span class="step-indicator">4</span>
+                  <span class="step-text">Running health checks</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer split">
+            <button class="modal-btn modal-btn-ghost">Cancel</button>
+            <button class="modal-btn modal-btn-secondary" disabled>Running...</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE OVER -->
+    <div class="demo-section">
+      <div class="demo-label">Slide Over (Side Panel)</div>
+      <div class="slideover-demo">
+        <div class="slideover-backdrop"></div>
+        <div class="slideover right">
+          <div class="slideover-header">
+            <span class="slideover-title">Agent Details</span>
+            <button class="slideover-close">&times;</button>
+          </div>
+          <div class="slideover-body">
+            <div class="form-group">
+              <label class="form-label">Name</label>
+              <input type="text" class="form-input" value="Code Assistant">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Description</label>
+              <textarea class="form-input form-textarea" placeholder="Describe the agent's purpose..."></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Role</label>
+              <select class="form-select">
+                <option selected>Development</option>
+                <option>Analytics</option>
+                <option>Research</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">System prompt</label>
+              <textarea class="form-input form-textarea" placeholder="Enter system prompt..."></textarea>
+            </div>
+          </div>
+          <div class="slideover-footer">
+            <button class="modal-btn modal-btn-secondary">Cancel</button>
+            <button class="modal-btn modal-btn-primary">Save Changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTTOM SHEET -->
+    <div class="demo-section">
+      <div class="demo-label">Bottom Sheet (Mobile)</div>
+      <div class="sheet-demo">
+        <div class="sheet-backdrop"></div>
+        <div class="sheet">
+          <div class="sheet-handle"></div>
+          <div class="sheet-body">
+            <h3 class="sheet-title">Share Code Assistant</h3>
+            <p class="sheet-desc">Choose how you want to share this agent.</p>
+            <div class="sheet-actions">
+              <button class="sheet-btn sheet-btn-secondary">Copy link</button>
+              <button class="sheet-btn sheet-btn-secondary">Export config</button>
+              <button class="sheet-btn sheet-btn-secondary">Invite collaborator</button>
+              <button class="sheet-btn sheet-btn-ghost">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Demo: List item selection
+    document.querySelectorAll('.modal-list-item').forEach(item => {
+      item.addEventListener('click', () => {
+        document.querySelectorAll('.modal-list-item').forEach(i => i.classList.remove('selected'));
+        item.classList.add('selected');
+      });
+    });
+  </script>
+</body>
+</html>

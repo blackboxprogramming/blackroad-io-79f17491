@@ -1,0 +1,24 @@
+<!-- Empty State Component -->
+<!--
+  Variables:
+    - icon: Icon HTML or SVG (optional)
+    - title: Empty state title
+    - text: Empty state description
+    - action: { text, href, variant } - optional action button
+-->
+<div class="empty-state {{class}}">
+  {{#if icon}}
+  <div class="empty-icon">{{{icon}}}</div>
+  {{/if}}
+  <div class="empty-title">{{#if title}}{{title}}{{else}}No data found{{/if}}</div>
+  {{#if text}}
+  <div class="empty-text">{{text}}</div>
+  {{/if}}
+  {{#if action}}
+  <div class="empty-action">
+    <a href="{{action.href}}" class="btn btn-{{#if action.variant}}{{action.variant}}{{else}}primary{{/if}}">
+      {{action.text}}
+    </a>
+  </div>
+  {{/if}}
+</div>

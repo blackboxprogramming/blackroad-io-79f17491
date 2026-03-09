@@ -1,0 +1,41 @@
+<!-- Site Footer Component -->
+<!--
+  Variables:
+    - logo: Logo text
+    - description: Brand description
+    - columns: Array of { title, links: [{ text, href }] }
+    - copyright: Copyright text
+    - legal_links: Array of { text, href }
+-->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">{{#if logo}}{{logo}}{{else}}BlackRoad{{/if}}</div>
+        {{#if description}}
+        <p class="footer-desc">{{description}}</p>
+        {{/if}}
+      </div>
+
+      {{#each columns}}
+      <div class="footer-col">
+        <div class="footer-title">{{title}}</div>
+        {{#each links}}
+        <a href="{{href}}" class="footer-link">{{text}}</a>
+        {{/each}}
+      </div>
+      {{/each}}
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-copy">{{#if copyright}}{{copyright}}{{else}}© {{year}} BlackRoad. All rights reserved.{{/if}}</div>
+      {{#if legal_links}}
+      <div class="footer-legal">
+        {{#each legal_links}}
+        <a href="{{href}}">{{text}}</a>
+        {{/each}}
+      </div>
+      {{/if}}
+    </div>
+  </div>
+</footer>

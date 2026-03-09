@@ -1,0 +1,29 @@
+<!-- Pricing Hero Component -->
+<!--
+  Variables:
+    - title: Hero title
+    - description: Hero description
+    - show_toggle: Boolean to show billing toggle
+    - monthly_label: Monthly label (default: Monthly)
+    - annual_label: Annual label (default: Annual)
+    - is_annual: Boolean for current toggle state
+    - discount_badge: Discount badge text (e.g., "Save 20%")
+    - class: Additional CSS classes (optional)
+-->
+<section class="pricing-hero {{class}}">
+  <h1 class="hero-title">{{title}}</h1>
+  <p class="hero-desc">{{description}}</p>
+
+  {{#if show_toggle}}
+  <div class="billing-toggle">
+    <span class="billing-label {{#unless is_annual}}active{{/unless}}">{{monthly_label}}</span>
+    <div class="toggle-switch {{#if is_annual}}annual{{/if}}" data-toggle="billing">
+      <span class="toggle-knob"></span>
+    </div>
+    <span class="billing-label {{#if is_annual}}active{{/if}}">{{annual_label}}</span>
+    {{#if discount_badge}}
+    <span class="billing-badge">{{discount_badge}}</span>
+    {{/if}}
+  </div>
+  {{/if}}
+</section>

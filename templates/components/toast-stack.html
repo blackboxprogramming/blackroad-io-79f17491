@@ -1,0 +1,12 @@
+<!-- Toast Stack Component -->
+<!--
+  Variables:
+    - toasts: Array of toast objects
+    - position: Position class ('bottom-right', 'bottom-left', 'top-right', 'top-left')
+    - class: Additional CSS classes (optional)
+-->
+<div class="toast-stack {{position}} {{class}}">
+  {{#each toasts}}
+  {{> toast}}
+  {{/each}}
+</div>

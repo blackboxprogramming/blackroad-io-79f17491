@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{step_title}} — {{app_name}}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{base_url}}/templates/styles/variables.css">
+  <link rel="stylesheet" href="{{base_url}}/templates/styles/base.css">
+  <link rel="stylesheet" href="{{base_url}}/templates/styles/typography.css">
+  <link rel="stylesheet" href="{{base_url}}/templates/styles/components.css">
+  <link rel="stylesheet" href="{{base_url}}/templates/styles/onboarding.css">
+</head>
+<body>
+  <div class="onboarding-layout">
+    <!-- Header -->
+    <header class="onboarding-header">
+      <span class="sidebar-logo">{{app_name}}</span>
+      {{#if show_skip}}
+      <button class="skip-btn">Skip setup</button>
+      {{/if}}
+    </header>
+
+    <!-- Progress -->
+    {{> onboarding-progress steps=steps progress_percent=progress_percent}}
+
+    <!-- Content -->
+    <main class="onboarding-content">
+      <div class="step-content">
+        {{{content}}}
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="onboarding-footer">
+      <div class="footer-content">
+        {{#if show_back}}
+        <button class="btn btn-secondary" onclick="history.back()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+          Back
+        </button>
+        {{else}}
+        <div></div>
+        {{/if}}
+
+        <span class="footer-hint">Step {{current_step}} of {{total_steps}}</span>
+
+        <button class="btn btn-primary" type="submit" form="onboarding-form">
+          {{#if is_last_step}}Complete{{else}}Continue{{/if}}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </button>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

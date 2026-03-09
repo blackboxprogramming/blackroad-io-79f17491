@@ -1,0 +1,38 @@
+<!-- Sidebar Component -->
+<!--
+  Variables:
+    - logo: Logo text or HTML
+    - nav_sections: Array of { label, items: [{ href, icon, text, active }] }
+    - user: { avatar, name, role } (optional)
+-->
+<aside class="sidebar">
+  <div class="sidebar-logo">{{#if logo}}{{logo}}{{else}}BlackRoad{{/if}}</div>
+
+  {{#each nav_sections}}
+  <nav class="nav-section">
+    {{#if label}}
+    <div class="nav-label">{{label}}</div>
+    {{/if}}
+    {{#each items}}
+    <a href="{{href}}" class="nav-item {{#if active}}active{{/if}}">
+      {{#if icon}}
+      <span class="nav-icon">{{icon}}</span>
+      {{/if}}
+      {{text}}
+    </a>
+    {{/each}}
+  </nav>
+  {{/each}}
+
+  {{#if user}}
+  <div class="sidebar-footer">
+    <div class="user-block">
+      <div class="user-avatar">{{user.avatar}}</div>
+      <div>
+        <div class="user-name">{{user.name}}</div>
+        <div class="user-role">{{user.role}}</div>
+      </div>
+    </div>
+  </div>
+  {{/if}}
+</aside>

@@ -1,0 +1,15 @@
+<!-- Stat Card Component (Dashboard) -->
+<!--
+  Variables:
+    - label: Stat label
+    - value: Main value
+    - meta: Subtext/change indicator
+    - meta_type: "positive" | "negative" | null
+-->
+<div class="stat-card {{class}}">
+  <div class="stat-label">{{label}}</div>
+  <div class="stat-value">{{value}}</div>
+  {{#if meta}}
+  <div class="stat-meta {{#if meta_type}}{{meta_type}}{{/if}}">{{meta}}</div>
+  {{/if}}
+</div>

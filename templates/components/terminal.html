@@ -1,0 +1,42 @@
+<!-- Terminal Component -->
+<!--
+  Variables:
+    - title: Terminal window title
+    - lines: Array of { type, content }
+      - type: "command" | "output"
+      - content: Line text
+    - show_cursor: boolean - show blinking cursor
+    - colored_dots: boolean - use colored window dots
+-->
+<div class="terminal {{class}}">
+  <div class="terminal-header">
+    {{#if colored_dots}}
+    <span class="terminal-dot red"></span>
+    <span class="terminal-dot yellow"></span>
+    <span class="terminal-dot green"></span>
+    {{else}}
+    <span class="terminal-dot"></span>
+    <span class="terminal-dot"></span>
+    <span class="terminal-dot"></span>
+    {{/if}}
+    <span class="terminal-title">{{#if title}}{{title}}{{else}}terminal{{/if}}</span>
+  </div>
+  <div class="terminal-body">
+    {{#each lines}}
+    {{#if (eq type "command")}}
+    <div class="terminal-line">
+      <span class="prompt">$</span>
+      <span class="cmd">{{content}}</span>
+    </div>
+    {{else}}
+    <div class="terminal-output">{{content}}</div>
+    {{/if}}
+    {{/each}}
+    {{#if show_cursor}}
+    <div class="terminal-line">
+      <span class="prompt">$</span>
+      <span class="cursor"></span>
+    </div>
+    {{/if}}
+  </div>
+</div>

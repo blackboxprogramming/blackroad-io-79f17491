@@ -1,0 +1,30 @@
+<!-- Invite Form Component -->
+<!--
+  Variables:
+    - invites: [{ email, role }]
+    - roles: [{ value, label }]
+    - add_text: Text for add button
+-->
+<div class="invite-section {{class}}">
+  {{#each invites}}
+  <div class="invite-row" data-index="{{@index}}">
+    <input type="email" name="invites[{{@index}}][email]" class="invite-input" placeholder="name@company.com" value="{{email}}">
+    <select name="invites[{{@index}}][role]" class="invite-select">
+      {{#each ../roles}}
+      <option value="{{value}}" {{#if (eq value ../role)}}selected{{/if}}>{{label}}</option>
+      {{/each}}
+    </select>
+    <button type="button" class="invite-remove" aria-label="Remove">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+  {{/each}}
+  <button type="button" class="add-invite-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+      <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+    </svg>
+    {{#if add_text}}{{add_text}}{{else}}Add another{{/if}}
+  </button>
+</div>

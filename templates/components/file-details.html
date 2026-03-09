@@ -1,0 +1,80 @@
+<!-- File Details Panel Component -->
+<!--
+  Variables:
+    - name: File name
+    - path: File path
+    - preview: Preview content/image (optional)
+    - info: [{ label, value }]
+    - tags: [string]
+    - hash: File hash (optional)
+    - actions: [{ label, primary }]
+-->
+<aside class="file-details-panel {{class}}">
+  <div class="details-header">
+    <span class="details-title">Details</span>
+    <button class="details-close" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="details-content">
+    <div class="details-preview">
+      {{#if preview}}
+      {{{preview}}}
+      {{else}}
+      <span class="preview-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="32" height="32">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+        </svg>
+      </span>
+      {{/if}}
+    </div>
+
+    <div class="details-name">{{name}}</div>
+    <div class="details-path">{{path}}</div>
+
+    {{#if info}}
+    <div class="details-section">
+      <div class="details-label">Information</div>
+      {{#each info}}
+      <div class="details-row">
+        <span class="details-key">{{label}}</span>
+        <span class="details-value">{{value}}</span>
+      </div>
+      {{/each}}
+    </div>
+    {{/if}}
+
+    {{#if tags}}
+    <div class="details-section">
+      <div class="details-label">Tags</div>
+      <div class="details-tags">
+        {{#each tags}}
+        <span class="details-tag">{{this}}</span>
+        {{/each}}
+        <span class="details-tag add-tag">+ Add</span>
+      </div>
+    </div>
+    {{/if}}
+
+    {{#if hash}}
+    <div class="details-section">
+      <div class="details-label">Hash</div>
+      <div class="details-row">
+        <span class="details-key">SHA-256</span>
+        <span class="details-value hash-value">{{hash}}</span>
+      </div>
+    </div>
+    {{/if}}
+  </div>
+
+  {{#if actions}}
+  <div class="details-actions">
+    {{#each actions}}
+    <button class="details-btn {{#if primary}}details-btn-primary{{else}}details-btn-secondary{{/if}}">{{label}}</button>
+    {{/each}}
+  </div>
+  {{/if}}
+</aside>

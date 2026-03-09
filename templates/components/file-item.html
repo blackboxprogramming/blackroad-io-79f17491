@@ -1,0 +1,41 @@
+<!-- File Item Component -->
+<!--
+  Variables:
+    - name: File or folder name
+    - is_folder: boolean
+    - items_count: Number of items (for folders)
+    - size: File size
+    - type: File type
+    - date: Modified date
+    - extension: File extension badge
+    - selected: boolean
+-->
+<div class="file-item {{#if selected}}selected{{/if}} {{class}}" data-name="{{name}}">
+  <div class="file-name">
+    <div class="file-icon {{#if is_folder}}folder{{/if}}">
+      {{#if is_folder}}
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+      </svg>
+      {{else}}
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+      </svg>
+      {{/if}}
+    </div>
+    <div class="file-info">
+      <div class="file-title">
+        {{name}}
+        {{#if extension}}
+        <span class="file-badge">.{{extension}}</span>
+        {{/if}}
+      </div>
+      {{#if is_folder}}
+      <div class="file-meta-inline">{{items_count}} items</div>
+      {{/if}}
+    </div>
+  </div>
+  <div class="file-size">{{#if is_folder}}—{{else}}{{size}}{{/if}}</div>
+  <div class="file-type">{{#if is_folder}}Folder{{else}}{{type}}{{/if}}</div>
+  <div class="file-date">{{date}}</div>
+</div>

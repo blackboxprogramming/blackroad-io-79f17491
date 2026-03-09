@@ -1,0 +1,49 @@
+<!-- Analytics Table Component -->
+<!--
+  Variables:
+    - title: Table title
+    - columns: [{ key, label }]
+    - rows: [{ name, avatar, ... }]
+-->
+<div class="chart-card analytics-table-card {{class}}">
+  <div class="chart-header">
+    <span class="chart-title">{{title}}</span>
+  </div>
+  <table class="analytics-table">
+    <thead>
+      <tr>
+        {{#each columns}}
+        <th>{{label}}</th>
+        {{/each}}
+      </tr>
+    </thead>
+    <tbody>
+      {{#each rows}}
+      <tr>
+        {{#each ../columns}}
+        <td>
+          {{#if (eq key "name")}}
+          <div class="table-name">
+            {{#if (lookup .. "avatar")}}
+            <span class="table-avatar" style="background-image: url('{{lookup .. "avatar"}}')"></span>
+            {{else}}
+            <span class="table-avatar"></span>
+            {{/if}}
+            <span class="table-primary">{{lookup .. key}}</span>
+          </div>
+          {{else if (eq key "trend")}}
+          <div class="sparkline"></div>
+          {{else if (eq key "tasks")}}
+          <span class="table-mono">{{lookup .. key}}</span>
+          {{else if (eq key "score")}}
+          <span class="table-mono">{{lookup .. key}}</span>
+          {{else}}
+          {{lookup .. key}}
+          {{/if}}
+        </td>
+        {{/each}}
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

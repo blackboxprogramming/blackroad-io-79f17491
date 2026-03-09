@@ -1,0 +1,22 @@
+<!-- Bento Card Component -->
+<!--
+  Variables:
+    - label: Small label text
+    - title: Card title
+    - description: Card description
+    - visual: HTML content for visual area
+    - wide: boolean - span 2 columns
+    - tall: boolean - span 2 rows
+-->
+<div class="bento-card {{#if wide}}wide{{/if}} {{#if tall}}tall{{/if}} {{class}}">
+  {{#if label}}
+  <div class="bento-label">{{label}}</div>
+  {{/if}}
+  <h3 class="bento-title">{{title}}</h3>
+  {{#if description}}
+  <p class="bento-desc">{{description}}</p>
+  {{/if}}
+  {{#if visual}}
+  <div class="bento-visual">{{visual}}</div>
+  {{/if}}
+</div>

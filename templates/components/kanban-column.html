@@ -1,0 +1,36 @@
+<!-- Kanban Column Component -->
+<!--
+  Variables:
+    - id: Column ID for drag/drop
+    - title: Column title
+    - color: Dot color (optional)
+    - count: Number of cards
+    - cards: Array of card objects
+    - show_add_card: boolean
+-->
+<div class="kanban-column {{class}}" data-column-id="{{id}}">
+  <div class="column-header">
+    <div class="column-title-group">
+      <span class="column-dot" {{#if color}}style="background: {{color}}"{{/if}}></span>
+      <span class="column-title">{{title}}</span>
+      <span class="column-count">{{count}}</span>
+    </div>
+    <button class="column-menu" aria-label="Column options">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+        <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="column-body">
+    {{#each cards}}
+    {{> kanban-card}}
+    {{/each}}
+  </div>
+
+  {{#if show_add_card}}
+  <div class="column-footer">
+    <button class="add-card-btn">+ Add task</button>
+  </div>
+  {{/if}}
+</div>

@@ -1,0 +1,16 @@
+<!-- Section Component -->
+<!--
+  Variables:
+    - label: Section number/label (e.g., "01 / Typography")
+    - title: Section title
+    - content: Section body content
+-->
+<section class="section {{class}}">
+  {{#if label}}
+  <p class="section-label">{{label}}</p>
+  {{/if}}
+  {{#if title}}
+  <h2 class="section-title">{{title}}</h2>
+  {{/if}}
+  {{{content}}}
+</section>

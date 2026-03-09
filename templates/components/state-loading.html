@@ -1,0 +1,37 @@
+<!-- Loading State Component -->
+<!--
+  Variables:
+    - variant: 'spinner', 'dots', or 'bar'
+    - title: Loading title (optional)
+    - description: Loading description (optional)
+    - class: Additional CSS classes (optional)
+-->
+<div class="state-card loading {{class}}">
+  {{#if (eq variant 'dots')}}
+  <div class="loading-dots">
+    <span class="loading-dot"></span>
+    <span class="loading-dot"></span>
+    <span class="loading-dot"></span>
+  </div>
+  {{else if (eq variant 'bar')}}
+  <div class="loading-bar">
+    <div class="loading-bar-fill"></div>
+  </div>
+  {{else}}
+  <div class="loading-spinner"></div>
+  {{/if}}
+
+  {{#if title}}
+  <h1 class="state-title">{{title}}</h1>
+  {{/if}}
+
+  {{#if description}}
+  <p class="state-desc">{{description}}</p>
+  {{/if}}
+
+  {{#if (eq variant 'dots')}}
+  <div class="loading-bar">
+    <div class="loading-bar-fill"></div>
+  </div>
+  {{/if}}
+</div>

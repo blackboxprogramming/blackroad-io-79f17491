@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — BlackRoad</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/variables.css">
+  <link rel="stylesheet" href="../styles/base.css">
+  <link rel="stylesheet" href="../styles/typography.css">
+  <link rel="stylesheet" href="../styles/components.css">
+  <link rel="stylesheet" href="../styles/dashboard.css">
+</head>
+<body class="dashboard-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">BlackRoad</div>
+
+    <nav class="nav-section">
+      <div class="nav-label">Overview</div>
+      <a href="#" class="nav-item active">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7" rx="1"/>
+            <rect x="14" y="3" width="7" height="7" rx="1"/>
+            <rect x="14" y="14" width="7" height="7" rx="1"/>
+            <rect x="3" y="14" width="7" height="7" rx="1"/>
+          </svg>
+        </span>
+        Dashboard
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
+          </svg>
+        </span>
+        Agents
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/>
+            <rect x="9" y="3" width="6" height="4" rx="1"/>
+            <path d="M9 12h6M9 16h6"/>
+          </svg>
+        </span>
+        Tasks
+      </a>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">System</div>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </span>
+        Memory
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+            <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+          </svg>
+        </span>
+        Logs
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/>
+          </svg>
+        </span>
+        Settings
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-block">
+        <div class="user-avatar">C</div>
+        <div>
+          <div class="user-name">Cecilia</div>
+          <div class="user-role">Operator</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- HEADER -->
+    <header class="header">
+      <h1 class="header-title">Dashboard</h1>
+      <div class="header-actions">
+        <button class="btn btn-ghost">Export</button>
+        <button class="btn btn-primary">+ New Agent</button>
+      </div>
+    </header>
+
+    <!-- CONTENT -->
+    <div class="content">
+
+      <!-- STATS ROW -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-label">Active Agents</div>
+          <div class="stat-value">1,000</div>
+          <div class="stat-meta positive">+12% this week</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Tasks / Hour</div>
+          <div class="stat-value">2.4K</div>
+          <div class="stat-meta positive">+8% avg</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Avg Coherence</div>
+          <div class="stat-value">0.97</div>
+          <div class="stat-meta">Stable</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Memory Used</div>
+          <div class="stat-value">847GB</div>
+          <div class="stat-meta">of 1TB</div>
+        </div>
+      </div>
+
+      <!-- AGENTS SECTION -->
+      <div class="section-header">
+        <div class="section-title">Agents</div>
+        <a href="#" class="section-action">View all</a>
+      </div>
+
+      <div class="card-grid-3 mb-32">
+        <!-- Agent 1 -->
+        <div class="agent-card">
+          <div class="agent-header">
+            <div class="agent-avatar">L</div>
+            <div class="agent-info">
+              <div class="agent-name">Lucidia</div>
+              <div class="agent-role">Core Intelligence</div>
+            </div>
+            <span class="badge badge-success">Active</span>
+          </div>
+          <div class="agent-meta">
+            <div class="agent-stat">
+              <span class="agent-stat-value">1,247</span>
+              <span class="agent-stat-label">Tasks</span>
+            </div>
+            <div class="agent-stat">
+              <span class="agent-stat-value">0.98</span>
+              <span class="agent-stat-label">Coherence</span>
+            </div>
+            <div class="agent-stat">
+              <span class="agent-stat-value">PS-SHA</span>
+              <span class="agent-stat-label">Memory</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Agent 2 -->
+        <div class="agent-card">
+          <div class="agent-header">
+            <div class="agent-avatar">A</div>
+            <div class="agent-info">
+              <div class="agent-name">Alice</div>
+              <div class="agent-role">Gateway Controller</div>
+            </div>
+            <span class="badge badge-success">Active</span>
+          </div>
+          <div class="agent-meta">
+            <div class="agent-stat">
+              <span class="agent-stat-value">892</span>
+              <span class="agent-stat-label">Tasks</span>
+            </div>
+            <div class="agent-stat">
+              <span class="agent-stat-value">0.95</span>
+              <span class="agent-stat-label">Coherence</span>
+            </div>
+            <div class="agent-stat">
+              <span class="agent-stat-value">K3s</span>
+              <span class="agent-stat-label">Runtime</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Agent 3 -->
+        <div class="agent-card">
+          <div class="agent-header">
+            <div class="agent-avatar">O</div>
+            <div class="agent-info">
+              <div class="agent-name">Octavia</div>
+              <div class="agent-role">Hailo NPU Worker</div>
+            </div>
+            <span class="badge badge-warning">Processing</span>
+          </div>
+          <div class="agent-meta">
+            <div class="agent-stat">
+              <span class="agent-stat-value">456</span>
+              <span class="agent-stat-label">Tasks</span>
+            </div>
+            <div class="agent-stat">
+              <span class="agent-stat-value">0.91</span>
+              <span class="agent-stat-label">Coherence</span>
+            </div>
+            <div class="agent-stat">
+              <span class="agent-stat-value">NPU</span>
+              <span class="agent-stat-label">Compute</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TABLE + PANEL -->
+      <div class="two-col">
+
+        <!-- TASK TABLE -->
+        <div class="table-card">
+          <div class="table-header">
+            <div class="table-title">Recent Tasks</div>
+            <a href="#" class="section-action">View all</a>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Task ID</th>
+                <th>Agent</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Duration</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="mono">TSK-4721</td>
+                <td>Lucidia</td>
+                <td>Inference</td>
+                <td><span class="badge badge-success">Complete</span></td>
+                <td class="mono">1.2s</td>
+              </tr>
+              <tr>
+                <td class="mono">TSK-4720</td>
+                <td>Alice</td>
+                <td>Gateway Sync</td>
+                <td><span class="badge badge-success">Complete</span></td>
+                <td class="mono">0.8s</td>
+              </tr>
+              <tr>
+                <td class="mono">TSK-4719</td>
+                <td>Octavia</td>
+                <td>Vision Process</td>
+                <td><span class="badge badge-warning">Running</span></td>
+                <td class="mono">3.4s</td>
+              </tr>
+              <tr>
+                <td class="mono">TSK-4718</td>
+                <td>Cipher</td>
+                <td>Key Rotation</td>
+                <td><span class="badge badge-success">Complete</span></td>
+                <td class="mono">0.3s</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- SYSTEM PANEL -->
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">System Status</div>
+          </div>
+          <div class="panel-body">
+            <div class="panel-row">
+              <span class="panel-label">Memory Mode</span>
+              <span class="panel-value">PS-SHA</span>
+            </div>
+            <div class="panel-row">
+              <span class="panel-label">Logic</span>
+              <span class="panel-value">Trinary</span>
+            </div>
+            <div class="panel-row">
+              <span class="panel-label">Uptime</span>
+              <span class="panel-value">14d 7h 32m</span>
+            </div>
+            <div class="panel-row">
+              <span class="panel-label">Last Sync</span>
+              <span class="panel-value">2m ago</span>
+            </div>
+            <div class="panel-row">
+              <span class="panel-label">Version</span>
+              <span class="panel-value">0.4.2-alpha</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+</body>
+</html>

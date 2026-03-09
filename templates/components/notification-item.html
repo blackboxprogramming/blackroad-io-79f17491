@@ -1,0 +1,38 @@
+<!-- Notification Item Component (Dropdown) -->
+<!--
+  Variables:
+    - id: Notification ID
+    - type: 'avatar' or 'icon'
+    - avatar_url: Avatar image URL (for type='avatar')
+    - icon: Icon HTML (for type='icon')
+    - text: Notification text (supports HTML with <strong>)
+    - time: Timestamp string
+    - tag: Tag label (optional)
+    - unread: Boolean for unread state
+    - class: Additional CSS classes (optional)
+-->
+<div class="notification-item {{#if unread}}unread{{/if}} {{class}}" data-id="{{id}}">
+  {{#if (eq type 'avatar')}}
+  <div class="notification-avatar" {{#if avatar_url}}style="background-image: url('{{avatar_url}}')"{{/if}}></div>
+  {{else}}
+  <div class="notification-icon">
+    {{#if icon}}
+    {{{icon}}}
+    {{else}}
+    <span class="notification-icon-inner"></span>
+    {{/if}}
+  </div>
+  {{/if}}
+
+  <div class="notification-content">
+    <div class="notification-text">{{{text}}}</div>
+    <div class="notification-meta">
+      <span class="notification-time">{{time}}</span>
+      {{#if tag}}
+      <span class="notification-tag">{{tag}}</span>
+      {{/if}}
+    </div>
+  </div>
+
+  <span class="notification-dot"></span>
+</div>

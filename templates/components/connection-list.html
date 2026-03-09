@@ -1,0 +1,22 @@
+<!-- Connection List Component -->
+<!--
+  Variables:
+    - title: Section title
+    - connections: Array of { avatar, name, type, href }
+-->
+<div class="sidebar-card {{class}}">
+  <div class="sidebar-header">
+    <span class="sidebar-title">{{#if title}}{{title}}{{else}}Connected Agents{{/if}}</span>
+  </div>
+  <div class="sidebar-body">
+    <div class="connection-list">
+      {{#each connections}}
+      <a href="{{href}}" class="connection-item">
+        <div class="connection-avatar">{{avatar}}</div>
+        <span class="connection-name">{{name}}</span>
+        <span class="connection-type">{{type}}</span>
+      </a>
+      {{/each}}
+    </div>
+  </div>
+</div>

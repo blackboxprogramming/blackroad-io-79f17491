@@ -1,0 +1,37 @@
+<!-- Table Component -->
+<!--
+  Variables:
+    - columns: Array of { key, label, mono: boolean }
+    - rows: Array of row objects with keys matching column.key
+    - Example:
+      columns: [
+        { key: "name", label: "Agent", mono: true },
+        { key: "role", label: "Role" },
+        { key: "status", label: "Status" },
+        { key: "tasks", label: "Tasks", mono: true }
+      ]
+      rows: [
+        { name: "Lucidia", role: "Core Intelligence", status: "<badge>Active</badge>", tasks: "1,247" },
+        ...
+      ]
+-->
+<div class="table-wrapper {{class}}">
+  <table>
+    <thead>
+      <tr>
+        {{#each columns}}
+        <th>{{label}}</th>
+        {{/each}}
+      </tr>
+    </thead>
+    <tbody>
+      {{#each rows}}
+      <tr>
+        {{#each ../columns}}
+        <td {{#if mono}}class="mono"{{/if}}>{{lookup ../this key}}</td>
+        {{/each}}
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

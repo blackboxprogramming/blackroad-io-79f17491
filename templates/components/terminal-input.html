@@ -1,0 +1,19 @@
+<!-- Terminal Input Component -->
+<!--
+  Variables:
+    - prompt: Command prompt string
+    - placeholder: Input placeholder
+    - show_hints: boolean - show keyboard hints
+-->
+<div class="terminal-input-area {{class}}">
+  <div class="input-line">
+    <span class="input-prompt">{{prompt}} $</span>
+    <input type="text" class="terminal-input" placeholder="{{placeholder}}" autofocus>
+    <span class="input-cursor"></span>
+  </div>
+  {{#if show_hints}}
+  <div class="input-hint">
+    <kbd>&uarr;</kbd> <kbd>&darr;</kbd> history &middot; <kbd>Tab</kbd> autocomplete &middot; <kbd>Ctrl+C</kbd> cancel
+  </div>
+  {{/if}}
+</div>

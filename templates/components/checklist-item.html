@@ -1,0 +1,29 @@
+<!-- Checklist Item Component -->
+<!--
+  Variables:
+    - title: Item title
+    - description: Item description
+    - checked: boolean
+    - badge: Badge text (optional)
+    - name: Input name
+    - value: Input value
+-->
+<label class="checklist-item {{#if checked}}checked{{/if}} {{class}}">
+  <input type="checkbox" name="{{name}}" value="{{value}}" {{#if checked}}checked{{/if}} class="checklist-input">
+  <span class="checklist-checkbox">
+    {{#if checked}}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" width="12" height="12">
+      <polyline points="20 6 9 17 4 12"/>
+    </svg>
+    {{/if}}
+  </span>
+  <div class="checklist-content">
+    <div class="checklist-title">{{title}}</div>
+    {{#if description}}
+    <div class="checklist-desc">{{description}}</div>
+    {{/if}}
+  </div>
+  {{#if badge}}
+  <span class="checklist-badge">{{badge}}</span>
+  {{/if}}
+</label>

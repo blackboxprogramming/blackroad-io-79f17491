@@ -1,0 +1,14 @@
+<!-- Tabs Component -->
+<!--
+  Variables:
+    - tabs: Array of { id, text, active: boolean, href (optional) }
+-->
+<nav class="tabs {{class}}" role="tablist">
+  {{#each tabs}}
+  {{#if href}}
+  <a href="{{href}}" class="tab {{#if active}}active{{/if}}" data-tab="{{id}}" role="tab" aria-selected="{{#if active}}true{{else}}false{{/if}}" aria-controls="{{id}}-panel">{{text}}</a>
+  {{else}}
+  <button class="tab {{#if active}}active{{/if}}" data-tab="{{id}}" role="tab" aria-selected="{{#if active}}true{{else}}false{{/if}}" aria-controls="{{id}}-panel">{{text}}</button>
+  {{/if}}
+  {{/each}}
+</nav>

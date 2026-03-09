@@ -1,0 +1,22 @@
+<!-- Notification Filters Component -->
+<!--
+  Variables:
+    - filters: Array of filter objects with {id, label, active}
+    - search_placeholder: Placeholder text for search input
+    - show_search: Boolean to show search input
+    - class: Additional CSS classes (optional)
+-->
+<div class="page-filters {{class}}">
+  {{#each filters}}
+  <button class="filter-btn {{#if active}}active{{/if}}" data-filter="{{id}}">{{label}}</button>
+  {{/each}}
+
+  {{#if show_search}}
+  <div class="filter-search">
+    <svg class="filter-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+      <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" class="filter-search-input" placeholder="{{search_placeholder}}">
+  </div>
+  {{/if}}
+</div>

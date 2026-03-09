@@ -1,0 +1,435 @@
+/* ============================================
+   DASHBOARD LAYOUT
+   ============================================ */
+
+.dashboard-layout {
+  min-height: 100vh;
+  display: flex;
+}
+
+/* ============================================
+   SIDEBAR
+   ============================================ */
+
+.sidebar {
+  width: 240px;
+  background: var(--gray-900);
+  border-right: 1px solid var(--gray-800);
+  padding: var(--space-24) var(--space-16);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.sidebar-logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--white);
+  padding: 0 var(--space-8) var(--space-24);
+  border-bottom: 1px solid var(--gray-800);
+  margin-bottom: var(--space-24);
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding-top: var(--space-24);
+  border-top: 1px solid var(--gray-800);
+}
+
+/* Navigation */
+.nav-section {
+  margin-bottom: var(--space-24);
+}
+
+.nav-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gray-600);
+  padding: 0 var(--space-8);
+  margin-bottom: var(--space-8);
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  padding: 10px 12px;
+  font-size: 14px;
+  color: var(--gray-400);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.nav-item:hover {
+  background: var(--gray-800);
+  color: var(--gray-200);
+}
+
+.nav-item.active {
+  background: var(--gray-800);
+  color: var(--white);
+}
+
+.nav-icon {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+}
+
+.nav-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* User Block */
+.user-block {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  padding: var(--space-8);
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  background: var(--gray-700);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-400);
+}
+
+.user-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gray-200);
+}
+
+.user-role {
+  font-size: 11px;
+  color: var(--gray-500);
+}
+
+/* ============================================
+   MAIN CONTENT AREA
+   ============================================ */
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-16) var(--space-32);
+  border-bottom: 1px solid var(--gray-800);
+  background: var(--gray-900);
+}
+
+.header-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--white);
+}
+
+.header-actions {
+  display: flex;
+  gap: var(--space-12);
+}
+
+/* Content */
+.content {
+  flex: 1;
+  padding: var(--space-32);
+  overflow-y: auto;
+}
+
+/* ============================================
+   STATS ROW
+   ============================================ */
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-16);
+  margin-bottom: var(--space-32);
+}
+
+.stat-card {
+  background: var(--gray-900);
+  border: 1px solid var(--gray-800);
+  border-radius: var(--radius-md);
+  padding: var(--space-20);
+}
+
+.stat-label {
+  font-size: 12px;
+  color: var(--gray-500);
+  margin-bottom: var(--space-8);
+}
+
+.stat-value {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1;
+}
+
+.stat-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--gray-600);
+  margin-top: var(--space-8);
+}
+
+.stat-meta.positive { color: #22c55e; }
+.stat-meta.negative { color: #ef4444; }
+
+/* ============================================
+   SECTION HEADER
+   ============================================ */
+
+.dashboard-layout .section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-16);
+}
+
+.dashboard-layout .section-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-200);
+}
+
+.dashboard-layout .section-action {
+  font-size: 12px;
+  color: var(--gray-500);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.dashboard-layout .section-action:hover {
+  color: var(--gray-400);
+}
+
+/* ============================================
+   CARD GRID (DASHBOARD)
+   ============================================ */
+
+.card-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-16);
+  margin-bottom: var(--space-32);
+}
+
+/* ============================================
+   TWO COLUMN LAYOUT
+   ============================================ */
+
+.two-col {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-24);
+}
+
+.two-col-equal {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-24);
+}
+
+/* ============================================
+   TABLE CARD (DASHBOARD)
+   ============================================ */
+
+.table-card {
+  background: var(--gray-900);
+  border: 1px solid var(--gray-800);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.table-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-16) var(--space-20);
+  border-bottom: 1px solid var(--gray-800);
+}
+
+.table-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-200);
+}
+
+/* ============================================
+   ACTIVITY LIST
+   ============================================ */
+
+.activity-card {
+  background: var(--gray-900);
+  border: 1px solid var(--gray-800);
+  border-radius: var(--radius-md);
+}
+
+.activity-header {
+  padding: var(--space-16) var(--space-20);
+  border-bottom: 1px solid var(--gray-800);
+}
+
+.activity-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-200);
+}
+
+.activity-list {
+  padding: var(--space-8) 0;
+}
+
+.activity-item {
+  display: flex;
+  gap: var(--space-12);
+  padding: var(--space-12) var(--space-20);
+}
+
+.activity-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--gray-700);
+  border-radius: 50%;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+.activity-dot.success { background: #22c55e; }
+.activity-dot.warning { background: #eab308; }
+.activity-dot.error { background: #ef4444; }
+
+.activity-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.activity-text {
+  font-size: 13px;
+  color: var(--gray-400);
+}
+
+.activity-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--gray-600);
+  margin-top: var(--space-4);
+}
+
+/* ============================================
+   PANEL
+   ============================================ */
+
+.panel {
+  background: var(--gray-900);
+  border: 1px solid var(--gray-800);
+  border-radius: var(--radius-md);
+}
+
+.panel-header {
+  padding: var(--space-16) var(--space-20);
+  border-bottom: 1px solid var(--gray-800);
+}
+
+.panel-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-200);
+}
+
+.panel-body {
+  padding: var(--space-16) var(--space-20);
+}
+
+.panel-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--gray-800);
+}
+
+.panel-row:last-child {
+  border-bottom: none;
+}
+
+.panel-label {
+  font-size: 12px;
+  color: var(--gray-500);
+}
+
+.panel-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--gray-300);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 1200px) {
+  .stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  .card-grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .two-col,
+  .two-col-equal {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+
+  .stats-row,
+  .card-grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .content {
+    padding: var(--space-24);
+  }
+
+  .header {
+    padding: var(--space-16) var(--space-24);
+  }
+}

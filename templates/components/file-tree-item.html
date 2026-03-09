@@ -1,0 +1,42 @@
+<!-- File Tree Item Component -->
+<!--
+  Variables:
+    - name: Item name
+    - icon: Icon HTML (optional)
+    - count: Badge count (optional)
+    - active: boolean
+    - selected: boolean
+    - expanded: boolean
+    - children: Array of child items (optional)
+-->
+<div class="tree-item {{#if active}}active{{/if}} {{#if selected}}selected{{/if}} {{class}}">
+  {{#if children}}
+  <span class="tree-chevron {{#if expanded}}expanded{{/if}}">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
+      <polyline points="9 18 15 12 9 6"/>
+    </svg>
+  </span>
+  {{/if}}
+  {{#if icon}}
+  <span class="tree-icon">{{{icon}}}</span>
+  {{else}}
+  <span class="tree-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+    </svg>
+  </span>
+  {{/if}}
+  <span class="tree-name">{{name}}</span>
+  {{#if count}}
+  <span class="tree-count">{{count}}</span>
+  {{/if}}
+</div>
+{{#if children}}
+{{#if expanded}}
+<div class="tree-nested">
+  {{#each children}}
+  {{> file-tree-item}}
+  {{/each}}
+</div>
+{{/if}}
+{{/if}}

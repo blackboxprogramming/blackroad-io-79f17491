@@ -1,0 +1,38 @@
+<!-- Agent Hero Component -->
+<!--
+  Variables:
+    - avatar: Avatar letter/content
+    - name: Agent name
+    - status: Status badge text
+    - status_type: "success" | "warning" | "error" | null
+    - role: Agent role description
+    - meta: Array of { value, label }
+    - actions: HTML for action buttons
+-->
+<header class="agent-hero {{class}}">
+  <div class="agent-avatar-lg">{{avatar}}</div>
+  <div class="agent-info">
+    <div class="agent-name-row">
+      <h1 class="agent-name">{{name}}</h1>
+      {{#if status}}
+      <span class="badge {{#if status_type}}badge-{{status_type}}{{/if}}">{{status}}</span>
+      {{/if}}
+    </div>
+    <p class="agent-role">{{role}}</p>
+    {{#if meta}}
+    <div class="agent-meta">
+      {{#each meta}}
+      <div class="meta-item">
+        <span class="meta-value">{{value}}</span>
+        <span class="meta-label">{{label}}</span>
+      </div>
+      {{/each}}
+    </div>
+    {{/if}}
+  </div>
+  {{#if actions}}
+  <div class="agent-actions">
+    {{{actions}}}
+  </div>
+  {{/if}}
+</header>

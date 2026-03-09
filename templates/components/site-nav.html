@@ -1,0 +1,30 @@
+<!-- Marketing Navigation Component -->
+<!--
+  Variables:
+    - logo: Logo text or HTML
+    - links: Array of { text, href }
+    - actions: Array of { text, href, variant: "ghost" | "primary" }
+-->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">{{#if logo}}{{logo}}{{else}}BlackRoad{{/if}}</a>
+
+    <div class="nav-links">
+      {{#each links}}
+      <a href="{{href}}" class="nav-link">{{text}}</a>
+      {{/each}}
+    </div>
+
+    <div class="nav-actions">
+      {{#each actions}}
+      <a href="{{href}}" class="btn btn-{{#if variant}}{{variant}}{{else}}ghost{{/if}}">{{text}}</a>
+      {{/each}}
+    </div>
+
+    <button class="nav-toggle" aria-label="Toggle menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+        <path d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+  </div>
+</nav>

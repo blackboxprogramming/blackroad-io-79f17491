@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agents — BlackRoad</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/variables.css">
+  <link rel="stylesheet" href="../styles/base.css">
+  <link rel="stylesheet" href="../styles/typography.css">
+  <link rel="stylesheet" href="../styles/components.css">
+  <link rel="stylesheet" href="../styles/list.css">
+</head>
+<body>
+
+  <div class="page">
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+      <div class="page-header-content">
+        <h1 class="page-title">Agents</h1>
+        <p class="page-subtitle">Manage and monitor all agents in your system</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-ghost">Export</button>
+        <button class="btn btn-primary">+ New Agent</button>
+      </div>
+    </div>
+
+    <!-- TOOLBAR -->
+    <div class="toolbar">
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" class="search-input" placeholder="Search agents...">
+      </div>
+
+      <div class="filter-group">
+        <button class="filter-btn">
+          Status
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
+            <path d="m6 9 6 6 6-6"/>
+          </svg>
+        </button>
+        <button class="filter-btn">
+          Role
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
+            <path d="m6 9 6 6 6-6"/>
+          </svg>
+        </button>
+        <button class="filter-btn">
+          Memory
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
+            <path d="m6 9 6 6 6-6"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="toolbar-right">
+        <span class="results-count">1,000 agents</span>
+        <div class="view-toggle">
+          <button class="view-btn active" title="Table view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+              <path d="M3 6h18M3 12h18M3 18h18"/>
+            </svg>
+          </button>
+          <button class="view-btn" title="Grid view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+              <rect x="3" y="3" width="7" height="7"/>
+              <rect x="14" y="3" width="7" height="7"/>
+              <rect x="14" y="14" width="7" height="7"/>
+              <rect x="3" y="14" width="7" height="7"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th class="cell-checkbox"><input type="checkbox" class="checkbox"></th>
+            <th class="cell-avatar"></th>
+            <th class="sortable sorted-asc">Name</th>
+            <th class="sortable">Agent ID</th>
+            <th class="sortable">Status</th>
+            <th class="sortable">Tasks</th>
+            <th class="sortable">Coherence</th>
+            <th class="sortable">Memory</th>
+            <th class="sortable">Last Active</th>
+            <th class="cell-actions"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="cell-checkbox"><input type="checkbox" class="checkbox"></td>
+            <td class="cell-avatar"><div class="avatar-sm">L</div></td>
+            <td class="cell-name">
+              <div class="name-primary">Lucidia</div>
+              <div class="name-secondary">Core Intelligence</div>
+            </td>
+            <td class="cell-mono">AGT-001</td>
+            <td class="cell-status"><span class="badge badge-success">Active</span></td>
+            <td class="cell-number">1,247</td>
+            <td class="cell-number">0.98</td>
+            <td class="cell-mono">PS-SHA</td>
+            <td class="cell-mono">2m ago</td>
+            <td class="cell-actions">
+              <button class="action-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                  <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+                </svg>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td class="cell-checkbox"><input type="checkbox" class="checkbox"></td>
+            <td class="cell-avatar"><div class="avatar-sm">A</div></td>
+            <td class="cell-name">
+              <div class="name-primary">Alice</div>
+              <div class="name-secondary">Gateway Controller</div>
+            </td>
+            <td class="cell-mono">AGT-002</td>
+            <td class="cell-status"><span class="badge badge-success">Active</span></td>
+            <td class="cell-number">892</td>
+            <td class="cell-number">0.95</td>
+            <td class="cell-mono">K3s</td>
+            <td class="cell-mono">5m ago</td>
+            <td class="cell-actions">
+              <button class="action-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                  <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+                </svg>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td class="cell-checkbox"><input type="checkbox" class="checkbox"></td>
+            <td class="cell-avatar"><div class="avatar-sm">O</div></td>
+            <td class="cell-name">
+              <div class="name-primary">Octavia</div>
+              <div class="name-secondary">Hailo NPU Worker</div>
+            </td>
+            <td class="cell-mono">AGT-003</td>
+            <td class="cell-status"><span class="badge badge-warning">Processing</span></td>
+            <td class="cell-number">456</td>
+            <td class="cell-number">0.91</td>
+            <td class="cell-mono">NPU</td>
+            <td class="cell-mono">1m ago</td>
+            <td class="cell-actions">
+              <button class="action-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                  <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+                </svg>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td class="cell-checkbox"><input type="checkbox" class="checkbox"></td>
+            <td class="cell-avatar"><div class="avatar-sm">C</div></td>
+            <td class="cell-name">
+              <div class="name-primary">Cipher</div>
+              <div class="name-secondary">Crypto Handler</div>
+            </td>
+            <td class="cell-mono">AGT-004</td>
+            <td class="cell-status"><span class="badge badge-success">Active</span></td>
+            <td class="cell-number">328</td>
+            <td class="cell-number">0.94</td>
+            <td class="cell-mono">HSM</td>
+            <td class="cell-mono">12m ago</td>
+            <td class="cell-actions">
+              <button class="action-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                  <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+                </svg>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td class="cell-checkbox"><input type="checkbox" class="checkbox"></td>
+            <td class="cell-avatar"><div class="avatar-sm">V</div></td>
+            <td class="cell-name">
+              <div class="name-primary">Vector</div>
+              <div class="name-secondary">Embedding Service</div>
+            </td>
+            <td class="cell-mono">AGT-005</td>
+            <td class="cell-status"><span class="badge">Idle</span></td>
+            <td class="cell-number">156</td>
+            <td class="cell-number">0.89</td>
+            <td class="cell-mono">GPU</td>
+            <td class="cell-mono">1h ago</td>
+            <td class="cell-actions">
+              <button class="action-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                  <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+                </svg>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td class="cell-checkbox"><input type="checkbox" class="checkbox"></td>
+            <td class="cell-avatar"><div class="avatar-sm">S</div></td>
+            <td class="cell-name">
+              <div class="name-primary">Sentinel</div>
+              <div class="name-secondary">Security Monitor</div>
+            </td>
+            <td class="cell-mono">AGT-006</td>
+            <td class="cell-status"><span class="badge badge-success">Active</span></td>
+            <td class="cell-number">2,891</td>
+            <td class="cell-number">0.99</td>
+            <td class="cell-mono">PS-SHA</td>
+            <td class="cell-mono">30s ago</td>
+            <td class="cell-actions">
+              <button class="action-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                  <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+                </svg>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td class="cell-checkbox"><input type="checkbox" class="checkbox"></td>
+            <td class="cell-avatar"><div class="avatar-sm">M</div></td>
+            <td class="cell-name">
+              <div class="name-primary">Minerva</div>
+              <div class="name-secondary">Knowledge Base</div>
+            </td>
+            <td class="cell-mono">AGT-007</td>
+            <td class="cell-status"><span class="badge badge-error">Offline</span></td>
+            <td class="cell-number">0</td>
+            <td class="cell-number">—</td>
+            <td class="cell-mono">RAG</td>
+            <td class="cell-mono">2d ago</td>
+            <td class="cell-actions">
+              <button class="action-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                  <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+                </svg>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td class="cell-checkbox"><input type="checkbox" class="checkbox"></td>
+            <td class="cell-avatar"><div class="avatar-sm">P</div></td>
+            <td class="cell-name">
+              <div class="name-primary">Proxy</div>
+              <div class="name-secondary">Load Balancer</div>
+            </td>
+            <td class="cell-mono">AGT-008</td>
+            <td class="cell-status"><span class="badge badge-success">Active</span></td>
+            <td class="cell-number">12,456</td>
+            <td class="cell-number">0.97</td>
+            <td class="cell-mono">K3s</td>
+            <td class="cell-mono">10s ago</td>
+            <td class="cell-actions">
+              <button class="action-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                  <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+                </svg>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- PAGINATION -->
+    <div class="pagination">
+      <div class="pagination-info">
+        Showing <strong>1-8</strong> of <strong>1,000</strong> agents
+      </div>
+      <div class="pagination-controls">
+        <button class="page-btn disabled">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+            <path d="m15 18-6-6 6-6"/>
+          </svg>
+        </button>
+        <button class="page-btn active">1</button>
+        <button class="page-btn">2</button>
+        <button class="page-btn">3</button>
+        <span class="page-separator">...</span>
+        <button class="page-btn">125</button>
+        <button class="page-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+            <path d="m9 18 6-6-6-6"/>
+          </svg>
+        </button>
+
+        <div class="per-page">
+          <span class="per-page-label">per page</span>
+          <select class="per-page-select">
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

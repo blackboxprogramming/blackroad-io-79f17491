@@ -1,0 +1,28 @@
+<!-- Success State Component -->
+<!--
+  Variables:
+    - title: Success title
+    - description: Success description
+    - primary_btn: Primary button label
+    - primary_action: Primary button action
+    - secondary_btn: Secondary button label (optional)
+    - secondary_action: Secondary button action
+    - class: Additional CSS classes (optional)
+-->
+<div class="state-card success {{class}}">
+  <div class="success-icon">
+    <div class="success-check"></div>
+  </div>
+
+  <h1 class="state-title">{{title}}</h1>
+  <p class="state-desc">{{description}}</p>
+
+  {{#if primary_btn}}
+  <div class="state-actions">
+    <button class="state-btn state-btn-primary" data-action="{{primary_action}}">{{primary_btn}}</button>
+    {{#if secondary_btn}}
+    <button class="state-btn state-btn-secondary" data-action="{{secondary_action}}">{{secondary_btn}}</button>
+    {{/if}}
+  </div>
+  {{/if}}
+</div>

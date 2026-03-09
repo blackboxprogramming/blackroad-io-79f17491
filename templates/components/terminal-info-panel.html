@@ -1,0 +1,64 @@
+<!-- Terminal Info Panel Component -->
+<!--
+  Variables:
+    - session_name: Current session name
+    - session_pid: Process ID
+    - connected: boolean - connection status
+    - connection_text: Connection status text
+    - stats: [{ name, value }]
+    - env_vars: [{ key, value }]
+    - quick_commands: [string]
+-->
+<aside class="terminal-info-panel {{class}}">
+  <div class="info-header">
+    <div class="info-title">Session: {{session_name}}</div>
+    <div class="info-subtitle">PID {{session_pid}}</div>
+  </div>
+
+  <div class="info-content">
+    <!-- Connection Status -->
+    <div class="info-section">
+      <div class="info-label">Connection</div>
+      <div class="connection-status">
+        <span class="connection-dot {{#if connected}}connected{{/if}}"></span>
+        <span class="connection-text">{{connection_text}}</span>
+      </div>
+    </div>
+
+    <!-- System Stats -->
+    {{#if stats}}
+    <div class="info-section">
+      <div class="info-label">System</div>
+      {{#each stats}}
+      <div class="stat-row">
+        <span class="stat-name">{{name}}</span>
+        <span class="stat-value">{{value}}</span>
+      </div>
+      {{/each}}
+    </div>
+    {{/if}}
+
+    <!-- Environment Variables -->
+    {{#if env_vars}}
+    <div class="info-section">
+      <div class="info-label">Environment</div>
+      {{#each env_vars}}
+      <div class="env-item">
+        <span class="env-key">{{key}}</span>
+        <span class="env-value">{{value}}</span>
+      </div>
+      {{/each}}
+    </div>
+    {{/if}}
+
+    <!-- Quick Commands -->
+    {{#if quick_commands}}
+    <div class="info-section">
+      <div class="info-label">Quick Commands</div>
+      {{#each quick_commands}}
+      <div class="quick-cmd">{{this}}</div>
+      {{/each}}
+    </div>
+    {{/if}}
+  </div>
+</aside>

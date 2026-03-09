@@ -1,0 +1,51 @@
+<!-- Modal Component -->
+<!--
+  Variables:
+    - id: Modal ID
+    - icon: Icon HTML (optional)
+    - icon_type: 'default', 'danger', or 'success' (optional)
+    - title: Modal title
+    - description: Modal description
+    - show_close: Boolean to show close button (default true)
+    - footer_align: 'left', 'right', or 'split' (default: right)
+    - primary_btn: Primary button label
+    - primary_action: Primary button action
+    - primary_type: 'default' or 'danger' (default: default)
+    - secondary_btn: Secondary button label (optional)
+    - secondary_action: Secondary button action
+    - class: Additional CSS classes (optional)
+-->
+<div class="modal-backdrop" data-modal="{{id}}">
+  <div class="modal {{class}}">
+    <div class="modal-header">
+      <div>
+        {{#if icon}}
+        <div class="modal-icon {{icon_type}}">
+          {{{icon}}}
+        </div>
+        {{/if}}
+      </div>
+      {{#unless (eq show_close false)}}
+      <button class="modal-close" data-action="close">&times;</button>
+      {{/unless}}
+    </div>
+
+    <div class="modal-body">
+      <h2 class="modal-title">{{title}}</h2>
+      {{#if description}}
+      <p class="modal-desc">{{description}}</p>
+      {{/if}}
+
+      {{{content}}}
+    </div>
+
+    {{#if primary_btn}}
+    <div class="modal-footer {{footer_align}}">
+      {{#if secondary_btn}}
+      <button class="modal-btn modal-btn-secondary" data-action="{{secondary_action}}">{{secondary_btn}}</button>
+      {{/if}}
+      <button class="modal-btn {{#if (eq primary_type 'danger')}}modal-btn-danger{{else}}modal-btn-primary{{/if}}" data-action="{{primary_action}}">{{primary_btn}}</button>
+    </div>
+    {{/if}}
+  </div>
+</div>
