@@ -1,0 +1,205 @@
+name: Org Sync
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/**'
+      - '.github/sync.yml'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (no actual push)'
+        required: false
+        default: 'false'
+        type: boolean
+      target_repo:
+        description: 'Sync to specific repo only (leave empty for all)'
+        required: false
+        default: ''
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    name: Sync to Organization Repos
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Sync to all repos
+        uses: actions/github-script@v7
+        env:
+          DRY_RUN: ${{ inputs.dry_run || 'false' }}
+          TARGET_REPO: ${{ inputs.target_repo || '' }}
+          GH_TOKEN: ${{ secrets.ORG_SYNC_TOKEN }}
+        with:
+          github-token: ${{ secrets.ORG_SYNC_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const { execSync } = require('child_process');
+
+            const dryRun = process.env.DRY_RUN === 'true';
+            const targetRepo = process.env.TARGET_REPO;
+            const sourceRepo = context.repo.repo;
+            const org = context.repo.owner;
+
+            // Load sync config
+            let config = {
+              exclude_repos: [sourceRepo],
+              sync_paths: ['.github/workflows'],
+              exclude_paths: ['.github/workflows/org-sync.yml', '.github/workflows/deploy.yml'],
+              branch: 'main',
+              commit_message: 'chore: sync from blackroad-io'
+            };
+
+            const configPath = '.github/sync.yml';
+            if (fs.existsSync(configPath)) {
+              const yaml = require('js-yaml');
+              const userConfig = yaml.load(fs.readFileSync(configPath, 'utf8'));
+              config = { ...config, ...userConfig };
+            }
+
+            console.log('📋 Sync Configuration:');
+            console.log(JSON.stringify(config, null, 2));
+
+            // Get all repos in the org
+            let repos = [];
+            if (targetRepo) {
+              repos = [{ name: targetRepo, archived: false, default_branch: 'main' }];
+            } else {
+              const iterator = github.paginate.iterator(github.rest.repos.listForOrg, {
+                org: org,
+                type: 'all',
+                per_page: 100
+              });
+
+              for await (const response of iterator) {
+                repos.push(...response.data);
+              }
+            }
+
+            console.log(`\n🔍 Found ${repos.length} repositories`);
+
+            // Filter repos
+            const targetRepos = repos.filter(repo => {
+              if (repo.archived) return false;
+              if (config.exclude_repos.includes(repo.name)) return false;
+              if (config.include_repos && !config.include_repos.includes(repo.name)) return false;
+              return true;
+            });
+
+            console.log(`📦 Will sync to ${targetRepos.length} repositories\n`);
+
+            // Collect files to sync
+            const filesToSync = [];
+            for (const syncPath of config.sync_paths) {
+              if (fs.existsSync(syncPath)) {
+                const stat = fs.statSync(syncPath);
+                if (stat.isDirectory()) {
+                  const files = fs.readdirSync(syncPath, { recursive: true });
+                  for (const file of files) {
+                    const fullPath = path.join(syncPath, file);
+                    if (fs.statSync(fullPath).isFile() && !config.exclude_paths.includes(fullPath)) {
+                      filesToSync.push(fullPath);
+                    }
+                  }
+                } else if (!config.exclude_paths.includes(syncPath)) {
+                  filesToSync.push(syncPath);
+                }
+              }
+            }
+
+            console.log('📄 Files to sync:');
+            filesToSync.forEach(f => console.log(`   - ${f}`));
+            console.log('');
+
+            // Sync to each repo
+            const results = { success: [], failed: [], skipped: [] };
+
+            for (const repo of targetRepos) {
+              const repoName = repo.name;
+              console.log(`\n${'='.repeat(50)}`);
+              console.log(`📁 Processing: ${repoName}`);
+
+              if (dryRun) {
+                console.log('   ⏭️  DRY RUN - would sync files');
+                results.skipped.push(repoName);
+                continue;
+              }
+
+              try {
+                const tempDir = `/tmp/sync-${repoName}-${Date.now()}`;
+                const repoUrl = `https://x-access-token:${process.env.GH_TOKEN}@github.com/${org}/${repoName}.git`;
+
+                // Clone the target repo
+                execSync(`git clone --depth 1 ${repoUrl} ${tempDir}`, { stdio: 'pipe' });
+
+                // Copy files
+                let hasChanges = false;
+                for (const file of filesToSync) {
+                  const destPath = path.join(tempDir, file);
+                  const destDir = path.dirname(destPath);
+
+                  if (!fs.existsSync(destDir)) {
+                    fs.mkdirSync(destDir, { recursive: true });
+                  }
+
+                  const sourceContent = fs.readFileSync(file, 'utf8');
+                  let destContent = '';
+                  if (fs.existsSync(destPath)) {
+                    destContent = fs.readFileSync(destPath, 'utf8');
+                  }
+
+                  if (sourceContent !== destContent) {
+                    fs.copyFileSync(file, destPath);
+                    hasChanges = true;
+                    console.log(`   ✏️  Updated: ${file}`);
+                  }
+                }
+
+                if (!hasChanges) {
+                  console.log('   ✅ Already up to date');
+                  results.skipped.push(repoName);
+                  execSync(`rm -rf ${tempDir}`);
+                  continue;
+                }
+
+                // Commit and push
+                execSync(`git -C ${tempDir} config user.name "blackroad-sync[bot]"`);
+                execSync(`git -C ${tempDir} config user.email "sync@blackroad.io"`);
+                execSync(`git -C ${tempDir} add -A`);
+                execSync(`git -C ${tempDir} commit -m "${config.commit_message}"`, { stdio: 'pipe' });
+                execSync(`git -C ${tempDir} push`, { stdio: 'pipe' });
+
+                console.log('   ✅ Synced successfully');
+                results.success.push(repoName);
+
+                // Cleanup
+                execSync(`rm -rf ${tempDir}`);
+
+              } catch (error) {
+                console.log(`   ❌ Failed: ${error.message}`);
+                results.failed.push({ repo: repoName, error: error.message });
+              }
+            }
+
+            // Summary
+            console.log(`\n${'='.repeat(50)}`);
+            console.log('📊 SYNC SUMMARY');
+            console.log(`${'='.repeat(50)}`);
+            console.log(`✅ Success: ${results.success.length}`);
+            console.log(`⏭️  Skipped: ${results.skipped.length}`);
+            console.log(`❌ Failed:  ${results.failed.length}`);
+
+            if (results.failed.length > 0) {
+              console.log('\nFailed repos:');
+              results.failed.forEach(f => console.log(`   - ${f.repo}: ${f.error}`));
+              core.setFailed(`Sync failed for ${results.failed.length} repos`);
+            }
