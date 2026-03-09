@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackRoad OS — Template 14</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #000;
+            --gray-950: #070707;
+            --gray-900: #0d0d0d;
+            --gray-850: #131313;
+            --gray-800: #1a1a1a;
+            --gray-750: #212121;
+            --gray-700: #2a2a2a;
+            --gray-600: #3d3d3d;
+            --gray-500: #5a5a5a;
+            --gray-400: #7a7a7a;
+            --gray-300: #9a9a9a;
+            --gray-200: #bbb;
+            --gray-100: #ddd;
+            --white: #f0f0f0;
+
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 15px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--black);
+            color: var(--gray-400);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        ::selection {
+            background: var(--gray-700);
+            color: var(--white);
+        }
+
+        /* Header */
+        .header {
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid var(--gray-900);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-mark {
+            width: 26px;
+            height: 26px;
+            background: var(--white);
+            display: grid;
+            place-items: center;
+        }
+
+        .logo-mark-inner {
+            width: 9px;
+            height: 9px;
+            background: var(--black);
+        }
+
+        .logo-text {
+            font-family: var(--font-display);
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .header-action {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        .header-action:hover {
+            color: var(--gray-300);
+        }
+
+        /* Main Container */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 3rem 1.5rem;
+        }
+
+        .wizard-container {
+            width: 100%;
+            max-width: 540px;
+        }
+
+        /* Progress Steps */
+        .progress-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .step-indicator {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            transition: all 0.2s;
+        }
+
+        .step-indicator.completed {
+            background: var(--gray-700);
+            color: var(--white);
+        }
+
+        .step-indicator.active {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .step-indicator.pending {
+            background: var(--gray-900);
+            color: var(--gray-600);
+        }
+
+        .step-label {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+            display: none;
+        }
+
+        .progress-step.active .step-label {
+            color: var(--gray-300);
+        }
+
+        .progress-line {
+            width: 48px;
+            height: 1px;
+            background: var(--gray-850);
+        }
+
+        .progress-line.completed {
+            background: var(--gray-700);
+        }
+
+        /* Step Content */
+        .step-content {
+            display: none;
+        }
+
+        .step-content.active {
+            display: block;
+        }
+
+        .step-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .step-number {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.75rem;
+        }
+
+        .step-title {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .step-description {
+            font-size: 0.9375rem;
+            color: var(--gray-500);
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.8125rem;
+            color: var(--gray-300);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input {
+            width: 100%;
+            font-family: var(--font-body);
+            font-size: 0.9375rem;
+            color: var(--gray-200);
+            background: var(--gray-950);
+            border: 1px solid var(--gray-850);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            outline: none;
+            transition: all 0.15s;
+        }
+
+        .form-input::placeholder {
+            color: var(--gray-600);
+        }
+
+        .form-input:focus {
+            border-color: var(--gray-700);
+            background: var(--gray-900);
+        }
+
+        .form-input.error {
+            border-color: var(--gray-500);
+        }
+
+        .form-input.success {
+            border-color: var(--gray-600);
+        }
+
+        .form-error {
+            font-size: 0.75rem;
+            color: var(--gray-400);
+            margin-top: 0.375rem;
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* Selection Cards */
+        .selection-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .selection-card {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 10px;
+            padding: 1.25rem;
+            cursor: pointer;
+            transition: all 0.15s;
+            position: relative;
+        }
+
+        .selection-card:hover {
+            border-color: var(--gray-800);
+            background: var(--gray-900);
+        }
+
+        .selection-card.selected {
+            border-color: var(--gray-600);
+            background: var(--gray-900);
+        }
+
+        .selection-card.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            width: 20px;
+            height: 20px;
+            background: var(--gray-700);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 0.625rem;
+            color: var(--white);
+        }
+
+        .selection-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .selection-title {
+            font-family: var(--font-display);
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--white);
+            margin-bottom: 0.25rem;
+        }
+
+        .selection-description {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            line-height: 1.5;
+        }
+
+        /* Plan Cards */
+        .plan-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .plan-card {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 10px;
+            padding: 1.25rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .plan-card:hover {
+            border-color: var(--gray-800);
+        }
+
+        .plan-card.selected {
+            border-color: var(--gray-600);
+            background: var(--gray-900);
+        }
+
+        .plan-card.recommended {
+            position: relative;
+        }
+
+        .plan-card.recommended::before {
+            content: 'Recommended';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            color: var(--gray-400);
+            background: var(--gray-800);
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .plan-name {
+            font-family: var(--font-display);
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .plan-price {
+            font-family: var(--font-mono);
+            font-size: 1.25rem;
+            color: var(--gray-200);
+        }
+
+        .plan-price span {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        .plan-feature {
+            font-size: 0.6875rem;
+            color: var(--gray-500);
+            margin-top: 0.5rem;
+        }
+
+        /* Checklist */
+        .checklist {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 0.875rem;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--gray-900);
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+
+        .checklist-item:hover {
+            background: var(--gray-900);
+        }
+
+        .checklist-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 1px solid var(--gray-700);
+            border-radius: 4px;
+            display: grid;
+            place-items: center;
+            font-size: 0.625rem;
+            color: transparent;
+            transition: all 0.15s;
+        }
+
+        .checklist-item.checked .checklist-checkbox {
+            background: var(--gray-700);
+            border-color: var(--gray-700);
+            color: var(--white);
+        }
+
+        .checklist-text {
+            font-size: 0.875rem;
+            color: var(--gray-300);
+        }
+
+        .checklist-item.checked .checklist-text {
+            color: var(--gray-500);
+        }
+
+        /* Navigation */
+        .step-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--gray-900);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+            border: none;
+        }
+
+        .btn-primary {
+            color: var(--black);
+            background: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--gray-200);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            color: var(--gray-400);
+            background: transparent;
+        }
+
+        .btn-secondary:hover {
+            color: var(--gray-200);
+        }
+
+        /* Completion */
+        .completion {
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .completion-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--gray-900);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 1.5rem;
+            margin: 0 auto 1.5rem;
+            animation: scaleIn 0.3s ease-out;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .completion-title {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .completion-description {
+            font-size: 0.9375rem;
+            color: var(--gray-500);
+            margin-bottom: 2rem;
+        }
+
+        .completion-summary {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 10px;
+            padding: 1.25rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            font-size: 0.8125rem;
+        }
+
+        .summary-label {
+            color: var(--gray-500);
+        }
+
+        .summary-value {
+            color: var(--gray-200);
+        }
+
+        /* Help Link */
+        .help-text {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.75rem;
+            color: var(--gray-600);
+        }
+
+        .help-text a {
+            color: var(--gray-400);
+            text-decoration: none;
+        }
+
+        .help-text a:hover {
+            color: var(--gray-200);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .main {
+                padding: 2rem 1rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .selection-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .plan-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .step-title {
+                font-size: 1.5rem;
+            }
+
+            .progress-line {
+                width: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="#" class="logo">
+            <div class="logo-mark">
+                <div class="logo-mark-inner"></div>
+            </div>
+            <span class="logo-text">BlackRoad</span>
+        </a>
+        <a href="#" class="header-action">Already have an account? Sign in</a>
+    </header>
+
+    <main class="main">
+        <div class="wizard-container">
+            <!-- Progress Bar -->
+            <div class="progress-bar">
+                <div class="progress-step active" data-step="1">
+                    <div class="step-indicator active">1</div>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" data-step="2">
+                    <div class="step-indicator pending">2</div>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" data-step="3">
+                    <div class="step-indicator pending">3</div>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" data-step="4">
+                    <div class="step-indicator pending">4</div>
+                </div>
+            </div>
+
+            <!-- Step 1: Account -->
+            <div class="step-content active" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">Step 1 of 4</div>
+                    <h1 class="step-title">Create your account</h1>
+                    <p class="step-description">Get started with BlackRoad in minutes.</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" class="form-input" placeholder="Jane Smith">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Work Email</label>
+                    <input type="email" class="form-input" placeholder="jane@company.com">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" placeholder="At least 12 characters">
+                    <p class="form-error" style="color: var(--gray-500);">
+                        <span>◇</span> Use a mix of letters, numbers, and symbols
+                    </p>
+                </div>
+
+                <div class="step-nav">
+                    <div></div>
+                    <button class="btn btn-primary" onclick="nextStep()">
+                        Continue
+                        <span>→</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 2: Use Case -->
+            <div class="step-content" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">Step 2 of 4</div>
+                    <h1 class="step-title">What are you building?</h1>
+                    <p class="step-description">Help us tailor your experience.</p>
+                </div>
+
+                <div class="selection-grid">
+                    <div class="selection-card" onclick="selectCard(this)">
+                        <div class="selection-icon">◎</div>
+                        <div class="selection-title">AI Assistants</div>
+                        <div class="selection-description">Conversational agents for support, sales, or internal use</div>
+                    </div>
+                    <div class="selection-card" onclick="selectCard(this)">
+                        <div class="selection-icon">◈</div>
+                        <div class="selection-title">Automation</div>
+                        <div class="selection-description">Workflow automation and task orchestration</div>
+                    </div>
+                    <div class="selection-card selected" onclick="selectCard(this)">
+                        <div class="selection-icon">◇</div>
+                        <div class="selection-title">Research Agents</div>
+                        <div class="selection-description">Data analysis, synthesis, and knowledge work</div>
+                    </div>
+                    <div class="selection-card" onclick="selectCard(this)">
+                        <div class="selection-icon">▣</div>
+                        <div class="selection-title">Custom Platform</div>
+                        <div class="selection-description">Building your own AI-powered product</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Team Size</label>
+                    <select class="form-input">
+                        <option>Just me</option>
+                        <option>2-5 people</option>
+                        <option>6-20 people</option>
+                        <option>20+ people</option>
+                    </select>
+                </div>
+
+                <div class="step-nav">
+                    <button class="btn btn-secondary" onclick="prevStep()">
+                        <span>←</span>
+                        Back
+                    </button>
+                    <button class="btn btn-primary" onclick="nextStep()">
+                        Continue
+                        <span>→</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 3: Plan -->
+            <div class="step-content" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">Step 3 of 4</div>
+                    <h1 class="step-title">Choose your plan</h1>
+                    <p class="step-description">Start free, upgrade anytime.</p>
+                </div>
+
+                <div class="plan-grid">
+                    <div class="plan-card" onclick="selectPlan(this)">
+                        <div class="plan-name">Free</div>
+                        <div class="plan-price">$0</div>
+                        <div class="plan-feature">10 agents</div>
+                    </div>
+                    <div class="plan-card selected recommended" onclick="selectPlan(this)">
+                        <div class="plan-name">Pro</div>
+                        <div class="plan-price">$49<span>/mo</span></div>
+                        <div class="plan-feature">500 agents</div>
+                    </div>
+                    <div class="plan-card" onclick="selectPlan(this)">
+                        <div class="plan-name">Enterprise</div>
+                        <div class="plan-price">Custom</div>
+                        <div class="plan-feature">Unlimited</div>
+                    </div>
+                </div>
+
+                <div class="checklist">
+                    <div class="checklist-item checked" onclick="toggleCheck(this)">
+                        <div class="checklist-checkbox">✓</div>
+                        <span class="checklist-text">I agree to the Terms of Service</span>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <div class="checklist-checkbox">✓</div>
+                        <span class="checklist-text">I agree to the Privacy Policy</span>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <div class="checklist-checkbox">✓</div>
+                        <span class="checklist-text">Send me product updates (optional)</span>
+                    </div>
+                </div>
+
+                <div class="step-nav">
+                    <button class="btn btn-secondary" onclick="prevStep()">
+                        <span>←</span>
+                        Back
+                    </button>
+                    <button class="btn btn-primary" onclick="nextStep()">
+                        Continue
+                        <span>→</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 4: Complete -->
+            <div class="step-content" data-step="4">
+                <div class="completion">
+                    <div class="completion-icon">◇</div>
+                    <h1 class="completion-title">You're all set!</h1>
+                    <p class="completion-description">Your workspace is ready. Let's build something amazing.</p>
+
+                    <div class="completion-summary">
+                        <div class="summary-row">
+                            <span class="summary-label">Account</span>
+                            <span class="summary-value">jane@company.com</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="summary-label">Use Case</span>
+                            <span class="summary-value">Research Agents</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="summary-label">Plan</span>
+                            <span class="summary-value">Pro · $49/mo</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="summary-label">Workspace</span>
+                            <span class="summary-value">company-workspace</span>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" style="width: 100%; justify-content: center;">
+                        Launch Dashboard
+                        <span>→</span>
+                    </button>
+                </div>
+
+                <p class="help-text">
+                    Need help getting started? <a href="#">Read the quickstart guide</a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        function updateProgress() {
+            document.querySelectorAll('.progress-step').forEach((step, index) => {
+                const stepNum = index + 1;
+                const indicator = step.querySelector('.step-indicator');
+                const line = step.nextElementSibling;
+
+                indicator.classList.remove('completed', 'active', 'pending');
+
+                if (stepNum < currentStep) {
+                    indicator.classList.add('completed');
+                    indicator.textContent = '✓';
+                    if (line && line.classList.contains('progress-line')) {
+                        line.classList.add('completed');
+                    }
+                } else if (stepNum === currentStep) {
+                    indicator.classList.add('active');
+                    indicator.textContent = stepNum;
+                } else {
+                    indicator.classList.add('pending');
+                    indicator.textContent = stepNum;
+                }
+            });
+
+            document.querySelectorAll('.step-content').forEach((content, index) => {
+                content.classList.toggle('active', index + 1 === currentStep);
+            });
+        }
+
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                updateProgress();
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateProgress();
+            }
+        }
+
+        function selectCard(card) {
+            card.parentElement.querySelectorAll('.selection-card').forEach(c => {
+                c.classList.remove('selected');
+            });
+            card.classList.add('selected');
+        }
+
+        function selectPlan(card) {
+            card.parentElement.querySelectorAll('.plan-card').forEach(c => {
+                c.classList.remove('selected');
+            });
+            card.classList.add('selected');
+        }
+
+        function toggleCheck(item) {
+            item.classList.toggle('checked');
+        }
+    </script>
+</body>
+</html>
