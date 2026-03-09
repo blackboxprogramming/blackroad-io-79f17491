@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackRoad OS — Template 19</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #000;
+            --gray-950: #080808;
+            --gray-900: #0f0f0f;
+            --gray-850: #151515;
+            --gray-800: #1c1c1c;
+            --gray-750: #232323;
+            --gray-700: #2c2c2c;
+            --gray-600: #404040;
+            --gray-500: #5c5c5c;
+            --gray-400: #7c7c7c;
+            --gray-300: #9c9c9c;
+            --gray-200: #bcbcbc;
+            --gray-100: #dcdcdc;
+            --white: #f0f0f0;
+
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 15px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--black);
+            color: var(--gray-400);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        ::selection {
+            background: var(--gray-700);
+            color: var(--white);
+        }
+
+        /* Layout */
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        /* Board Header */
+        .board-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .board-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .board-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-400);
+            background: var(--gray-900);
+            border: 1px solid var(--gray-850);
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .filter-btn:hover {
+            color: var(--white);
+            border-color: var(--gray-700);
+        }
+
+        .filter-btn.active {
+            color: var(--white);
+            background: var(--gray-800);
+            border-color: var(--gray-700);
+        }
+
+        .view-toggle {
+            display: flex;
+            background: var(--gray-900);
+            border: 1px solid var(--gray-850);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .view-btn {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-500);
+            background: transparent;
+            border: none;
+            padding: 0.5rem 0.75rem;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .view-btn:hover {
+            color: var(--white);
+        }
+
+        .view-btn.active {
+            color: var(--white);
+            background: var(--gray-800);
+        }
+
+        .btn-primary {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--black);
+            background: var(--white);
+            border: none;
+            padding: 0.5rem 0.875rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .btn-primary:hover {
+            background: var(--gray-200);
+        }
+
+        /* Board Container */
+        .board {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding-bottom: 1rem;
+        }
+
+        /* Column */
+        .column {
+            flex: 0 0 280px;
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            max-height: 600px;
+        }
+
+        .column-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .column-title-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .column-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 2px;
+            background: var(--gray-600);
+        }
+
+        .column-indicator.backlog { background: var(--gray-600); }
+        .column-indicator.progress { background: var(--gray-500); }
+        .column-indicator.review { background: var(--gray-400); }
+        .column-indicator.done { background: var(--gray-300); }
+
+        .column-title {
+            font-family: var(--font-display);
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--gray-200);
+        }
+
+        .column-count {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-600);
+            background: var(--gray-900);
+            padding: 0.125rem 0.375rem;
+            border-radius: 4px;
+        }
+
+        .column-menu {
+            width: 24px;
+            height: 24px;
+            display: grid;
+            place-items: center;
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            background: transparent;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .column-menu:hover {
+            color: var(--white);
+            background: var(--gray-900);
+        }
+
+        .column-cards {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.625rem;
+        }
+
+        .column-footer {
+            padding: 0.75rem;
+            border-top: 1px solid var(--gray-900);
+        }
+
+        .add-card-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.375rem;
+            width: 100%;
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-500);
+            background: transparent;
+            border: 1px dashed var(--gray-800);
+            padding: 0.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .add-card-btn:hover {
+            color: var(--white);
+            border-color: var(--gray-600);
+            background: var(--gray-900);
+        }
+
+        /* Card */
+        .card {
+            background: var(--gray-900);
+            border: 1px solid var(--gray-850);
+            border-radius: 8px;
+            padding: 0.875rem;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .card:hover {
+            border-color: var(--gray-700);
+            transform: translateY(-1px);
+        }
+
+        .card.dragging {
+            opacity: 0.5;
+            border-color: var(--gray-600);
+        }
+
+        .card-labels {
+            display: flex;
+            gap: 0.375rem;
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .card-label {
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.125rem 0.375rem;
+            border-radius: 3px;
+        }
+
+        .card-label.agent { color: var(--gray-300); background: var(--gray-800); }
+        .card-label.infra { color: var(--gray-400); background: var(--gray-850); }
+        .card-label.urgent { color: var(--gray-200); background: var(--gray-700); }
+        .card-label.bug { color: var(--gray-300); background: var(--gray-750); }
+
+        .card-title {
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--gray-200);
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .card-description {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+
+        .card-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-meta-left {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .card-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-500);
+        }
+
+        .card-stat-icon {
+            font-size: 0.75rem;
+        }
+
+        .card-assignees {
+            display: flex;
+        }
+
+        .card-assignee {
+            width: 22px;
+            height: 22px;
+            background: var(--gray-800);
+            border: 2px solid var(--gray-900);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 0.5rem;
+            color: var(--gray-400);
+            margin-left: -6px;
+        }
+
+        .card-assignee:first-child {
+            margin-left: 0;
+        }
+
+        /* Progress Bar */
+        .card-progress {
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--gray-850);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.375rem;
+        }
+
+        .progress-label {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+        }
+
+        .progress-value {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-400);
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: var(--gray-800);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gray-500);
+            border-radius: 2px;
+            transition: width 0.3s;
+        }
+
+        /* Swimlane View */
+        .swimlane {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .swimlane-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.25rem;
+            background: var(--gray-900);
+            border-bottom: 1px solid var(--gray-850);
+        }
+
+        .swimlane-title-group {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .swimlane-avatar {
+            width: 28px;
+            height: 28px;
+            background: var(--gray-800);
+            border-radius: 6px;
+            display: grid;
+            place-items: center;
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        .swimlane-title {
+            font-family: var(--font-display);
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--gray-200);
+        }
+
+        .swimlane-meta {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-600);
+        }
+
+        .swimlane-stats {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .swimlane-stat {
+            text-align: center;
+        }
+
+        .swimlane-stat-value {
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            color: var(--gray-300);
+        }
+
+        .swimlane-stat-label {
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+        }
+
+        .swimlane-cards {
+            display: flex;
+            gap: 0.75rem;
+            padding: 1rem 1.25rem;
+            overflow-x: auto;
+        }
+
+        .swimlane-cards .card {
+            flex: 0 0 260px;
+        }
+
+        /* Card Detail Panel */
+        .card-detail {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .card-detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .card-detail-title {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-detail-id {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-600);
+        }
+
+        .card-detail-actions {
+            display: flex;
+            gap: 0.375rem;
+        }
+
+        .detail-action-btn {
+            width: 32px;
+            height: 32px;
+            display: grid;
+            place-items: center;
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            background: var(--gray-900);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .detail-action-btn:hover {
+            color: var(--white);
+            background: var(--gray-800);
+        }
+
+        .card-detail-body {
+            padding: 1.5rem;
+        }
+
+        .detail-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .detail-section-title {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.75rem;
+        }
+
+        .detail-description {
+            font-size: 0.875rem;
+            color: var(--gray-300);
+            line-height: 1.6;
+        }
+
+        .detail-fields {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .detail-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.375rem;
+        }
+
+        .detail-field-label {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .detail-field-value {
+            font-size: 0.8125rem;
+            color: var(--gray-300);
+        }
+
+        .detail-assignees {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .detail-assignee {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--gray-900);
+            padding: 0.375rem 0.625rem 0.375rem 0.375rem;
+            border-radius: 6px;
+        }
+
+        .detail-assignee-avatar {
+            width: 24px;
+            height: 24px;
+            background: var(--gray-800);
+            border-radius: 6px;
+            display: grid;
+            place-items: center;
+            font-size: 0.625rem;
+            color: var(--gray-500);
+        }
+
+        .detail-assignee-name {
+            font-size: 0.75rem;
+            color: var(--gray-300);
+        }
+
+        .checklist {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+        }
+
+        .checklist-checkbox {
+            width: 16px;
+            height: 16px;
+            background: var(--gray-900);
+            border: 1px solid var(--gray-700);
+            border-radius: 4px;
+            display: grid;
+            place-items: center;
+            font-size: 0.625rem;
+            color: transparent;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .checklist-checkbox.checked {
+            background: var(--gray-700);
+            border-color: var(--gray-600);
+            color: var(--white);
+        }
+
+        .checklist-text {
+            font-size: 0.8125rem;
+            color: var(--gray-400);
+        }
+
+        .checklist-item.completed .checklist-text {
+            color: var(--gray-600);
+            text-decoration: line-through;
+        }
+
+        /* Responsive */
+        @media (max-width: 800px) {
+            .board {
+                flex-direction: column;
+            }
+
+            .column {
+                flex: none;
+                width: 100%;
+                max-height: none;
+            }
+
+            .column-cards {
+                max-height: 300px;
+            }
+
+            .detail-fields {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- Kanban Board -->
+        <section class="section">
+            <div class="section-label">Kanban Board · Task Management</div>
+
+            <div class="board-header">
+                <h1 class="board-title">Agent Development Sprint</h1>
+                <div class="board-actions">
+                    <button class="filter-btn">
+                        <span>◇</span> Filter
+                    </button>
+                    <button class="filter-btn active">
+                        <span>◎</span> My Tasks
+                    </button>
+                    <div class="view-toggle">
+                        <button class="view-btn active">Board</button>
+                        <button class="view-btn">List</button>
+                        <button class="view-btn">Timeline</button>
+                    </div>
+                    <button class="btn-primary">+ Add Task</button>
+                </div>
+            </div>
+
+            <div class="board">
+                <!-- Backlog Column -->
+                <div class="column">
+                    <div class="column-header">
+                        <div class="column-title-group">
+                            <span class="column-indicator backlog"></span>
+                            <span class="column-title">Backlog</span>
+                            <span class="column-count">4</span>
+                        </div>
+                        <button class="column-menu">⋮</button>
+                    </div>
+                    <div class="column-cards">
+                        <div class="card">
+                            <div class="card-labels">
+                                <span class="card-label agent">Agent</span>
+                            </div>
+                            <h3 class="card-title">Implement trinary logic gates</h3>
+                            <p class="card-description">Add 1/0/-1 state handling to Lucidia core</p>
+                            <div class="card-meta">
+                                <div class="card-meta-left">
+                                    <span class="card-stat"><span class="card-stat-icon">◇</span> 3</span>
+                                    <span class="card-stat"><span class="card-stat-icon">▤</span> 2</span>
+                                </div>
+                                <div class="card-assignees">
+                                    <span class="card-assignee">A</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-labels">
+                                <span class="card-label infra">Infra</span>
+                            </div>
+                            <h3 class="card-title">Scale Milvus cluster</h3>
+                            <p class="card-description">Increase vector capacity to 10M</p>
+                            <div class="card-meta">
+                                <div class="card-meta-left">
+                                    <span class="card-stat"><span class="card-stat-icon">◇</span> 1</span>
+                                </div>
+                                <div class="card-assignees">
+                                    <span class="card-assignee">B</span>
+                                    <span class="card-assignee">C</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-labels">
+                                <span class="card-label agent">Agent</span>
+                            </div>
+                            <h3 class="card-title">Memory journal encryption</h3>
+                            <div class="card-meta">
+                                <div class="card-meta-left">
+                                    <span class="card-stat"><span class="card-stat-icon">◇</span> 5</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column-footer">
+                        <button class="add-card-btn">+ Add task</button>
+                    </div>
+                </div>
+
+                <!-- In Progress Column -->
+                <div class="column">
+                    <div class="column-header">
+                        <div class="column-title-group">
+                            <span class="column-indicator progress"></span>
+                            <span class="column-title">In Progress</span>
+                            <span class="column-count">3</span>
+                        </div>
+                        <button class="column-menu">⋮</button>
+                    </div>
+                    <div class="column-cards">
+                        <div class="card">
+                            <div class="card-labels">
+                                <span class="card-label agent">Agent</span>
+                                <span class="card-label urgent">Urgent</span>
+                            </div>
+                            <h3 class="card-title">Event bus optimization</h3>
+                            <p class="card-description">Batch NATS commits for improved throughput</p>
+                            <div class="card-meta">
+                                <div class="card-meta-left">
+                                    <span class="card-stat"><span class="card-stat-icon">◇</span> 8</span>
+                                    <span class="card-stat"><span class="card-stat-icon">▤</span> 5</span>
+                                </div>
+                                <div class="card-assignees">
+                                    <span class="card-assignee">A</span>
+                                </div>
+                            </div>
+                            <div class="card-progress">
+                                <div class="progress-header">
+                                    <span class="progress-label">Subtasks</span>
+                                    <span class="progress-value">3/5</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 60%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-labels">
+                                <span class="card-label infra">Infra</span>
+                            </div>
+                            <h3 class="card-title">K3s cluster monitoring</h3>
+                            <p class="card-description">Setup Prometheus on alice.blackroad.lan</p>
+                            <div class="card-meta">
+                                <div class="card-meta-left">
+                                    <span class="card-stat"><span class="card-stat-icon">◇</span> 2</span>
+                                </div>
+                                <div class="card-assignees">
+                                    <span class="card-assignee">C</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-labels">
+                                <span class="card-label bug">Bug</span>
+                            </div>
+                            <h3 class="card-title">Fix PS-SHA∞ collision</h3>
+                            <p class="card-description">Edge case in hash verification</p>
+                            <div class="card-meta">
+                                <div class="card-meta-left">
+                                    <span class="card-stat"><span class="card-stat-icon">◇</span> 4</span>
+                                </div>
+                                <div class="card-assignees">
+                                    <span class="card-assignee">A</span>
+                                    <span class="card-assignee">B</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column-footer">
+                        <button class="add-card-btn">+ Add task</button>
+                    </div>
+                </div>
+
+                <!-- Review Column -->
+                <div class="column">
+                    <div class="column-header">
+                        <div class="column-title-group">
+                            <span class="column-indicator review"></span>
+                            <span class="column-title">Review</span>
+                            <span class="column-count">2</span>
+                        </div>
+                        <button class="column-menu">⋮</button>
+                    </div>
+                    <div class="column-cards">
+                        <div class="card">
+                            <div class="card-labels">
+                                <span class="card-label agent">Agent</span>
+                            </div>
+                            <h3 class="card-title">Contradiction quarantine</h3>
+                            <p class="card-description">Paraconsistent logic for conflicting claims</p>
+                            <div class="card-meta">
+                                <div class="card-meta-left">
+                                    <span class="card-stat"><span class="card-stat-icon">◇</span> 6</span>
+                                    <span class="card-stat"><span class="card-stat-icon">▤</span> 3</span>
+                                </div>
+                                <div class="card-assignees">
+                                    <span class="card-assignee">B</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-labels">
+                                <span class="card-label infra">Infra</span>
+                            </div>
+                            <h3 class="card-title">vLLM endpoint config</h3>
+                            <div class="card-meta">
+                                <div class="card-meta-left">
+                                    <span class="card-stat"><span class="card-stat-icon">◇</span> 1</span>
+                                </div>
+                                <div class="card-assignees">
+                                    <span class="card-assignee">C</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column-footer">
+                        <button class="add-card-btn">+ Add task</button>
+                    </div>
+                </div>
+
+                <!-- Done Column -->
+                <div class="column">
+                    <div class="column-header">
+                        <div class="column-title-group">
+                            <span class="column-indicator done"></span>
+                            <span class="column-title">Done</span>
+                            <span class="column-count">5</span>
+                        </div>
+                        <button class="column-menu">⋮</button>
+                    </div>
+                    <div class="column-cards">
+                        <div class="card" style="opacity: 0.7;">
+                            <h3 class="card-title">Agent identity system</h3>
+                            <div class="card-meta">
+                                <div class="card-meta-left">
+                                    <span class="card-stat"><span class="card-stat-icon">✓</span> Complete</span>
+                                </div>
+                                <div class="card-assignees">
+                                    <span class="card-assignee">A</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card" style="opacity: 0.7;">
+                            <h3 class="card-title">NATS cluster setup</h3>
+                            <div class="card-meta">
+                                <div class="card-meta-left">
+                                    <span class="card-stat"><span class="card-stat-icon">✓</span> Complete</span>
+                                </div>
+                                <div class="card-assignees">
+                                    <span class="card-assignee">C</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column-footer">
+                        <button class="add-card-btn">+ Add task</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Swimlane View -->
+        <section class="section">
+            <div class="section-label">Swimlane View · Grouped by Assignee</div>
+
+            <div class="swimlane">
+                <div class="swimlane-header">
+                    <div class="swimlane-title-group">
+                        <div class="swimlane-avatar">◎</div>
+                        <div>
+                            <h3 class="swimlane-title">Lucidia Research</h3>
+                            <span class="swimlane-meta">agent-001 · Research & Analysis</span>
+                        </div>
+                    </div>
+                    <div class="swimlane-stats">
+                        <div class="swimlane-stat">
+                            <div class="swimlane-stat-value">12</div>
+                            <div class="swimlane-stat-label">Total</div>
+                        </div>
+                        <div class="swimlane-stat">
+                            <div class="swimlane-stat-value">4</div>
+                            <div class="swimlane-stat-label">Active</div>
+                        </div>
+                        <div class="swimlane-stat">
+                            <div class="swimlane-stat-value">8</div>
+                            <div class="swimlane-stat-label">Done</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swimlane-cards">
+                    <div class="card">
+                        <div class="card-labels">
+                            <span class="card-label agent">Agent</span>
+                            <span class="card-label urgent">Urgent</span>
+                        </div>
+                        <h3 class="card-title">Event bus optimization</h3>
+                        <p class="card-description">Batch NATS commits</p>
+                        <div class="card-progress">
+                            <div class="progress-header">
+                                <span class="progress-label">Progress</span>
+                                <span class="progress-value">60%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 60%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-labels">
+                            <span class="card-label agent">Agent</span>
+                        </div>
+                        <h3 class="card-title">Trinary logic gates</h3>
+                        <p class="card-description">1/0/-1 state handling</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-labels">
+                            <span class="card-label bug">Bug</span>
+                        </div>
+                        <h3 class="card-title">PS-SHA∞ collision</h3>
+                        <p class="card-description">Edge case fix</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="swimlane">
+                <div class="swimlane-header">
+                    <div class="swimlane-title-group">
+                        <div class="swimlane-avatar">◇</div>
+                        <div>
+                            <h3 class="swimlane-title">Code Synthesis</h3>
+                            <span class="swimlane-meta">agent-002 · Code Generation</span>
+                        </div>
+                    </div>
+                    <div class="swimlane-stats">
+                        <div class="swimlane-stat">
+                            <div class="swimlane-stat-value">8</div>
+                            <div class="swimlane-stat-label">Total</div>
+                        </div>
+                        <div class="swimlane-stat">
+                            <div class="swimlane-stat-value">2</div>
+                            <div class="swimlane-stat-label">Active</div>
+                        </div>
+                        <div class="swimlane-stat">
+                            <div class="swimlane-stat-value">6</div>
+                            <div class="swimlane-stat-label">Done</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swimlane-cards">
+                    <div class="card">
+                        <div class="card-labels">
+                            <span class="card-label agent">Agent</span>
+                        </div>
+                        <h3 class="card-title">Contradiction quarantine</h3>
+                        <p class="card-description">Paraconsistent logic</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-labels">
+                            <span class="card-label infra">Infra</span>
+                        </div>
+                        <h3 class="card-title">Milvus scaling</h3>
+                        <p class="card-description">10M vector capacity</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Card Detail -->
+        <section class="section">
+            <div class="section-label">Card Detail · Task Panel</div>
+            <div class="card-detail" style="max-width: 560px;">
+                <div class="card-detail-header">
+                    <div>
+                        <h2 class="card-detail-title">Event bus optimization</h2>
+                        <span class="card-detail-id">BR-247 · Created Jan 23, 2026</span>
+                    </div>
+                    <div class="card-detail-actions">
+                        <button class="detail-action-btn">◇</button>
+                        <button class="detail-action-btn">▤</button>
+                        <button class="detail-action-btn">×</button>
+                    </div>
+                </div>
+                <div class="card-detail-body">
+                    <div class="detail-section">
+                        <h4 class="detail-section-title">Description</h4>
+                        <p class="detail-description">Optimize NATS event bus throughput by implementing batched commits. Currently each memory.commit publishes individually, causing latency spikes during high-volume operations. Target: 10x improvement in commit throughput.</p>
+                    </div>
+
+                    <div class="detail-section">
+                        <h4 class="detail-section-title">Details</h4>
+                        <div class="detail-fields">
+                            <div class="detail-field">
+                                <span class="detail-field-label">Status</span>
+                                <span class="detail-field-value">In Progress</span>
+                            </div>
+                            <div class="detail-field">
+                                <span class="detail-field-label">Priority</span>
+                                <span class="detail-field-value">Urgent</span>
+                            </div>
+                            <div class="detail-field">
+                                <span class="detail-field-label">Due Date</span>
+                                <span class="detail-field-value">Jan 28, 2026</span>
+                            </div>
+                            <div class="detail-field">
+                                <span class="detail-field-label">Estimate</span>
+                                <span class="detail-field-value">5 points</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detail-section">
+                        <h4 class="detail-section-title">Assignees</h4>
+                        <div class="detail-assignees">
+                            <div class="detail-assignee">
+                                <div class="detail-assignee-avatar">◎</div>
+                                <span class="detail-assignee-name">Lucidia Research</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detail-section">
+                        <h4 class="detail-section-title">Checklist</h4>
+                        <div class="checklist">
+                            <div class="checklist-item completed">
+                                <div class="checklist-checkbox checked">✓</div>
+                                <span class="checklist-text">Analyze current throughput metrics</span>
+                            </div>
+                            <div class="checklist-item completed">
+                                <div class="checklist-checkbox checked">✓</div>
+                                <span class="checklist-text">Design batch commit architecture</span>
+                            </div>
+                            <div class="checklist-item completed">
+                                <div class="checklist-checkbox checked">✓</div>
+                                <span class="checklist-text">Implement batch queue</span>
+                            </div>
+                            <div class="checklist-item">
+                                <div class="checklist-checkbox"></div>
+                                <span class="checklist-text">Add flush interval configuration</span>
+                            </div>
+                            <div class="checklist-item">
+                                <div class="checklist-checkbox"></div>
+                                <span class="checklist-text">Performance testing & validation</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
