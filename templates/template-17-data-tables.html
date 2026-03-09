@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackRoad OS — Template 17</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #000;
+            --gray-950: #080808;
+            --gray-900: #0f0f0f;
+            --gray-850: #151515;
+            --gray-800: #1c1c1c;
+            --gray-750: #232323;
+            --gray-700: #2c2c2c;
+            --gray-600: #404040;
+            --gray-500: #5c5c5c;
+            --gray-400: #7c7c7c;
+            --gray-300: #9c9c9c;
+            --gray-200: #bcbcbc;
+            --gray-100: #dcdcdc;
+            --white: #f0f0f0;
+
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 15px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--black);
+            color: var(--gray-400);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        ::selection {
+            background: var(--gray-700);
+            color: var(--white);
+        }
+
+        /* Layout */
+        .page {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        /* Table Container */
+        .table-container {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        /* Table Toolbar */
+        .table-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--gray-900);
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .table-toolbar-left {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .table-toolbar-right {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .search-input {
+            font-family: var(--font-body);
+            font-size: 0.8125rem;
+            color: var(--gray-200);
+            background: var(--gray-900);
+            border: 1px solid var(--gray-850);
+            padding: 0.5rem 0.75rem 0.5rem 2rem;
+            border-radius: 6px;
+            width: 220px;
+            outline: none;
+            transition: border-color 0.15s;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%235c5c5c' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: 0.625rem center;
+        }
+
+        .search-input:focus {
+            border-color: var(--gray-700);
+        }
+
+        .search-input::placeholder {
+            color: var(--gray-600);
+        }
+
+        .filter-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-400);
+            background: var(--gray-900);
+            border: 1px solid var(--gray-850);
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .filter-btn:hover {
+            color: var(--white);
+            border-color: var(--gray-700);
+        }
+
+        .filter-btn.active {
+            color: var(--white);
+            background: var(--gray-800);
+            border-color: var(--gray-700);
+        }
+
+        .btn {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            padding: 0.5rem 0.875rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.15s;
+            border: none;
+        }
+
+        .btn-primary {
+            color: var(--black);
+            background: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--gray-200);
+        }
+
+        .btn-secondary {
+            color: var(--gray-300);
+            background: var(--gray-800);
+        }
+
+        .btn-secondary:hover {
+            color: var(--white);
+            background: var(--gray-750);
+        }
+
+        /* Bulk Actions Bar */
+        .bulk-bar {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 1.25rem;
+            background: var(--gray-900);
+            border-bottom: 1px solid var(--gray-850);
+        }
+
+        .bulk-count {
+            font-size: 0.8125rem;
+            color: var(--gray-300);
+        }
+
+        .bulk-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .bulk-btn {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-400);
+            background: var(--gray-800);
+            border: none;
+            padding: 0.375rem 0.625rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .bulk-btn:hover {
+            color: var(--white);
+            background: var(--gray-700);
+        }
+
+        .bulk-clear {
+            margin-left: auto;
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            cursor: pointer;
+        }
+
+        .bulk-clear:hover {
+            color: var(--white);
+        }
+
+        /* Table */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            font-weight: 500;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            text-align: left;
+            padding: 0.875rem 1rem;
+            border-bottom: 1px solid var(--gray-900);
+            background: var(--gray-950);
+            position: sticky;
+            top: 0;
+        }
+
+        .table th.sortable {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .table th.sortable:hover {
+            color: var(--gray-300);
+        }
+
+        .table th .sort-icon {
+            margin-left: 0.375rem;
+            opacity: 0.5;
+        }
+
+        .table th.sorted .sort-icon {
+            opacity: 1;
+        }
+
+        .table td {
+            font-size: 0.8125rem;
+            padding: 0.875rem 1rem;
+            border-bottom: 1px solid var(--gray-900);
+            vertical-align: middle;
+        }
+
+        .table tr:hover {
+            background: var(--gray-900);
+        }
+
+        .table tr.selected {
+            background: var(--gray-900);
+        }
+
+        .table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Checkbox */
+        .checkbox {
+            width: 16px;
+            height: 16px;
+            background: var(--gray-900);
+            border: 1px solid var(--gray-700);
+            border-radius: 4px;
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+            font-size: 0.625rem;
+            color: transparent;
+            transition: all 0.15s;
+        }
+
+        .checkbox:hover {
+            border-color: var(--gray-500);
+        }
+
+        .checkbox.checked {
+            background: var(--gray-700);
+            border-color: var(--gray-600);
+            color: var(--white);
+        }
+
+        .checkbox.indeterminate {
+            background: var(--gray-800);
+            border-color: var(--gray-600);
+            color: var(--gray-400);
+        }
+
+        /* Cell Content */
+        .cell-primary {
+            color: var(--gray-200);
+            font-weight: 500;
+        }
+
+        .cell-secondary {
+            font-size: 0.6875rem;
+            color: var(--gray-500);
+        }
+
+        .cell-mono {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-400);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .status-badge.active {
+            color: var(--gray-300);
+            background: var(--gray-800);
+        }
+
+        .status-badge.paused {
+            color: var(--gray-500);
+            background: var(--gray-900);
+        }
+
+        .status-badge.error {
+            color: var(--gray-300);
+            background: var(--gray-750);
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        .cell-actions {
+            display: flex;
+            gap: 0.25rem;
+            opacity: 0;
+            transition: opacity 0.15s;
+        }
+
+        .table tr:hover .cell-actions {
+            opacity: 1;
+        }
+
+        .action-btn {
+            width: 28px;
+            height: 28px;
+            display: grid;
+            place-items: center;
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            background: transparent;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .action-btn:hover {
+            color: var(--white);
+            background: var(--gray-800);
+        }
+
+        /* Pagination */
+        .table-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.875rem 1.25rem;
+            border-top: 1px solid var(--gray-900);
+        }
+
+        .table-info {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        .pagination {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .page-btn {
+            width: 32px;
+            height: 32px;
+            display: grid;
+            place-items: center;
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--gray-500);
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .page-btn:hover {
+            color: var(--white);
+            background: var(--gray-900);
+        }
+
+        .page-btn.active {
+            color: var(--white);
+            background: var(--gray-800);
+            border-color: var(--gray-700);
+        }
+
+        .page-btn:disabled {
+            color: var(--gray-700);
+            cursor: not-allowed;
+        }
+
+        /* Expandable Row */
+        .expand-toggle {
+            width: 20px;
+            height: 20px;
+            display: grid;
+            place-items: center;
+            font-size: 0.625rem;
+            color: var(--gray-500);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.15s;
+        }
+
+        .expand-toggle.expanded {
+            transform: rotate(90deg);
+        }
+
+        .expand-content {
+            background: var(--gray-900);
+            padding: 1rem 1rem 1rem 3.5rem;
+            border-bottom: 1px solid var(--gray-850);
+        }
+
+        .expand-content-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .expand-field-label {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.25rem;
+        }
+
+        .expand-field-value {
+            font-size: 0.8125rem;
+            color: var(--gray-300);
+        }
+
+        /* List View */
+        .list-container {
+            background: var(--gray-950);
+            border: 1px solid var(--gray-900);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .list-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--gray-900);
+            transition: background 0.15s;
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .list-item:hover {
+            background: var(--gray-900);
+        }
+
+        .list-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--gray-800);
+            border-radius: 8px;
+            display: grid;
+            place-items: center;
+            font-size: 1rem;
+            color: var(--gray-500);
+            flex-shrink: 0;
+        }
+
+        .list-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .list-title {
+            font-size: 0.875rem;
+            color: var(--gray-200);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .list-meta {
+            font-size: 0.6875rem;
+            color: var(--gray-500);
+        }
+
+        .list-badge {
+            font-family: var(--font-mono);
+            font-size: 0.5625rem;
+            color: var(--gray-400);
+            background: var(--gray-900);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .list-time {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--gray-600);
+            flex-shrink: 0;
+        }
+
+        /* Inline Edit */
+        .inline-edit {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .inline-input {
+            font-family: var(--font-body);
+            font-size: 0.8125rem;
+            color: var(--gray-200);
+            background: var(--gray-900);
+            border: 1px solid var(--gray-700);
+            padding: 0.375rem 0.5rem;
+            border-radius: 4px;
+            width: 180px;
+            outline: none;
+        }
+
+        .inline-input:focus {
+            border-color: var(--gray-500);
+        }
+
+        .inline-actions {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .inline-btn {
+            width: 24px;
+            height: 24px;
+            display: grid;
+            place-items: center;
+            font-size: 0.75rem;
+            color: var(--gray-400);
+            background: var(--gray-800);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .inline-btn:hover {
+            color: var(--white);
+        }
+
+        /* Responsive */
+        @media (max-width: 800px) {
+            .table-toolbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .table-toolbar-left,
+            .table-toolbar-right {
+                width: 100%;
+            }
+
+            .search-input {
+                width: 100%;
+            }
+
+            .table {
+                display: block;
+                overflow-x: auto;
+            }
+
+            .expand-content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- Full Data Table -->
+        <section class="section">
+            <div class="section-label">Data Table · Sortable with Bulk Actions</div>
+            <div class="table-container">
+                <div class="table-toolbar">
+                    <div class="table-toolbar-left">
+                        <input type="text" class="search-input" placeholder="Search agents...">
+                        <button class="filter-btn">
+                            <span>▾</span> Status
+                        </button>
+                        <button class="filter-btn active">
+                            <span>◇</span> Runtime
+                        </button>
+                    </div>
+                    <div class="table-toolbar-right">
+                        <button class="btn btn-secondary">Export</button>
+                        <button class="btn btn-primary">+ New Agent</button>
+                    </div>
+                </div>
+                <div class="bulk-bar">
+                    <span class="bulk-count">3 selected</span>
+                    <div class="bulk-actions">
+                        <button class="bulk-btn">Activate</button>
+                        <button class="bulk-btn">Pause</button>
+                        <button class="bulk-btn">Delete</button>
+                    </div>
+                    <span class="bulk-clear">Clear selection</span>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th style="width: 40px;"><div class="checkbox indeterminate">–</div></th>
+                            <th class="sortable sorted">Name <span class="sort-icon">↑</span></th>
+                            <th class="sortable">Runtime <span class="sort-icon">↕</span></th>
+                            <th class="sortable">Status <span class="sort-icon">↕</span></th>
+                            <th class="sortable">Memory <span class="sort-icon">↕</span></th>
+                            <th class="sortable">Last Active <span class="sort-icon">↕</span></th>
+                            <th style="width: 100px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="selected">
+                            <td><div class="checkbox checked">✓</div></td>
+                            <td>
+                                <div class="cell-primary">Lucidia Research</div>
+                                <div class="cell-secondary">agent-001</div>
+                            </td>
+                            <td><span class="cell-mono">vLLM</span></td>
+                            <td><span class="status-badge active"><span class="status-dot"></span>Active</span></td>
+                            <td><span class="cell-mono">2.4 GB</span></td>
+                            <td><span class="cell-mono">2 min ago</span></td>
+                            <td>
+                                <div class="cell-actions">
+                                    <button class="action-btn">◫</button>
+                                    <button class="action-btn">◇</button>
+                                    <button class="action-btn">×</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="selected">
+                            <td><div class="checkbox checked">✓</div></td>
+                            <td>
+                                <div class="cell-primary">Code Synthesis</div>
+                                <div class="cell-secondary">agent-002</div>
+                            </td>
+                            <td><span class="cell-mono">llama.cpp</span></td>
+                            <td><span class="status-badge active"><span class="status-dot"></span>Active</span></td>
+                            <td><span class="cell-mono">1.8 GB</span></td>
+                            <td><span class="cell-mono">5 min ago</span></td>
+                            <td>
+                                <div class="cell-actions">
+                                    <button class="action-btn">◫</button>
+                                    <button class="action-btn">◇</button>
+                                    <button class="action-btn">×</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><div class="checkbox"></div></td>
+                            <td>
+                                <div class="cell-primary">Memory Indexer</div>
+                                <div class="cell-secondary">agent-003</div>
+                            </td>
+                            <td><span class="cell-mono">Ollama</span></td>
+                            <td><span class="status-badge paused"><span class="status-dot"></span>Paused</span></td>
+                            <td><span class="cell-mono">512 MB</span></td>
+                            <td><span class="cell-mono">1 hour ago</span></td>
+                            <td>
+                                <div class="cell-actions">
+                                    <button class="action-btn">◫</button>
+                                    <button class="action-btn">◇</button>
+                                    <button class="action-btn">×</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="selected">
+                            <td><div class="checkbox checked">✓</div></td>
+                            <td>
+                                <div class="cell-primary">Event Router</div>
+                                <div class="cell-secondary">agent-004</div>
+                            </td>
+                            <td><span class="cell-mono">vLLM</span></td>
+                            <td><span class="status-badge error"><span class="status-dot"></span>Error</span></td>
+                            <td><span class="cell-mono">3.1 GB</span></td>
+                            <td><span class="cell-mono">12 min ago</span></td>
+                            <td>
+                                <div class="cell-actions">
+                                    <button class="action-btn">◫</button>
+                                    <button class="action-btn">◇</button>
+                                    <button class="action-btn">×</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><div class="checkbox"></div></td>
+                            <td>
+                                <div class="cell-primary">Data Collector</div>
+                                <div class="cell-secondary">agent-005</div>
+                            </td>
+                            <td><span class="cell-mono">llama.cpp</span></td>
+                            <td><span class="status-badge active"><span class="status-dot"></span>Active</span></td>
+                            <td><span class="cell-mono">890 MB</span></td>
+                            <td><span class="cell-mono">Just now</span></td>
+                            <td>
+                                <div class="cell-actions">
+                                    <button class="action-btn">◫</button>
+                                    <button class="action-btn">◇</button>
+                                    <button class="action-btn">×</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="table-footer">
+                    <span class="table-info">Showing 1–5 of 47 agents</span>
+                    <div class="pagination">
+                        <button class="page-btn" disabled>←</button>
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <button class="page-btn">...</button>
+                        <button class="page-btn">10</button>
+                        <button class="page-btn">→</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Expandable Rows -->
+        <section class="section">
+            <div class="section-label">Expandable Rows · Nested Detail View</div>
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th style="width: 32px;"></th>
+                            <th>Event</th>
+                            <th>Source</th>
+                            <th>Target</th>
+                            <th>Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><button class="expand-toggle expanded">▸</button></td>
+                            <td><span class="cell-primary">memory.commit</span></td>
+                            <td><span class="cell-mono">agent-001</span></td>
+                            <td><span class="cell-mono">milvus-cluster</span></td>
+                            <td><span class="cell-mono">14:32:08.442</span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" style="padding: 0;">
+                                <div class="expand-content">
+                                    <div class="expand-content-grid">
+                                        <div>
+                                            <div class="expand-field-label">Event ID</div>
+                                            <div class="expand-field-value" style="font-family: var(--font-mono); font-size: 0.75rem;">evt_8f3a2b1c</div>
+                                        </div>
+                                        <div>
+                                            <div class="expand-field-label">Payload Size</div>
+                                            <div class="expand-field-value">2.4 KB</div>
+                                        </div>
+                                        <div>
+                                            <div class="expand-field-label">Duration</div>
+                                            <div class="expand-field-value">142ms</div>
+                                        </div>
+                                        <div>
+                                            <div class="expand-field-label">Hash</div>
+                                            <div class="expand-field-value" style="font-family: var(--font-mono); font-size: 0.6875rem;">sha256:a1b2c3d4e5f6...</div>
+                                        </div>
+                                        <div>
+                                            <div class="expand-field-label">Retry Count</div>
+                                            <div class="expand-field-value">0</div>
+                                        </div>
+                                        <div>
+                                            <div class="expand-field-label">Status</div>
+                                            <div class="expand-field-value"><span class="status-badge active"><span class="status-dot"></span>Success</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><button class="expand-toggle">▸</button></td>
+                            <td><span class="cell-primary">agent.spawn</span></td>
+                            <td><span class="cell-mono">orchestrator</span></td>
+                            <td><span class="cell-mono">agent-006</span></td>
+                            <td><span class="cell-mono">14:31:55.221</span></td>
+                        </tr>
+                        <tr>
+                            <td><button class="expand-toggle">▸</button></td>
+                            <td><span class="cell-primary">nats.publish</span></td>
+                            <td><span class="cell-mono">event-bus</span></td>
+                            <td><span class="cell-mono">topic.agents</span></td>
+                            <td><span class="cell-mono">14:31:42.118</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- List View -->
+        <section class="section">
+            <div class="section-label">List View · Compact Item Layout</div>
+            <div class="list-container">
+                <div class="list-item">
+                    <div class="list-avatar">◎</div>
+                    <div class="list-content">
+                        <div class="list-title">Lucidia Research Agent completed task #847</div>
+                        <div class="list-meta">Memory indexed 2,341 vectors to Milvus cluster</div>
+                    </div>
+                    <span class="list-badge">agent</span>
+                    <span class="list-time">2m ago</span>
+                </div>
+                <div class="list-item">
+                    <div class="list-avatar">◇</div>
+                    <div class="list-content">
+                        <div class="list-title">Event bus connection restored</div>
+                        <div class="list-meta">NATS cluster alice.blackroad.lan reconnected after 12s outage</div>
+                    </div>
+                    <span class="list-badge">system</span>
+                    <span class="list-time">5m ago</span>
+                </div>
+                <div class="list-item">
+                    <div class="list-avatar">▤</div>
+                    <div class="list-content">
+                        <div class="list-title">Deployment blackroad-api-v2.4.1 succeeded</div>
+                        <div class="list-meta">Rolled out to 3 replicas on octavia worker node</div>
+                    </div>
+                    <span class="list-badge">deploy</span>
+                    <span class="list-time">12m ago</span>
+                </div>
+                <div class="list-item">
+                    <div class="list-avatar">◈</div>
+                    <div class="list-content">
+                        <div class="list-title">PS-SHA∞ hash verification passed</div>
+                        <div class="list-meta">Memory journal integrity confirmed across 1,247 commits</div>
+                    </div>
+                    <span class="list-badge">security</span>
+                    <span class="list-time">1h ago</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Inline Editing -->
+        <section class="section">
+            <div class="section-label">Inline Edit · Direct Cell Manipulation</div>
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Variable</th>
+                            <th>Value</th>
+                            <th>Environment</th>
+                            <th style="width: 80px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="cell-mono">NATS_URL</span></td>
+                            <td>
+                                <div class="inline-edit">
+                                    <input type="text" class="inline-input" value="nats://alice.blackroad.lan:4222">
+                                    <div class="inline-actions">
+                                        <button class="inline-btn">✓</button>
+                                        <button class="inline-btn">×</button>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="status-badge active">Production</span></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><span class="cell-mono">MILVUS_HOST</span></td>
+                            <td><span class="cell-primary">milvus.blackroad.lan</span></td>
+                            <td><span class="status-badge active">Production</span></td>
+                            <td>
+                                <div class="cell-actions" style="opacity: 1;">
+                                    <button class="action-btn">✎</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="cell-mono">VLLM_ENDPOINT</span></td>
+                            <td><span class="cell-primary">http://octavia:8000/v1</span></td>
+                            <td><span class="status-badge paused">Staging</span></td>
+                            <td>
+                                <div class="cell-actions" style="opacity: 1;">
+                                    <button class="action-btn">✎</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="cell-mono">LOG_LEVEL</span></td>
+                            <td><span class="cell-primary">debug</span></td>
+                            <td><span class="status-badge paused">Staging</span></td>
+                            <td>
+                                <div class="cell-actions" style="opacity: 1;">
+                                    <button class="action-btn">✎</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
