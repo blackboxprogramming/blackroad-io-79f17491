@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Grid</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            perspective: 800px;
+        }
+
+        .scene {
+            width: 600px;
+            height: 600px;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateX(60deg) rotateZ(45deg);
+        }
+
+        .grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+        }
+
+        /* Horizontal lines */
+        .grid-line-h {
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            background: #fff;
+            left: 0;
+        }
+
+        /* Vertical lines */
+        .grid-line-v {
+            position: absolute;
+            width: 1px;
+            height: 100%;
+            background: #fff;
+            top: 0;
+        }
+
+        /* Generate grid lines */
+        .grid-line-h:nth-child(1) { top: 0%; }
+        .grid-line-h:nth-child(2) { top: 10%; }
+        .grid-line-h:nth-child(3) { top: 20%; }
+        .grid-line-h:nth-child(4) { top: 30%; }
+        .grid-line-h:nth-child(5) { top: 40%; }
+        .grid-line-h:nth-child(6) { top: 50%; }
+        .grid-line-h:nth-child(7) { top: 60%; }
+        .grid-line-h:nth-child(8) { top: 70%; }
+        .grid-line-h:nth-child(9) { top: 80%; }
+        .grid-line-h:nth-child(10) { top: 90%; }
+        .grid-line-h:nth-child(11) { top: 100%; }
+
+        .grid-line-v:nth-child(12) { left: 0%; }
+        .grid-line-v:nth-child(13) { left: 10%; }
+        .grid-line-v:nth-child(14) { left: 20%; }
+        .grid-line-v:nth-child(15) { left: 30%; }
+        .grid-line-v:nth-child(16) { left: 40%; }
+        .grid-line-v:nth-child(17) { left: 50%; }
+        .grid-line-v:nth-child(18) { left: 60%; }
+        .grid-line-v:nth-child(19) { left: 70%; }
+        .grid-line-v:nth-child(20) { left: 80%; }
+        .grid-line-v:nth-child(21) { left: 90%; }
+        .grid-line-v:nth-child(22) { left: 100%; }
+
+        /* Intersection dots */
+        .dot {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #fff;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="scene">
+        <div class="grid">
+            <!-- Horizontal lines -->
+            <div class="grid-line-h"></div>
+            <div class="grid-line-h"></div>
+            <div class="grid-line-h"></div>
+            <div class="grid-line-h"></div>
+            <div class="grid-line-h"></div>
+            <div class="grid-line-h"></div>
+            <div class="grid-line-h"></div>
+            <div class="grid-line-h"></div>
+            <div class="grid-line-h"></div>
+            <div class="grid-line-h"></div>
+            <div class="grid-line-h"></div>
+
+            <!-- Vertical lines -->
+            <div class="grid-line-v"></div>
+            <div class="grid-line-v"></div>
+            <div class="grid-line-v"></div>
+            <div class="grid-line-v"></div>
+            <div class="grid-line-v"></div>
+            <div class="grid-line-v"></div>
+            <div class="grid-line-v"></div>
+            <div class="grid-line-v"></div>
+            <div class="grid-line-v"></div>
+            <div class="grid-line-v"></div>
+            <div class="grid-line-v"></div>
+        </div>
+    </div>
+</body>
+</html>
